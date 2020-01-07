@@ -2,11 +2,29 @@
   "name": "angularjs-xue",
   "version": "1.0.0",
   "description": "components for angularjs by Gosuncn FE team",
+  "homepage": "https://github.com/zhangxuelian/angularjs-xue",
+  "keywords": [
+    "angularjs",
+    "ui"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "zxl",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zhangxuelian/angularjs-xue"
+  },
+  "author": "https://github.com/zhangxuelian/angularjs-xue/graphs/contributors",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "jasmine-core": "^3.5.0",
+    "karma": "^4.4.1",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-coverage": "^2.0.1",
+    "karma-firefox-launcher": "^1.2.0",
+    "karma-jasmine": "^3.0.1",
+    "load-grunt-tasks": "^5.1.0"
+  }
 }
