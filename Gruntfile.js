@@ -13,7 +13,8 @@ module.exports = function(grunt){
             ' * Version: <%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>',
             ' * License: <%= pkg.license %>',
             ' */'
-        ].join('\n')
+        ].join('\n'),
+        
     });
     grunt.registerTask('default', []);
 }
