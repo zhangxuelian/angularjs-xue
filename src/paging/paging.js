@@ -1,4 +1,4 @@
-angular.module('xue.paging', [])
+angular.module('ui.xue.paging', [])
 /**
  * Helper internal service for generating common controller code between the
  * pager and pagination components

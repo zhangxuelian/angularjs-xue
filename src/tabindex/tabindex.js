@@ -1,4 +1,4 @@
-angular.module('xue.tabindex', [])
+angular.module('ui.xue.tabindex', [])
 
 .directive('tabindexToggle', function() {
   return {

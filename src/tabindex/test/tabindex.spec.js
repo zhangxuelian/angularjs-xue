@@ -1,9 +1,9 @@
 describe('tabindex toggle directive', function() {
   var $rootScope, element;
-  beforeEach(module('ui.bootstrap.tabindex'));
+  beforeEach(module('ui.xue.tabindex'));
   beforeEach(inject(function($compile, _$rootScope_) {
     $rootScope = _$rootScope_;
-    element = $compile('<a href uib-tabindex-toggle ng-disabled="disabled">foo</a>')($rootScope);
+    element = $compile('<a href tabindex-toggle ng-disabled="disabled">foo</a>')($rootScope);
     $rootScope.$digest();
   }));
 

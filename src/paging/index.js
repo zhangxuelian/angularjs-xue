@@ -1,7 +1,7 @@
 require('./paging');
 
-var MODULE_NAME = 'xue.module.paging';
+var MODULE_NAME = 'ui.xue.module.paging';
 
-angular.module(MODULE_NAME, ['xue.paging']);
+angular.module(MODULE_NAME, ['ui.xue.paging']);
 
 module.exports = MODULE_NAME;

@@ -1,4 +1,4 @@
-angular.module('xue.pagination', ['xue.paging', 'xue.tabindex'])
+angular.module('ui.xue.pagination', ['ui.xue.paging', 'ui.xue.tabindex'])
 .controller('xuePaginationController', ['$scope', '$attrs', '$parse', 'xuePaging', 'xuePaginationConfig', function($scope, $attrs, $parse, xuePaging, xuePaginationConfig) {
   var ctrl = this;
   // Setup configuration parameters
