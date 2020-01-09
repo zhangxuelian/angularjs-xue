@@ -1,5 +1,6 @@
 var _ = require('lodash');
 module.exports = function(grunt){
+    grunt.util.linefeed = '\n';
     // Load all grunt tasks matching the ['grunt-*', '@*/grunt-*'] patterns
     require('load-grunt-tasks')(grunt);
     grunt.initConfig({
@@ -11,10 +12,10 @@ module.exports = function(grunt){
         banner: [
             '/**',
             ' * <%= pkg.name %>',
-            ' * <%= pkg.homepage %>\n',
+            ' * <%= pkg.homepage %>',
             ' * Version: <%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>',
             ' * License: <%= pkg.license %>',
-            ' */'
+            ' */\n'
         ].join('\n'),
         html2js: {
             dist: {
@@ -40,12 +41,12 @@ module.exports = function(grunt){
             cssFileBanner: '/* Include this file in your html if you are using the CSP mode. */\n\n',
             cssFileDest: '<%= dist %>/<%= filename %>-<%= pkg.version %>-csp.css',
             banner: [
-              '/*',
+              '/**',
               ' * <%= pkg.name %>',
-              ' * <%= pkg.homepage %>\n',
+              ' * <%= pkg.homepage %>',
               ' * Version: <%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>',
               ' * License: <%= pkg.license %>',
-              ' */'
+              ' */\n'
             ].join('\n')
         },
         concat: {
@@ -66,6 +67,19 @@ module.exports = function(grunt){
               dest: '<%= dist %>/<%= filename %>-tpls-<%= pkg.version %>.js'
             }
         },
+        uglify: {
+            options: {
+              banner: '<%= meta.banner %>'
+            },
+            dist:{
+              src:['<%= concat.dist.dest %>'],
+              dest:'<%= dist %>/<%= filename %>-<%= pkg.version %>.min.js'
+            },
+            dist_tpls:{
+              src:['<%= concat.dist_tpls.dest %>'],
+              dest:'<%= dist %>/<%= filename %>-tpls-<%= pkg.version %>.min.js'
+            }
+        }
     });
 
     var util = {
@@ -177,7 +191,7 @@ module.exports = function(grunt){
         }
     };
 
-    grunt.registerTask('default', ['html2js']);
+    grunt.registerTask('default', ['html2js','build']);
     grunt.registerTask('build','Create bootstrap build files',function(){
         grunt.file.expand({
             filter: 'isDirectory', cwd: '.'
@@ -219,10 +233,8 @@ module.exports = function(grunt){
         grunt.config('concat.dist_tpls.src', grunt.config('concat.dist_tpls.src')
             .concat(srcFiles).concat(tpljsFiles));
 
-        grunt.task.run(['concat']);
-        //, 'uglify', 'makeModuleMappingFile', 'makeRawFilesJs', 'makeVersionsMappingFile'
-
-
+        grunt.task.run(['concat', 'uglify']);
+        //, 'makeModuleMappingFile', 'makeRawFilesJs', 'makeVersionsMappingFile'
 
     });
     
