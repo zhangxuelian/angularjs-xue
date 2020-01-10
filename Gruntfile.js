@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var sass = require('node-sass');
 module.exports = function (grunt) {
     grunt.util.linefeed = '\n';
     // Load all grunt tasks matching the ['grunt-*', '@*/grunt-*'] patterns
@@ -32,6 +33,19 @@ module.exports = function (grunt) {
                     expand: true,
                     src: ['template/**/*.html'],
                     ext: '.html.js'
+                }]
+            }
+        },
+        sass: {
+            options: {
+                implementation: sass,
+                sourceMap: false
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    src: ['src/**/css/*.scss'],
+                    ext: '.css'
                 }]
             }
         },
@@ -154,12 +168,14 @@ module.exports = function (grunt) {
         findModule: function (name) {
             if (util.foundModules[name]) { return; }
             util.foundModules[name] = true;
+            var cssFiles = grunt.file.expand(`src/${name}/*.css`);
+            console.log(cssFiles);
             var module = {
                 name: name,
                 moduleName: util.enquote(`xue.${name}`),
                 displayName: util.ucwords(util.breakup(name, ' ')),
                 srcFiles: grunt.file.expand([`src/${name}/*.js`, `!src/${name}/index.js`, `!src/${name}/index-nocss.js`]),
-                cssFiles: grunt.file.expand(`src/${name}/*.css`),
+                cssFiles: [],
                 tplFiles: grunt.file.expand(`template/${name}/*.html`),
                 tpljsFiles: grunt.file.expand(`template/${name}/*.html.js`),
                 tplModules: grunt.file.expand(`template/${name}/*.html`).map(util.enquoteUibDir),
@@ -192,7 +208,7 @@ module.exports = function (grunt) {
         }
     };
 
-    grunt.registerTask('default', ['html2js', 'build']);
+    grunt.registerTask('default', ['html2js', 'sass', 'build']);
     grunt.registerTask('build', 'Create bootstrap build files', function () {
         grunt.file.expand({
             filter: 'isDirectory', cwd: '.'

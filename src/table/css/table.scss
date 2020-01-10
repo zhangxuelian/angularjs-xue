@@ -1,0 +1,24 @@
+.xe-table-container{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    .xe-table-header{
+        height: 40px;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        background: blue;
+    }
+    .xe-table-content{
+        width: 100%;
+        height: 100%;
+        background: red;
+    }
+    .xe-table-footer{
+        height: 40px;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        background: pink;
+    }
+}
