@@ -1,0 +1,1 @@
+angular.module('xue.util',['xue.util.function','xue.uitl.lang']);
