@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var sass = require('node-sass');
+var fs = require('fs');
 module.exports = function (grunt) {
     grunt.util.linefeed = '\n';
     // Load all grunt tasks matching the ['grunt-*', '@*/grunt-*'] patterns
@@ -36,6 +37,9 @@ module.exports = function (grunt) {
                 }]
             }
         },
+        eslint: {
+            files: ['Gruntfile.js', 'src/**/*.js']
+        },
         sass: {
             options: {
                 implementation: sass,
@@ -44,7 +48,7 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    src: ['src/**/css/*.scss'],
+                    src: ['src/**/css/*.scss', 'src/ui/*.scss'],
                     ext: '.css'
                 }]
             }
@@ -74,6 +78,10 @@ module.exports = function (grunt) {
                 },
                 src: [], //src filled in by build task
                 dest: '<%= dist %>/<%= filename %>-full-<%= pkg.version %>.js'
+            },
+            dist_css: {
+                src: ['src/ui/*.css'],
+                dest: '<%= dist %>/<%= filename %>-ui-<%= pkg.version %>.css'
             }
         },
         uglify: {
@@ -87,6 +95,12 @@ module.exports = function (grunt) {
             dist_tpls: {
                 src: ['<%= concat.dist_tpls.dest %>'],
                 dest: '<%= dist %>/<%= filename %>-full-<%= pkg.version %>.min.js'
+            }
+        },
+        cssmin: {
+            dist_css: {
+                src: ['<%= concat.dist_css.dest %>'],
+                dest: '<%= dist %>/<%= filename %>-ui-<%= pkg.version %>.min.css'
             }
         }
     });
@@ -144,7 +158,6 @@ module.exports = function (grunt) {
             var css = fs.readFileSync(file).toString(),
                 js;
             state.css.push(css);
-
             if (minify) {
                 css = css
                     .replace(/\r?\n/g, '')
@@ -166,16 +179,14 @@ module.exports = function (grunt) {
             return state;
         },
         findModule: function (name) {
-            if (util.foundModules[name]) { return; }
+            if (util.foundModules[name] && name == 'ui') { return; }
             util.foundModules[name] = true;
-            var cssFiles = grunt.file.expand(`src/${name}/*.css`);
-            console.log(cssFiles);
             var module = {
                 name: name,
                 moduleName: util.enquote(`xue.${name}`),
                 displayName: util.ucwords(util.breakup(name, ' ')),
                 srcFiles: grunt.file.expand([`src/${name}/*.js`, `!src/${name}/index.js`, `!src/${name}/index-nocss.js`]),
-                cssFiles: [],
+                cssFiles: grunt.file.expand(`src/${name}/css/*.css`),
                 tplFiles: grunt.file.expand(`template/${name}/*.html`),
                 tpljsFiles: grunt.file.expand(`template/${name}/*.html.js`),
                 tplModules: grunt.file.expand(`template/${name}/*.html`).map(util.enquoteUibDir),
@@ -208,7 +219,7 @@ module.exports = function (grunt) {
         }
     };
 
-    grunt.registerTask('default', ['html2js', 'sass', 'build']);
+    grunt.registerTask('default', ['cssmin', 'html2js', 'sass', 'build']);
     grunt.registerTask('build', 'Create bootstrap build files', function () {
         grunt.file.expand({
             filter: 'isDirectory', cwd: '.'
@@ -231,10 +242,10 @@ module.exports = function (grunt) {
         if (cssStrings.length) {
             grunt.config('meta.cssInclude', cssJsStrings.join('\n'));
 
-            grunt.file.write(grunt.config('meta.cssFileDest'), grunt.config('meta.cssFileBanner') +
+            /* grunt.file.write(grunt.config('meta.cssFileDest'), grunt.config('meta.cssFileBanner') +
                 cssStrings.join('\n'));
 
-            grunt.log.writeln('File ' + grunt.config('meta.cssFileDest') + ' created');
+            grunt.log.writeln('File ' + grunt.config('meta.cssFileDest') + ' created'); */
         }
 
         var moduleFileMapping = _.clone(modules, true);

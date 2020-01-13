@@ -1,0 +1,25 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+// Images and content
+img {
+    vertical-align: middle;
+}
+// Prevent double borders
+table {
+    border-collapse: collapse;
+}
+// Matches default `<td>` alignment by inheriting from the `<body>`, or the closest parent with a set `text-align`.
+th {
+    text-align: inherit;
+}
+// Remove the default `border-radius` that macOS Chrome adds. Details at https://github.com/twbs/bootstrap/issues/24093
+button {
+    border-radius: 0;
+}
+// Show the overflow in Edge
+button,
+input {
+  overflow: visible;
+}
