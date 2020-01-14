@@ -32,28 +32,28 @@ describe('pagination directive', function () {
         expect(element.hasClass('pagination')).toBe(true);
     });
 
-    xit('contains num-pages + 2 li elements', function () {
+    it('contains num-pages + 2 li elements', function () {
         expect(getPaginationBarSize()).toBe(7);
-        expect(getPaginationEl(0).text()).toBe('Previous');
-        expect(getPaginationEl(-1).text()).toBe('Next');
+        expect(getPaginationEl(0).find('a').html()).toBe('上页');
+        expect(getPaginationEl(-1).find('a').html()).toBe('下页');
     });
 
-    xit('has the number of the page as text in each page item', function () {
+    it('has the number of the page as text in each page item', function () {
         for (var i = 1; i <= 5; i++) {
-            expect(getPaginationEl(i).text()).toEqual('' + i);
+            expect(getPaginationEl(i).find('a').html()).toEqual('' + i);
         }
     });
 
-    xit('sets the current page to be active', function () {
+    it('sets the current page to be active', function () {
         expect(getPaginationEl($rootScope.currentPage).hasClass('active')).toBe(true);
     });
 
-    xit('disables the "previous" link if current page is 1', function () {
+    it('disables the "previous" link if current page is 1', function () {
         updateCurrentPage(1);
         expect(getPaginationEl(0).hasClass('disabled')).toBe(true);
     });
 
-    xit('disables the "next" link if current page is last', function () {
+    it('disables the "next" link if current page is last', function () {
         updateCurrentPage(5);
         expect(getPaginationEl(-1).hasClass('disabled')).toBe(true);
     });
