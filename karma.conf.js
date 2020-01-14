@@ -1,7 +1,6 @@
 // Karma configuration
 // Generated on Tue Jan 07 2020 16:04:58 GMT+0800 (China Standard Time)
-
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -15,11 +14,18 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'node_modules/angular/angular.js',
+      'node_modules/angular-mocks/angular-mocks.js',
+      'src/**/*.js',
+      'template/**/*.js'
     ],
 
 
     // list of files / patterns to exclude
     exclude: [
+      'src/**/index.js',
+      'src/**/index-nocss.js',
+      'src/**/docs/*'
     ],
 
 

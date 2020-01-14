@@ -102,6 +102,11 @@ module.exports = function (grunt) {
                 src: ['<%= concat.dist_css.dest %>'],
                 dest: '<%= dist %>/<%= filename %>-ui-<%= pkg.version %>.min.css'
             }
+        },
+        karma: {
+            unit: {
+                configFile: 'karma.conf.js'
+            }
         }
     });
 
@@ -219,7 +224,7 @@ module.exports = function (grunt) {
         }
     };
 
-    grunt.registerTask('default', ['cssmin', 'html2js', 'sass', 'build']);
+    grunt.registerTask('default', ['cssmin', 'html2js', 'sass', 'karma', 'build']);
     grunt.registerTask('build', 'Create bootstrap build files', function () {
         grunt.file.expand({
             filter: 'isDirectory', cwd: '.'
