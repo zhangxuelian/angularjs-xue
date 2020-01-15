@@ -17,7 +17,7 @@ angular.module('myModule', ['ui.xue']);
 $ npm install angularjs-xue --save-dev
 ```
 #### Usage
-To use this project with webpack, follow the NPM instructions. Now, if you want to use only the accordion, you can do:
+To use this project with webpack, follow the NPM instructions. Now, if you want to use pagination and table, you can do:
 ```javascript
 import pagination from 'angularjs-xue/src/pagination';
 import table from 'angularjs-xue/src/table/index-nocss.js';
