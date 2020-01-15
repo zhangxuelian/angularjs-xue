@@ -6,7 +6,7 @@ module.exports = function (grunt) {
     // Load all grunt tasks matching the ['grunt-*', '@*/grunt-*'] patterns
     require('load-grunt-tasks')(grunt);
     grunt.initConfig({
-        ngversion: '1.2.21',
+        ngversion: '1.2.32',
         modules: [],//to be filled in by build task
         pkg: grunt.file.readJSON('package.json'),
         dist: 'dist',
