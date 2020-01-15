@@ -1,0 +1,3 @@
+describe('properties util', function () {
+
+});

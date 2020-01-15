@@ -1,0 +1,3 @@
+describe('array util', function () {
+
+});

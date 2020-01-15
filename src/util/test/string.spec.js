@@ -1,0 +1,3 @@
+describe('string util', function () {
+
+});
