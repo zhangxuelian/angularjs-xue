@@ -26,11 +26,15 @@ angular.module('myModule', [pagination,table]);
 ```
 ## For developer
 ### Install global dependencies
+```
 $ npm install grunt-cli@1.3.2 -g  
 $ npm install karma-cli@2.0.0 -g  
+```
 ### Git clone project to local
 git clone https://github.com/zhangxuelian/angularjs-xue.git
 ### Bundle
+```
 $ cd angularjs-xue  
 $ npm install  
 $ grunt  
+```
