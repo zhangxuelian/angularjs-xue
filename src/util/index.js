@@ -1,6 +1,16 @@
+require('./util');
+require('./array');
+require('./collection');
+require('./date');
 require('./function');
 require('./lang');
-require('./util');
+require('./math');
+require('./methods');
+require('./number');
+require('./object');
+require('./properties');
+require('./seq');
+require('./string');
 
 var MODULE_NAME = 'xue.module.util';
 
