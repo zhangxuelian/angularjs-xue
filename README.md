@@ -14,7 +14,7 @@ angular.module('myModule', ['ui.xue']);
 ### Webpack / JSPM
 #### Install with NPM
 ```
-$ npm install angular-xue
+$ npm install angularjs-xue --save-dev
 ```
 #### Usage
 To use this project with webpack, follow the NPM instructions. Now, if you want to use only the accordion, you can do:
