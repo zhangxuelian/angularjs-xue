@@ -3,7 +3,7 @@
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
  * Version: 1.0.0 - 2020-01-15
- * Require angularjs version: 1.2.21
+ * Require angularjs version: 1.2.32
  * License: ISC
  */
 angular.module("ui.xue", ["ui.xue.tpls", "xue.pagination","xue.uitl.lang","xue.pagination","xue.table","xue.ui","xue.util.array","xue.util.collection","xue.util.date","xue.util.lang","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.string","xue.uitl.function","xue.util"]);
@@ -252,7 +252,9 @@ angular.module('xue.util.collection', [])
     }]);
 angular.module('xue.util.date', [])
     .service('xueUtilDate', [function () {
-
+        this.test = function(){
+            return 'test';
+        }
     }]);
 angular.module('xue.util.function', [])
     .service('xueUtilFunc', [function () {
