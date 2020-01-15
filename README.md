@@ -11,7 +11,12 @@ When you are done downloading all the dependencies and project files the only re
 ```javascript
 angular.module('myModule', ['ui.xue']);
 ```
-#### Webpack / JSPM
+### Webpack / JSPM
+#### Install with NPM
+```
+  $ npm install angular-xue
+```
+#### Usage
 To use this project with webpack, follow the NPM instructions. Now, if you want to use only the accordion, you can do:
 ```javascript
 import pagination from 'angularjs-xue/src/pagination';
