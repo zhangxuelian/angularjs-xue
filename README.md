@@ -7,7 +7,7 @@ angularjs 1.2.32
 After downloading dependencies you need to download build version of this project: https://github.com/zhangxuelian/angularjs-xue/tree/master/dist  
 You could import the components by require or <script>.  
 #### Adding dependency to your project
-When you are done downloading all the dependencies and project files the only remaining part is to add dependencies on the ui.bootstrap AngularJS module:
+When you are done downloading all the dependencies and project files the only remaining part is to add dependencies on the ui.xue AngularJS module:
 ```javascript
 angular.module('myModule', ['ui.xue']);
 ```
