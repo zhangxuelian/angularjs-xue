@@ -2,7 +2,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
     function() {
         var self = this;
         /** 对象类型 */
-        const objType = ["Null", "Undefined", "Number", "Boolean", "String", "Object", "Function", "Array", "RegExp", "Date"];
+        var objType = ["Null", "Undefined", "Number", "Boolean", "String", "Object", "Function", "Array", "RegExp", "Date"];
 
         /**
          * 判断是否为对象

@@ -2,7 +2,7 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-01-15
+ * Version: 1.0.0 - 2020-01-16
  * Require angularjs version: 1.2.32
  * License: ISC
  */
@@ -262,19 +262,21 @@ angular.module('xue.util.function', [])
             // TODO
         };
     }]);
-angular.module('xue.uitl.lang', [])
-    .service('xueUtilLang', [function () {
-
+angular.module("xue.util.lang", []).service("xueUtilLang", [
+    function() {
         var self = this;
+        /** 对象类型 */
+        var objType = ["Null", "Undefined", "Number", "Boolean", "String", "Object", "Function", "Array", "RegExp", "Date"];
+
         /**
-         * 判断是否为对象object
-         * 
+         * 判断是否为对象
+         *
          * @param {any} obj
          * @returns
          */
-        this.isObject = function (obj) {
+        this.isObject = function(obj) {
             var type = typeof obj;
-            return obj != null && (type == 'object' || type == 'function');
+            return obj != null && (type == "object" || type == "function");
         };
         /**
          * 判断是否为函数
@@ -282,15 +284,245 @@ angular.module('xue.uitl.lang', [])
          * @param {any} fn
          * @returns
          */
-        this.isFunction = function (fn) {
-            return Object.prototype.toString.call(fn) === '[object Function]';
+        this.isFunction = function(fn) {
+            return Object.prototype.toString.call(fn) === "[object Function]";
         };
+        /**
+         * 判断是否为Json
+         * @param {any} json
+         * @returns
+         */
+        this.isJson = function (json) {
+            return Object.prototype.toString.call(json) === "[object Object]";
+        };
+        /**
+         * 检查是否是原始Number数值型或者Number对象。
+         *
+         * @param {any} number
+         * @returns
+         */
+        this.isNumber = function(number) {
+            return typeof number == 'number' || Object.prototype.toString.call(number) === "[object Number]";
+        };
+        /**
+         * 判断是否为Date对象
+         * @param {any} date
+         * @returns
+         */
+        this.isDate = function(date) {
+            return Object.prototype.toString.call(date) === "[object Date]";
+        }
+        /**
+         * 判断是否为图片
+         * @param path
+         * @returns bool
+         */
+        this.isPicture = function (path) {
+            var fileReg = /(.*).(jpg|bmp|gif|ico|pcx|jpeg|tif|png|raw|tga)$/i;
+            try {
+                return fileReg.test(path);
+            } catch (e) {
+                return false;
+            }
+        }
+        /**
+         * 判断是否为空对象（空数组）
+         *
+         * @param {any} obj
+         * @returns
+         */
+        this.isEmpty = function(obj) {
+            if (!self.isObject()) {
+                return true;
+            }
+            if (this.isType(obj, "array")) {
+                return !value.length;
+            }
+            for (var key in obj) {
+                if (hasOwnProperty.call(obj, key)) {
+                    return false;
+                }
+            }
+            return true;
+        };
+        /**
+         * 判断对象类型
+         *
+         * @param {any} obj 对象object
+         * @param {any} type 对象类型
+         * @returns
+         */
+        this.isType = function(obj, type) {
+            return this.getType(obj) === type;
+        };
+        /**
+         * 获取对象类型
+         *
+         * @param {any} obj 对象object
+         * @returns
+         */
+        this.getType = function(obj) {
+            var map = {};
+            angular.forEach(objType, function(item) {
+                map["[object " + item + "]"] = item.toLowerCase();
+            });
+            return map[Object.prototype.toString.call(obj)] || "object";
+        };
+        /**
+         * 复制对象
+         *
+         * @param {any} obj
+         * @param {any} deep 是否深度复制
+         * @returns
+         */
+        this.copyObj = function(obj, deep) {
+            if (!self.isObject(obj)) {
+                return obj;
+            }
+            var i, target = this.isType(obj, "array") ? [] : {}, value, valueType;
+            for (i in obj) {
+                value = obj[i];
+                valueType = this.getType(value);
+                if (deep && (valueType === "array" || valueType === "object")) {
+                    target[i] = this.copyObj(value, deep);
+                } else {
+                    target[i] = value;
+                }
+            }
+            return target;
+        };
+        /**
+         * 判断是否为IE
+         */
+        this.isIE = function () {
+            return (!!window.ActiveXObject || "ActiveXObject" in window);
+        };
+        /**
+         * 判断是否为IE8
+         */
+        this.isIE8 = function () {
+            var a = navigator.appVersion.split(";");
+            //系统是32位时谷歌浏览器版本号没有';',长度为1,a[1]为undefined,replace方法报错
+            if (a.length > 1) {
+                var b = a[1].replace(/[ ]/g, "");
+            } else {
+                return false;
+            }
+            return (navigator.appName == "Microsoft Internet Explorer" && b == "MSIE8.0");
+        };
+    }
+]);
 
-    }]);
-angular.module('xue.util.math', [])
-    .service('xueUtilMath', [function () {
+angular.module("xue.util.math", []).service("xueUtilMath", [
+    function() {
+        var self = this;
+        /**
+         * 加法（解决浮点精度问题）
+         * @param {number} number1 数值1
+         * @param {number} number2 数值2
+         */
+        this.addition = function(number1, number2) {
+            var decimalLen1, decimalLen2, maxLenPower;
+            try {
+                decimalLen1 = number1.toString().split(".")[1].length;
+            } catch (e) {
+                decimalLen1 = 0;
+            }
+            try {
+                decimalLen2 = number2.toString().split(".")[1].length;
+            } catch (e) {
+                decimalLen2 = 0;
+            }
+            maxLenPower = Math.pow(10, Math.max(decimalLen1, decimalLen2));
+            return (number1 * maxLenPower + number2 * maxLenPower) / maxLenPower;
+        };
+        /**
+         * 减法（解决浮点精度问题）
+         * @param {number} subtrahend 减数
+         * @param {number} minuend 被减数
+         */
+        this.subtraction = function(subtrahend, minuend) {
+            var decimalLen1, decimalLen2, maxLenPower, maxLen;
+            try {
+                decimalLen1 = subtrahend.toString().split(".")[1].length;
+            } catch (e) {
+                decimalLen1 = 0;
+            }
+            try {
+                decimalLen2 = minuend.toString().split(".")[1].length;
+            } catch (e) {
+                decimalLen2 = 0;
+            }
+            maxLen = Math.max(decimalLen1, decimalLen2);
+            maxLenPower = Math.pow(10, maxLen);
+            return Number(
+                ((subtrahend * maxLenPower - minuend * maxLenPower) / maxLenPower).toFixed(maxLen)
+            );
+        };
+        /**
+         * 乘法（解决浮点精度问题）
+         * @param {number} multiplier1 乘数1
+         * @param {number} multiplier2 乘数2
+         */
+        this.multiplication = function(multiplier1, multiplier2) {
+            var decimalLen = 0;
+            multiplier1 = multiplier1.toString();
+            multiplier2 = multiplier2.toString();
+            try {
+                decimalLen += multiplier1.split(".")[1].length;
+            } catch (e) {}
+            try {
+                decimalLen += multiplier2.split(".")[1].length;
+            } catch (e) {}
+            return (
+                (Number(multiplier1.replace(".", "")) * Number(multiplier2.replace(".", ""))) /
+                Math.pow(10, decimalLen)
+            );
+        };
+        /**
+         * 除法（解决浮点精度问题）
+         * @param {number} divisor 除数
+         * @param {number} dividend 被除数
+         */
+        this.division = function(divisor, dividend) {
+            var decimalLen1, decimalLen2, nDivisor, nDividend;
+            try {
+                decimalLen1 = divisor.toString().split(".")[1].length;
+            } catch (e) {
+                decimalLen1 = 0;
+            }
+            try {
+                decimalLen2 = dividend.toString().split(".")[1].length;
+            } catch (e) {
+                decimalLen2 = 0;
+            }
+            nDivisor = Number(divisor.toString().replace(".", ""));
+            nDividend = Number(dividend.toString().replace(".", ""));
+            return this.multiplication(
+                nDivisor / nDividend,
+                Math.pow(10, decimalLen2 - decimalLen1)
+            );
+        };
+        /**
+         * 平均值（解决浮点精度问题）
+         * @param {arr} arr 要迭代的数组
+         */
+        this.mean = function(arr) {
+            if (!Array.isArray(arr) || !arr.length) {
+                return NaN;
+            }
+            var result, index = -1, length = arr.length;
+            while (++index < length) {
+                var current = arr[index];
+                if (current !== undefined) {
+                    result = result === undefined ? current : self.addition(result, current);
+                }
+            }
+            return result / length;
+        };
+    }
+]);
 
-    }]);
 angular.module('xue.util.methods', [])
     .service('xueUtilMethod', [function () {
 

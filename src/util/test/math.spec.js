@@ -9,6 +9,7 @@ describe("math util", function() {
     }));
     it("加法", function() {
         expect(xueUtilMath.addition(x, y)).toBe(2.31);
+        expect(xueUtilMath.addition(undefined, x)).toEqual(NaN);
     });
     it("减法", function() {
         expect(xueUtilMath.subtraction(x, y)).toBe(0.11);
