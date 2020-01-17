@@ -72,7 +72,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
                 return true;
             }
             if (this.isType(obj, "array")) {
-                return !value.length;
+                return !obj.length;
             }
             for (var key in obj) {
                 if (hasOwnProperty.call(obj, key)) {
