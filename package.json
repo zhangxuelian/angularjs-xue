@@ -40,5 +40,24 @@
     "load-grunt-tasks": "^5.1.0",
     "lodash": "^4.17.15",
     "node-sass": "^4.13.0"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 5
+    },
+    "env": {
+      "browser": true,
+      "jasmine": true,
+      "node": true
+    },
+    "globals": {
+      "angular": true,
+      "inject": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+      "no-unused-vars": 1,
+      "no-empty": 1
+    }
   }
 }

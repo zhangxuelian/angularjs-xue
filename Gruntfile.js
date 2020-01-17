@@ -38,7 +38,7 @@ module.exports = function (grunt) {
             }
         },
         eslint: {
-            files: ['Gruntfile.js', 'src/**/*.js']
+            files: ['src/**/*.js','src/**/test/*.js','!src/**/lodash/*.js']
         },
         sass: {
             options: {
@@ -224,7 +224,7 @@ module.exports = function (grunt) {
         }
     };
 
-    grunt.registerTask('default', ['cssmin', 'html2js', 'sass', 'karma', 'build']);
+    grunt.registerTask('default', ['eslint','cssmin', 'html2js', 'sass', 'karma', 'build']);
     grunt.registerTask('build', 'Create bootstrap build files', function () {
         grunt.file.expand({
             filter: 'isDirectory', cwd: '.'

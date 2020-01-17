@@ -2,7 +2,7 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-01-16
+ * Version: 1.0.0 - 2020-01-17
  * Require angularjs version: 1.2.32
  * License: ISC
  */
@@ -336,7 +336,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
                 return true;
             }
             if (this.isType(obj, "array")) {
-                return !value.length;
+                return !obj.length;
             }
             for (var key in obj) {
                 if (hasOwnProperty.call(obj, key)) {
