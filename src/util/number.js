@@ -10,11 +10,11 @@ angular.module('xue.util.number', [])
          * @param {number} end     结束范围
          * @returns
          */
-        this.inRange = function(number, start, end) {
+        this.inRange = function (number, start, end) {
             if (end === undefined) {
-              end = start;
-              start = 0;
-            } 
+                end = start;
+                start = 0;
+            }
             return number >= Math.min(start, end) && number < Math.max(start, end);
         };
     }]);
