@@ -11,7 +11,7 @@ describe("lang util", function() {
         expect(xueUtilLang.isObject(new Object())).toBe(true);
     });
     it("检查是否为函数", function() {
-        expect(xueUtilLang.isFunction(new Function())).toBe(true);
+        expect(xueUtilLang.isFunction(function(){})).toBe(true);
     });
     it("检查是否为Json对象", function() {
         expect(xueUtilLang.isJson(json)).toBe(true);
@@ -24,8 +24,15 @@ describe("lang util", function() {
     });
     it("判断是否为空对象（空数组）", function() {
         expect(xueUtilLang.isEmpty({})).toBe(true);
+        expect(xueUtilLang.isEmpty([])).toBe(true);
     });
     it("复制对象", function() {
         expect(xueUtilLang.copyObj(obj)).toEqual(obj);
     });
+    it("匹配对象", function() {
+        expect(xueUtilLang.isMatch(obj, {x: [1]})).toBe(true);
+    });
+    it("检查是否是IE8", function() {
+      expect(xueUtilLang.isIE8()).toBe(false);
+  });
 });

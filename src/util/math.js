@@ -55,12 +55,15 @@ angular.module("xue.util.math", []).service("xueUtilMath", [
             multiplier2 = multiplier2.toString();
             try {
                 decimalLen += multiplier1.split(".")[1].length;
-            } catch (e) {}
+            } catch (e) {
+                decimalLen += 0;
+            }
             try {
                 decimalLen += multiplier2.split(".")[1].length;
-            } catch (e) {}
-            return (
-                (Number(multiplier1.replace(".", "")) * Number(multiplier2.replace(".", ""))) /
+            } catch (e) {
+                decimalLen += 0;
+            }
+            return Number(multiplier1.replace(".", "")) * Number(multiplier2.replace(".", "") /
                 Math.pow(10, decimalLen)
             );
         };
