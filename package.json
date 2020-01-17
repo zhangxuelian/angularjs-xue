@@ -56,8 +56,58 @@
     },
     "extends": "eslint:recommended",
     "rules": {
+      "comma-dangle": 2,
       "no-unused-vars": 1,
-      "no-empty": 1
+      "no-empty": 1,
+      "no-extra-parens": 1,
+      "accessor-pairs": 2,
+      "block-scoped-var": 2,
+      "complexity": [
+        1,
+        5
+      ],
+      "curly": 1,
+      "dot-notation": [
+        1,
+        {
+          "allowKeywords": false
+        }
+      ],
+      "eqeqeq": 1,
+      "guard-for-in": 1,
+      "semi": 1,
+      "no-alert": 2,
+      "no-caller": 2,
+      "no-div-regex": 2,
+      "no-else-return": 1,
+      "no-eq-null": 2,
+      "no-eval": 2,
+      "no-extend-native": 2,
+      "no-extra-bind": 1,
+      "no-floating-decimal": 2,
+      "no-implied-eval": 2,
+      "no-invalid-this": 2,
+      "no-lone-blocks": 2,
+      "no-loop-func": 2,
+      "no-multi-spaces": 2,
+      "no-new-func": 2,
+      "no-new-wrappers": 2,
+      "no-new": 2,
+      "no-octal-escape": 2,
+      "no-proto": 2,
+      "no-script-url": 2,
+      "no-self-compare": 2,
+      "no-sequences": 2,
+      "no-throw-literal": 2,
+      "no-unused-expressions": 2,
+      "no-useless-call": 2,
+      "no-useless-concat": 2,
+      "no-void": 2,
+      "no-with": 2,
+      "radix": 2,
+      "wrap-iife": 2,
+      "no-iterator": 2,
+      "yoda": 2
     }
   }
 }
