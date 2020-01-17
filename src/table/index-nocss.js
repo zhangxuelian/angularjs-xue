@@ -1,6 +1,6 @@
 require('../util');
 require('../pagination');
-require('../../template/table/table.html.js')
+require('../../template/table/table.html.js');
 require('./table');
 
 var MODULE_NAME = 'xue.module.table';

@@ -254,7 +254,7 @@ angular.module('xue.util.date', [])
     .service('xueUtilDate', [function () {
         this.test = function(){
             return 'test';
-        }
+        };
     }]);
 angular.module('xue.util.function', [])
     .service('xueUtilFunc', [function () {
@@ -580,7 +580,6 @@ angular.module('xue.util.number', [])
     }]);
 angular.module('xue.util.object', [])
     .service('xueUtilObject', [function () {
-        
         /**
          * json中把空对象移除
          *
