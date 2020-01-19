@@ -50,7 +50,7 @@ angular.module('xue.util.string', [])
             if (!string || !target) return false;
             var str = string.toString();
             var tar = target.toString();
-            var pos = position ? parseInt(position) : 0;
+            var pos = position ? parseInt(position,0) : 0;
             var index = str.indexOf(tar);
             if (index != -1 && (typeof position == 'undefined' || index == pos)) {
                 return true;
@@ -92,7 +92,7 @@ angular.module('xue.util.string', [])
          */
         this.padStart = function (string, length, chars, type) {
             string = string.toString();
-            length = parseInt(length);
+            length = parseInt(length,0);
             chars = chars ? chars : ' ';
             if (type == 'start') return string.padStart(length, chars);
             else if (type == 'end') return string.padEnd(length, chars);
@@ -125,7 +125,7 @@ angular.module('xue.util.string', [])
         this.formatLongText = function (text, len) {
             var newText = text.trim();
             if (newText.length) {
-                var length = len || (parseInt(len) > 0 ? parseInt(len) : 5);
+                var length = len || (parseInt(len,0) > 0 ? parseInt(len,0) : 5);
                 if (newText.length > length * 2) {
                     return newText.substring(0, length) + '...' + newText.substring(newText.length - length, newText.length);
                 } else {
