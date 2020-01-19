@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var sass = require('node-sass');
 var fs = require('fs');
+var marked = require('marked');
 module.exports = function (grunt) {
     grunt.util.linefeed = '\n';
     // Load all grunt tasks matching the ['grunt-*', '@*/grunt-*'] patterns
@@ -38,7 +39,7 @@ module.exports = function (grunt) {
             }
         },
         eslint: {
-            files: ['src/**/*.js','src/**/test/*.js','!src/**/lodash/*.js']
+            files: ['src/**/*.js', 'src/**/test/*.js', '!src/**/lodash/*.js']
         },
         sass: {
             options: {
@@ -106,6 +107,28 @@ module.exports = function (grunt) {
         karma: {
             unit: {
                 configFile: 'karma.conf.js'
+            }
+        },
+        copy: {
+            demohtml: {
+                options: {
+                    process: grunt.template.process
+                },
+                files: [{
+                    expand: true,
+                    src: ['**/*.html'],
+                    cwd: 'misc/demo/',
+                    dest: 'dist/'
+                }]
+            },
+            demoassets: {
+                files: [{
+                    expand: true,
+                    //Don't re-copy html files, we process those
+                    src: ['**/**/*', '!**/*.html'],
+                    cwd: 'misc/demo',
+                    dest: 'dist/'
+                }]
             }
         }
     });
@@ -196,12 +219,12 @@ module.exports = function (grunt) {
                 tpljsFiles: grunt.file.expand(`template/${name}/*.html.js`),
                 tplModules: grunt.file.expand(`template/${name}/*.html`).map(util.enquoteUibDir),
                 dependencies: util.dependenciesForModule(name),
-                docs: {
-                    md: grunt.file.expand(`src/${name}/docs/*.md`)
+                doc: {
+                    md: grunt.file.expand(`src/${name}/doc/*.md`)
                         .map(grunt.file.read).map((str) => marked(str)).join('\n'),
-                    js: grunt.file.expand(`src/${name}/docs/*.js`)
+                    js: grunt.file.expand(`src/${name}/doc/*.js`)
                         .map(grunt.file.read).join('\n'),
-                    html: grunt.file.expand(`src/${name}/docs/*.html`)
+                    html: grunt.file.expand(`src/${name}/doc/*.html`)
                         .map(grunt.file.read).join('\n')
                 }
             };
@@ -224,7 +247,7 @@ module.exports = function (grunt) {
         }
     };
 
-    grunt.registerTask('default', ['eslint','cssmin', 'html2js', 'sass', 'karma', 'build']);
+    grunt.registerTask('default', ['cssmin', 'eslint', 'html2js', 'sass', 'karma', 'build', 'copy']);
     grunt.registerTask('build', 'Create bootstrap build files', function () {
         grunt.file.expand({
             filter: 'isDirectory', cwd: '.'
@@ -235,7 +258,7 @@ module.exports = function (grunt) {
         grunt.config('srcModules', util.pluck(modules, 'moduleName'));
         grunt.config('tplModules', util.pluck(modules, 'tplModules').filter((tpls) => tpls.length > 0));
         grunt.config('demoModules', modules
-            .filter((module) => module.docs.md && module.docs.js && module.docs.html)
+            .filter((module) => module.doc.md && module.doc.js && module.doc.html)
             .sort((a, b) => {
                 if (a.name < b.name) { return -1; }
                 if (a.name > b.name) { return 1; }
@@ -254,7 +277,7 @@ module.exports = function (grunt) {
         }
 
         var moduleFileMapping = _.clone(modules, true);
-        moduleFileMapping.forEach((module) => delete module.docs);
+        moduleFileMapping.forEach((module) => delete module.doc);
 
         grunt.config('moduleFileMapping', moduleFileMapping);
 
