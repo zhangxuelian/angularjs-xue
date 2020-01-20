@@ -84,54 +84,62 @@ angular.module('xue.util.collection', ['xue.util.lang'])
          * @param {Boolean} order 排序方式 默认正序 true 倒序 false
          * @param {String} type 排序类型 默认为0 数值类型 0 字符类型 1
          */
+        /*eslint complexity: ["error", 8]*/
         this.sortByfield = function (arr, field, order, type) {
+            var res = [];
             if (arr.length && field) {
-                if (typeof (order) == 'undefined') {
+                if (typeof order === 'undefined') {
                     order = true;
                 } else {
                     order = !!order;
                 }
-                if (typeof (type) == 'undefined') {
+                if (typeof type === 'undefined') {
                     type = isNaN(parseInt(arr[0][field],0)) ? 1 : 0;
                 } else {
-                    type = type == 1 ? 1 : 0;
+                    type = type === 1 ? 1 : 0;
                 }
-                if (type == 0) {
+                if (type === 0) {
                     var compare = function () {
                         return function (a, b) {
+                            var res;
                             if (order) {
-                                return a[field] - b[field];
+                                res = a[field] - b[field];
                             } else {
-                                return b[field] - a[field];
+                                res = b[field] - a[field];
                             }
-                        }
-                    }
+                            return res;
+                        };
+                    };
                     arr.sort(compare(field, order));
                 } else {
                     var compareStr = function () {
                         var e = order ? 1 : -1;
                         return function (a, b) {
+                            var res;
                             if (a[field] < b[field]) {
-                                return -1 * e;
+                                res = -1 * e;
                             } else if (a[field] > b[field]) {
-                                return 1 * e;
+                                res = 1 * e;
                             } else {
-                                return 0;
+                                res = 0;
                             }
-                        }
-                    }
+                            return res;
+                        };
+                    };
                     arr.sort(compareStr(field, order));
                 }
-                return arr;
-            } else {
-                return [];
-            }
+                res = arr;
+            } 
+            return res;
         };
         /**
          * 判断是几维数组(返回数组中最大的维度)
          */
         this.arrDimension = function (arr, dimension) {
-            if (!dimension) dimension = 0;
+            if (!dimension) {
+                dimension = 0;
+            }
+            var res;
             if (arr instanceof Array) {
                 dimension++;
                 var maxDimension = 0,
@@ -143,10 +151,11 @@ angular.module('xue.util.collection', ['xue.util.lang'])
                         maxDimension = temp;
                     }
                 }
-                return maxDimension;
+                res = maxDimension;
             } else {
-                return dimension;
+                res = dimension;
             }
+            return res;
         };
         /**
          * 获取字节长度（英文数字占1个字符，中文汉字占2个字符）
@@ -154,17 +163,15 @@ angular.module('xue.util.collection', ['xue.util.lang'])
          */
         this.getByteLen = function (str) {
             var len = 0;
-            try {
-                for (var i = 0; i < str.length; i++) {
-                    var c = str.charCodeAt(i);
-                    //单字节加1
-                    if ((c >= 0x0001 && c <= 0x007e) || (c >= 0xff60 && c <= 0xff9f)) {
-                        len++;
-                    } else {
-                        len += 2;
-                    }
+            for (var i = 0; i < str.length; i++) {
+                var c = str.charCodeAt(i);
+                //单字节加1
+                if (c >= 0x0001 && c <= 0x007e || c >= 0xff60 && c <= 0xff9f) {
+                    len++;
+                } else {
+                    len += 2;
                 }
-            } catch (e) {}
+            }
             return len;
         };
         /**
@@ -173,6 +180,7 @@ angular.module('xue.util.collection', ['xue.util.lang'])
          * @param {int} len 中文字符长度，通过字节长度来切割的，则字节长度为len的两倍
          * @param {bool} isByteLen 是否是字节长度 (目前仅字符串支持通过字节长度切割)
          */
+        /*eslint complexity: ["error", 10]*/
         this.sliceByLen = function (param, len, isByteLen) {
             try {
                 var newArr = [],

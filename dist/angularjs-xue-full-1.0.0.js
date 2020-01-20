@@ -2,11 +2,11 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-01-19
+ * Version: 1.0.0 - 2020-01-20
  * Require angularjs version: 1.2.32
  * License: ISC
  */
-angular.module("ui.xue", ["ui.xue.tpls", "xue.pagination","xue.uitl.lang","xue.pagination","xue.table","xue.ui","xue.util.array","xue.util.collection","xue.util.date","xue.util.lang","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.string","xue.uitl.function","xue.util"]);
+angular.module("ui.xue", ["ui.xue.tpls", "xue.pagination","xue.uitl.lang","xue.pagination","xue.table","xue.ui","xue.util.array","xue.util.lang","xue.util.collection","xue.util.lang","xue.util.date","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.string","xue.util.function","xue.util"]);
 angular.module("ui.xue.tpls", ["xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/table/table.html"]);
 angular.module('xue.pagination', [])
 
@@ -242,13 +242,322 @@ angular.module('xue.table', ['xue.uitl.lang', 'xue.pagination'])
             }
         };
     }])
-angular.module('xue.util.array', [])
-    .service('xueUtilArray', [function () {
-
-    }]);
-angular.module('xue.util.collection', [])
-    .service('xueUtilCollect', [function () {
-
+angular.module('xue.util.array', []).service('xueUtilArray', [
+    function () {
+        /**
+         * 数组去重,数组元素为string
+         *
+         * @param {any} arr
+         * @returns
+         */
+        this.uniq = function (arr) {
+            var res = [];
+            var json = {};
+            for (var i = 0; i < arr.length; i++) {
+                if (!json[arr[i]]) {
+                    res.push(arr[i]);
+                    json[arr[i]] = 1;
+                }
+            }
+            return res;
+        };
+        /**
+         * 数组去重,数组元素为json
+         *
+         * @param {any} arr
+         * @param {any} key
+         * @returns
+         */
+        this.uniqJson = function (arr, key) {
+            var res = [];
+            var json = {};
+            angular.forEach(arr, function (item) {
+                if (!json[item[key]]) {
+                    res.push(item);
+                    json[item[key]] = 1;
+                }
+            });
+            return res;
+        };
+        /**
+         * 数组快速排序（数组对象为int型）
+         *
+         * @param {any} array
+         * @returns
+         */
+        this.quickSort = function (array) {
+            function sort(prev, numsize) {
+                var nonius = prev;
+                var j = numsize - 1;
+                var flag = array[prev];
+                if ((numsize - prev) > 1) {
+                    while (nonius < j) {
+                        for (; nonius < j; j--) {
+                            if (array[j] < flag) {
+                                //a[i] = a[j]; i += 1;
+                                array[nonius++] = array[j];
+                                break;
+                            }
+                        }
+                        for (; nonius < j; nonius++) {
+                            if (array[nonius] > flag) {
+                                array[j--] = array[nonius];
+                                break;
+                            }
+                        }
+                    }
+                    array[nonius] = flag;
+                    sort(0, nonius);
+                    sort(nonius + 1, numsize);
+                }
+            }
+            sort(0, array.length);
+            return array;
+        };
+        /**
+         * 从数组中查找对象属性值，返回下标（同用于判断数组中是否存在某对象）
+         * ps：数组对象为json
+         * @param {any} arr
+         * @param {any} key
+         * @param {any} value
+         * @returns
+         */
+        this.findObjIndex = function (arr, key, value) {
+            try {
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i][key] == value) {
+                        return i;
+                    }
+                }
+                return -1;
+            } catch (e) {
+                return -1;
+            }
+        };
+        /**
+         * 从数组中查找值，返回下标（同用于判断数组中是否存在某对象）
+         * ps:数组对象为string
+         * @param {any} arr
+         * @param {any} value
+         * @returns
+         */
+        this.findStrIndex = function (arr, value) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] == value) {
+                    return i;
+                }
+            }
+            return -1;
+        };
+        
+    }
+]);
+angular.module('xue.util.collection', ['xue.util.lang'])
+    .service('xueUtilCollect', ["xueUtilLang", function (xueUtilLang) {
+        /**
+         * 从数组中查找对象值，返回数组
+         * ps：数组元素为json，匹配对象为数组
+         * @param {any} arr
+         * @param {any} key
+         * @param {any} valueArr
+         * @returns
+         */
+        this.findWithArray = function (arr, key, valueArr) {
+            var ret = [];
+            for (var i = 0; i < arr.length; i++) {
+                for (var j in valueArr) {
+                    if (arr[i][key] === valueArr[j]) {
+                        ret.push(arr[i]);
+                        valueArr.splice(j, 1);
+                    }
+                }
+                if (valueArr.length === 0) {
+                    return ret;
+                }
+            }
+            return ret;
+        };
+        /**
+         * 从数组中查找对象值，返回对象
+         * ps：数组元素为json
+         * @param {any} arr
+         * @param {any} key
+         * @param {any} value
+         * @returns
+         */
+        this.findWithVal = function (arr, key, value) {
+            try {
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i][key] === value) {
+                        return arr[i];
+                    }
+                }
+                return '';
+            } catch (e) {
+                return '';
+            }
+        };
+        /**
+         * 移除对象中值为空的项
+         *
+         * @param {obj} obj
+         * @returns
+         */
+        this.removeEmptyField = function (json) {
+            var newJson = {};
+            angular.forEach(json, function (item, i) {
+                if (item) {
+                    newJson[i] = item;
+                }
+            });
+            return newJson;
+        };
+        /**
+         * 移除数组中对象某属性值为空的项
+         *
+         * @param {array} array
+         * @returns
+         */
+        this.removeEmptyItem = function (array) {
+            var newArray = [];
+            for (var i = 0; i < array.length; i++) {
+                var newObj = {};
+                for (var j in array[i]) {
+                    if (array[i][j]) {
+                        newObj[j] = array[i][j];
+                    }
+                }
+                newArray.push(newObj);
+            }
+            return newArray;
+        };
+        /**
+         * 根据数组中对象的某个属性进行排序
+         * @param {Array} arr 数组
+         * @param {String} field 字段名
+         * @param {Boolean} order 排序方式 默认正序 true 倒序 false
+         * @param {String} type 排序类型 默认为0 数值类型 0 字符类型 1
+         */
+        this.sortByfield = function (arr, field, order, type) {
+            if (arr.length && field) {
+                if (typeof (order) == 'undefined') {
+                    order = true;
+                } else {
+                    order = !!order;
+                }
+                if (typeof (type) == 'undefined') {
+                    type = isNaN(parseInt(arr[0][field],0)) ? 1 : 0;
+                } else {
+                    type = type == 1 ? 1 : 0;
+                }
+                if (type == 0) {
+                    var compare = function () {
+                        return function (a, b) {
+                            if (order) {
+                                return a[field] - b[field];
+                            } else {
+                                return b[field] - a[field];
+                            }
+                        }
+                    }
+                    arr.sort(compare(field, order));
+                } else {
+                    var compareStr = function () {
+                        var e = order ? 1 : -1;
+                        return function (a, b) {
+                            if (a[field] < b[field]) {
+                                return -1 * e;
+                            } else if (a[field] > b[field]) {
+                                return 1 * e;
+                            } else {
+                                return 0;
+                            }
+                        }
+                    }
+                    arr.sort(compareStr(field, order));
+                }
+                return arr;
+            } else {
+                return [];
+            }
+        };
+        /**
+         * 判断是几维数组(返回数组中最大的维度)
+         */
+        this.arrDimension = function (arr, dimension) {
+            if (!dimension) dimension = 0;
+            if (arr instanceof Array) {
+                dimension++;
+                var maxDimension = 0,
+                    tempDimension = dimension,
+                    temp = 0;
+                for (var i = 0; i < arr.length; i++) {
+                    temp = this.arrDimension(arr[i], tempDimension);
+                    if (temp > maxDimension) {
+                        maxDimension = temp;
+                    }
+                }
+                return maxDimension;
+            } else {
+                return dimension;
+            }
+        };
+        /**
+         * 获取字节长度（英文数字占1个字符，中文汉字占2个字符）
+         * @param {string} str 
+         */
+        this.getByteLen = function (str) {
+            var len = 0;
+            try {
+                for (var i = 0; i < str.length; i++) {
+                    var c = str.charCodeAt(i);
+                    //单字节加1
+                    if ((c >= 0x0001 && c <= 0x007e) || (c >= 0xff60 && c <= 0xff9f)) {
+                        len++;
+                    } else {
+                        len += 2;
+                    }
+                }
+            } catch (e) {}
+            return len;
+        };
+        /**
+         * 按长度切割数组/字符串
+         * @param {array/string} param 
+         * @param {int} len 中文字符长度，通过字节长度来切割的，则字节长度为len的两倍
+         * @param {bool} isByteLen 是否是字节长度 (目前仅字符串支持通过字节长度切割)
+         */
+        this.sliceByLen = function (param, len, isByteLen) {
+            try {
+                var newArr = [],
+                    i;
+                if (isByteLen && xueUtilLang.isType(param || '', 'string')) {
+                    var byteLen = len * 2,
+                        tempStr = '',
+                        tempCount = 0;
+                    for (i = 0; i < param.length; i++) {
+                        tempCount += this.getByteLen(param.charAt(i));
+                        tempStr += param.charAt(i);
+                        if (tempCount >= byteLen) {
+                            newArr.push(tempStr);
+                            tempStr = '';
+                            tempCount = 0;
+                        }
+                    }
+                    if (tempCount) {
+                        newArr.push(tempStr);
+                    }
+                } else {
+                    var sliceTime = Math.ceil(param.length / len);
+                    for (i = 0; i < sliceTime; i++) {
+                        newArr.push(param.slice(i * len, i * len + len));
+                    }
+                }
+                return newArr;
+            } catch (e) {
+                return param || [];
+            }
+        };
     }]);
 angular.module('xue.util.date', [])
     .service('xueUtilDate', [function () {
@@ -780,7 +1089,7 @@ angular.module('xue.util.string', [])
 angular.module('xue.util',[
     'xue.util.array','xue.util.collection','xue.util.date','xue.util.lang',
     'xue.util.math','xue.util.methods','xue.util.number','xue.util.object',
-    'xue.util.properties','xue.util.seq','xue.util.string','xue.uitl.function']);
+    'xue.util.properties','xue.util.seq','xue.util.string','xue.util.function']);
 angular.module("xue/template/pagination/pager.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/pagination/pager.html",
     "<ul class=\"pager\">\n" +
