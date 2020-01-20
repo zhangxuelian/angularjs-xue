@@ -14,9 +14,9 @@ describe('number util', function () {
         expect(xueUtilNumber.inRange(-3, -2, -6)).toBeTruthy();
     });
     it('检查产生一个包括 lower 与 upper 之间的数', function () {
-        expect(xueUtilNumber.inRange(xueUtilNumber.random(0, 5), 0, 5)).toBeTruthy();
-        expect(xueUtilNumber.inRange(xueUtilNumber.random(5), 0, 5)).toBeTruthy();
+        expect(xueUtilNumber.inRange(xueUtilNumber.random(0, 5), -1, 6)).toBeTruthy();
+        expect(xueUtilNumber.inRange(xueUtilNumber.random(5), -1, 6)).toBeTruthy();
         expect(xueUtilNumber.inRange(xueUtilNumber.random(5, true), 0, 5)).toBeTruthy();
-        expect(xueUtilNumber.inRange(xueUtilNumber.random(1.2, 5.2), 0, 6)).toBeTruthy();
+        expect(xueUtilNumber.inRange(xueUtilNumber.random(1.2, 5.2), 1, 6)).toBeTruthy();
     });
 });
