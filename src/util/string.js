@@ -51,7 +51,8 @@ angular.module('xue.util.string', [])
          * 检查字符串string是否包含target
          * 
          * @param {any} String
-         * string,target, position
+         * @param {any} target //目标字符串
+         * @param {any} position //检查的位置
          * @returns
          */
         this.endsWith = function (string, target, position) {
@@ -95,6 +96,9 @@ angular.module('xue.util.string', [])
         /**
          * 字符串头部/尾部补充
          * @param {any} String
+         * @param {any} length //填充的长度
+         * @param {any} type   // 填充类型
+         * @param {any} chars  // 填充的字符串
          * padStart('ab',4,'x');->xxab
          * @returns
          */
@@ -186,6 +190,7 @@ angular.module('xue.util.string', [])
         /**
         * 重复 N 次给定字符串
         * @param {string} string 
+        * @param {string} len
         */
         this.repeat = function (string, len) {
             var newString = '';
@@ -198,6 +203,8 @@ angular.module('xue.util.string', [])
         /**
         * 根据cahr 拆分字符串string
         * @param {string} string 
+        * @param {string} char
+        * @param {string} len
         */
         this.split = function (string, char, len) {
             string = string.toString();
@@ -216,6 +223,7 @@ angular.module('xue.util.string', [])
         /**
         * string字符串中移除前面和后面的 空格 或 指定的字符
         * @param {string} string 
+        * @param {string} chars
         */
         this.replace = function (string, chars) {
             string = string.toString();
@@ -226,6 +234,7 @@ angular.module('xue.util.string', [])
         /**
         * string字符串中移除后面的空格或指定的字符
         * @param {string} string 
+        * @param {string} chars
         */
         this.replaceEnd = function (string, chars) {
             if (!string) {
@@ -246,6 +255,7 @@ angular.module('xue.util.string', [])
         /**
         * string字符串中移除前面的空格或指定的字符
         * @param {string} string 
+        * @param {string} chars
         */
         this.replaceStrat = function (string, chars) {
             if (!string) {
