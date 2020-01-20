@@ -130,6 +130,28 @@ module.exports = function (grunt) {
                     dest: 'dist/'
                 }]
             }
+        },
+        'ddescribe-iit': {
+            files: [
+                'src/**/test/*.spec.js'
+            ]
+        },
+        shell: {
+            //We use %version% and evaluate it at run-time, because <%= pkg.version %>
+            //is only evaluated once
+            'release-prepare': [
+                'grunt before-test after-test',
+                'grunt version', //remove "-SNAPSHOT"
+                'grunt conventionalChangelog'
+            ],
+            'release-complete': [
+                'git commit CHANGELOG.md package.json -m "chore(release): v%version%"',
+                'git tag %version%'
+            ],
+            'release-start': [
+                'grunt version:minor:"SNAPSHOT"',
+                'git commit package.json -m "chore(release): Starting v%version%"'
+            ]
         }
     });
 
@@ -247,7 +269,7 @@ module.exports = function (grunt) {
         }
     };
 
-    grunt.registerTask('default', ['enforce', 'cssmin', 'eslint', 'html2js', 'sass', 'karma', 'build', 'copy']);
+    grunt.registerTask('default', ['enforce', /* 'ddescribe-iit', */ 'cssmin', 'eslint', 'html2js', 'sass', 'karma', 'build', 'copy']);
     grunt.registerTask('enforce', `Install commit message enforce script if it doesn't exist`, function () {
         if (!grunt.file.exists('.git/hooks/commit-msg')) {
             grunt.file.copy('misc/validate-commit-msg.js', '.git/hooks/commit-msg');
@@ -297,6 +319,18 @@ module.exports = function (grunt) {
 
         grunt.task.run(['concat', 'uglify']);
 
+    });
+    grunt.registerMultiTask('shell', 'run shell commands', function () {
+        var self = this;
+        var sh = require('shelljs');
+        self.data.forEach(function (cmd) {
+            cmd = cmd.replace('%version%', grunt.file.readJSON('package.json').version);
+            grunt.log.ok(cmd);
+            var result = sh.exec(cmd, { silent: true });
+            if (result.code !== 0) {
+                grunt.fatal(result.output);
+            }
+        });
     });
 
 }
