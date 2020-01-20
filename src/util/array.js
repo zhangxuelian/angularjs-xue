@@ -107,6 +107,6 @@ angular.module('xue.util.array', []).service('xueUtilArray', [
             }
             return -1;
         };
-        
+
     }
 ]);

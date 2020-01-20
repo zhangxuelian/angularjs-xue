@@ -94,7 +94,7 @@ angular.module('xue.util.collection', ['xue.util.lang'])
                     order = !!order;
                 }
                 if (typeof type === 'undefined') {
-                    type = isNaN(parseInt(arr[0][field],0)) ? 1 : 0;
+                    type = isNaN(parseInt(arr[0][field], 0)) ? 1 : 0;
                 } else {
                     type = type === 1 ? 1 : 0;
                 }
@@ -129,7 +129,7 @@ angular.module('xue.util.collection', ['xue.util.lang'])
                     arr.sort(compareStr(field, order));
                 }
                 res = arr;
-            } 
+            }
             return res;
         };
         /**
