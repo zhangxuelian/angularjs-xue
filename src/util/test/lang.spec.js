@@ -31,8 +31,6 @@ describe("lang util", function() {
     });
     it("匹配对象", function() {
         expect(xueUtilLang.isMatch(obj, {x: [1]})).toBe(true);
+        expect(xueUtilLang.isMatch(obj, {x: [1, 3]})).toBe(false);
     });
-    it("检查是否是IE8", function() {
-      expect(xueUtilLang.isIE8()).toBe(false);
-  });
 });

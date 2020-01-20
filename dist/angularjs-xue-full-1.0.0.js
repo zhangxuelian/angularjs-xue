@@ -285,11 +285,13 @@ angular.module('xue.util.array', []).service('xueUtilArray', [
          * @param {any} array
          * @returns
          */
+        /*eslint complexity: ["error", 7]*/
         this.quickSort = function (array) {
             function sort(prev, numsize) {
                 var nonius = prev;
                 var j = numsize - 1;
                 var flag = array[prev];
+                // eslint-disable-next-line no-extra-parens
                 if ((numsize - prev) > 1) {
                     while (nonius < j) {
                         for (; nonius < j; j--) {
@@ -325,7 +327,7 @@ angular.module('xue.util.array', []).service('xueUtilArray', [
         this.findObjIndex = function (arr, key, value) {
             try {
                 for (var i = 0; i < arr.length; i++) {
-                    if (arr[i][key] == value) {
+                    if (arr[i][key] === value) {
                         return i;
                     }
                 }
@@ -343,7 +345,7 @@ angular.module('xue.util.array', []).service('xueUtilArray', [
          */
         this.findStrIndex = function (arr, value) {
             for (var i = 0; i < arr.length; i++) {
-                if (arr[i] == value) {
+                if (arr[i] === value) {
                     return i;
                 }
             }
@@ -438,54 +440,62 @@ angular.module('xue.util.collection', ['xue.util.lang'])
          * @param {Boolean} order 排序方式 默认正序 true 倒序 false
          * @param {String} type 排序类型 默认为0 数值类型 0 字符类型 1
          */
+        /*eslint complexity: ["error", 8]*/
         this.sortByfield = function (arr, field, order, type) {
+            var res = [];
             if (arr.length && field) {
-                if (typeof (order) == 'undefined') {
+                if (typeof order === 'undefined') {
                     order = true;
                 } else {
                     order = !!order;
                 }
-                if (typeof (type) == 'undefined') {
+                if (typeof type === 'undefined') {
                     type = isNaN(parseInt(arr[0][field],0)) ? 1 : 0;
                 } else {
-                    type = type == 1 ? 1 : 0;
+                    type = type === 1 ? 1 : 0;
                 }
-                if (type == 0) {
+                if (type === 0) {
                     var compare = function () {
                         return function (a, b) {
+                            var res;
                             if (order) {
-                                return a[field] - b[field];
+                                res = a[field] - b[field];
                             } else {
-                                return b[field] - a[field];
+                                res = b[field] - a[field];
                             }
-                        }
-                    }
+                            return res;
+                        };
+                    };
                     arr.sort(compare(field, order));
                 } else {
                     var compareStr = function () {
                         var e = order ? 1 : -1;
                         return function (a, b) {
+                            var res;
                             if (a[field] < b[field]) {
-                                return -1 * e;
+                                res = -1 * e;
                             } else if (a[field] > b[field]) {
-                                return 1 * e;
+                                res = 1 * e;
                             } else {
-                                return 0;
+                                res = 0;
                             }
-                        }
-                    }
+                            return res;
+                        };
+                    };
                     arr.sort(compareStr(field, order));
                 }
-                return arr;
-            } else {
-                return [];
-            }
+                res = arr;
+            } 
+            return res;
         };
         /**
          * 判断是几维数组(返回数组中最大的维度)
          */
         this.arrDimension = function (arr, dimension) {
-            if (!dimension) dimension = 0;
+            if (!dimension) {
+                dimension = 0;
+            }
+            var res;
             if (arr instanceof Array) {
                 dimension++;
                 var maxDimension = 0,
@@ -497,10 +507,11 @@ angular.module('xue.util.collection', ['xue.util.lang'])
                         maxDimension = temp;
                     }
                 }
-                return maxDimension;
+                res = maxDimension;
             } else {
-                return dimension;
+                res = dimension;
             }
+            return res;
         };
         /**
          * 获取字节长度（英文数字占1个字符，中文汉字占2个字符）
@@ -508,17 +519,15 @@ angular.module('xue.util.collection', ['xue.util.lang'])
          */
         this.getByteLen = function (str) {
             var len = 0;
-            try {
-                for (var i = 0; i < str.length; i++) {
-                    var c = str.charCodeAt(i);
-                    //单字节加1
-                    if ((c >= 0x0001 && c <= 0x007e) || (c >= 0xff60 && c <= 0xff9f)) {
-                        len++;
-                    } else {
-                        len += 2;
-                    }
+            for (var i = 0; i < str.length; i++) {
+                var c = str.charCodeAt(i);
+                //单字节加1
+                if (c >= 0x0001 && c <= 0x007e || c >= 0xff60 && c <= 0xff9f) {
+                    len++;
+                } else {
+                    len += 2;
                 }
-            } catch (e) {}
+            }
             return len;
         };
         /**
@@ -527,6 +536,7 @@ angular.module('xue.util.collection', ['xue.util.lang'])
          * @param {int} len 中文字符长度，通过字节长度来切割的，则字节长度为len的两倍
          * @param {bool} isByteLen 是否是字节长度 (目前仅字符串支持通过字节长度切割)
          */
+        /*eslint complexity: ["error", 10]*/
         this.sliceByLen = function (param, len, isByteLen) {
             try {
                 var newArr = [],
@@ -902,9 +912,95 @@ angular.module('xue.util.number', [])
             }
             return number >= Math.min(start, end) && number < Math.max(start, end);
         };
+        /**
+         * 产生一个包括 lower 与 upper 之间的数。
+         * 如果只提供一个参数返回一个0到提供数之间的数。 
+         * 如果 floating 设为 true，或者 lower 或 upper 是浮点数，结果返回浮点数。
+         *
+         * @param {number}  lower     要检查的值
+         * @param {number}  upper     开始范围
+         * @param {boolean} floating  结束范围
+         * @returns
+         */
+        /*eslint complexity: ["error", { "max": 12 }]*/
+        this.random = function (lower, upper, floating) {
+            var INFINITY = 1 / 0,
+                MAX_INTEGER = Number.MAX_VALUE || 1.7976931348623157e308,
+                symbolTag = "[object Symbol]",
+                NAN = 0 / 0;
+
+            if (floating === undefined) {
+                if (typeof upper === "boolean") {
+                    floating = upper;
+                    upper = undefined;
+                } else if (typeof lower === "boolean") {
+                    floating = lower;
+                    lower = undefined;
+                }
+            }
+            if (lower === undefined && upper === undefined) {
+                lower = 0;
+                upper = 1;
+            } else {
+                lower = toFinite(lower);
+                if (upper === undefined) {
+                    upper = lower;
+                    lower = 0;
+                } else {
+                    upper = toFinite(upper);
+                }
+            }
+            if (lower > upper) {
+                var temp = lower;
+                lower = upper;
+                upper = temp;
+            }
+            if (floating || lower % 1 || upper % 1) {
+                return Math.min(
+                    lower +
+                    Math.random() *
+                    (upper -
+                        lower +
+                        Number.parseFloat("1e-" + ((Math.random() + "").length - 1))),
+                    upper
+                );
+            }
+            return lower + Math.floor(Math.random() * (upper - lower + 1));
+
+            function toFinite(value) {
+                if (!value) {
+                    return value === 0 ? value : 0;
+                }
+                value = toNumber(value);
+                if (value === INFINITY || value === -INFINITY) {
+                    var sign = value < 0 ? -1 : 1;
+                    return sign * MAX_INTEGER;
+                }
+                return isNaN(value) ? 0 : value;
+            }
+
+            function toNumber(value) {
+                if (typeof value === "number") {
+                    return value;
+                }
+                if (isSymbol(value)) {
+                    return NAN;
+                }
+                return Number(value);
+            }
+
+            function isSymbol(value) {
+                return typeof value === "symbol" || isObjectLike(value) && Object.prototype.toString.call(value) === symbolTag;
+            }
+
+            function isObjectLike(value) {
+                return typeof value === "object" && value !== null;
+            }
+        };
     }]);
 angular.module('xue.util.object', [])
     .service('xueUtilObject', [function () {
+        var self = this;
         /**
          * json中把空对象移除
          *
@@ -939,6 +1035,81 @@ angular.module('xue.util.object', [])
             }
             return newArray;
         };
+        /**
+         * 判断两个对象值是否相等(仅用于参数是对象的情况)
+         *
+         * @param {object} objA   
+         * @param {object} objB
+         * @returns 成功true，失败false
+         */
+        /*eslint complexity: ["error", { "max": 8 }]*/
+        this.isObjectValueEqual = function (objA, objB) {
+            if (typeof objA !== "object" || typeof objB !== "object") {
+                return false;
+            }
+            var aProps = Object.getOwnPropertyNames(objA);
+            var bProps = Object.getOwnPropertyNames(objB);
+            if (aProps.length !== bProps.length) {
+                return false;
+            }
+            for (var i = 0, len = aProps.length; i < len; i++) {
+                var propName = aProps[i];
+                var propA = objA[propName];
+                var propB = objB[propName];
+                if (typeof propA === 'object') {
+                    if (self.isObjectValueEqual(propA, propB)) {
+                        return true;
+                    }
+                    return false;
+                } else if (propA !== propB) {
+                    return false;
+                }
+            }
+            return true;
+        };
+        /**
+         * 根据value找到对象的key路径值
+         *
+         * @param {object} obj   
+         * @param {any}    value
+         * @returns 成功返回的是路径数组，失败则是undefined
+         */
+        this.searchKeys = function (obj, value) {
+            for (var key in obj) {
+                if (obj[key]) {
+                    if (obj[key] === value || self.isObjectValueEqual(obj[key], value)) {
+                        return key.split(",");
+                    }
+                    if (typeof obj[key] === 'object') {
+                        var temp = self.searchKeys(obj[key], value);
+                        if (temp) {
+                            return (key + "," + temp).split(",");
+                        }
+                    }
+                }
+            }
+        };
+        /**
+         * 根据key路径找到对象的value值
+         *
+         * @param {object} obj  
+         * @param {array}  pathArr 
+         * @param {number} index   一般不用传（默认为0）
+         * @returns 成功返回的是value，失败则是undefined
+         */
+        this.findValByPath = function (obj, pathArr, index) {
+            if (typeof obj !== "object" || Object.prototype.toString.call(pathArr) !== '[object Array]') {
+                throw new Error("参数有误");
+            }
+            if (!pathArr.length) {
+                return obj;
+            }
+            index = index || 0;
+            if (index >= pathArr.length - 1) {
+                return obj[pathArr[index]];
+            }
+            return self.findValByPath(obj[pathArr[index]], pathArr, ++index);
+        };
     }]);
 angular.module('xue.util.properties', [])
     .service('xueUtilProperty', [function () {
@@ -950,17 +1121,23 @@ angular.module('xue.util.seq', [])
     }]);
 angular.module('xue.util.string', [])
     .service('xueUtilString', [function () {
-        var self = this;
+        //var self = this;
+        var reg = /^[A-Za-z]+$/;
         // 判断字符串是否为英文
         function checkEng(num) {
-            var reg = /^[A-Za-z]+$/;
-            return reg.test(num)
+            return reg.test(num);
         }
-        //*寻找首字母的位置
-        function latterIndex(string) {
+        function replaceEndIndex(string) {
+            for (var i = string.length - 1; i >= 0; i--) {
+                if (/[A-Za-z0-9]+/.test(string[i])) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+        function replaceStratIndex(string) {
             for (var i = 0; i < string.length; i++) {
-                var asc = string[i].charCodeAt(0);
-                if ((asc >= 65 && asc <= 90 || asc >= 97 && asc <= 122)) {
+                if (/[A-Za-z0-9]+/.test(string[i])) {
                     return i;
                 }
             }
@@ -986,23 +1163,28 @@ angular.module('xue.util.string', [])
          */
         this.capitalize = function (string) {
             var str = string ? string.toString().toLowerCase() : '';
-            if (str.length < 2) return str.charAt(0).toUpperCase();
-            return str.charAt(0).toUpperCase() + str.slice(1);
+            if (str.length < 2) {
+                return str.charAt(0).toUpperCase();
+            }
+            return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
         };
         /**
          * 检查字符串string是否包含target
          * 
          * @param {any} String
-         * string,target, position
+         * @param {any} target //目标字符串
+         * @param {any} position //检查的位置
          * @returns
          */
         this.endsWith = function (string, target, position) {
-            if (!string || !target) return false;
+            if (!string || !target) {
+                return false;
+            }
             var str = string.toString();
             var tar = target.toString();
-            var pos = position ? parseInt(position,0) : 0;
+            var pos = position ? parseInt(position, 0) : 0;
             var index = str.indexOf(tar);
-            if (index != -1 && (typeof position == 'undefined' || index == pos)) {
+            if (index !== -1 && (typeof position === 'undefined' || index === pos)) {
                 return true;
             }
             return false;
@@ -1015,16 +1197,14 @@ angular.module('xue.util.string', [])
          * 返回一个数组
          */
         this.lowerCase = function (string) {
-            if (!string) return '';
             string = string.toString().replace(/[^A-Za-z]/g, ' ');
             var temp = string.split(' ');
             var arr = [];
             for (var i = 0; i < temp.length; i++) {
                 if (temp[i]) {
-                    console.log(temp[i]);
                     if (/[A-Z]+/.test(temp[i].slice(1)) && /[a-z]+/.test(temp[i].slice(1))) {
                         arr = arr.concat(lowerCaseHandle(temp[i]));
-                    } else if (temp[i].length == 2 && /[A-Z]+/.test(temp[i].slice(1))) {
+                    } else if (temp[i].length === 2 && /[A-Z]+/.test(temp[i].slice(1))) {
                         arr.push(temp[i][0]);
                         arr.push(temp[i][1]);
                     } else {
@@ -1037,15 +1217,24 @@ angular.module('xue.util.string', [])
         /**
          * 字符串头部/尾部补充
          * @param {any} String
+         * @param {any} length //填充的长度
+         * @param {any} type   // 填充类型
+         * @param {any} chars  // 填充的字符串
          * padStart('ab',4,'x');->xxab
          * @returns
          */
-        this.padStart = function (string, length, chars, type) {
+        this.padChars = function (string, length, type, chars) {
             string = string.toString();
-            length = parseInt(length,0);
+            length = parseInt(length, 0);
             chars = chars ? chars : ' ';
-            if (type == 'start') return string.padStart(length, chars);
-            else if (type == 'end') return string.padEnd(length, chars);
+            var newString = '';
+            if (type === 'start') {
+                newString = string.padStart(length, chars);
+            }
+            else {
+                newString = string.padEnd(length, chars);
+            }
+            return newString;
         };
         /**
          * 格式化文字
@@ -1055,16 +1244,16 @@ angular.module('xue.util.string', [])
          */
         this.formatterText = function (text, len) {
             var newText = text.trim();
+            var string = '';
             if (newText.length) {
                 var length = len || 10;
                 if (newText.length > length) {
-                    return newText.substring(0, length) + '...';
+                    string = newText.substring(0, length) + '...';
                 } else {
-                    return newText;
+                    string = newText;
                 }
-            } else {
-                return '';
             }
+            return string;
         };
         /**
          * 格式化长文字（中间省略）
@@ -1074,16 +1263,136 @@ angular.module('xue.util.string', [])
          */
         this.formatLongText = function (text, len) {
             var newText = text.trim();
+            var string = '';
             if (newText.length) {
-                var length = len || (parseInt(len,0) > 0 ? parseInt(len,0) : 5);
+                var length = len || (parseInt(len, 0) > 0 ? parseInt(len, 0) : 5);
                 if (newText.length > length * 2) {
-                    return newText.substring(0, length) + '...' + newText.substring(newText.length - length, newText.length);
+                    string = newText.substring(0, length) + '...' + newText.substring(newText.length - length, newText.length);
                 } else {
-                    return newText;
+                    string = newText;
                 }
-            } else {
+            }
+            return string;
+        };
+        /**
+         * 获取字节长度（英文数字占1个字符，中文汉字占2个字符）
+         * @param {string} str 
+         */
+        this.getByteLen = function (str) {
+            var len = 0;
+            try {
+                for (var i = 0; i < str.length; i++) {
+                    var c = str.charCodeAt(i);
+                    //单字节加1
+                    if (c >= 0x0001 && c <= 0x007e || c >= 0xff60 && c <= 0xff9f) {
+                        len++;
+                    } else {
+                        len += 2;
+                    }
+                }
+            } catch (e) {
+                len = 0;
+            }
+            return len;
+        };
+        /**
+        * 过滤字符串中html标签（防止ssl攻击）
+        * @param {string} str 
+        */
+        this.filterHtml = function (str) {
+            var string = '';
+            try {
+                string = str.replace(/&nbsp;/ig, '').replace(/<[^<>]+>/g, '');
+            } catch (e) {
+                string = '';
+            }
+            return string;
+        };
+        /**
+        * 重复 N 次给定字符串
+        * @param {string} string 
+        * @param {string} len
+        */
+        this.repeat = function (string, len) {
+            var newString = '';
+            len = len ? len : 0;
+            for (var i = 0; i < len; i++) {
+                newString += string;
+            }
+            return newString;
+        };
+        /**
+        * 根据cahr 拆分字符串string
+        * @param {string} string 
+        * @param {string} char
+        * @param {string} len
+        */
+        this.split = function (string, char, len) {
+            string = string.toString();
+            if (!char) {
+                return string;
+            }
+            var temp = string.split(char);
+            if (!len) {
+                return temp;
+            }
+            if (len < temp.length) {
+                temp = temp.splice(0, len);
+            }
+            return temp;
+        };
+        /**
+        * string字符串中移除前面和后面的 空格 或 指定的字符
+        * @param {string} string 
+        * @param {string} chars
+        */
+        this.replace = function (string, chars) {
+            string = string.toString();
+            chars = chars ? '[' + chars + ']' : '';
+            string = string.replace(new RegExp(chars, 'g'), '');
+            return string.trim();
+        };
+        /**
+        * string字符串中移除后面的空格或指定的字符
+        * @param {string} string 
+        * @param {string} chars
+        */
+        this.replaceEnd = function (string, chars) {
+            if (!string) {
                 return '';
             }
+            chars = chars ? '[' + chars + ']' : '';
+            var index = replaceEndIndex(string);
+            var newString = '';
+            if (index !== -1) {
+                var start = string.slice(0, index);
+                var end = string.slice(index, string.length).replace(new RegExp(chars, 'g'), '').trim();
+                newString = start + end;
+            } else {
+                newString = string.replace(new RegExp(chars, 'g'), '').trim();
+            }
+            return newString;
+        };
+        /**
+        * string字符串中移除前面的空格或指定的字符
+        * @param {string} string 
+        * @param {string} chars
+        */
+        this.replaceStrat = function (string, chars) {
+            if (!string) {
+                return '';
+            }
+            chars = chars ? '[' + chars + ']' : '';
+            var index = replaceStratIndex(string);
+            var newString = '';
+            if (index !== -1) {
+                var start = string.slice(0, index).replace(new RegExp(chars, 'g'), '').trim();
+                var end = string.slice(index, string.length);
+                newString = start + end;
+            } else {
+                newString = string.replace(new RegExp(chars, 'g'), '').trim();
+            }
+            return newString;
         };
     }]);
 angular.module('xue.util',[
