@@ -41,11 +41,13 @@ angular.module('xue.util.array', []).service('xueUtilArray', [
          * @param {any} array
          * @returns
          */
+        /*eslint complexity: ["error", 7]*/
         this.quickSort = function (array) {
             function sort(prev, numsize) {
                 var nonius = prev;
                 var j = numsize - 1;
                 var flag = array[prev];
+                // eslint-disable-next-line no-extra-parens
                 if ((numsize - prev) > 1) {
                     while (nonius < j) {
                         for (; nonius < j; j--) {
@@ -81,7 +83,7 @@ angular.module('xue.util.array', []).service('xueUtilArray', [
         this.findObjIndex = function (arr, key, value) {
             try {
                 for (var i = 0; i < arr.length; i++) {
-                    if (arr[i][key] == value) {
+                    if (arr[i][key] === value) {
                         return i;
                     }
                 }
@@ -99,7 +101,7 @@ angular.module('xue.util.array', []).service('xueUtilArray', [
          */
         this.findStrIndex = function (arr, value) {
             for (var i = 0; i < arr.length; i++) {
-                if (arr[i] == value) {
+                if (arr[i] === value) {
                     return i;
                 }
             }
