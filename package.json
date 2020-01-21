@@ -9,7 +9,8 @@
   ],
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt",
+    "demo": "grunt build copy && static dist -a 0.0.0.0 -p 8081 -H '{\"Cache-Control\": \"no-cache, must-revalidate\"}'"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "grunt-contrib-cssmin": "^3.0.0",
     "grunt-contrib-uglify": "^4.0.1",
     "grunt-contrib-watch": "^1.1.0",
+    "grunt-conventional-changelog": "^6.1.0",
     "grunt-ddescribe-iit": "0.0.7",
     "grunt-eslint": "^22.0.0",
     "grunt-html2js": "^0.7.1",
@@ -45,6 +47,7 @@
     "lodash": "^4.17.15",
     "marked": "^0.8.0",
     "node-sass": "^4.13.0",
+    "node-static": "^0.7.11",
     "shelljs": "^0.8.3"
   },
   "config": {

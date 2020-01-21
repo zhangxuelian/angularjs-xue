@@ -136,11 +136,22 @@ module.exports = function (grunt) {
                 'src/**/test/*.spec.js'
             ]
         },
+        conventionalChangelog: {
+            options: {
+                changelogOpts: {
+                    preset: 'angular'
+                },
+                templateFile: 'misc/changelog.tpl.md'
+            },
+            release: {
+                src: 'CHANGELOG.md'
+            }
+        },
         shell: {
             //We use %version% and evaluate it at run-time, because <%= pkg.version %>
             //is only evaluated once
             'release-prepare': [
-                'grunt before-test after-test',
+                'grunt enforce eslint sass html2js build cssmin copy',
                 'grunt version', //remove "-SNAPSHOT"
                 'grunt conventionalChangelog'
             ],
@@ -241,12 +252,12 @@ module.exports = function (grunt) {
                 tpljsFiles: grunt.file.expand(`template/${name}/*.html.js`),
                 tplModules: grunt.file.expand(`template/${name}/*.html`).map(util.enquoteUibDir),
                 dependencies: util.dependenciesForModule(name),
-                doc: {
-                    md: grunt.file.expand(`src/${name}/doc/*.md`)
+                docs: {
+                    md: grunt.file.expand(`src/${name}/docs/*.md`)
                         .map(grunt.file.read).map((str) => marked(str)).join('\n'),
-                    js: grunt.file.expand(`src/${name}/doc/*.js`)
+                    js: grunt.file.expand(`src/${name}/docs/*.js`)
                         .map(grunt.file.read).join('\n'),
-                    html: grunt.file.expand(`src/${name}/doc/*.html`)
+                    html: grunt.file.expand(`src/${name}/docs/*.html`)
                         .map(grunt.file.read).join('\n')
                 }
             };
@@ -266,10 +277,39 @@ module.exports = function (grunt) {
             return array.map(function (obj) {
                 return obj[key];
             });
+        },
+        mergeToObject: function (arr1, arr2) {
+            var map = new Object();
+            arr1.forEach(function (value, index) {
+                if (arr2[index]) {
+                    map[value] = arr2[index];
+                }
+            });
+            return map;
+        },
+        setVersion: function (type, suffix) {
+            var file = 'package.json';
+            var VERSION_REGEX = /([\'|\"]version[\'|\"][ ]*:[ ]*[\'|\"])([\d|.]*)(-\w+)*([\'|\"])/;
+            var contents = grunt.file.read(file);
+            var version;
+            contents = contents.replace(VERSION_REGEX, function (match, left, center) {
+                version = center;
+                if (type) {
+                    version = require('semver').inc(version, type);
+                }
+                //semver.inc strips our suffix if it existed
+                if (suffix) {
+                    version += '-' + suffix;
+                }
+                return left + version + '"';
+            });
+            grunt.log.ok('Version set to ' + version.cyan);
+            grunt.file.write(file, contents);
+            return version;
         }
     };
 
-    grunt.registerTask('default', ['enforce', /* 'ddescribe-iit', */ 'cssmin', 'eslint', 'html2js', 'sass', 'karma', 'build', 'copy']);
+    grunt.registerTask('default', ['enforce', /* 'ddescribe-iit', */  'eslint', 'sass', 'html2js', 'karma', 'build', 'cssmin', 'copy']);
     grunt.registerTask('enforce', `Install commit message enforce script if it doesn't exist`, function () {
         if (!grunt.file.exists('.git/hooks/commit-msg')) {
             grunt.file.copy('misc/validate-commit-msg.js', '.git/hooks/commit-msg');
@@ -286,7 +326,7 @@ module.exports = function (grunt) {
         grunt.config('srcModules', util.pluck(modules, 'moduleName'));
         grunt.config('tplModules', util.pluck(modules, 'tplModules').filter((tpls) => tpls.length > 0));
         grunt.config('demoModules', modules
-            .filter((module) => module.doc.md && module.doc.js && module.doc.html)
+            .filter((module) => module.docs.md && module.docs.js && module.docs.html)
             .sort((a, b) => {
                 if (a.name < b.name) { return -1; }
                 if (a.name > b.name) { return 1; }
@@ -305,7 +345,7 @@ module.exports = function (grunt) {
         }
 
         var moduleFileMapping = _.clone(modules, true);
-        moduleFileMapping.forEach((module) => delete module.doc);
+        moduleFileMapping.forEach((module) => delete module.docs);
 
         grunt.config('moduleFileMapping', moduleFileMapping);
 
@@ -317,8 +357,57 @@ module.exports = function (grunt) {
         grunt.config('concat.dist_tpls.src', grunt.config('concat.dist_tpls.src')
             .concat(srcFiles).concat(tpljsFiles));
 
-        grunt.task.run(['concat', 'uglify']);
+        grunt.task.run(['concat', 'uglify', 'makeModuleMappingFile', 'makeRawFilesJs', 'makeVersionsMappingFile']);
 
+    });
+    grunt.registerTask('makeModuleMappingFile', function () {
+        var moduleMappingJs = 'dist/assets/module-mapping.json';
+        var moduleMappings = grunt.config('moduleFileMapping');
+        var moduleMappingsMap = util.mergeToObject(util.pluck(moduleMappings, 'name'), moduleMappings);
+        var jsContent = JSON.stringify(moduleMappingsMap);
+        grunt.file.write(moduleMappingJs, jsContent);
+        grunt.log.writeln('File ' + moduleMappingJs.cyan + ' created.');
+    });
+
+    grunt.registerTask('makeRawFilesJs', function () {
+        var jsFilename = 'dist/assets/raw-files.json';
+        var genRawFilesJs = require('./misc/raw-files-generator');
+
+        genRawFilesJs(grunt, jsFilename, _.flatten(grunt.config('concat.dist_tpls.src')),
+            grunt.config('meta.banner'), grunt.config('meta.cssFileBanner'));
+    });
+
+    grunt.registerTask('makeVersionsMappingFile', function () {
+        var done = this.async();
+
+        var exec = require('child_process').exec;
+
+        var versionsMappingFile = 'dist/versions-mapping.json';
+
+        exec('git tag --sort -version:refname', function (error, stdout, stderr) {
+            // Let's remove the oldest 14 versions.
+            var versions = stdout.split('\n').slice(0, -14);
+            var jsContent = versions.map(function (version) {
+                version = version.replace(/^v/, '');
+                return {
+                    version: version,
+                    url: `/bootstrap/versioned-docss/${version}`
+                };
+            });
+            jsContent = _.sortBy(jsContent, 'version').reverse();
+            jsContent.unshift({
+                version: 'Current',
+                url: '/bootstrap'
+            });
+            grunt.file.write(versionsMappingFile, JSON.stringify(jsContent));
+            grunt.log.writeln(`File ${versionsMappingFile.cyan} created.`);
+            done();
+        });
+
+    });
+
+    grunt.registerTask('version', 'Set version. If no arguments, it just takes off suffix', function () {
+        util.setVersion(this.args[0], this.args[1]);
     });
     grunt.registerMultiTask('shell', 'run shell commands', function () {
         var self = this;
