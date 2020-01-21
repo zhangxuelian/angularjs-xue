@@ -118,7 +118,7 @@ module.exports = function (grunt) {
                     expand: true,
                     src: ['**/*.html'],
                     cwd: 'misc/demo/',
-                    dest: 'dist/'
+                    dest: 'demo/'
                 }]
             },
             demoassets: {
@@ -127,7 +127,15 @@ module.exports = function (grunt) {
                     //Don't re-copy html files, we process those
                     src: ['**/**/*', '!**/*.html'],
                     cwd: 'misc/demo',
-                    dest: 'dist/'
+                    dest: 'demo/'
+                }]
+            },
+            demodist: {
+                files: [{
+                    expand: true,
+                    src: ['*.min.*'],
+                    cwd: 'dist',
+                    dest: 'demo/assets/'
                 }]
             }
         },
@@ -309,11 +317,19 @@ module.exports = function (grunt) {
         }
     };
 
-    grunt.registerTask('default', ['enforce', /* 'ddescribe-iit', */  'eslint', 'sass', 'html2js', 'karma', 'build', 'cssmin', 'copy']);
+    grunt.registerTask('default', ['enforce', 'delFiles', /* 'ddescribe-iit', */  'eslint', 'sass', 'html2js', 'karma', 'build', 'cssmin', 'copy']);
     grunt.registerTask('enforce', `Install commit message enforce script if it doesn't exist`, function () {
         if (!grunt.file.exists('.git/hooks/commit-msg')) {
             grunt.file.copy('misc/validate-commit-msg.js', '.git/hooks/commit-msg');
             require('fs').chmodSync('.git/hooks/commit-msg', '0755');
+        }
+    });
+    grunt.registerTask('delFiles', function () {
+        if (grunt.file.exists('dist')) {
+            grunt.file.delete('dist');
+        }
+        if (grunt.file.exists('demo')) {
+            grunt.file.delete('demo');
         }
     });
     grunt.registerTask('build', 'Create bootstrap build files', function () {
@@ -361,7 +377,7 @@ module.exports = function (grunt) {
 
     });
     grunt.registerTask('makeModuleMappingFile', function () {
-        var moduleMappingJs = 'dist/assets/module-mapping.json';
+        var moduleMappingJs = 'demo/assets/module-mapping.json';
         var moduleMappings = grunt.config('moduleFileMapping');
         var moduleMappingsMap = util.mergeToObject(util.pluck(moduleMappings, 'name'), moduleMappings);
         var jsContent = JSON.stringify(moduleMappingsMap);
@@ -370,7 +386,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('makeRawFilesJs', function () {
-        var jsFilename = 'dist/assets/raw-files.json';
+        var jsFilename = 'demo/assets/raw-files.json';
         var genRawFilesJs = require('./misc/raw-files-generator');
 
         genRawFilesJs(grunt, jsFilename, _.flatten(grunt.config('concat.dist_tpls.src')),
@@ -382,7 +398,7 @@ module.exports = function (grunt) {
 
         var exec = require('child_process').exec;
 
-        var versionsMappingFile = 'dist/versions-mapping.json';
+        var versionsMappingFile = 'demo/versions-mapping.json';
 
         exec('git tag --sort -version:refname', function (error, stdout, stderr) {
             // Let's remove the oldest 14 versions.
