@@ -30,9 +30,7 @@ angular.module('xue.util.number', [])
         /*eslint complexity: ["error", { "max": 12 }]*/
         this.random = function (lower, upper, floating) {
             var INFINITY = 1 / 0,
-                MAX_INTEGER = Number.MAX_VALUE || 1.7976931348623157e308,
-                symbolTag = "[object Symbol]",
-                NAN = 0 / 0;
+                MAX_INTEGER = Number.MAX_VALUE || 1.7976931348623157e308;
 
             if (floating === undefined) {
                 if (typeof upper === "boolean") {
@@ -84,22 +82,69 @@ angular.module('xue.util.number', [])
                 return isNaN(value) ? 0 : value;
             }
 
-            function toNumber(value) {
-                if (typeof value === "number") {
-                    return value;
-                }
-                if (isSymbol(value)) {
-                    return NAN;
-                }
-                return Number(value);
+            function isNaN(value) {
+                return isNumber(value) && value !== +value;
             }
 
-            function isSymbol(value) {
-                return typeof value === "symbol" || isObjectLike(value) && Object.prototype.toString.call(value) === symbolTag;
-            }
-
-            function isObjectLike(value) {
-                return typeof value === "object" && value !== null;
+            function isNumber(value) {
+                return typeof value === 'number' ||
+                    isObjectLike(value) && Object.prototype.toString.call(value) === '[object Number]';
             }
         };
+        /**
+         * 确认所给值只在min,max之间
+         * 如果所给值是在min,max之间，那么就直接返回该值
+         * 否则返回与所给值最接近的min值或max值
+         *
+         * @param {number}  number  被限制的值
+         * @param {number}  lower   下限
+         * @param {number}  upper   上限
+         * @returns
+         */
+        this.clamp = function (number, lower, upper) {
+            if (upper === undefined) {
+                upper = lower;
+                lower = undefined;
+            }
+            if (upper !== undefined) {
+                upper = toNumber(upper);
+                upper = isNaN(upper) ? 0 : upper;
+            }
+            if (lower !== undefined) {
+                lower = toNumber(lower);
+                lower = isNaN(lower) ? 0 : lower;
+            }
+            return baseClamp(toNumber(number), lower, upper);
+
+            function baseClamp(number, lower, upper) {
+                if (!isNaN(number)) {
+                    if (upper !== undefined) {
+                        number = number <= upper ? number : upper;
+                    }
+                    if (lower !== undefined) {
+                        number = number >= lower ? number : lower;
+                    }
+                }
+                return number;
+            }
+        };
+
+        function toNumber(value) {
+            if (typeof value === "number") {
+                return value;
+            }
+            if (isSymbol(value)) {
+                return 0 / 0;
+            }
+            return Number(value);
+        }
+
+        function isSymbol(value) {
+            return typeof value === "symbol" || isObjectLike(value) && Object.prototype.toString.call(value) === "[object Symbol]";
+        }
+
+        function isObjectLike(value) {
+            return typeof value === "object" && value !== null;
+        }
+
     }]);
