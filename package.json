@@ -20,7 +20,7 @@
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "angular": "^1.2.32",
+    "angular": "^1.7.9",
     "angular-mocks": "^1.2.32",
     "cz-conventional-changelog": "^3.0.2",
     "grunt": "^1.0.4",
