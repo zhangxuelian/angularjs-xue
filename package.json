@@ -10,7 +10,7 @@
   "main": "index.js",
   "scripts": {
     "test": "grunt",
-    "demo": "grunt build copy && static demo -a 0.0.0.0 -p 8081 -H '{\"Cache-Control\": \"no-cache, must-revalidate\"}'"
+    "demo": "grunt build copy && static demo -a 0.0.0.0 -p 8081"
   },
   "repository": {
     "type": "git",

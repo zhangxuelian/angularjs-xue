@@ -1,0 +1,87 @@
+* {
+  padding: 0;
+  margin: 0 auto;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+.demo-wrap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  box-sizing: border-box;
+  padding: 70px 0 35px 0;
+}
+
+.demo-wrap .header-container {
+  height: 70px;
+  background: #c4d8e8;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.demo-wrap .header-container .header-wrap {
+  width: 1366px;
+  height: 100%;
+}
+
+.demo-wrap .header-container .header-wrap h1 {
+  height: 100%;
+  line-height: 70px;
+  float: left;
+}
+
+.demo-wrap .header-container .header-wrap h1 img {
+  margin-top: 20px;
+  vertical-align: top;
+  margin-left: 10px;
+}
+
+.demo-wrap .header-container .header-wrap h1 b {
+  color: #2a859f;
+}
+
+.demo-wrap .header-container .header-wrap ul {
+  float: right;
+  list-style: none;
+}
+
+.demo-wrap .header-container .header-wrap ul li {
+  padding: 0 15px;
+  line-height: 70px;
+  float: left;
+  cursor: pointer;
+}
+
+.demo-wrap .header-container .header-wrap ul li:hover {
+  font-weight: 700;
+}
+
+.demo-wrap .main-container {
+  height: 100%;
+  background: #e9ecf3;
+  position: relative;
+  width: 100%;
+  overflow: auto;
+}
+
+.demo-wrap .main-container .main-wrap {
+  width: 1366px;
+  height: 100%;
+}
+
+.demo-wrap .footer-container {
+  position: absolute;
+  height: 35px;
+  background: #2699b9;
+  width: 100%;
+  bottom: 0;
+  color: #fff;
+  text-align: center;
+  line-height: 35px;
+  font-size: 14px;
+}
