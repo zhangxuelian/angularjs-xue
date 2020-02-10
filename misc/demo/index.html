@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="xue.demo">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,7 @@
     <script src="assets/app.js"></script>
     
 </head>
-<body class="demo-wrap">
+<body class="demo-wrap" ng-controller="xueDemoCtrl">
     <div class="header-container">
         <div class="header-wrap">
             <h1>
@@ -23,7 +23,7 @@
             <ul>
                 <li>入门指南</li>
                 <li>文档</li>
-                <li>版本</li>
+                <li>{{version}}</li>
             </ul>
         </div>
     </div>
