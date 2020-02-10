@@ -19,4 +19,9 @@ describe('number util', function () {
         expect(xueUtilNumber.inRange(xueUtilNumber.random(5, true), 0, 5)).toBeTruthy();
         expect(xueUtilNumber.inRange(xueUtilNumber.random(1.2, 5.2), 1, 6)).toBeTruthy();
     });
+    it('确认所给值只在 lower 与 upper 之间', function () {
+        expect(xueUtilNumber.clamp(-10, -5, 5)).toEqual(-5);
+        expect(xueUtilNumber.clamp(10, -5, 5)).toEqual(5);
+        expect(xueUtilNumber.clamp(1, -5, 5)).toEqual(1);
+    });
 });
