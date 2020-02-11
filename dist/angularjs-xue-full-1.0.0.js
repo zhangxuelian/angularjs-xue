@@ -1437,6 +1437,19 @@ angular.module('xue.util.object', [])
             }
             return self.findValByPath(obj[pathArr[index]], pathArr, ++index);
         };
+        /**
+         * object键值对换(如果 object 有重复的值，后面的值会覆盖前面的值)
+         *
+         * @param {object} obj
+         * @returns newObj 返回新的键值对换后的对象
+         */
+        this.reverseObject = function (obj) {
+            var newObj = {};
+            for (var key in obj) {
+                newObj[obj[key]] = key;
+            }
+            return newObj;
+        }
     }]);
 angular.module('xue.util.properties', [])
     .service('xueUtilProperty', [function () {
