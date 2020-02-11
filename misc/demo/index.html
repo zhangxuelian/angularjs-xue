@@ -22,18 +22,30 @@
             </h1>
             <ul>
                 <li>入门指南</li>
-                <li>文档</li>
-                <li>{{version}}</li>
+                <li>组件文档</li>
+                <li><%= version %></li>
             </ul>
         </div>
     </div>
     <div class="main-container">
         <div class="main-wrap">
             <div class="main-menu-container">
-
+                <ul class="node-menu">
+                    <li>
+                        <a>入门指南</a>
+                    </li>
+                </ul>
+                <ul class="node-menu">
+                    <li>
+                        <a>组件文档</a>
+                        <% demoModules.forEach(function(module) {  %><div class="child-menu"><a href="#<%= module.name %>" ><%= module.displayName %></a></div><% }); %>
+                    </li>
+                </ul>
             </div>
             <div class="main-content-container">
-
+                <section class="module-wrap">
+                    
+                </section>
             </div>
         </div>
     </div>

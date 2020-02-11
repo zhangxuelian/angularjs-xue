@@ -67,21 +67,50 @@ html, body {
   position: relative;
   width: 100%;
   overflow: auto;
+  font-family: Microsoft Yahei;
 }
 
 .demo-wrap .main-container .main-wrap {
   width: 1366px;
   height: 100%;
   position: relative;
-  padding-left: 350px;
+  padding-left: 250px;
   box-sizing: border-box;
 }
 
 .demo-wrap .main-container .main-wrap .main-menu-container {
-  width: 350px;
+  width: 250px;
   position: absolute;
   left: 0;
   height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.demo-wrap .main-container .main-wrap .main-menu-container > ul {
+  list-style: none;
+}
+
+.demo-wrap .main-container .main-wrap .main-menu-container > ul > li {
+  line-height: 30px;
+}
+
+.demo-wrap .main-container .main-wrap .main-menu-container > ul > li > a {
+  cursor: pointer;
+  color: #333;
+  font-weight: 700;
+}
+
+.demo-wrap .main-container .main-wrap .main-menu-container > ul > li .child-menu {
+  padding-left: 5px;
+  line-height: 30px;
+  color: #666;
+}
+
+.demo-wrap .main-container .main-wrap .main-menu-container > ul > li a {
+  text-decoration: none;
+  color: #666;
 }
 
 .demo-wrap .main-container .main-wrap .main-content-container {
