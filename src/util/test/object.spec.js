@@ -84,4 +84,16 @@ describe('object util', function () {
         var pathArr = ['children', 'address', 'pick', 'cat', 'time'];
         expect(xueUtilObject.findValByPath(obj, pathArr)).toEqual("78");
     });
+    it('object键值对换', function () {
+        var obj = {
+            name: 'Gosuncn',
+            age: '18',
+            borth: 'jiangxi'
+        };
+        expect(xueUtilObject.reverseObject(obj)).toEqual({
+            Gosuncn: 'name',
+            18: 'age',
+            jiangxi: 'borth'
+        });
+    });
 });
