@@ -181,6 +181,47 @@ html, body {
   overflow: auto;
 }
 
+.demo-wrap .main-container .main-wrap .main-content-container .module-wrap .page-header {
+  line-height: 70px;
+}
+
+.demo-wrap .main-container .markdown-wrap h1 {
+  line-height: 60px;
+  font-weight: 600;
+}
+
+.demo-wrap .main-container .markdown-wrap h2 {
+  line-height: 45px;
+  font-weight: 600;
+}
+
+.demo-wrap .main-container .markdown-wrap h3 {
+  line-height: 40px;
+  font-weight: 500;
+}
+
+.demo-wrap .main-container .markdown-wrap p {
+  color: #666;
+  padding: 10px;
+  line-height: 30px;
+}
+
+.demo-wrap .main-container .markdown-wrap a {
+  text-decoration: none;
+}
+
+.demo-wrap .main-container .markdown-wrap pre {
+  padding: 10px;
+  background: #cde1ec;
+  border-radius: 5px;
+}
+
+.demo-wrap .main-container .markdown-wrap pre code {
+  line-height: 25px;
+  font-family: Microsoft Yahei;
+  font-size: 13px;
+}
+
 .demo-wrap .footer-container {
   position: absolute;
   height: 35px;
