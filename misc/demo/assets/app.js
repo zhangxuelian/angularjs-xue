@@ -1,4 +1,4 @@
-angular.module('ui.xue.demo', ['ui.xue'])
+angular.module('ui.xue.demo', ['ui.xue','plunker'])
 .run(['$location', function($location){
     if ($location.path() !== '' && $location.path() !== '/') {
       smoothScroll(document.getElementById($location.path().substring(1)), 500, function(el) {

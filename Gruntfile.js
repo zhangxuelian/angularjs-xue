@@ -334,6 +334,8 @@ module.exports = function (grunt) {
         }
     });
     grunt.registerTask('build', 'Create bootstrap build files', function () {
+        grunt.config('readMd',grunt.file.expand(`README.md`)
+        .map(grunt.file.read).map((str) => marked(str)).join('\n'));
         grunt.file.expand({
             filter: 'isDirectory', cwd: '.'
         }, 'src/*').forEach((dir) => {
