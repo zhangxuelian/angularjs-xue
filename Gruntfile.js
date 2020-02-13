@@ -243,13 +243,13 @@ module.exports = function (grunt) {
                 .replace(/\\/g, '\\\\')
                 .replace(/'/g, "\\'")
                 .replace(/\r?\n/g, '\\n');
-            js = `angular.module('ui.xue.${moduleName}').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uib${_.capitalize(moduleName)}Css && angular.element(document).find('head').prepend('<style type="text/css">${css}</style>'); angular.$$uib${_.capitalize(moduleName)}Css = true; });`;
+            js = `angular.module('xue.${moduleName}').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uib${_.capitalize(moduleName)}Css && angular.element(document).find('head').prepend('<style type="text/css">${css}</style>'); angular.$$uib${_.capitalize(moduleName)}Css = true; });`;
             state.js.push(js);
 
             return state;
         },
         findModule: function (name) {
-            if (util.foundModules[name] && name == 'ui') { return; }
+            if (name == 'ui') { return; }
             util.foundModules[name] = true;
             var module = {
                 name: name,
