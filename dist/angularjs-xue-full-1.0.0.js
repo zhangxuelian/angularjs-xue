@@ -6,8 +6,8 @@
  * Require angularjs version: 1.2.32
  * License: ISC
  */
-angular.module("ui.xue", ["ui.xue.tpls", "xue.pagination","xue.uitl.lang","xue.pagination","xue.table","xue.ui","xue.util.array","xue.util.lang","xue.util.collection","xue.util.lang","xue.util.date","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.string","xue.util.lang","xue.util.function","xue.util.lang","xue.util"]);
-angular.module("ui.xue.tpls", ["xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/table/table.html"]);
+angular.module("ui.xue", ["ui.xue.tpls", "xue.pagination","xue.util.lang","xue.table","xue.ui","xue.util.array","xue.util.collection","xue.util.date","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.string","xue.util.function","xue.util"]);
+angular.module("ui.xue.tpls", ["xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/table/table.html"]);
 angular.module('xue.pagination', [])
 
   .controller('xuePaginationController', ['$scope', '$attrs', '$parse', function ($scope, $attrs, $parse) {
@@ -226,7 +226,7 @@ angular.module('xue.pagination', [])
       }
     };
   }]);
-angular.module('xue.table', ['xue.uitl.lang', 'xue.pagination'])
+angular.module('xue.table', ['xue.util.lang', 'xue.pagination'])
     .directive('xueTable', ['xueUtilLang', function (xueUtilLang) {
         return {
             restrict: "E",

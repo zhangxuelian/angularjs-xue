@@ -1,4 +1,4 @@
-angular.module('xue.table', ['xue.uitl.lang', 'xue.pagination'])
+angular.module('xue.table', ['xue.util.lang', 'xue.pagination'])
     .directive('xueTable', ['xueUtilLang', function (xueUtilLang) {
         return {
             restrict: "E",

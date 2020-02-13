@@ -340,6 +340,8 @@ module.exports = function (grunt) {
             util.findModule(dir.split('/')[1]);
         });
         var modules = grunt.config('modules');
+        grunt.config('modules', _.uniqBy(modules,'name'));
+        modules = grunt.config('modules');
         grunt.config('srcModules', util.pluck(modules, 'moduleName'));
         grunt.config('tplModules', util.pluck(modules, 'tplModules').filter((tpls) => tpls.length > 0));
         grunt.config('demoModules', modules
@@ -373,7 +375,6 @@ module.exports = function (grunt) {
             .concat(srcFiles)); */
         grunt.config('concat.dist_tpls.src', grunt.config('concat.dist_tpls.src')
             .concat(srcFiles).concat(tpljsFiles));
-        //console.log(grunt.config('demoModules'));
         grunt.task.run(['concat', 'uglify', 'makeModuleMappingFile', 'makeRawFilesJs', 'makeVersionsMappingFile']);
 
     });
