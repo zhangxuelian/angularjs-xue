@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="assets/demo.css"/>
     <script src="assets/angular.min.js"></script>
     <script src="assets/angularjs-xue-full-<%= pkg.version%>.min.js"></script>
+    <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
     
 </head>
@@ -32,7 +33,7 @@
             <div class="main-menu-container">
                 <ul class="node-menu">
                     <li>
-                        <a>入门指南</a>
+                        <a href="#getStart">入门指南</a>
                     </li>
                 </ul>
                 <ul class="node-menu">
@@ -43,31 +44,36 @@
                 </ul>
             </div>
             <div class="main-content-container">
-                <section class="module-wrap">
+                <section class="module-wrap" id="getStart">
                     <div class="page-header">
-                        
+                        <h1>
+                            入门指南
+                        </h1>
+                    </div>
+                    <div class="">
+
                     </div>
                 </section>
                 <% demoModules.forEach(function(module) { %>
-                    <section class="module-wrap" id="<%= module.name %>">
+                    <section id="<%= module.name %>">
                         <div class="page-header">
                           <h1><%= module.displayName %><small>
                               (<a target="_blank" href="https://github.com/angular-ui/bootstrap/tree/master/src/<%= module.name %>">ui.bootstrap.<%= module.name %></a>)
                           </small></h1>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-6 show-grid">
+                        </div>
+                        <div class="page-content">
+                            <div class="content-html">
                                 <%= module.docs.html %>
                             </div>
-                            <div class="col-md-6">
+                            <div class="content-md">
                                 <%= module.docs.md %>
                             </div>
                         </div>
                         <hr>
-                        <div class="row code">
+                        <div class="page-content-code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button type="button" class="btn btn-info plunk-btn" ng-click="edit('<%= ngversion%>', '<%= bsversion %>', '<%= pkg.version%>', '<%= module.name %>')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button type="button" class="btn btn-info plunk-btn" ng-click="edit('<%= ngversion%>', '<%= pkg.version%>', '<%= module.name %>')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset active="activeTab">
                                     <uib-tab index="0" heading="Markup">

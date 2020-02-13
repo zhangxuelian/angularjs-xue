@@ -361,7 +361,7 @@ module.exports = function (grunt) {
             grunt.log.writeln('File ' + grunt.config('meta.cssFileDest') + ' created'); */
         }
 
-        var moduleFileMapping = _.clone(modules, true);
+        var moduleFileMapping = _.cloneDeep(modules);
         moduleFileMapping.forEach((module) => delete module.docs);
 
         grunt.config('moduleFileMapping', moduleFileMapping);
@@ -373,7 +373,7 @@ module.exports = function (grunt) {
             .concat(srcFiles)); */
         grunt.config('concat.dist_tpls.src', grunt.config('concat.dist_tpls.src')
             .concat(srcFiles).concat(tpljsFiles));
-
+        //console.log(grunt.config('demoModules'));
         grunt.task.run(['concat', 'uglify', 'makeModuleMappingFile', 'makeRawFilesJs', 'makeVersionsMappingFile']);
 
     });
