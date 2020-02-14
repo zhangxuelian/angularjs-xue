@@ -1,5 +1,5 @@
-angular.module("xue.util.math", []).service("xueUtilMath", [
-    function() {
+angular.module("xue.util.math", ['xue.util.lang'])
+    .service("xueUtilMath", ["xueUtilLang", function(xueUtilLang) {
         var self = this;
         /**
          * 加法（解决浮点精度问题）
@@ -107,6 +107,56 @@ angular.module("xue.util.math", []).service("xueUtilMath", [
                 }
             }
             return result / length;
+        };
+        /**
+         * 获取数组最大值（解决浮点精度问题）
+         * @param {arr} arr 要迭代的数组
+         */
+        this.max = function(arr) {
+            if (!Array.isArray(arr) || !arr.length) {
+                return undefined;
+            }
+            var max = arr.reduce(function(a, b) {
+                if (!xueUtilLang.isNumber(a)) {
+                    return b;
+                } else if (!xueUtilLang.isNumber(b)) {
+                    return a;
+                }
+                if (self.subtraction(a, b) > 0) {
+                    return a;
+                } else {
+                    return b;
+                }
+            })
+            if (!xueUtilLang.isNumber(max)) {
+                return undefined;
+            }
+            return max;
+        };
+         /**
+         * 获取数组最小值（解决浮点精度问题）
+         * @param {arr} arr 要迭代的数组
+         */
+        this.min = function(arr) {
+            if (!Array.isArray(arr) || !arr.length) {
+                return undefined;
+            }
+            var min = arr.reduce(function(a, b) {
+                if (!xueUtilLang.isNumber(a)) {
+                    return b;
+                } else if (!xueUtilLang.isNumber(b)) {
+                    return a;
+                }
+                if (self.subtraction(a, b) < 0) {
+                    return a;
+                } else {
+                    return b;
+                }
+            })
+            if (!xueUtilLang.isNumber(min)) {
+                return undefined;
+            }
+            return min;
         };
     }
 ]);
