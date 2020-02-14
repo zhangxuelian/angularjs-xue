@@ -19,10 +19,10 @@ angular.module('xue.util.function', ['xue.util.lang'])
             }
             n = parseInt(n, 0);
             return function () {
-                if (--n > 0) {
+                if (--n >= 0) {
                     result = func.apply(this, arguments);
                 }
-                if (n <= 1) {
+                if (n < 1) {
                     func = undefined;
                 }
                 return result;
@@ -238,7 +238,7 @@ angular.module('xue.util.function', ['xue.util.lang'])
          * @returns {Function} 返回新的受限函数.
          */
         this.once = function (func) {
-            return self.before(2, func);
+            return self.before(1, func);
         };
         /**
          * 创建一个函数，调用func时，this绑定到创建的新函数，把参数作为数组传入，类似于 Function#apply
@@ -272,7 +272,7 @@ angular.module('xue.util.function', ['xue.util.lang'])
          * @param {...*} [partials] 附加的部分参数.
          * @returns {Function} 返回新的绑定函数.
          */
-        this.bind = function (fnc, thisArg) {
+        this.bind = function (func, thisArg) {
             if (typeof func !== 'function') {
                 throw new TypeError(FUNC_ERROR_TEXT);
             }
@@ -282,7 +282,7 @@ angular.module('xue.util.function', ['xue.util.lang'])
                 var innerArgs = Array.prototype.slice.call(arguments);
                 //此处的arguments为内部函数的参数
                 var finalArgs = outerArgs.concat(innerArgs);
-                return fnc.apply(thisArg, finalArgs); //使用apply方法来改变this的指向
+                return func.apply(thisArg, finalArgs); //使用apply方法来改变this的指向
             }
         }
 }]);
