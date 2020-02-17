@@ -1,11 +1,13 @@
 describe("math util", function () {
-    var xueUtilMath, x, y, arr;
+    var xueUtilMath, x, y, arr, noNumberArr, fixedArr;
     beforeEach(module("xue.util.math"));
     beforeEach(inject(function (_xueUtilMath_) {
         xueUtilMath = _xueUtilMath_;
         x = 1.21;
         y = 1.1;
-        arr = [1.2, 1.4, 1.6, 1.8];
+        arr = [1.2, 1.4, 1.6, 2, 1.8];
+        noNumberArr = ["as", "sd", "sds"];
+        fixedArr = ["23", 233, 43, "sdsd"];
     }));
     it("加法", function () {
         expect(xueUtilMath.addition(x, y)).toBe(2.31);
@@ -21,6 +23,16 @@ describe("math util", function () {
         expect(xueUtilMath.division(x, y)).toBe(1.1);
     });
     it("平均值", function () {
-        expect(xueUtilMath.mean(arr)).toBe(1.5);
+        expect(xueUtilMath.mean(arr)).toBe(1.6);
+    });
+    it("获取数组最大值", function () {
+        expect(xueUtilMath.max(arr)).toBe(2);
+        expect(xueUtilMath.max(noNumberArr)).toBe(undefined);
+        expect(xueUtilMath.max(fixedArr)).toBe(233);
+    });
+    it("获取数组最小值", function () {
+        expect(xueUtilMath.min(arr)).toBe(1.2);
+        expect(xueUtilMath.min(noNumberArr)).toBe(undefined);
+        expect(xueUtilMath.min(fixedArr)).toBe(43);
     });
 });
