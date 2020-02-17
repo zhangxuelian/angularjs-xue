@@ -123,6 +123,11 @@ html, body {
   font-weight: 700;
 }
 
+.demo-wrap .header-container .header-wrap ul li a {
+  text-decoration: none;
+  color: #333;
+}
+
 .demo-wrap .main-container {
   height: 100%;
   background: #e9ecf3;
@@ -155,7 +160,7 @@ html, body {
 }
 
 .demo-wrap .main-container .main-wrap .main-menu-container > ul > li {
-  line-height: 30px;
+  line-height: 35px;
 }
 
 .demo-wrap .main-container .main-wrap .main-menu-container > ul > li > a {
@@ -167,12 +172,12 @@ html, body {
 .demo-wrap .main-container .main-wrap .main-menu-container > ul > li .child-menu {
   padding-left: 5px;
   line-height: 30px;
-  color: #666;
+  color: #333;
 }
 
 .demo-wrap .main-container .main-wrap .main-menu-container > ul > li a {
   text-decoration: none;
-  color: #666;
+  color: #333;
 }
 
 .demo-wrap .main-container .main-wrap .main-content-container {
@@ -185,18 +190,58 @@ html, body {
   line-height: 70px;
 }
 
+.demo-wrap .main-container .main-wrap .main-content-container .module-wrap .page-header h1 {
+  font-weight: 500;
+  font-size: 36px;
+  margin-top: 20px;
+  border-bottom: dashed 1px #ddd;
+  margin-bottom: 10px;
+}
+
+.demo-wrap .main-container .main-wrap .main-content-container .module-wrap .page-header small {
+  font-weight: 400;
+  color: #999;
+  font-size: 20px;
+}
+
+.demo-wrap .main-container .main-wrap .main-content-container .module-wrap .page-header small a {
+  text-decoration: none;
+  color: #999;
+}
+
+.demo-wrap .main-container .main-wrap .main-content-container .module-wrap .page-content:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.demo-wrap .main-container .main-wrap .main-content-container .module-wrap .page-content .content-html {
+  float: left;
+  width: 50%;
+}
+
+.demo-wrap .main-container .main-wrap .main-content-container .module-wrap .page-content .content-md {
+  float: right;
+  width: 50%;
+}
+
 .demo-wrap .main-container .markdown-wrap h1 {
   line-height: 60px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .demo-wrap .main-container .markdown-wrap h2 {
   line-height: 45px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .demo-wrap .main-container .markdown-wrap h3 {
   line-height: 40px;
+  font-weight: 500;
+}
+
+.demo-wrap .main-container .markdown-wrap h4 {
+  line-height: 35px;
   font-weight: 500;
 }
 

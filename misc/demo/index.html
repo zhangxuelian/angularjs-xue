@@ -7,12 +7,13 @@
     <link rel="icon" href="assets/favicon.ico" />
     <title>angularjs-xue</title>
     <link rel="author" href="<%= pkg.author%>">
-    <link rel="stylesheet" href="assets/demo.css"/>
+    
     <script src="assets/angular.min.js"></script>
     <script src="assets/angularjs-xue-full-<%= pkg.version%>.min.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
-    
+    <link rel="stylesheet" href="assets/angularjs-xue-ui-<%= pkg.version%>.min.css">
+    <link rel="stylesheet" href="assets/demo.css"/>
 </head>
 <body class="demo-wrap" ng-controller="xueDemoCtrl">
     <div class="header-container">
@@ -22,8 +23,8 @@
                 <b>angularjs-xue</b>
             </h1>
             <ul>
-                <li>入门指南</li>
-                <li>组件文档</li>
+                <li><a href="#getting_started">入门指南</a></li>
+                <li><a href="#<%= demoModules[0].name %>">组件文档</a></li>
                 <li><%= version %></li>
             </ul>
         </div>
@@ -33,18 +34,18 @@
             <div class="main-menu-container">
                 <ul class="node-menu">
                     <li>
-                        <a href="#getStart">入门指南</a>
+                        <a href="#getting_started">入门指南</a>
                     </li>
                 </ul>
                 <ul class="node-menu">
                     <li>
-                        <a>组件文档</a>
+                        <a href="#<%= demoModules[0].name %>">组件文档</a>
                         <% demoModules.forEach(function(module) {  %><div class="child-menu"><a href="#<%= module.name %>" ><%= module.displayName %></a></div><% }); %>
                     </li>
                 </ul>
             </div>
             <div class="main-content-container">
-                <section class="module-wrap" id="getStart">
+                <section class="module-wrap" id="getting_started">
                     <div class="page-header">
                         <h1>
                             入门指南
@@ -58,14 +59,14 @@
                     <section class="module-wrap" id="<%= module.name %>">
                         <div class="page-header">
                           <h1><%= module.displayName %><small>
-                              (<a target="_blank" href="https://github.com/angular-ui/bootstrap/tree/master/src/<%= module.name %>">ui.bootstrap.<%= module.name %></a>)
+                              (<a target="_blank" href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/<%= module.name %>">xue.<%= module.name %></a>)
                           </small></h1>
                         </div>
                         <div class="page-content">
                             <div class="content-html">
                                 <%= module.docs.html %>
                             </div>
-                            <div class="content-md">
+                            <div class="content-md markdown-wrap">
                                 <%= module.docs.md %>
                             </div>
                         </div>
