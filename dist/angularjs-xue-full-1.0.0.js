@@ -2,7 +2,7 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-02-17
+ * Version: 1.0.0 - 2020-02-19
  * Require angularjs version: 1.2.32
  * License: ISC
  */
@@ -596,10 +596,10 @@ angular.module('xue.util.function', ['xue.util.lang'])
             }
             n = parseInt(n, 0);
             return function () {
-                if (--n > 0) {
+                if (--n >= 0) {
                     result = func.apply(this, arguments);
                 }
-                if (n <= 1) {
+                if (n < 1) {
                     func = undefined;
                 }
                 return result;
@@ -815,7 +815,7 @@ angular.module('xue.util.function', ['xue.util.lang'])
          * @returns {Function} 返回新的受限函数.
          */
         this.once = function (func) {
-            return self.before(2, func);
+            return self.before(1, func);
         };
         /**
          * 创建一个函数，调用func时，this绑定到创建的新函数，把参数作为数组传入，类似于 Function#apply
@@ -849,7 +849,7 @@ angular.module('xue.util.function', ['xue.util.lang'])
          * @param {...*} [partials] 附加的部分参数.
          * @returns {Function} 返回新的绑定函数.
          */
-        this.bind = function (fnc, thisArg) {
+        this.bind = function (func, thisArg) {
             if (typeof func !== 'function') {
                 throw new TypeError(FUNC_ERROR_TEXT);
             }
@@ -859,7 +859,7 @@ angular.module('xue.util.function', ['xue.util.lang'])
                 var innerArgs = Array.prototype.slice.call(arguments);
                 //此处的arguments为内部函数的参数
                 var finalArgs = outerArgs.concat(innerArgs);
-                return fnc.apply(thisArg, finalArgs); //使用apply方法来改变this的指向
+                return func.apply(thisArg, finalArgs); //使用apply方法来改变this的指向
             }
         }
 }]);
@@ -1058,8 +1058,8 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
     }
 ]);
 
-angular.module("xue.util.math", []).service("xueUtilMath", [
-    function() {
+angular.module("xue.util.math", ['xue.util.lang'])
+    .service("xueUtilMath", ["xueUtilLang", function(xueUtilLang) {
         var self = this;
         /**
          * 加法（解决浮点精度问题）
@@ -1167,6 +1167,56 @@ angular.module("xue.util.math", []).service("xueUtilMath", [
                 }
             }
             return result / length;
+        };
+        /**
+         * 获取数组最大值（解决浮点精度问题）
+         * @param {arr} arr 要迭代的数组
+         */
+        this.max = function(arr) {
+            if (!Array.isArray(arr) || !arr.length) {
+                return undefined;
+            }
+            var max = arr.reduce(function(a, b) {
+                if (!xueUtilLang.isNumber(a)) {
+                    return b;
+                } else if (!xueUtilLang.isNumber(b)) {
+                    return a;
+                }
+                if (self.subtraction(a, b) > 0) {
+                    return a;
+                } else {
+                    return b;
+                }
+            })
+            if (!xueUtilLang.isNumber(max)) {
+                return undefined;
+            }
+            return max;
+        };
+         /**
+         * 获取数组最小值（解决浮点精度问题）
+         * @param {arr} arr 要迭代的数组
+         */
+        this.min = function(arr) {
+            if (!Array.isArray(arr) || !arr.length) {
+                return undefined;
+            }
+            var min = arr.reduce(function(a, b) {
+                if (!xueUtilLang.isNumber(a)) {
+                    return b;
+                } else if (!xueUtilLang.isNumber(b)) {
+                    return a;
+                }
+                if (self.subtraction(a, b) < 0) {
+                    return a;
+                } else {
+                    return b;
+                }
+            })
+            if (!xueUtilLang.isNumber(min)) {
+                return undefined;
+            }
+            return min;
         };
     }
 ]);
