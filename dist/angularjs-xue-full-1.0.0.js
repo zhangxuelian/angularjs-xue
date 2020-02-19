@@ -2,7 +2,7 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-02-17
+ * Version: 1.0.0 - 2020-02-19
  * Require angularjs version: 1.2.32
  * License: ISC
  */
@@ -596,10 +596,10 @@ angular.module('xue.util.function', ['xue.util.lang'])
             }
             n = parseInt(n, 0);
             return function () {
-                if (--n > 0) {
+                if (--n >= 0) {
                     result = func.apply(this, arguments);
                 }
-                if (n <= 1) {
+                if (n < 1) {
                     func = undefined;
                 }
                 return result;
@@ -815,7 +815,7 @@ angular.module('xue.util.function', ['xue.util.lang'])
          * @returns {Function} 返回新的受限函数.
          */
         this.once = function (func) {
-            return self.before(2, func);
+            return self.before(1, func);
         };
         /**
          * 创建一个函数，调用func时，this绑定到创建的新函数，把参数作为数组传入，类似于 Function#apply
@@ -849,7 +849,7 @@ angular.module('xue.util.function', ['xue.util.lang'])
          * @param {...*} [partials] 附加的部分参数.
          * @returns {Function} 返回新的绑定函数.
          */
-        this.bind = function (fnc, thisArg) {
+        this.bind = function (func, thisArg) {
             if (typeof func !== 'function') {
                 throw new TypeError(FUNC_ERROR_TEXT);
             }
@@ -859,7 +859,7 @@ angular.module('xue.util.function', ['xue.util.lang'])
                 var innerArgs = Array.prototype.slice.call(arguments);
                 //此处的arguments为内部函数的参数
                 var finalArgs = outerArgs.concat(innerArgs);
-                return fnc.apply(thisArg, finalArgs); //使用apply方法来改变this的指向
+                return func.apply(thisArg, finalArgs); //使用apply方法来改变this的指向
             }
         }
 }]);
@@ -873,7 +873,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
          * 判断是否为对象
          *
          * @param {any} obj
-         * @returns
+         * @returns {boolean}
          */
         this.isObject = function(obj) {
             var type = typeof obj;
@@ -883,7 +883,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
          * 判断是否为函数
          *
          * @param {any} fn
-         * @returns
+         * @returns {boolean}
          */
         this.isFunction = function(fn) {
             return Object.prototype.toString.call(fn) === "[object Function]";
@@ -891,7 +891,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
         /**
          * 判断是否为Json
          * @param {any} json
-         * @returns
+         * @returns {boolean}
          */
         this.isJson = function (json) {
             return Object.prototype.toString.call(json) === "[object Object]";
@@ -900,7 +900,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
          * 检查是否是原始Number数值型或者Number对象。
          *
          * @param {any} number
-         * @returns
+         * @returns {boolean}
          */
         this.isNumber = function(number) {
             return typeof number === 'number' || Object.prototype.toString.call(number) === "[object Number]";
@@ -908,7 +908,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
         /**
          * 判断是否为Date对象
          * @param {any} date
-         * @returns
+         * @returns {boolean}
          */
         this.isDate = function(date) {
             return Object.prototype.toString.call(date) === "[object Date]";
@@ -916,8 +916,8 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
         /**
          * 判断是否为图片
          * 
-         * @param path
-         * @returns bool
+         * @param {any} path
+         * @returns {boolean}
          */
         this.isPicture = function (path) {
             var fileReg = /(.*).(jpg|bmp|gif|ico|pcx|jpeg|tif|png|raw|tga)$/i;
@@ -931,7 +931,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
          * 判断是否为空对象（空数组）
          *
          * @param {any} obj
-         * @returns
+         * @returns {boolean}
          */
         this.isEmpty = function(obj) {
             if (!self.isObject()) {
@@ -952,7 +952,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
          *
          * @param {any} obj 对象object
          * @param {any} type 对象类型
-         * @returns
+         * @returns {boolean}
          */
         this.isType = function(obj, type) {
             return this.getType(obj) === type;
@@ -961,7 +961,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
          * 获取对象类型
          *
          * @param {any} obj 对象object
-         * @returns
+         * @returns {string}
          */
         this.getType = function(obj) {
             var map = {};
@@ -975,7 +975,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
          *
          * @param {any} obj
          * @param {any} deep 是否深度复制
-         * @returns
+         * @returns {object}
          */
         this.copyObj = function(obj, deep) {
             if (!self.isObject(obj)) {
@@ -997,10 +997,11 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
         };
         /**
          * 匹配对象
+         * 检查对象是否包含要匹配的对象
          *
          * @param {any} obj 要检查的对象
          * @param {any} source 要匹配的对象
-         * @returns
+         * @returns {boolean}
          */
         this.isMatch = function(obj, source) {
             if (!self.isObject(obj) || !self.isObject(source)) {
@@ -1058,8 +1059,8 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
     }
 ]);
 
-angular.module("xue.util.math", []).service("xueUtilMath", [
-    function() {
+angular.module("xue.util.math", ['xue.util.lang'])
+    .service("xueUtilMath", ["xueUtilLang", function(xueUtilLang) {
         var self = this;
         /**
          * 加法（解决浮点精度问题）
@@ -1167,6 +1168,73 @@ angular.module("xue.util.math", []).service("xueUtilMath", [
                 }
             }
             return result / length;
+        };
+        /**
+         * 获取数组最大值（解决浮点精度问题）
+         * @param {arr} arr 要迭代的数组
+         */
+        this.max = function(arr) {
+            if (!Array.isArray(arr) || !arr.length) {
+                return undefined;
+            }
+            var max = arr.reduce(function(a, b) {
+                if (!xueUtilLang.isNumber(a)) {
+                    return b;
+                } else if (!xueUtilLang.isNumber(b)) {
+                    return a;
+                }
+                if (self.subtraction(a, b) > 0) {
+                    return a;
+                } else {
+                    return b;
+                }
+            })
+            if (!xueUtilLang.isNumber(max)) {
+                return undefined;
+            }
+            return max;
+        };
+         /**
+         * 获取数组最小值（解决浮点精度问题）
+         * @param {arr} arr 要迭代的数组
+         */
+        this.min = function(arr) {
+            if (!Array.isArray(arr) || !arr.length) {
+                return undefined;
+            }
+            var min = arr.reduce(function(a, b) {
+                if (!xueUtilLang.isNumber(a)) {
+                    return b;
+                } else if (!xueUtilLang.isNumber(b)) {
+                    return a;
+                }
+                if (self.subtraction(a, b) < 0) {
+                    return a;
+                } else {
+                    return b;
+                }
+            })
+            if (!xueUtilLang.isNumber(min)) {
+                return undefined;
+            }
+            return min;
+        };
+         /**
+         * 数字根据精度四舍五入
+         * @param {number} number 要四舍五入的数字(包含科学计数法)
+         * @param {arr} precision 四舍五入的精度(负数表示整数位四舍五入取整)
+         */
+        this.round = function(number, precision) {
+            if (!xueUtilLang.isNumber(number)) {
+                return NaN;
+            } else if (!precision) {
+                return Math.round(number)
+            } else {
+                var pair = (number.toString() + 'e').split('e'),
+                value = Math.round(pair[0] + 'e' + (+pair[1] + precision));
+                pair = (value.toString() + 'e').split('e');
+                return +(pair[0] + 'e' + (+pair[1] - precision));
+            }
         };
     }
 ]);

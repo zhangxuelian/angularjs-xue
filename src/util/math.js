@@ -158,5 +158,22 @@ angular.module("xue.util.math", ['xue.util.lang'])
             }
             return min;
         };
+         /**
+         * 数字根据精度四舍五入
+         * @param {number} number 要四舍五入的数字(包含科学计数法)
+         * @param {arr} precision 四舍五入的精度(负数表示整数位四舍五入取整)
+         */
+        this.round = function(number, precision) {
+            if (!xueUtilLang.isNumber(number)) {
+                return NaN;
+            } else if (!precision) {
+                return Math.round(number)
+            } else {
+                var pair = (number.toString() + 'e').split('e'),
+                value = Math.round(pair[0] + 'e' + (+pair[1] + precision));
+                pair = (value.toString() + 'e').split('e');
+                return +(pair[0] + 'e' + (+pair[1] - precision));
+            }
+        };
     }
 ]);
