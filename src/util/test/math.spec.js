@@ -35,4 +35,10 @@ describe("math util", function () {
         expect(xueUtilMath.min(noNumberArr)).toBe(undefined);
         expect(xueUtilMath.min(fixedArr)).toBe(43);
     });
+    it("数字根据精度四舍五入", function () {
+        expect(xueUtilMath.round(1.23456)).toBe(1);
+        expect(xueUtilMath.round(1.23456, 2)).toBe(1.23);
+        expect(xueUtilMath.round(1.23456e+5, -2)).toBe(123500);
+        expect(xueUtilMath.round("asd")).toEqual(NaN);
+    });
 });

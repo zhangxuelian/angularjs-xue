@@ -873,7 +873,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
          * 判断是否为对象
          *
          * @param {any} obj
-         * @returns
+         * @returns {boolean}
          */
         this.isObject = function(obj) {
             var type = typeof obj;
@@ -883,7 +883,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
          * 判断是否为函数
          *
          * @param {any} fn
-         * @returns
+         * @returns {boolean}
          */
         this.isFunction = function(fn) {
             return Object.prototype.toString.call(fn) === "[object Function]";
@@ -891,7 +891,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
         /**
          * 判断是否为Json
          * @param {any} json
-         * @returns
+         * @returns {boolean}
          */
         this.isJson = function (json) {
             return Object.prototype.toString.call(json) === "[object Object]";
@@ -900,7 +900,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
          * 检查是否是原始Number数值型或者Number对象。
          *
          * @param {any} number
-         * @returns
+         * @returns {boolean}
          */
         this.isNumber = function(number) {
             return typeof number === 'number' || Object.prototype.toString.call(number) === "[object Number]";
@@ -908,7 +908,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
         /**
          * 判断是否为Date对象
          * @param {any} date
-         * @returns
+         * @returns {boolean}
          */
         this.isDate = function(date) {
             return Object.prototype.toString.call(date) === "[object Date]";
@@ -916,8 +916,8 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
         /**
          * 判断是否为图片
          * 
-         * @param path
-         * @returns bool
+         * @param {any} path
+         * @returns {boolean}
          */
         this.isPicture = function (path) {
             var fileReg = /(.*).(jpg|bmp|gif|ico|pcx|jpeg|tif|png|raw|tga)$/i;
@@ -931,7 +931,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
          * 判断是否为空对象（空数组）
          *
          * @param {any} obj
-         * @returns
+         * @returns {boolean}
          */
         this.isEmpty = function(obj) {
             if (!self.isObject()) {
@@ -952,7 +952,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
          *
          * @param {any} obj 对象object
          * @param {any} type 对象类型
-         * @returns
+         * @returns {boolean}
          */
         this.isType = function(obj, type) {
             return this.getType(obj) === type;
@@ -961,7 +961,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
          * 获取对象类型
          *
          * @param {any} obj 对象object
-         * @returns
+         * @returns {string}
          */
         this.getType = function(obj) {
             var map = {};
@@ -975,7 +975,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
          *
          * @param {any} obj
          * @param {any} deep 是否深度复制
-         * @returns
+         * @returns {object}
          */
         this.copyObj = function(obj, deep) {
             if (!self.isObject(obj)) {
@@ -997,10 +997,11 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
         };
         /**
          * 匹配对象
+         * 检查对象是否包含要匹配的对象
          *
          * @param {any} obj 要检查的对象
          * @param {any} source 要匹配的对象
-         * @returns
+         * @returns {boolean}
          */
         this.isMatch = function(obj, source) {
             if (!self.isObject(obj) || !self.isObject(source)) {
@@ -1217,6 +1218,23 @@ angular.module("xue.util.math", ['xue.util.lang'])
                 return undefined;
             }
             return min;
+        };
+         /**
+         * 数字根据精度四舍五入
+         * @param {number} number 要四舍五入的数字(包含科学计数法)
+         * @param {arr} precision 四舍五入的精度(负数表示整数位四舍五入取整)
+         */
+        this.round = function(number, precision) {
+            if (!xueUtilLang.isNumber(number)) {
+                return NaN;
+            } else if (!precision) {
+                return Math.round(number)
+            } else {
+                var pair = (number.toString() + 'e').split('e'),
+                value = Math.round(pair[0] + 'e' + (+pair[1] + precision));
+                pair = (value.toString() + 'e').split('e');
+                return +(pair[0] + 'e' + (+pair[1] - precision));
+            }
         };
     }
 ]);
