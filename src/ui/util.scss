@@ -25,7 +25,7 @@ $utilities: map-merge(
       class: d,
       values: none inline inline-block block table table-row table-cell flex inline-flex
     ),
-    /* "shadow": (
+    "shadow": (
       property: box-shadow,
       class: shadow,
       values: (
@@ -34,7 +34,7 @@ $utilities: map-merge(
         lg: $box-shadow-lg,
         none: none,
       )
-    ), */
+    ),
     "position": (
       property: position,
       values: static relative absolute fixed sticky

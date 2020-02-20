@@ -1,9 +1,12 @@
-/* @include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
-@include _assert-starts-at-zero($grid-breakpoints, "$grid-breakpoints"); */
 /* @include _assert-ascending($container-max-widths, "$container-max-widths"); */
 * {
   padding: 0;
   margin: 0; }
+
+body {
+  color: #212529;
+  background-color: #fff;
+  font-size: 1rem; }
 
 img {
   vertical-align: middle; }

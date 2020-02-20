@@ -1,0 +1,76 @@
+/* @include _assert-ascending($container-max-widths, "$container-max-widths"); */
+* {
+  padding: 0;
+  margin: 0; }
+
+body {
+  color: #212529;
+  background-color: #fff;
+  font-size: 1rem; }
+
+img {
+  vertical-align: middle; }
+
+table {
+  border-collapse: collapse; }
+
+th {
+  text-align: inherit; }
+
+button {
+  border-radius: 0; }
+
+button,
+input {
+  overflow: visible; }
+
+.test .test-blue {
+  color: #3699DD; }
+
+.test .test-blue-deep {
+  color: #3699DD; }
+
+.test .test-purple {
+  color: #A059B9; }
+
+.test .test-purple-deep {
+  color: #8D44AD; }
+
+.test .test-red {
+  color: #E94B40; }
+
+.test .test-red-deep {
+  color: #C5392A; }
+
+.test .test-orange {
+  color: #E77F20; }
+
+.test .test-orange-deep {
+  color: #D75205; }
+
+.test .test-yellow {
+  color: #F2C311; }
+
+.test .test-yellow-deep {
+  color: #F39D16; }
+
+.test .test-green {
+  color: #2ECE6E; }
+
+.test .test-green-deep {
+  color: #28AC60; }
+
+.test .test-teal {
+  color: #1DBC9C; }
+
+.test .test-teal-deep {
+  color: #17A086; }
+
+.test .test-white {
+  color: #fff; }
+
+.test .test-gray {
+  color: #6c757d; }
+
+.test .test-gray-dark {
+  color: #343a40; }

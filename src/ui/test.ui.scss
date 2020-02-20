@@ -1,0 +1,10 @@
+@import "xue.ui.scss";
+    
+.test{
+    @each $key,$map in $colors {
+        .test-#{$key}{
+            color: $map;
+        }
+    }
+    
+}
