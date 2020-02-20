@@ -126,8 +126,8 @@ angular.module('xue.util.function', ['xue.util.lang'])
                 // Either this is the first call, activity has stopped and we're at the
                 // trailing edge, the system time has gone backwards and we're treating
                 // it as the trailing edge, or we've hit the `maxWait` limit.
-                return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||
-                    (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
+                return lastCallTime === undefined || timeSinceLastCall >= wait ||
+                    timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
             }
 
             function timerExpired() {
@@ -283,6 +283,6 @@ angular.module('xue.util.function', ['xue.util.lang'])
                 //此处的arguments为内部函数的参数
                 var finalArgs = outerArgs.concat(innerArgs);
                 return func.apply(thisArg, finalArgs); //使用apply方法来改变this的指向
-            }
-        }
-}]);
+            };
+        };
+    }]);
