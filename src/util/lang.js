@@ -46,7 +46,7 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
          * @returns {boolean}
          */
         this.isDate = function(date) {
-            return Object.prototype.toString.call(date) === "[object Date]";
+            return date instanceof Date || Object.prototype.toString.call(date) === "[object Date]";
         };
         /**
          * 判断是否为图片
@@ -63,24 +63,23 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
             }
         };
         /**
-         * 判断是否为空对象（空数组）
+         * 判断是否为空对象
          *
          * @param {any} obj
          * @returns {boolean}
          */
-        this.isEmpty = function(obj) {
-            if (!self.isObject()) {
+        this.isObjectEmpty = function(obj) {
+            if (Object.getOwnPropertyNames) {
+                return (Object.getOwnPropertyNames(obj).length === 0);
+            } else {
+                var k;
+                for (k in obj) {
+                    if (Object.prototype.hasOwnProperty.call(k, obj)) {
+                        return false;
+                    }
+                }
                 return true;
             }
-            if (self.isType(obj, "array")) {
-                return !obj.length;
-            }
-            for (var key in obj) {
-                if (hasOwnProperty.call(obj, key)) {
-                    return false;
-                }
-            }
-            return true;
         };
         /**
          * 判断对象类型

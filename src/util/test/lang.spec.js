@@ -22,9 +22,8 @@ describe("lang util", function() {
     it("检查是否为图片", function() {
         expect(xueUtilLang.isPicture(jpg)).toBe(true);
     });
-    it("判断是否为空对象（空数组）", function() {
-        expect(xueUtilLang.isEmpty({})).toBe(true);
-        expect(xueUtilLang.isEmpty([])).toBe(true);
+    it("判断是否为空对象", function() {
+        expect(xueUtilLang.isObjectEmpty(new Object())).toBe(true);
     });
     it("复制对象", function() {
         expect(xueUtilLang.copyObj(obj)).toEqual(obj);
