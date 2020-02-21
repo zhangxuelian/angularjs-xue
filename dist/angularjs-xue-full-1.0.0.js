@@ -2,7 +2,7 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-02-20
+ * Version: 1.0.0 - 2020-02-21
  * Require angularjs version: 1.2.32
  * License: ISC
  */
@@ -579,7 +579,7 @@ angular.module('xue.util.date', ['xue.util.lang'])
          * @param {string} fmt 可选 时间格式 默认YYYY-MM-DD hh:mm:ss
          * @returns {String} /2016-01-01 23:59:59/
          */
-        this.formatDate = function(date, fmt) {
+        this.formatDate = function (date, fmt) {
             date = new Date(date);
             if (!xueUtilLang.isDate(date)) {
                 return "Invalid Date";
@@ -619,6 +619,7 @@ angular.module('xue.util.date', ['xue.util.lang'])
          * @param {number} number 需要增加或减少的数值 正数指定时间增加 负数初始时间减少 
          * @param {string} type 需要增加(减少)的时间类型 years/months/days/hours/minutes/seconds
          * @param {string} fmt 可选 时间格式 默认YYYY-MM-DD hh:mm:ss
+         * @returns {string}
          */
         this.dateAddNum = function (dateStr, type, number, fmt) {
             var tempDate = new Date(dateStr); // 把日期字符串转换成日期格式
@@ -648,36 +649,104 @@ angular.module('xue.util.date', ['xue.util.lang'])
             return self.formatDate(tempDate, fmt);
         }
         /**
-         * 返回距 1970 年 1 月 1 日之间的毫秒数(可用于比较时间先后)
-         * @param {} Date 格式为：yyyy-mm-dd
+         * 获取日期最大值
+         * 根据距 1970年1月1日 的毫秒数来比较获取日期的最大值
+         * 
+         * @param {arr} dateArr 需要比较的日期数组 数组项可以是标准时间或者符合时间格式的字符串
+         * @returns {string}
          */
-        this.formatTimesFromDate = function(Date){
-            var arr = Date.split("-");
-            var newDate = new Date(arr[0],arr[1],arr[2]);
-            var resultDate = newDate.getTime();
-            return resultDate;
+        this.maxDate = function (dateArr) {
+            if (!Array.isArray(dateArr) || !dateArr.length) {
+                return undefined;
+            }
+            if (dateArr.length === 1) {
+                return dateArr[0];
+            }
+            var max = dateArr.reduce(function (date1, date2) {
+                var d1 = new Date(date1),
+                    d2 = new Date(date2);
+                if (!xueUtilLang.isDate(d1)) {
+                    return date2;
+                } else if (!xueUtilLang.isDate(d2)) {
+                    return date1;
+                }
+                if (Date.parse(d1) - Date.parse(d2) > 0) {
+                    return date1;
+                } else {
+                    return date2;
+                }
+            })
+            if (!xueUtilLang.isDate(new Date(max))) {
+                return undefined;
+            }
+            return max;
         }
         /**
-         * 返回距 1970 年 1 月 1 日之间的毫秒数(可用于比较时间先后)
-         * @param {} Time 格式为：hh:mm:ss
+         * 获取日期最小值
+         * 根据距 1970年1月1日 的毫秒数来比较获取日期的最小值
+         * 
+         * @param {arr} dateArr 需要比较的日期数组 数组项可以是标准时间或者符合时间格式的字符串
+         * @returns {string}
          */
-        this.formatTimesFromTime = function(Time){
-            var arr = Time.split(":");
-            var newTime = new Date('','','',arr[0],arr[1],arr[2]);
-            var resultDate = newTime.getTime();
-            return resultDate;
+        this.minDate = function (dateArr) {
+            if (!Array.isArray(dateArr) || !dateArr.length) {
+                return undefined;
+            }
+            if (dateArr.length === 1) {
+                return dateArr[0];
+            }
+            var min = dateArr.reduce(function (date1, date2) {
+                var d1 = new Date(date1),
+                    d2 = new Date(date2);
+                if (!xueUtilLang.isDate(d1)) {
+                    return date2;
+                } else if (!xueUtilLang.isDate(d2)) {
+                    return date1;
+                }
+                if (Date.parse(d1) - Date.parse(d2) > 0) {
+                    return date2;
+                } else {
+                    return date1;
+                }
+            })
+            if (!xueUtilLang.isDate(new Date(min))) {
+                return undefined;
+            }
+            return min;
         }
         /**
-         * 返回距 1970 年 1 月 1 日之间的毫秒数(可用于比较时间先后)
-         * @param {} DateTime 格式为：yyyy-mm-dd hh:mm:ss
+         * 获取两个日期的间隔对象
+         * 返回一个包含两个日期的天、小时、分钟、秒、毫秒及大小的对象
+         * 
+         * @param {date} start 比较初始时间
+         * @param {date} end 比较结束时间
+         * @returns {obj} 
          */
-        this.formatTimesFromDateTime = function(DateTime){
-            var date = new Date(Date.parse(DateTime.replace(/-/g, "/")));
-            var resultDate = date.getTime();
-            return resultDate;
-        }
-    }
-]);
+        this.timeInterval = function (start, end) {
+            var startTime = Date.parse(start.replace(/-/g, '/')); //开始时间
+            var endTime = Date.parse(end.replace(/-/g, '/')); //结束时间
+            var usedTime = Math.abs(parseFloat(startTime) - parseFloat(endTime)); //两个时间戳相差的毫秒数
+            var flag = ((startTime - endTime) > 0) ? '-' : '+';
+            var days = Math.floor(usedTime / (24 * 3600 * 1000));
+            //计算出小时数
+            var leave1 = usedTime % (24 * 3600 * 1000); //计算天数后剩余的毫秒数
+            var hours = Math.floor(leave1 / (3600 * 1000));
+            //计算相差分钟数
+            var leave2 = leave1 % (3600 * 1000); //计算小时数后剩余的毫秒数
+            var minutes = Math.floor(leave2 / (60 * 1000));
+            var seconds = Math.floor((usedTime - days * 24 * 60 * 60 * 1000 - hours * 60 * 60 * 1000 - minutes * 60 * 1000) / 1000); //取得算出分后剩余的秒数
+
+            var timeIntervalObj = {
+                days: days,
+                hours: hours,
+                minutes: minutes,
+                seconds: seconds,
+                usedTime: usedTime,
+                flag: flag
+            };
+            return timeIntervalObj;
+        };
+    }]);
 angular.module('xue.util.function', ['xue.util.lang'])
     .service('xueUtilFunc', ["xueUtilLang", function (xueUtilLang) {
         var self = this;
@@ -806,8 +875,8 @@ angular.module('xue.util.function', ['xue.util.lang'])
                 // Either this is the first call, activity has stopped and we're at the
                 // trailing edge, the system time has gone backwards and we're treating
                 // it as the trailing edge, or we've hit the `maxWait` limit.
-                return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||
-                    (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
+                return lastCallTime === undefined || timeSinceLastCall >= wait ||
+                    timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
             }
 
             function timerExpired() {
@@ -963,9 +1032,9 @@ angular.module('xue.util.function', ['xue.util.lang'])
                 //此处的arguments为内部函数的参数
                 var finalArgs = outerArgs.concat(innerArgs);
                 return func.apply(thisArg, finalArgs); //使用apply方法来改变this的指向
-            }
-        }
-}]);
+            };
+        };
+    }]);
 angular.module("xue.util.lang", []).service("xueUtilLang", [
     function() {
         var self = this;
