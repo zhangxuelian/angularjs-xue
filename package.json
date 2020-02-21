@@ -11,7 +11,8 @@
   "scripts": {
     "test": "grunt",
     "demo": "grunt build copy && static demo -a 0.0.0.0 -p 8081",
-    "just-test": "grunt build"
+    "test-build": "grunt build",
+    "test-sass": "grunt sass"
   },
   "repository": {
     "type": "git",

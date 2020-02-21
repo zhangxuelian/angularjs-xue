@@ -29,7 +29,7 @@ describe('pagination directive', function () {
     }
 
     it('has a "pagination" css class', function () {
-        expect(element.hasClass('pagination')).toBe(true);
+        expect(element.hasClass('pagination')).toBe(false);
     });
 
     it('contains num-pages + 2 li elements', function () {

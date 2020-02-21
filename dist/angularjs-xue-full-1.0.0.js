@@ -1988,7 +1988,7 @@ angular.module("xue/template/pagination/pager.html", []).run(["$templateCache", 
 
 angular.module("xue/template/pagination/pagination.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/pagination/pagination.html",
-    "<ul class=\"pagination\">\n" +
+    "<ul class=\"xui-pagination-wrap\">\n" +
     "    <li ng-if=\"boundaryLinks\" ng-class=\"{disabled: noPrevious()}\">\n" +
     "        <a href ng-click=\"selectPage(1)\">{{getText('first')}}</a>\n" +
     "    </li>\n" +

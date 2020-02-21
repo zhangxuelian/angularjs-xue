@@ -50,7 +50,7 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    src: ['src/**/css/*.scss', 'src/ui/**.ui.scss'],
+                    src: ['src/**/css/*.scss', 'src/ui/*.ui.scss'],
                     ext: '.css'
                 }]
             }
@@ -82,7 +82,7 @@ module.exports = function (grunt) {
                 dest: '<%= dist %>/<%= filename %>-full-<%= pkg.version %>.js'
             },
             dist_css: {
-                src: ['src/ui/*.css'],
+                src: ['src/ui/xue.css'],
                 dest: '<%= dist %>/<%= filename %>-ui-<%= pkg.version %>.css'
             }
         },
