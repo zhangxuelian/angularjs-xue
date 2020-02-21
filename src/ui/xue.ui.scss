@@ -1,8 +1,9 @@
 // Config
-@import "function.scss";
-@import "variables.scss";
-@import "util.scss";
-@import "rfs.scss";
+@import "config/function.scss";
+@import "config/rfs.scss";
+@import "config/variables.scss";
+//@import "config/util.scss";
 // Layout & components
-@import "reset.scss";
-@import "pagination.scss";
+@import "config/reset.scss";
+@import "component/pagination.scss";
+@import "component/table.scss";
