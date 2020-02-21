@@ -2,7 +2,10 @@ angular.module('ui.xue.demo').controller('xuePaginationdemoCtrl',['$scope',funct
     $scope.mv = {
         total: 100,
         page: 2,
-        maxSize: 7,
-        size: 5
+        maxSize: 5,
+        size: 10
     };
+    $scope.pageConfig = {
+        
+    }
 }]);

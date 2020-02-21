@@ -50,7 +50,7 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    src: ['src/**/css/*.scss', 'src/ui/*.ui.scss'],
+                    src: ['src/**/css/*.scss', 'src/ui/*.ui.scss', 'misc/demo/assets/*.scss'],
                     ext: '.css'
                 }]
             }
@@ -334,15 +334,15 @@ module.exports = function (grunt) {
         }
     });
     grunt.registerTask('build', 'Create bootstrap build files', function () {
-        grunt.config('readMd',grunt.file.expand(`README.md`)
-        .map(grunt.file.read).map((str) => marked(str)).join('\n'));
+        grunt.config('readMd', grunt.file.expand(`README.md`)
+            .map(grunt.file.read).map((str) => marked(str)).join('\n'));
         grunt.file.expand({
             filter: 'isDirectory', cwd: '.'
         }, 'src/*').forEach((dir) => {
             util.findModule(dir.split('/')[1]);
         });
         var modules = grunt.config('modules');
-        grunt.config('modules', _.uniqBy(modules,'name'));
+        grunt.config('modules', _.uniqBy(modules, 'name'));
         modules = grunt.config('modules');
         grunt.config('srcModules', util.pluck(modules, 'moduleName'));
         grunt.config('tplModules', util.pluck(modules, 'tplModules').filter((tpls) => tpls.length > 0));

@@ -287,7 +287,7 @@ main {
     float: left;
     position: relative;
     display: block;
-    color: #5BABE6;
+    color: #2180BA;
     background-color: #fff;
     border: 1px solid #dee2e6; }
     .xui-pagination-wrap .page-link:hover {
@@ -297,9 +297,7 @@ main {
       background-color: #e9ecef;
       border-color: #dee2e6; }
     .xui-pagination-wrap .page-link:focus {
-      z-index: 3;
-      outline: 0;
-      box-shadow: 0 0 0 0.2rem rgba(91, 171, 230, 0.25); }
+      z-index: 3; }
   .xui-pagination-wrap .page-item {
     float: left; }
     .xui-pagination-wrap .page-item:not(:first-child) .page-link {
@@ -315,29 +313,29 @@ main {
       background-color: #fff;
       border-color: #dee2e6; }
   .xui-pagination-wrap .page-link {
-    padding: 0.375rem 0.75rem; }
+    padding: 0.25rem 0.85rem; }
   .xui-pagination-wrap .page-item:first-child .page-link {
     border-top-left-radius: 0.25rem;
     border-bottom-left-radius: 0.25rem; }
   .xui-pagination-wrap .page-item:last-child .page-link {
     border-top-right-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem; }
-  .xui-pagination-wrap.pagination-lg .page-link {
+  .xui-pagination-wrap.xui-pagination-lg .page-link {
     padding: 0.75rem 1.5rem;
     font-size: 1.25rem; }
-  .xui-pagination-wrap.pagination-lg .page-item:first-child .page-link {
+  .xui-pagination-wrap.xui-pagination-lg .page-item:first-child .page-link {
     border-top-left-radius: 0.3rem;
     border-bottom-left-radius: 0.3rem; }
-  .xui-pagination-wrap.pagination-lg .page-item:last-child .page-link {
+  .xui-pagination-wrap.xui-pagination-lg .page-item:last-child .page-link {
     border-top-right-radius: 0.3rem;
     border-bottom-right-radius: 0.3rem; }
-  .xui-pagination-wrap.pagination-sm .page-link {
-    padding: 0.25rem 0.5rem;
+  .xui-pagination-wrap.xui-pagination-sm .page-link {
+    padding: 0.2rem 0.5rem;
     font-size: 0.875rem; }
-  .xui-pagination-wrap.pagination-sm .page-item:first-child .page-link {
+  .xui-pagination-wrap.xui-pagination-sm .page-item:first-child .page-link {
     border-top-left-radius: 0.2rem;
     border-bottom-left-radius: 0.2rem; }
-  .xui-pagination-wrap.pagination-sm .page-item:last-child .page-link {
+  .xui-pagination-wrap.xui-pagination-sm .page-item:last-child .page-link {
     border-top-right-radius: 0.2rem;
     border-bottom-right-radius: 0.2rem; }
 
