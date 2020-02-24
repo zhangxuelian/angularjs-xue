@@ -64,7 +64,7 @@ angular.module('xue.util.number', [])
                     Math.random() *
                     (upper -
                         lower +
-                        Number.parseFloat("1e-" + ((Math.random() + "").length - 1))),
+                        parseFloat("1e-" + ((Math.random() + "").length - 1))),
                     upper
                 );
             }

@@ -5,7 +5,7 @@ angular.module('plunker', [])
     return function (ngVersion, bsVersion, version, module, content) {
 
       var form = angular.element('<form style="display: none;" method="post" action="https://plnkr.co/edit/?p=preview" target="_blank"></form>');
-      
+
       var addField = function (name, value) {
         var input = angular.element('<input type="hidden" name="' + name + '">');
         input.attr('value', value);
@@ -16,12 +16,12 @@ angular.module('plunker', [])
         return '<!doctype html>\n' +
           '<html ng-app="ui.bootstrap.demo">\n' +
           '  <head>\n' +
-          '    <script src="//ajax.googleapis.com/ajax/libs/angularjs/'+ngVersion+'/angular.js"></script>\n' +
-          '    <script src="//ajax.googleapis.com/ajax/libs/angularjs/'+ngVersion+'/angular-animate.js"></script>\n' +
-          '    <script src="//ajax.googleapis.com/ajax/libs/angularjs/'+ngVersion+'/angular-sanitize.js"></script>\n' +
-          '    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-'+version+'.js"></script>\n' +
+          '    <script src="//ajax.googleapis.com/ajax/libs/angularjs/' + ngVersion + '/angular.js"></script>\n' +
+          '    <script src="//ajax.googleapis.com/ajax/libs/angularjs/' + ngVersion + '/angular-animate.js"></script>\n' +
+          '    <script src="//ajax.googleapis.com/ajax/libs/angularjs/' + ngVersion + '/angular-sanitize.js"></script>\n' +
+          '    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-' + version + '.js"></script>\n' +
           '    <script src="example.js"></script>\n' +
-          '    <link href="//netdna.bootstrapcdn.com/bootstrap/'+bsVersion+'/css/bootstrap.min.css" rel="stylesheet">\n' +
+          '    <link href="//netdna.bootstrapcdn.com/bootstrap/' + bsVersion + '/css/bootstrap.min.css" rel="stylesheet">\n' +
           '  </head>\n' +
           '  <body>\n\n' +
           content + '\n' +
@@ -29,7 +29,7 @@ angular.module('plunker', [])
           '</html>\n';
       };
 
-      var scriptContent = function(content) {
+      var scriptContent = function (content) {
         return "angular.module('ui.bootstrap.demo', ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);" + "\n" + content;
       };
 
@@ -54,7 +54,7 @@ angular.module('plunker', [])
 
   .directive('plunkerContent', function () {
     return {
-      link:function (scope, element, attrs) {
+      link: function (scope, element, attrs) {
         scope.content[attrs.plunkerContent] = element.text().trim();
       }
     }

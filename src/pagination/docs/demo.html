@@ -1,6 +1,14 @@
-<div ng-controller="xuePaginationdemoCtrl">
-    <xue-pagination total-items="mv.total" max-size="mv.maxSize" 
-        ng-model="mv.page" items-per-page="mv.size" 
-        class="pagination-sm pull-right" boundary-links="true">
+<div ng-controller="xuePaginationdemoCtrl" style="overflow: auto;">
+    <xue-pagination class="xui-pagination-sm" total-items="mv.total" max-size="mv.maxSize" ng-model="mv.page"
+        items-per-page="mv.size" boundary-links="true">
     </xue-pagination>
+    <br /><br />
+    <xue-pagination total-items="mv.total" max-size="mv.maxSize" ng-model="mv.page" items-per-page="mv.size"
+        boundary-links="true">
+    </xue-pagination>
+    <br /><br />
+    <xue-pagination first-text="<<" previous-text="<" next-text=">" last-text=">>" total-items="mv.total"
+        max-size="mv.maxSize" ng-model="mv.page" items-per-page="mv.size" boundary-links="true">
+    </xue-pagination>
+    <br /><br />
 </div>

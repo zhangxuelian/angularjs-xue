@@ -10,7 +10,7 @@
   "main": "index.js",
   "scripts": {
     "test": "grunt",
-    "demo": "grunt build copy && static demo -a 0.0.0.0 -p 8081",
+    "demo": "grunt delFiles sass html2js build cssmin copy && static demo -a 0.0.0.0 -p 8081",
     "test-build": "grunt build",
     "test-sass": "grunt sass"
   },
