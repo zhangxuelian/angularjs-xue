@@ -2,11 +2,11 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-02-21
+ * Version: 1.0.0 - 2020-02-24
  * Require angularjs version: 1.2.32
  * License: ISC
  */
-angular.module("ui.xue", ["ui.xue.tpls", "xue.pagination","xue.util.lang","xue.table","xue.util.array","xue.util.collection","xue.util.date","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.string","xue.util.function","xue.util"]);
+angular.module("ui.xue", ["ui.xue.tpls", "xue.pagination","xue.util.lang","xue.table","xue.util.array","xue.util.collection","xue.util.string","xue.util.date","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util"]);
 angular.module("ui.xue.tpls", ["xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/table/table.html"]);
 angular.module('xue.pagination', [])
 
@@ -569,9 +569,30 @@ angular.module('xue.util.collection', ['xue.util.lang'])
             }
         };
     }]);
-angular.module('xue.util.date', ['xue.util.lang'])
-    .service('xueUtilDate', ['xueUtilLang', function (xueUtilLang) {
+angular.module('xue.util.date', ['xue.util.lang', 'xue.util.string'])
+    .service('xueUtilDate', ['xueUtilLang', 'xueUtilString', function (xueUtilLang, xueUtilString) {
         var self = this;
+        /**
+         * 将符合时间格式的字符串转化为Date对象
+         * 根据给定格式格式化时间 时间可以是标准时间或者符合时间格式的字符串
+         * @param {any} date /Mon Nov 20 2017 14:28:48 GMT+0800 (中国标准时间)/ 2020-2-20
+         * @param {string} fmt 可选 时间格式 默认YYYY-MM-DD hh:mm:ss
+         * @returns {String} /2016-01-01 23:59:59/
+         */
+        this.translateDate = function (date) {
+            var tmp = new Date(date);
+            if (xueUtilLang.isValidDate(tmp)) {
+                var tmp1 = new Date(date.replace(/-/g,"/"));
+                if (!xueUtilLang.isValidDate(tmp1)) {
+                    date = tmp1;
+                } else {
+                    return "Invalid Date";
+                }
+            } else {
+                date = tmp;
+            }
+            return date;
+        }
         /**
          * 格式化时间
          * 根据给定格式格式化时间 时间可以是标准时间或者符合时间格式的字符串
@@ -580,9 +601,9 @@ angular.module('xue.util.date', ['xue.util.lang'])
          * @returns {String} /2016-01-01 23:59:59/
          */
         this.formatDate = function (date, fmt) {
-            date = new Date(date);
+            date = self.translateDate(date);
             if (!xueUtilLang.isDate(date)) {
-                return "Invalid Date";
+                return date;
             }
             fmt = fmt ? fmt : "YYYY-MM-DD hh:mm:ss";
             var opt = {
@@ -597,7 +618,7 @@ angular.module('xue.util.date', ['xue.util.lang'])
             for (var k in opt) {
                 var ret = new RegExp("(" + k + ")").exec(fmt);
                 if (ret) {
-                    fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
+                    fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (xueUtilString.padChars(opt[k], ret[1].length, 'start', '0')))
                 }
             }
             return fmt;
@@ -622,9 +643,9 @@ angular.module('xue.util.date', ['xue.util.lang'])
          * @returns {string}
          */
         this.dateAddNum = function (dateStr, type, number, fmt) {
-            var tempDate = new Date(dateStr); // 把日期字符串转换成日期格式
+            var tempDate = self.translateDate(dateStr); // 把日期字符串转换成日期格式
             if (!xueUtilLang.isDate(tempDate)) {
-                return "Invalid Date";
+                return tempDate;
             }
             switch (type) {
                 case "years":
@@ -1086,6 +1107,14 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
             return date instanceof Date || Object.prototype.toString.call(date) === "[object Date]";
         };
         /**
+         * 检查Date对象是否为Invalid Date
+         * @param {any} date
+         * @returns {boolean}
+         */
+        this.isValidDate = function(date) {
+            return self.isDate(date) && isNaN(date.getTime())
+        }
+        /**
          * 判断是否为图片
          * 
          * @param {any} path
@@ -1480,7 +1509,7 @@ angular.module('xue.util.number', [])
                     Math.random() *
                     (upper -
                         lower +
-                        Number.parseFloat("1e-" + ((Math.random() + "").length - 1))),
+                        parseFloat("1e-" + ((Math.random() + "").length - 1))),
                     upper
                 );
             }
@@ -1796,24 +1825,35 @@ angular.module('xue.util.string', [])
         /**
          * 字符串头部/尾部补充
          * @param {any} String
-         * @param {any} length //填充的长度
-         * @param {any} type   // 填充类型
-         * @param {any} chars  // 填充的字符串
+         * @param {any} maxLength //填充的长度
+         * @param {any} type   // 填充类型 start/end
+         * @param {any} fillString  // 填充的字符串
          * padStart('ab',4,'x');->xxab
          * @returns
          */
-        this.padChars = function (string, length, type, chars) {
-            string = string.toString();
-            length = parseInt(length, 0);
-            chars = chars ? chars : ' ';
-            var newString = '';
-            if (type === 'start') {
-                newString = string.padStart(length, chars);
+        this.padChars = function (string, maxLength, type, fillString) {
+            if (fillString === undefined) {
+                fillString = ' ';
             }
-            else {
-                newString = string.padEnd(length, chars);
+            
+            if(Object.prototype.toString.call(fillString) !== "[object String]") throw new TypeError('fillString must be String')
+            if(string.length >= maxLength) return String(string)
+
+            var fillLength = maxLength - string.length, 
+                times = Math.ceil(fillLength / fillString.length)
+        
+            while (times--) { 
+                fillString += fillString
+                    if(times === 1) {
+                        fillString += fillString;
+                    }     
             }
-            return newString;
+            if (type == "start") {
+                return fillString.slice(0, fillLength) + string;
+            } else {
+                return string + fillString.slice(0, fillLength);
+            }
+            
         };
         /**
          * 格式化文字

@@ -11,7 +11,7 @@ describe('date util', function () {
     it('获取当前时间',function(){
         expect(xueUtilDate.getCurrentFmtDate()).toEqual(xueUtilDate.formatDate(Date()));
     });
-    it('获取指日期增加(减少)天数之后的时间',function(){
+    it('获取指日期增加(减少)年/月/日/时/分/秒数之后的时间',function(){
         expect(xueUtilDate.dateAddNum("2020-02-20 12:12:12", "days", 7)).toBe("2020-02-27 12:12:12");
         expect(xueUtilDate.dateAddNum("2020-02-20", "days", 7, "YYYY-MM-DD")).toBe("2020-02-27");
         expect(xueUtilDate.dateAddNum("2020-02-20", "days", -7, "YYYY-MM-DD")).toBe("2020-02-13");

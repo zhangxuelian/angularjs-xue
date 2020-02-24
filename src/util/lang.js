@@ -49,6 +49,14 @@ angular.module("xue.util.lang", []).service("xueUtilLang", [
             return date instanceof Date || Object.prototype.toString.call(date) === "[object Date]";
         };
         /**
+         * 检查Date对象是否为Invalid Date
+         * @param {any} date
+         * @returns {boolean}
+         */
+        this.isValidDate = function(date) {
+            return self.isDate(date) && isNaN(date.getTime())
+        }
+        /**
          * 判断是否为图片
          * 
          * @param {any} path
