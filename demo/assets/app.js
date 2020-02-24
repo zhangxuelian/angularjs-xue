@@ -1,16 +1,16 @@
-angular.module('ui.xue.demo', ['ui.xue','plunker'])
-.run(['$location', function($location){
+angular.module('ui.xue.demo', ['ui.xue', 'plunker'])
+  .run(['$location', function ($location) {
     if ($location.path() !== '' && $location.path() !== '/') {
-      smoothScroll(document.getElementById($location.path().substring(1)), 500, function(el) {
+      smoothScroll(document.getElementById($location.path().substring(1)), 500, function (el) {
         location.replace('#' + el.id);
       });
     }
-}])
-.factory('buildFilesService', ['$http','$q',function ($http, $q) {
+  }])
+  .factory('buildFilesService', ['$http', '$q', function ($http, $q) {
 
     var moduleMap;
     var rawFiles;
-  
+
     return {
       getModuleMap: getModuleMap,
       getRawFiles: getRawFiles,
@@ -21,7 +21,7 @@ angular.module('ui.xue.demo', ['ui.xue','plunker'])
         });
       }
     };
-  
+
     function getModuleMap() {
       return moduleMap ? $q.when(moduleMap) : $http.get('assets/module-mapping.json')
         .then(function (result) {
@@ -29,7 +29,7 @@ angular.module('ui.xue.demo', ['ui.xue','plunker'])
           return moduleMap;
         });
     }
-  
+
     function getRawFiles() {
       return rawFiles ? $q.when(rawFiles) : $http.get('assets/raw-files.json')
         .then(function (result) {
@@ -37,8 +37,8 @@ angular.module('ui.xue.demo', ['ui.xue','plunker'])
           return rawFiles;
         });
     }
-  
-}])
-.controller('xueDemoCtrl',['$scope',function($scope){
-    
-}]);
+
+  }])
+  .controller('xueDemoCtrl', ['$scope', function ($scope) {
+
+  }]);

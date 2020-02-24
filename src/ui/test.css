@@ -270,6 +270,75 @@ main {
 [hidden] {
   display: none !important; }
 
+.clearfix::after {
+  display: block;
+  clear: both;
+  content: ""; }
+
+.xui-pagination-wrap {
+  padding-left: 0;
+  list-style: none;
+  display: inline-block; }
+  .xui-pagination-wrap::after {
+    display: block;
+    clear: both;
+    content: ""; }
+  .xui-pagination-wrap .page-link {
+    float: left;
+    position: relative;
+    display: block;
+    color: #2180BA;
+    background-color: #fff;
+    border: 1px solid #dee2e6; }
+    .xui-pagination-wrap .page-link:hover {
+      z-index: 2;
+      color: #2088d4;
+      text-decoration: none;
+      background-color: #e9ecef;
+      border-color: #dee2e6; }
+    .xui-pagination-wrap .page-link:focus {
+      z-index: 3; }
+  .xui-pagination-wrap .page-item {
+    float: left; }
+    .xui-pagination-wrap .page-item:not(:first-child) .page-link {
+      margin-left: -1px; }
+    .xui-pagination-wrap .page-item.active .page-link {
+      z-index: 3;
+      color: #fff;
+      background-color: #5BABE6;
+      border-color: #5BABE6; }
+    .xui-pagination-wrap .page-item.disabled .page-link {
+      color: #6c757d;
+      pointer-events: none;
+      background-color: #fff;
+      border-color: #dee2e6; }
+  .xui-pagination-wrap .page-link {
+    padding: 0.25rem 0.85rem; }
+  .xui-pagination-wrap .page-item:first-child .page-link {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem; }
+  .xui-pagination-wrap .page-item:last-child .page-link {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem; }
+  .xui-pagination-wrap.xui-pagination-lg .page-link {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.25rem; }
+  .xui-pagination-wrap.xui-pagination-lg .page-item:first-child .page-link {
+    border-top-left-radius: 0.3rem;
+    border-bottom-left-radius: 0.3rem; }
+  .xui-pagination-wrap.xui-pagination-lg .page-item:last-child .page-link {
+    border-top-right-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem; }
+  .xui-pagination-wrap.xui-pagination-sm .page-link {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.875rem; }
+  .xui-pagination-wrap.xui-pagination-sm .page-item:first-child .page-link {
+    border-top-left-radius: 0.2rem;
+    border-bottom-left-radius: 0.2rem; }
+  .xui-pagination-wrap.xui-pagination-sm .page-item:last-child .page-link {
+    border-top-right-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem; }
+
 .test .test-blue {
   color: #5BABE6; }
 
