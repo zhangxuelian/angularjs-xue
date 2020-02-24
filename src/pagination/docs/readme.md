@@ -1,1 +1,1 @@
-# xue-pagination settings
+### xue-pagination settings

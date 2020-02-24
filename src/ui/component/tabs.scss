@@ -1,0 +1,38 @@
+$tab-padding-y: .25rem !default;
+$tab-padding-x: .85rem !default;
+$tab-padding-y-sm: .2rem !default;
+$tab-padding-x-sm: .5rem !default;
+$tab-padding-y-lg: .75rem !default;
+$tab-padding-x-lg: 1.5rem !default;
+
+$tab-bg: $white !default;
+$tab-border-width: $border-width !default;
+$tab-border-color: $gray-300 !default;
+
+@mixin tab-size($padding-y, $padding-x, $font-size, $border-radius){
+    .nav-link{
+        padding: $padding-y $padding-x;
+        @include font-size($font-size);
+    }
+}
+
+.xui-tabs-wrap{
+    position: relative;
+    .xui-nav-wrap{
+        @include list-unstyled();
+        @include clearfix();
+        .nav-item{
+            float: left;
+            .nav-link{
+                display: block;
+                color: $pagination-color;
+                background-color: $tab-bg;
+                border: $tab-border-width solid $tab-border-color;
+            }
+        }
+    }
+    .xui-tabs-content{
+        
+    }
+    @include tab-size($tab-padding-y,$tab-padding-x,null,$border-radius);
+}

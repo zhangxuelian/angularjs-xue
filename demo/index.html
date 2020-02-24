@@ -44,7 +44,8 @@
                         <a href="#pagination">组件文档</a>
                         <div class="child-menu"><a
                                 href="#pagination">Pagination</a></div><div class="child-menu"><a
-                                href="#table">Table</a></div>
+                                href="#table">Table</a></div><div class="child-menu"><a
+                                href="#tabs">Tabs</a></div>
                     </li>
                 </ul>
             </div>
@@ -96,7 +97,7 @@ $ npm run demo</code></pre>
                     </div>
                     <div class="page-content">
                         <div class="content-html">
-                            <div ng-controller="xuePaginationdemoCtrl" style="overflow: auto;">
+                            <div ng-controller="xuePaginationDemoCtrl" style="overflow: auto;">
     <xue-pagination class="xui-pagination-sm" total-items="mv.total" max-size="mv.maxSize" ng-model="mv.page"
         items-per-page="mv.size" boundary-links="true">
     </xue-pagination>
@@ -112,7 +113,7 @@ $ npm run demo</code></pre>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
-                            <h1 id="xue-pagination-settings">xue-pagination settings</h1>
+                            <h3 id="xue-pagination-settings">xue-pagination settings</h3>
 
                         </div>
                     </div>
@@ -127,8 +128,8 @@ $ npm run demo</code></pre>
                             <uib-tabset active="activeTab">
                                 <uib-tab index="0" heading="Markup">
                                     <div plunker-content="markup">
-                                        <pre
-                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xuePaginationdemoCtrl&quot; style=&quot;overflow: auto;&quot;&gt;
+                                        <pre ng-non-bindable>
+                                            <code data-language="html">&lt;div ng-controller=&quot;xuePaginationDemoCtrl&quot; style=&quot;overflow: auto;&quot;&gt;
     &lt;xue-pagination class=&quot;xui-pagination-sm&quot; total-items=&quot;mv.total&quot; max-size=&quot;mv.maxSize&quot; ng-model=&quot;mv.page&quot;
         items-per-page=&quot;mv.size&quot; boundary-links=&quot;true&quot;&gt;
     &lt;/xue-pagination&gt;
@@ -141,22 +142,20 @@ $ npm run demo</code></pre>
         max-size=&quot;mv.maxSize&quot; ng-model=&quot;mv.page&quot; items-per-page=&quot;mv.size&quot; boundary-links=&quot;true&quot;&gt;
     &lt;/xue-pagination&gt;
     &lt;br /&gt;&lt;br /&gt;
-&lt;/div&gt;</code></pre>
+&lt;/div&gt;</code>
+                                        </pre>
                                     </div>
                                 </uib-tab>
                                 <uib-tab index="1" heading="JavaScript">
                                     <div plunker-content="javascript">
                                         <pre
-                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xuePaginationdemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xuePaginationDemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
     $scope.mv = {
         total: 100,
         page: 2,
         maxSize: 5,
         size: 10
     };
-    $scope.pageConfig = {
-        
-    }
 }]);</code></pre>
                                     </div>
                                 </uib-tab>
@@ -164,16 +163,13 @@ $ npm run demo</code></pre>
                         </div>
                     </div>
                 </section>
-                <script>angular.module('ui.xue.demo').controller('xuePaginationdemoCtrl',['$scope',function($scope){
+                <script>angular.module('ui.xue.demo').controller('xuePaginationDemoCtrl',['$scope',function($scope){
     $scope.mv = {
         total: 100,
         page: 2,
         maxSize: 5,
         size: 10
     };
-    $scope.pageConfig = {
-        
-    }
 }]);</script>
                 
                 <section class="module-wrap" id="table">
@@ -207,12 +203,13 @@ $ npm run demo</code></pre>
                             <uib-tabset active="activeTab">
                                 <uib-tab index="0" heading="Markup">
                                     <div plunker-content="markup">
-                                        <pre
-                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueTableDemoCtrl&quot;&gt;
+                                        <pre ng-non-bindable>
+                                            <code data-language="html">&lt;div ng-controller=&quot;xueTableDemoCtrl&quot;&gt;
     &lt;div&gt;
         {{test}}
     &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+&lt;/div&gt;</code>
+                                        </pre>
                                     </div>
                                 </uib-tab>
                                 <uib-tab index="1" heading="JavaScript">
@@ -229,6 +226,58 @@ $ npm run demo</code></pre>
                 </section>
                 <script>angular.module('ui.xue.demo').controller('xueTableDemoCtrl', ['$scope', function ($scope) {
     $scope.test = "table test";
+}]);</script>
+                
+                <section class="module-wrap" id="tabs">
+                    <div class="page-header">
+                        <h1>Tabs<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/tabs">xue.tabs</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <xue-tabs-wrap>
+    <xue-tab></xue-tab>
+</xue-tabs-wrap>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="xue-tabs-settings">xue-tabs settings</h3>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'tabs')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div>
+                            <uib-tabset active="activeTab">
+                                <uib-tab index="0" heading="Markup">
+                                    <div plunker-content="markup">
+                                        <pre ng-non-bindable>
+                                            <code data-language="html">&lt;xue-tabs-wrap&gt;
+    &lt;xue-tab&gt;&lt;/xue-tab&gt;
+&lt;/xue-tabs-wrap&gt;</code>
+                                        </pre>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab index="1" heading="JavaScript">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueTabsDemoCtrl&#39;,[function(){
+    
+}]);</code></pre>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueTabsDemoCtrl',[function(){
+    
 }]);</script>
                 
             </div>

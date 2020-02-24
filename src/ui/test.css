@@ -339,6 +339,25 @@ main {
     border-top-right-radius: 0.2rem;
     border-bottom-right-radius: 0.2rem; }
 
+.xui-tabs-wrap {
+  position: relative; }
+  .xui-tabs-wrap .xui-nav-wrap {
+    padding-left: 0;
+    list-style: none; }
+    .xui-tabs-wrap .xui-nav-wrap::after {
+      display: block;
+      clear: both;
+      content: ""; }
+    .xui-tabs-wrap .xui-nav-wrap .nav-item {
+      float: left; }
+      .xui-tabs-wrap .xui-nav-wrap .nav-item .nav-link {
+        display: block;
+        color: #2180BA;
+        background-color: #fff;
+        border: 1px solid #dee2e6; }
+  .xui-tabs-wrap .nav-link {
+    padding: 0.25rem 0.85rem; }
+
 .test .test-blue {
   color: #5BABE6; }
 

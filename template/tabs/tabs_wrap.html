@@ -1,0 +1,9 @@
+<div class="xui-tabs-wrap">
+    <ul class="xui-nav-wrap" ng-transclude></ul>
+    <div class="xui-tabs-content">
+        <div class="tab-pane" ng-repeat="tab in tabset.tabs" 
+            ng-class="{active: tabset.active === tab.index}"
+            xue-tab-content="tab">
+        </div>
+    </div>
+</div>

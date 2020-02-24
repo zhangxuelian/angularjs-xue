@@ -2,12 +2,12 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-02-21
+ * Version: 1.0.0 - 2020-02-24
  * Require angularjs version: 1.2.32
  * License: ISC
  */
-angular.module("ui.xue", ["ui.xue.tpls", "xue.pagination","xue.util.lang","xue.table","xue.util.array","xue.util.collection","xue.util.date","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.string","xue.util.function","xue.util"]);
-angular.module("ui.xue.tpls", ["xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/table/table.html"]);
+angular.module("ui.xue", ["ui.xue.tpls", "xue.pagination","xue.util.lang","xue.table","xue.tabs","xue.util.array","xue.util.collection","xue.util.date","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.string","xue.util.function","xue.util"]);
+angular.module("ui.xue.tpls", ["xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html"]);
 angular.module('xue.pagination', [])
 
   .controller('xuePaginationController', ['$scope', '$attrs', '$parse', function ($scope, $attrs, $parse) {
@@ -89,7 +89,6 @@ angular.module('xue.pagination', [])
     return {
       restrict: 'EA',
       scope: {
-        pageConfig: '=',
         totalItems: '=',
         firstText: '@',
         previousText: '@',
@@ -243,6 +242,43 @@ angular.module('xue.table', ['xue.util.lang', 'xue.pagination'])
             }
         };
     }])
+angular.module('xue.tabs', [])
+    .directive('xueTabsWrap', [function () {
+        return {
+            restrict: 'E',
+            transclude: true,
+            replace: true,
+            scope: {},
+            controller: 'tabsWrapCtrl',
+            templateUrl: function (element, attrs) {
+                return attrs.templateUrl || 'xue/template/tabs/tabs_wrap.html';
+            },
+            link: function () {
+                console.log('link')
+            }
+        }
+    }])
+    .controller('tabsWrapCtrl', [function () {
+        console.log('ctrl');
+    }])
+    .directive('xueTab', [function () {
+        return {
+            restrict: 'E',
+            require: '^xueTabsWrap',
+            replace: true,
+            templateUrl: function (element, attrs) {
+                return attrs.templateUrl || 'xue/template/tabs/tab.html';
+            },
+            link: function () {
+
+            }
+        }
+    }])
+    .directive('xueTabContent', [function () {
+        return {
+
+        }
+    }]);
 angular.module('xue.util.array', []).service('xueUtilArray', [
     function () {
         /**
@@ -2019,6 +2055,26 @@ angular.module("xue/template/table/table.html", []).run(["$templateCache", funct
     "    </div>\n" +
     "    <div class=\"xe-table-footer\">\n" +
     "\n" +
+    "    </div>\n" +
+    "</div>");
+}]);
+
+angular.module("xue/template/tabs/tab.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("xue/template/tabs/tab.html",
+    "<li ng-class=\"[{active: active, disabled: disabled}, classes]\" class=\"nav-item\">\n" +
+    "    <a class=\"nav-link\"></a>\n" +
+    "</li>");
+}]);
+
+angular.module("xue/template/tabs/tabs_wrap.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("xue/template/tabs/tabs_wrap.html",
+    "<div class=\"xui-tabs-wrap\">\n" +
+    "    <ul class=\"xui-nav-wrap\" ng-transclude></ul>\n" +
+    "    <div class=\"xui-tabs-content\">\n" +
+    "        <div class=\"tab-pane\" ng-repeat=\"tab in tabset.tabs\" \n" +
+    "            ng-class=\"{active: tabset.active === tab.index}\"\n" +
+    "            xue-tab-content=\"tab\">\n" +
+    "        </div>\n" +
     "    </div>\n" +
     "</div>");
 }]);

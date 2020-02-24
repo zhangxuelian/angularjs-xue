@@ -79,7 +79,6 @@ angular.module('xue.pagination', [])
     return {
       restrict: 'EA',
       scope: {
-        pageConfig: '=',
         totalItems: '=',
         firstText: '@',
         previousText: '@',
