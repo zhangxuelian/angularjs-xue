@@ -40,7 +40,7 @@
                 <ul class="node-menu">
                     <li>
                         <a href="#pagination">组件文档</a>
-                        <div class="child-menu"><a href="#pagination" >Pagination</a></div><div class="child-menu"><a href="#table" >Table</a></div>
+                        <div class="child-menu"><a href="#pagination" >Pagination</a></div><div class="child-menu"><a href="#select" >Select</a></div><div class="child-menu"><a href="#table" >Table</a></div>
                     </li>
                 </ul>
             </div>
@@ -146,6 +146,110 @@ $ npm run demo</code></pre>
         size: 5
     };
 }]);</script>
+                
+                    <section class="module-wrap" id="select">
+                        <div class="page-header">
+                          <h1>Select<small>
+                              (<a target="_blank" href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/select">xue.select</a>)
+                          </small></h1>
+                        </div>
+                        <div class="page-content">
+                            <div class="content-html">
+                                <div ng-controller="xueSelectdemoCtrl">
+    <xue-select select-config="mv.testConfig">
+    </xue-select>
+    <xue-select select-config="mv.emptyConfig">
+    </xue-select>
+</div>
+                            </div>
+                            <div class="content-md markdown-wrap">
+                                <h3 id="test-select-doc">test select doc</h3>
+
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="page-content-code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-info plunk-btn" ng-click="edit('1.2.32', '1.0.0', 'select')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <uib-tabset active="activeTab">
+                                    <uib-tab index="0" heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueSelectdemoCtrl&quot;&gt;
+    &lt;xue-select select-config=&quot;mv.testConfig&quot;&gt;
+    &lt;/xue-select&gt;
+    &lt;xue-select select-config=&quot;mv.emptyConfig&quot;&gt;
+    &lt;/xue-select&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </uib-tab>
+                                    <uib-tab index="1" heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueSelectdemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
+    $scope.mv = {
+        testConfig:{
+            data: [{
+                name: &quot;身份证&quot;,
+                value: &quot;1&quot;
+            }, {
+                name: &quot;护照&quot;,
+                value: &quot;2&quot;
+            }, {
+                name: &quot;居住证&quot;,
+                value: &quot;3&quot;
+            }, {
+                name: &quot;驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证&quot;,
+                value: &quot;4&quot;
+            }],
+            valueField: &#39;value&#39;,
+            textField: &#39;name&#39;,
+            panelHeight: &#39;auto&#39;,
+            panelWidth: &#39;180px&#39;
+        },
+        emptyConfig:{
+            data:[],
+            panelHeight: &#39;250px&#39;,
+            panelWidth: &#39;180px&#39;
+        }
+    };
+}]);
+</code></pre>
+                                        </div>
+                                    </uib-tab>
+                                </uib-tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>angular.module('ui.xue.demo').controller('xueSelectdemoCtrl',['$scope',function($scope){
+    $scope.mv = {
+        testConfig:{
+            data: [{
+                name: "身份证",
+                value: "1"
+            }, {
+                name: "护照",
+                value: "2"
+            }, {
+                name: "居住证",
+                value: "3"
+            }, {
+                name: "驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证",
+                value: "4"
+            }],
+            valueField: 'value',
+            textField: 'name',
+            panelHeight: 'auto',
+            panelWidth: '180px'
+        },
+        emptyConfig:{
+            data:[],
+            panelHeight: '250px',
+            panelWidth: '180px'
+        }
+    };
+}]);
+</script>
                 
                     <section class="module-wrap" id="table">
                         <div class="page-header">

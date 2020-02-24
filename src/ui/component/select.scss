@@ -1,0 +1,198 @@
+$select-border-color:#cee0f0 !default;
+$select-border-focus-color:#66afe9 !default;
+
+$select-default-width:180px !default;
+$select-default-height:250px !default;
+$select-font-size:16px !default;
+
+$select-height:28px !default;
+$select-content-bg-color:#f8f8f8 !default;
+$select-active-color:#0394f9 !default;
+$select-list-color:#2b3646 !default;
+$select-hover-color:#0394f9 !default;
+$vertical-align-middle:middle !default;
+
+@mixin select-input {
+    border-radius: $border-radius;
+    background-color: $white;
+    font-size: $select-font-size;
+    padding: 6px 12px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-sizing: border-box;
+    border: $border-width solid $select-border-color;
+    -webkit-transition: $select-border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: $select-border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: $select-border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
+    &:focus {
+        border-color: $select-border-focus-color;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+    }
+}
+
+.xui-select-warp {
+    position: relative;
+    display: inline-block;
+    vertical-align: $vertical-align-middle;
+    height: $select-height;
+    line-height: $select-height;
+
+    .select-show {
+        @include select-input;
+        display: inline-block;
+        text-align: left;
+        height: $select-height;
+        line-height: $select-height;
+        vertical-align: $vertical-align-middle;
+        width: $select-default-width;
+        padding: 0 5px;
+        // background-image: url('src/images/arrow-triangle.png');
+        background-position: center right;
+        background-repeat: no-repeat;
+        padding-right: 18px !important;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        color:$select-list-color;
+    }
+
+    .select-content {
+        position: absolute;
+        display: none;
+        top: 29px;
+        width: $select-default-width;
+        height: $select-default-height;
+        z-index: 1024;
+        background: $select-content-bg-color;
+        overflow: auto;
+        border: $border-width solid $select-border-color;
+        box-shadow: 0px 3px 7px 0px rgba(85, 176, 255, 0.3);
+
+        iframe {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            border: 0;
+        }
+
+        &.select-content-checkbox {
+            padding-top: 38px;
+        }
+
+        &.select-separate {
+            .separate-wrap {
+                width: 100%;
+                position: absolute;
+                top: 0;
+                padding-right: 20px;
+                box-sizing: border-box;
+                height: 38px;
+
+                &.hidden-filter {
+                    padding-right: 0px;
+                }
+
+                .select-filter-wrap {
+                    padding: 5px;
+                    box-sizing: border-box;
+
+                    .select-filter {
+                        width: 100% !important;
+                        margin: 0;
+                        position: relative;
+                    }
+                }
+
+                i {
+                    position: absolute;
+                    top: 12px;
+                    right: 7px;
+                    cursor: pointer;
+                    // color: #666;
+                    color: $gray-600;
+                }
+            }
+        }
+
+        .select-filter {
+            @include select-input;
+            position: absolute;
+            width: 96% !important;
+            margin: 5px 2%;
+            height: $select-height;
+            top: 0;
+        }
+
+        .select-list {
+            width: 100% !important;
+            overflow: auto !important;
+            height: 100% !important;
+            // IE8滚动条箭头颜色，重设原来的浅色调避免弹框太小时完全无滚动条
+            scrollbar-arrow-color: $black;
+
+            li {
+                width: 100% !important;
+                min-height: $select-height !important;
+                line-height: $select-height !important;
+                border-bottom: $border-width solid $select-border-color;
+                color: $select-list-color;
+                cursor: pointer;
+                text-align: left !important;
+                display: table;
+                padding-left: 3px;
+                margin: 0 !important;
+                border-collapse: initial;
+                box-sizing: border-box;
+
+                &:hover {
+                    background: $select-hover-color;
+                    color: $white;
+                }
+
+                input[type='checkbox'] {
+                    vertical-align: $vertical-align-middle;
+                    margin-top: -2px;
+                    width: 15px;
+                    display: table-cell;
+                }
+
+                span {
+                    display: table-cell;
+                    width: 100%;
+                    padding: 0 5px;
+                    word-break: break-all;
+                }
+
+                &.empty-data {
+                    color: $gray-600;
+                    padding: 0 !important;
+
+                    span {
+                        text-align: center;
+                        padding: 0;
+                        font-size: 12px;
+                    }
+
+                    &:hover {
+                        background: $select-content-bg-color;
+                        color: $gray-600;
+                    }
+                }
+            }
+
+            li:last-child {
+                border-bottom: none;
+            }
+
+            .active {
+                color: $select-active-color;
+            }
+        }
+    }
+}
