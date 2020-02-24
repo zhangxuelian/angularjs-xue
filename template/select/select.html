@@ -1,0 +1,107 @@
+<div class="xui-select-warp">
+    <!-- 单选可过滤不分离 -->
+    <div ng-if="!selectConfig.checkbox && selectConfig.filter && !selectConfig.separate">
+        <input ng-focus="focus()" type="text" class="select-show" title="{{selectConfig.inputLabel}}"
+            ng-model="selectConfig.inputLabel" ng-class="selectClass" ng-style="showStyle" ng-change="changeIpt()"
+            ng-disabled="selectConfig.disabled" />
+        <div class="select-content" ng-style="contentStyle">
+            <ul class="select-list">
+                <li ng-click="onBeforeSelect(item,$event)"
+                    ng-class="{true:'active'}[item[selectConfig.valueField] == selectConfig.value]"
+                    ng-repeat="item in selectConfig.data | filter:selectConfig.inputLabel  | limitTo:selectConfig.showLimit">
+                    <span ng-bind="item[selectConfig.textField] || textFieldFormat(item)"></span>
+                </li>
+                <li ng-if="!!!selectConfig.data || !selectConfig.data.length" class="empty-data">
+                    <span>暂无数据</span>
+                </li>
+            </ul>
+            <iframe title=""></iframe>
+        </div>
+    </div>
+    <!-- 单选可过滤且分离 -->
+    <div ng-if="!selectConfig.checkbox && selectConfig.filter && selectConfig.separate">
+        <input ng-click="focus()" type="button" class="select-show" ng-disabled="selectConfig.disabled"
+            title="{{selectConfig.inputLabel}}" ng-class="selectClass" ng-style="showStyle" />
+        <div class="select-content select-content-checkbox select-separate" ng-style="contentStyle">
+            <div class="separate-wrap" ng-class="{'hidden-filter':!selectConfig.enableEmpty}">
+                <div class="select-filter-wrap">
+                    <input type="text" ng-model="selectConfig.myLabel" class="select-filter form-control" />
+                </div>
+                <i ng-click="clear()" ng-if="selectConfig.enableEmpty" title="清空" class="fa fa-trash"></i>
+            </div>
+            <ul class="select-list">
+                <li ng-click="onBeforeSelect(item,$event)"
+                    ng-class="{true:'active'}[item[selectConfig.valueField] == selectConfig.value]"
+                    ng-repeat="item in selectConfig.data | filter:selectConfig.myLabel  | limitTo:selectConfig.showLimit">
+                    <span ng-bind="item[selectConfig.textField] || textFieldFormat(item)"></span>
+                </li>
+                <li ng-if="!!!selectConfig.data || !selectConfig.data.length" class="empty-data">
+                    <span>暂无数据</span>
+                </li>
+            </ul>
+            <iframe title=""></iframe>
+        </div>
+    </div>
+    <!-- 单选不可过滤且分离 -->
+    <div ng-if="!selectConfig.checkbox && !selectConfig.filter">
+        <input ng-focus="focus()" type="button" class="select-show" title="{{selectConfig.inputLabel}}"
+            ng-class="selectClass" ng-style="showStyle" ng-disabled="selectConfig.disabled" />
+        <div class="select-content" ng-style="contentStyle">
+            <ul class="select-list">
+                <li ng-click="onBeforeSelect(item,$event)"
+                    ng-class="{true:'active'}[item[selectConfig.valueField] == selectConfig.value]"
+                    ng-repeat="item in selectConfig.data | limitTo:selectConfig.showLimit">
+                    <span ng-bind="item[selectConfig.textField] || textFieldFormat(item)"></span>
+                </li>
+                <li ng-if="!!!selectConfig.data || !selectConfig.data.length" class="empty-data">
+                    <span>暂无数据</span>
+                </li>
+            </ul>
+            <iframe title=""></iframe>
+        </div>
+    </div>
+    <!-- 多选-->
+    <div ng-if="selectConfig.checkbox && selectConfig.filter">
+        <input ng-click="focus()" type="button" class="select-show" ng-disabled="selectConfig.disabled"
+            title="{{selectConfig.inputLabel}}" ng-class="selectClass" ng-style="showStyle" />
+        <div class="select-content select-content-checkbox  select-separate" ng-style="contentStyle">
+            <div class="separate-wrap">
+                <div class="select-filter-wrap">
+                    <input type="text" ng-model="selectConfig.myLabel" class="select-filter form-control" />
+                </div>
+                <i ng-click="clear()" ng-if="selectConfig.enableEmpty" title="清空" class="fa fa-trash"></i>
+            </div>
+            <ul ng-style="showContent" class="select-list">
+                <li ng-click="selectLi(item,$event)"
+                    ng-class="{true:'active'}[!!selectConfig.checkRowsMap[item[selectConfig.valueField]]]"
+                    ng-repeat="item in selectConfig.data | filter:selectConfig.myLabel | limitTo:selectConfig.showLimit">
+                    <gx-checkbox ng-checked="selectConfig.checkRowsMap[item[selectConfig.valueField]]"></gx-checkbox>
+                    <span ng-bind="item[selectConfig.textField] || textFieldFormat(item)"></span>
+                </li>
+                <li ng-if="!!!selectConfig.data || !selectConfig.data.length" class="empty-data">
+                    <span>暂无数据</span>
+                </li>
+            </ul>
+            <iframe title=""></iframe>
+        </div>
+    </div>
+    <!-- 多选不可过滤-->
+    <div ng-if="selectConfig.checkbox && !selectConfig.filter">
+        <input ng-click="focus()" type="button" class="select-show" ng-disabled="selectConfig.disabled"
+            ng-class="selectClass" ng-style="showStyle" />
+        <div class="select-content  select-separate" ng-style="contentStyle">
+            <ul ng-style="showContent" class="select-list">
+                <li ng-click="selectLi(item,$event)"
+                    ng-class="{true:'active'}[!!selectConfig.checkRowsMap[item[selectConfig.valueField]]]"
+                    ng-repeat="item in selectConfig.data | filter:selectConfig.myLabel | limitTo:selectConfig.showLimit">
+                    <gx-checkbox ng-checked="selectConfig.checkRowsMap[item[selectConfig.valueField]]"></gx-checkbox>
+                    <span ng-bind="item[selectConfig.textField] || textFieldFormat(item)"></span>
+                </li>
+                <li ng-if="!!!selectConfig.data || !selectConfig.data.length" class="empty-data">
+                    <span>暂无数据</span>
+                </li>
+            </ul>
+            <iframe title=""></iframe>
+        </div>
+    </div>
+</div>

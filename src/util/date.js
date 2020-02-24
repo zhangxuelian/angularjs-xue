@@ -1,6 +1,27 @@
-angular.module('xue.util.date', ['xue.util.lang'])
-    .service('xueUtilDate', ['xueUtilLang', function (xueUtilLang) {
+angular.module('xue.util.date', ['xue.util.lang', 'xue.util.string'])
+    .service('xueUtilDate', ['xueUtilLang', 'xueUtilString', function (xueUtilLang, xueUtilString) {
         var self = this;
+        /**
+         * 将符合时间格式的字符串转化为Date对象
+         * 根据给定格式格式化时间 时间可以是标准时间或者符合时间格式的字符串
+         * @param {any} date /Mon Nov 20 2017 14:28:48 GMT+0800 (中国标准时间)/ 2020-2-20
+         * @param {string} fmt 可选 时间格式 默认YYYY-MM-DD hh:mm:ss
+         * @returns {String} /2016-01-01 23:59:59/
+         */
+        this.translateDate = function (date) {
+            var tmp = new Date(date);
+            if (xueUtilLang.isValidDate(tmp)) {
+                var tmp1 = new Date(date.replace(/-/g,"/"));
+                if (!xueUtilLang.isValidDate(tmp1)) {
+                    date = tmp1;
+                } else {
+                    return "Invalid Date";
+                }
+            } else {
+                date = tmp;
+            }
+            return date;
+        }
         /**
          * 格式化时间
          * 根据给定格式格式化时间 时间可以是标准时间或者符合时间格式的字符串
@@ -9,9 +30,9 @@ angular.module('xue.util.date', ['xue.util.lang'])
          * @returns {String} /2016-01-01 23:59:59/
          */
         this.formatDate = function (date, fmt) {
-            date = new Date(date);
+            date = self.translateDate(date);
             if (!xueUtilLang.isDate(date)) {
-                return "Invalid Date";
+                return date;
             }
             fmt = fmt ? fmt : "YYYY-MM-DD hh:mm:ss";
             var opt = {
@@ -26,7 +47,7 @@ angular.module('xue.util.date', ['xue.util.lang'])
             for (var k in opt) {
                 var ret = new RegExp("(" + k + ")").exec(fmt);
                 if (ret) {
-                    fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
+                    fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (xueUtilString.padChars(opt[k], ret[1].length, 'start', '0')))
                 }
             }
             return fmt;
@@ -51,9 +72,9 @@ angular.module('xue.util.date', ['xue.util.lang'])
          * @returns {string}
          */
         this.dateAddNum = function (dateStr, type, number, fmt) {
-            var tempDate = new Date(dateStr); // 把日期字符串转换成日期格式
+            var tempDate = self.translateDate(dateStr); // 把日期字符串转换成日期格式
             if (!xueUtilLang.isDate(tempDate)) {
-                return "Invalid Date";
+                return tempDate;
             }
             switch (type) {
                 case "years":

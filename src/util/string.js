@@ -96,24 +96,35 @@ angular.module('xue.util.string', [])
         /**
          * 字符串头部/尾部补充
          * @param {any} String
-         * @param {any} length //填充的长度
-         * @param {any} type   // 填充类型
-         * @param {any} chars  // 填充的字符串
+         * @param {any} maxLength //填充的长度
+         * @param {any} type   // 填充类型 start/end
+         * @param {any} fillString  // 填充的字符串
          * padStart('ab',4,'x');->xxab
          * @returns
          */
-        this.padChars = function (string, length, type, chars) {
-            string = string.toString();
-            length = parseInt(length, 0);
-            chars = chars ? chars : ' ';
-            var newString = '';
-            if (type === 'start') {
-                newString = string.padStart(length, chars);
+        this.padChars = function (string, maxLength, type, fillString) {
+            if (fillString === undefined) {
+                fillString = ' ';
             }
-            else {
-                newString = string.padEnd(length, chars);
+            
+            if(Object.prototype.toString.call(fillString) !== "[object String]") throw new TypeError('fillString must be String')
+            if(string.length >= maxLength) return String(string)
+
+            var fillLength = maxLength - string.length, 
+                times = Math.ceil(fillLength / fillString.length)
+        
+            while (times--) { 
+                fillString += fillString
+                    if(times === 1) {
+                        fillString += fillString;
+                    }     
             }
-            return newString;
+            if (type == "start") {
+                return fillString.slice(0, fillLength) + string;
+            } else {
+                return string + fillString.slice(0, fillLength);
+            }
+            
         };
         /**
          * 格式化文字
