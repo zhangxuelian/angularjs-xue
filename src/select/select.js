@@ -1,5 +1,5 @@
 angular.module('xue.select', [])
-    .directive('xueSelect', ['xueUtilArray', 'xueUtilLang','$timeout', function (xueUtilArray, xueUtilLang,$timeout) {
+    .directive('xueSelect', ['xueUtilArray', 'xueUtilLang','$timeout', 'jquery', function (xueUtilArray, xueUtilLang,$timeout, $) {
         return {
             restrict: "E",
             replace: true,
@@ -76,7 +76,7 @@ angular.module('xue.select', [])
                     }
                 }
                 //element
-                var ele = angular.element(attrs.$$element);
+                ele = angular.element(attrs.$$element);
 
                 //get label and value from checkRows
                 scope.getData = function () {
@@ -266,10 +266,10 @@ angular.module('xue.select', [])
                         if (!item[scope.selectConfig.valueField]) {
                             if (scope.selectConfig.checkLimit) {
                                 if (scope.selectConfig.checkLimit == scope.selectConfig.checkRows.length) {
-                                    modalExt.modalTip({
+                                    /*  modalExt.modalTip({
                                         content: "最多只能选" + scope.selectConfig.checkLimit + "个选项！",
                                         type: "warning"
-                                    });
+                                    }); */
                                     return;
                                 }
                             }

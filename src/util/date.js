@@ -196,4 +196,54 @@ angular.module('xue.util.date', ['xue.util.lang', 'xue.util.string'])
             };
             return timeIntervalObj;
         };
+        /**
+         * 校验日期格式
+         * @param {String} date 2016-01-01 / 2016/01/01
+         * @returns {boolean}
+         */
+        this.checkDateFormat = function(date){
+            try{
+                var result = date.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
+                if (result === null)
+                    return false;
+                var d = new Date(result[1], result[3] - 1, result[4]);
+                return (d.getFullYear() == result[1] && (d.getMonth() + 1) == result[3] && d.getDate() == result[4]);
+            }catch(e){
+                return false;
+            }
+        }
+        /**
+         * 校验时间格式
+         * @param {String} Time 00:00:00
+         * @returns {boolean}
+         */
+        this.checkTimeFormat = function(time){
+            try{
+                var regex = /^(?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/;
+                if(!regex.test(time)){
+                    return false
+                }else{
+                    return true;
+                }
+            }catch(e){
+                return false;
+            }
+        }
+        /**
+         * 校验日期时间格式
+         * @param {String} dateTime  2016-01-01 00:00:00 / 2016/01/01 00:00:00
+         * @returns {boolean}
+         */
+        this.checkDateTimeFormat = function(dateTime){
+            try{
+                var dateTimeArray = dateTime.split(" ");
+                if(this.checkDateFormat(dateTimeArray[0]) && this.checkTimeFormat(dateTimeArray[1])){
+                    return true;
+                }else{
+                    return false;
+                }
+            }catch(e){
+                return false;
+            }
+        }
     }]);

@@ -26,7 +26,7 @@
             </h1>
             <ul>
                 <li><a href="#getting_started">入门指南</a></li>
-                <li><a href="#pagination">组件文档</a></li>
+                <li><a href="#datepicker">组件文档</a></li>
                 <li>1.0.0</li>
             </ul>
         </div>
@@ -41,8 +41,9 @@
                 </ul>
                 <ul class="node-menu">
                     <li>
-                        <a href="#pagination">组件文档</a>
+                        <a href="#datepicker">组件文档</a>
                         <div class="child-menu"><a
+                                href="#datepicker">Datepicker</a></div><div class="child-menu"><a
                                 href="#pagination">Pagination</a></div><div class="child-menu"><a
                                 href="#select">Select</a></div><div class="child-menu"><a
                                 href="#table">Table</a></div><div class="child-menu"><a
@@ -88,6 +89,66 @@ $ npm run test
 $ npm run demo</code></pre>
                     </div>
                 </section>
+                
+                <section class="module-wrap" id="datepicker">
+                    <div class="page-header">
+                        <h1>Datepicker<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/datepicker">xue.datepicker</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueDatepickerdemoCtrl" style="overflow: auto;">
+    <xue-datepicker date-config="config" ng-val="value"></xue-datepicker>
+</div>
+
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h1 id="xue-datepicker-settings">xue-datepicker settings</h1>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'datepicker')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div>
+                            <uib-tabset active="activeTab">
+                                <uib-tab index="0" heading="Markup">
+                                    <div plunker-content="markup">
+                                        <pre ng-non-bindable>
+                                            <code data-language="html">&lt;div ng-controller=&quot;xueDatepickerdemoCtrl&quot; style=&quot;overflow: auto;&quot;&gt;
+    &lt;xue-datepicker date-config=&quot;config&quot; ng-val=&quot;value&quot;&gt;&lt;/xue-datepicker&gt;
+&lt;/div&gt;
+</code>
+                                        </pre>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab index="1" heading="JavaScript">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueDatepickerdemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
+    $scope.value = &quot;2020-02-25 14:00:00&quot;
+    $scope.config = {
+        format: &quot;YYYY-MM-DD hh:mm:ss&quot;
+    }
+}]);</code></pre>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueDatepickerdemoCtrl',['$scope',function($scope){
+    $scope.value = "2020-02-25 14:00:00"
+    $scope.config = {
+        format: "YYYY-MM-DD hh:mm:ss"
+    }
+}]);</script>
                 
                 <section class="module-wrap" id="pagination">
                     <div class="page-header">

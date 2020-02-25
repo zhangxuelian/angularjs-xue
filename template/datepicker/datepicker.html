@@ -1,0 +1,111 @@
+<div class="xui-datepicker-wrap">
+    <div class="input-wrap" ng-class="dateConfig.element.targetWrapClassName" ng-style="dateConfig.element.targetWrapStyle">
+        <span class="prefix-input" ng-class="{true: 'time-icon'}[xlDatepickerCtrl.type == 2 || xlDatepickerCtrl.type == 3]"></span>
+        <input class="type-ipt" ng-click="xlDatepickerCtrl.optPanel($event)" ng-model="$parent.ngVal" ng-disabled="$parent.ngDisabled"
+        ng-if="dateConfig.element.type == 'input' && !dateConfig.fixed" type="text" ng-blur="xlDatepickerCtrl.ngValBlur()">
+        <span ng-class="{true:'sufix-input'}[!!ngVal && !ngDisabled]" title="清空" ng-click="xlDatepickerCtrl.clear()"></span>
+    </div>
+    
+    <img class="type-img" ng-click="xlDatepickerCtrl.optPanel($event)" 
+        ng-if="dateConfig.element.type == 'img' && !dateConfig.fixed" src="" alt="">
+
+    <span class="type-span" ng-click="xlDatepickerCtrl.optPanel($event)" 
+        ng-if="dateConfig.element.type == 'span' && !dateConfig.fixed" ></span>
+
+    <div id="{{'xlDatePicker_'+dateConfig.id}}" class="xl-datepicker-content" ng-class="dateConfig.element.contentWrapClassName" ng-style="dateConfig.element.contentWrapStyle">
+        <div class="show-date-wrap" ng-show="xlDatepickerCtrl.type == 1">
+            <span class="show-ipt-wrap">
+                <input type="text" class="show-ipt" placeholder="选择日期" ng-model="xlDatepickerCtrl.showDate" ng-blur="xlDatepickerCtrl.changeNgVal()">
+            </span>
+            <span class="show-ipt-wrap">
+                <input type="text" class="show-ipt" placeholder="选择时间" ng-click="xlDatepickerCtrl.timeOpt.optTimePanel()" ng-model="xlDatepickerCtrl.showTime" ng-blur="xlDatepickerCtrl.changeNgVal()">
+                <div class="select-time-wrap" ng-show="xlDatepickerCtrl.timeOpt.showPanel">
+                    <div class="select-time-content">
+                        <div class="time-scrollbar">
+                            <ul ng-style="{'top':-1*(xlDatepickerCtrl.timeOpt.hourObj.index*30)+'px'}" id="hourObj">
+                                <li ng-repeat="item in xlDatepickerCtrl.timeOpt.hourObj.items" ng-class="{true:'active'}[xlDatepickerCtrl.timeOpt.hourObj.index == $index]"
+                                ng-click="xlDatepickerCtrl.timeOpt.clickNumber(xlDatepickerCtrl.timeOpt.hourObj,$index)">{{item}}</li>
+                            </ul>
+                        </div>
+                        <div class="time-scrollbar">
+                            <ul ng-style="{'top':-1*(xlDatepickerCtrl.timeOpt.minuteObj.index*30)+'px'}" id="minuteObj">
+                                <li ng-repeat="item in xlDatepickerCtrl.timeOpt.minuteObj.items" ng-class="{true:'active'}[xlDatepickerCtrl.timeOpt.minuteObj.index == $index]"
+                                ng-click="xlDatepickerCtrl.timeOpt.clickNumber(xlDatepickerCtrl.timeOpt.minuteObj,$index)">{{item}}</li>
+                            </ul>
+                        </div>
+                        <div class="time-scrollbar">
+                            <ul ng-style="{'top':-1*(xlDatepickerCtrl.timeOpt.secondObj.index*30)+'px'}" id="secondObj">
+                                <li ng-repeat="item in xlDatepickerCtrl.timeOpt.secondObj.items" ng-class="{true:'active'}[xlDatepickerCtrl.timeOpt.secondObj.index == $index]"
+                                ng-click="xlDatepickerCtrl.timeOpt.clickNumber(xlDatepickerCtrl.timeOpt.secondObj,$index)">{{item}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="select-time-footer">
+                        <span class="confirm" ng-click="xlDatepickerCtrl.timeOpt.confirm()">确定</span>
+                    </div>
+                </div>
+            </span>
+        </div>
+        <div class="xl-content-header">
+            <i class="last-year xl-d-arrow-left" ng-click="xlDatepickerCtrl.changeYearMonth(-1,0)" title="上一年"></i>
+            <i class="last-month xl-arrow-left" ng-click="xlDatepickerCtrl.changeYearMonth(0,-1)" title="上一月"></i>
+            <span class="current-year" ng-show="!xlDatepickerCtrl.showSelectYear" ng-click="xlDatepickerCtrl.selectYearMonth($event,'year')">{{xlDatepickerCtrl.currentYear}}年</span>
+            <span class="current-year" ng-show="xlDatepickerCtrl.showSelectYear"><input type="text" ng-blur="xlDatepickerCtrl.selectYearMonthBlur($event,'year')" ng-model="xlDatepickerCtrl.currentYear" >年</span>
+            <span class="current-month" ng-show="!xlDatepickerCtrl.showSelectMonth" ng-click="xlDatepickerCtrl.selectYearMonth($event,'month')">{{xlDatepickerCtrl.currentMonth}}月</span>
+            <span class="current-month" ng-show="xlDatepickerCtrl.showSelectMonth"><input type="text"ng-blur="xlDatepickerCtrl.selectYearMonthBlur($event,'month')" ng-model="xlDatepickerCtrl.currentMonth">月</span>
+            <i class="next-year xl-d-arrow-right" ng-click="xlDatepickerCtrl.changeYearMonth(1,0)" title="下一年"></i>
+            <i class="next-month xl-arrow-right" ng-click="xlDatepickerCtrl.changeYearMonth(0,1)" title="下一月"></i>
+        </div>
+        <div class="xl-content-body">
+            <table class="xl-datepicker-table">
+                <tr>
+                    <th ng-repeat="week in dateConfig.language.weeks">
+                        <span class="">{{week}}</span>
+                    </th>
+                </tr>
+                <tr ng-repeat="item in xlDatepickerCtrl.currentTable">
+                    <td ng-repeat="list in item" ng-click="xlDatepickerCtrl.selectDate(list,$event)" ng-dblclick="xlDatepickerCtrl.hidePanel()"
+                        ng-class="{true: 'disabled-select'}[xlDatepickerCtrl.notInRange(list)]">
+                        <span ng-class="{
+                            'not-current': list.type != 0,
+                            'active': list.year == xlDatepickerCtrl.selectedDate.year && list.month == xlDatepickerCtrl.selectedDate.month && list.day == xlDatepickerCtrl.selectedDate.day,
+                            'current': list.year == xlDatepickerCtrl.currentDate.year && list.month == xlDatepickerCtrl.currentDate.month && list.day == xlDatepickerCtrl.currentDate.day
+                        }">{{list.day}}</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="xl-content-footer">
+            <button class="select-now" ng-click="xlDatepickerCtrl.getNow()">现在</button>
+            <button class="confirm-date" ng-click="xlDatepickerCtrl.confirm()">确定</button>
+        </div>
+        <div class="xl-popper-arrow"></div>
+    </div>
+
+    <div id="{{'xlTimePicker_'+dateConfig.id}}" class="xl-timepicker-content" ng-class="dateConfig.element.contentWrapClassName" ng-style="dateConfig.element.contentWrapStyle">
+        <div class="xl-content-body" ng-if="dateConfig.timeSelectMode == 0">
+            <div class="select-time-content">
+                <div class="time-scrollbar">
+                    <ul ng-style="{'top':-1*(xlDatepickerCtrl.timeOpt.hourObj.index*30)+'px'}" id="hourObj">
+                        <li ng-repeat="item in xlDatepickerCtrl.timeOpt.hourObj.items" ng-class="{true:'active'}[xlDatepickerCtrl.timeOpt.hourObj.index == $index]"
+                        ng-click="xlDatepickerCtrl.timeOpt.clickNumber(xlDatepickerCtrl.timeOpt.hourObj,$index)">{{item}}</li>
+                    </ul>
+                </div>
+                <div class="time-scrollbar">
+                    <ul ng-style="{'top':-1*(xlDatepickerCtrl.timeOpt.minuteObj.index*30)+'px'}" id="minuteObj">
+                        <li ng-repeat="item in xlDatepickerCtrl.timeOpt.minuteObj.items" ng-class="{true:'active'}[xlDatepickerCtrl.timeOpt.minuteObj.index == $index]"
+                        ng-click="xlDatepickerCtrl.timeOpt.clickNumber(xlDatepickerCtrl.timeOpt.minuteObj,$index)">{{item}}</li>
+                    </ul>
+                </div>
+                <div class="time-scrollbar" ng-class="{true:'disabled-select'}[xlDatepickerCtrl.type == 3]">
+                    <ul ng-style="{'top':-1*(xlDatepickerCtrl.timeOpt.secondObj.index*30)+'px'}" id="secondObj">
+                        <li ng-repeat="item in xlDatepickerCtrl.timeOpt.secondObj.items" ng-class="{true:'active'}[xlDatepickerCtrl.timeOpt.secondObj.index == $index]"
+                        ng-click="xlDatepickerCtrl.timeOpt.clickNumber(xlDatepickerCtrl.timeOpt.secondObj,$index,'secondObj')">{{item}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="xl-popper-arrow"></div>
+    </div>
+
+</div>
