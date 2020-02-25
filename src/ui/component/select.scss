@@ -1,23 +1,21 @@
-$select-border-color:#cee0f0 !default;
-$select-border-focus-color:#66afe9 !default;
+$select-border-color:$border-color !default;
+$select-border-focus-color:$input-btn-focus-color !default;
 
-$select-default-width:180px !default;
-$select-default-height:250px !default;
-$select-font-size:16px !default;
+$select-default-width:11.25rem !default;
+$select-default-height:15.625rem !default;
+$select-font-size: 1rem !default;
 
-$select-height:28px !default;
-$select-content-bg-color:#f8f8f8 !default;
-$select-active-color:#0394f9 !default;
-$select-list-color:#2b3646 !default;
-$select-hover-color:#0394f9 !default;
-$vertical-align-middle:middle !default;
+$select-height: 28px !default;
+$select-content-bg-color: $gray-100 !default;
+$select-active-color: $blue-deep !default;
+$select-list-color: $gray-800 !default;
+$vertical-align-middle: middle !default;
 
 @mixin select-input {
     border-radius: $border-radius;
     background-color: $white;
     font-size: $select-font-size;
-    padding: 6px 12px;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: $box-shadow-inset;
     box-sizing: border-box;
     border: $border-width solid $select-border-color;
     -webkit-transition: $select-border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
@@ -27,8 +25,8 @@ $vertical-align-middle:middle !default;
     &:focus {
         border-color: $select-border-focus-color;
         outline: 0;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+        -webkit-box-shadow: 0 0 8px rgba(102, 175, 233, .6);
+        box-shadow: 0 0 8px rgba(102, 175, 233, .6);
     }
 }
 
@@ -41,21 +39,29 @@ $vertical-align-middle:middle !default;
 
     .select-show {
         @include select-input;
-        display: inline-block;
+        position: releative;
         text-align: left;
         height: $select-height;
         line-height: $select-height;
         vertical-align: $vertical-align-middle;
         width: $select-default-width;
         padding: 0 5px;
-        // background-image: url('src/images/arrow-triangle.png');
-        background-position: center right;
-        background-repeat: no-repeat;
         padding-right: 18px !important;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        color:$select-list-color;
+        color: $select-list-color;
+    }
+
+    .select-arrow {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: 4px solid transparent;
+        border-top-color: $black;
+        border-top-width: 6px;
+        right: 5px;
+        top: 14px;
     }
 
     .select-content {
@@ -69,6 +75,7 @@ $vertical-align-middle:middle !default;
         overflow: auto;
         border: $border-width solid $select-border-color;
         box-shadow: 0px 3px 7px 0px rgba(85, 176, 255, 0.3);
+        box-sizing: border-box;
 
         iframe {
             display: block;
@@ -114,14 +121,15 @@ $vertical-align-middle:middle !default;
                     top: 12px;
                     right: 7px;
                     cursor: pointer;
-                    // color: #666;
                     color: $gray-600;
+                    line-height: 16px;
                 }
             }
         }
 
         .select-filter {
             @include select-input;
+            padding: 6px 12px;
             position: absolute;
             width: 96% !important;
             margin: 5px 2%;
@@ -151,7 +159,7 @@ $vertical-align-middle:middle !default;
                 box-sizing: border-box;
 
                 &:hover {
-                    background: $select-hover-color;
+                    background: $select-active-color;
                     color: $white;
                 }
 
@@ -194,5 +202,43 @@ $vertical-align-middle:middle !default;
                 color: $select-active-color;
             }
         }
+    }
+}
+
+/** xue-checkbox **/
+.xue-checkbox-wrap {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: $border-radius;
+    box-sizing: border-box;
+    background: $white;
+    border: 1px solid $select-border-color;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    text-align: center;
+
+    &:hover {
+        border: $border-width solid $blue;
+    }
+
+    &.gx-checked {
+        background: #dff2ff;
+        border: $border-width solid $blue;
+
+        i {
+            color: $blue-deep;
+        }
+    }
+
+    i {
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+        text-align: center;
+        color: $white;
     }
 }

@@ -183,10 +183,22 @@ $ npm run demo</code></pre>
                     <div class="page-content">
                         <div class="content-html">
                             <div ng-controller="xueSelectdemoCtrl">
+    <div>单选可过滤不分离</div>
+    <xue-select select-config="mv.flterNoSeparateConfig">
+    </xue-select>
+    <div>单选可过滤且分离</div>
     <xue-select select-config="mv.testConfig">
     </xue-select>
-    <xue-select select-config="mv.emptyConfig">
+    <div>单选不可过滤且分离</div>
+    <xue-select select-config="mv.noFilterConfig">
     </xue-select>
+    <div>多选</div>
+    <xue-select select-config="mv.multConfig">
+    </xue-select>
+    <div>多选不可过滤</div>
+    <xue-select select-config="mv.multFilterConfig">
+    </xue-select>
+
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
@@ -207,10 +219,22 @@ $ npm run demo</code></pre>
                                     <div plunker-content="markup">
                                         <pre ng-non-bindable>
                                             <code data-language="html">&lt;div ng-controller=&quot;xueSelectdemoCtrl&quot;&gt;
+    &lt;div&gt;单选可过滤不分离&lt;/div&gt;
+    &lt;xue-select select-config=&quot;mv.flterNoSeparateConfig&quot;&gt;
+    &lt;/xue-select&gt;
+    &lt;div&gt;单选可过滤且分离&lt;/div&gt;
     &lt;xue-select select-config=&quot;mv.testConfig&quot;&gt;
     &lt;/xue-select&gt;
-    &lt;xue-select select-config=&quot;mv.emptyConfig&quot;&gt;
+    &lt;div&gt;单选不可过滤且分离&lt;/div&gt;
+    &lt;xue-select select-config=&quot;mv.noFilterConfig&quot;&gt;
     &lt;/xue-select&gt;
+    &lt;div&gt;多选&lt;/div&gt;
+    &lt;xue-select select-config=&quot;mv.multConfig&quot;&gt;
+    &lt;/xue-select&gt;
+    &lt;div&gt;多选不可过滤&lt;/div&gt;
+    &lt;xue-select select-config=&quot;mv.multFilterConfig&quot;&gt;
+    &lt;/xue-select&gt;
+
 &lt;/div&gt;</code>
                                         </pre>
                                     </div>
@@ -218,70 +242,152 @@ $ npm run demo</code></pre>
                                 <uib-tab index="1" heading="JavaScript">
                                     <div plunker-content="javascript">
                                         <pre
-                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueSelectdemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueSelectdemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+    $scope.data = [{
+        label: &quot;身份证&quot;,
+        value: &quot;1&quot;
+    }, {
+        label: &quot;护照&quot;,
+        value: &quot;2&quot;
+    }, {
+        label: &quot;居住证&quot;,
+        value: &quot;3&quot;
+    }, {
+        label: &quot;驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证&quot;,
+        value: &quot;4&quot;
+    }]
     $scope.mv = {
-        testConfig:{
+        testConfig: {
+            data: $scope.data,
+            panelHeight: &#39;auto&#39;,
+            panelWidth: &#39;180px&#39;,
+            onSelect: function (item) {
+                console.log(item);
+            },
+            clearAll: function () {
+                console.log(&#39;清除select&#39;);
+            }
+        },
+        noFilterConfig: {
+            data: $scope.data,
+            filter: false
+        },
+        flterNoSeparateConfig: {
+            data: $scope.data,
+            separate: false,
+            onSelect: function (item) {
+                console.log(item);
+            }
+        },
+        multConfig: {
             data: [{
-                name: &quot;身份证&quot;,
+                name: &quot;全部&quot;,
                 value: &quot;1&quot;
             }, {
-                name: &quot;护照&quot;,
+                name: &quot;小孩&quot;,
                 value: &quot;2&quot;
             }, {
-                name: &quot;居住证&quot;,
+                name: &quot;青年&quot;,
                 value: &quot;3&quot;
             }, {
-                name: &quot;驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证&quot;,
+                name: &quot;中年&quot;,
                 value: &quot;4&quot;
+            }, {
+                name: &quot;老人&quot;,
+                value: &quot;5&quot;
             }],
+            checkbox: true,
             valueField: &#39;value&#39;,
             textField: &#39;name&#39;,
-            panelHeight: &#39;auto&#39;,
-            panelWidth: &#39;180px&#39;
+            panelHeight: &#39;150px&#39;,
+            panelWidth: &#39;180px&#39;,
+            onSelect: function (item) {
+                console.log($scope.mv.multConfig.checkRows);
+            }
         },
-        emptyConfig:{
-            data:[],
-            panelHeight: &#39;250px&#39;,
-            panelWidth: &#39;180px&#39;
+        multFilterConfig: {
+            data: $scope.data,
+            checkbox: true,
+            filter: false
         }
     };
-}]);
-</code></pre>
+}]);</code></pre>
                                     </div>
                                 </uib-tab>
                             </uib-tabset>
                         </div>
                     </div>
                 </section>
-                <script>angular.module('ui.xue.demo').controller('xueSelectdemoCtrl',['$scope',function($scope){
+                <script>angular.module('ui.xue.demo').controller('xueSelectdemoCtrl', ['$scope', function ($scope) {
+    $scope.data = [{
+        label: "身份证",
+        value: "1"
+    }, {
+        label: "护照",
+        value: "2"
+    }, {
+        label: "居住证",
+        value: "3"
+    }, {
+        label: "驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证",
+        value: "4"
+    }]
     $scope.mv = {
-        testConfig:{
+        testConfig: {
+            data: $scope.data,
+            panelHeight: 'auto',
+            panelWidth: '180px',
+            onSelect: function (item) {
+                console.log(item);
+            },
+            clearAll: function () {
+                console.log('清除select');
+            }
+        },
+        noFilterConfig: {
+            data: $scope.data,
+            filter: false
+        },
+        flterNoSeparateConfig: {
+            data: $scope.data,
+            separate: false,
+            onSelect: function (item) {
+                console.log(item);
+            }
+        },
+        multConfig: {
             data: [{
-                name: "身份证",
+                name: "全部",
                 value: "1"
             }, {
-                name: "护照",
+                name: "小孩",
                 value: "2"
             }, {
-                name: "居住证",
+                name: "青年",
                 value: "3"
             }, {
-                name: "驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证",
+                name: "中年",
                 value: "4"
+            }, {
+                name: "老人",
+                value: "5"
             }],
+            checkbox: true,
             valueField: 'value',
             textField: 'name',
-            panelHeight: 'auto',
-            panelWidth: '180px'
+            panelHeight: '150px',
+            panelWidth: '180px',
+            onSelect: function (item) {
+                console.log($scope.mv.multConfig.checkRows);
+            }
         },
-        emptyConfig:{
-            data:[],
-            panelHeight: '250px',
-            panelWidth: '180px'
+        multFilterConfig: {
+            data: $scope.data,
+            checkbox: true,
+            filter: false
         }
     };
-}]);
-</script>
+}]);</script>
                 
                 <section class="module-wrap" id="table">
                     <div class="page-header">
