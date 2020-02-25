@@ -375,8 +375,9 @@ module.exports = function (grunt) {
 
         /* grunt.config('concat.dist.src', grunt.config('concat.dist.src')
             .concat(srcFiles)); */
-        grunt.config('concat.dist_tpls.src', grunt.config('concat.dist_tpls.src')
-            .concat(srcFiles).concat(tpljsFiles));
+        var toolJsSrc = grunt.file.expand('misc/tool/*.js');
+        grunt.config('concat.dist_tpls.src', toolJsSrc.concat(grunt.config('concat.dist_tpls.src')
+            .concat(srcFiles).concat(tpljsFiles)));
         grunt.task.run(['concat', 'uglify', 'makeModuleMappingFile', 'makeRawFilesJs', 'makeVersionsMappingFile']);
 
     });

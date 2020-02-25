@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html ng-app="ui.xue.demo">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="icon" href="assets/favicon.ico" />
+    <title>angularjs-xue</title>
+    <link rel="author" href="https://github.com/zhangxuelian/angularjs-xue/graphs/contributors">
+
+    <script src="assets/angular.min.js"></script>
+    <script src="assets/angularjs-xue-full-1.0.0.min.js"></script>
+    <script src="assets/plunker.js"></script>
+    <script src="assets/app.js"></script>
+    <link rel="stylesheet" href="assets/angularjs-xue-ui-1.0.0.min.css">
+    <link rel="stylesheet" href="assets/demo.css" />
+</head>
+
+<body class="demo-wrap" ng-controller="xueDemoCtrl">
+    <div class="header-container">
+        <div class="header-wrap">
+            <h1>
+                <img src="./assets/favicon.ico" alt="">
+                <b>angularjs-xue</b>
+            </h1>
+            <ul>
+                <li><a href="#getting_started">入门指南</a></li>
+                <li><a href="#pagination">组件文档</a></li>
+                <li>1.0.0</li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-container">
+        <div class="main-wrap">
+            <div class="main-menu-container">
+                <ul class="node-menu">
+                    <li>
+                        <a href="#getting_started">入门指南</a>
+                    </li>
+                </ul>
+                <ul class="node-menu">
+                    <li>
+                        <a href="#pagination">组件文档</a>
+                        <div class="child-menu"><a
+                                href="#pagination">Pagination</a></div><div class="child-menu"><a
+                                href="#select">Select</a></div><div class="child-menu"><a
+                                href="#table">Table</a></div><div class="child-menu"><a
+                                href="#tabs">Tabs</a></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="main-content-container">
+                <section class="module-wrap" id="getting_started">
+                    <div class="page-header">
+                        <h1>
+                            入门指南
+                        </h1>
+                    </div>
+                    <div class="page-content markdown-wrap">
+                        <h1 id="angularjs-xue">angularjs-xue</h1>
+<p>Components for angularjs by Gosuncn FE team，support IE8+.</p>
+<h2 id="for-user">For user</h2>
+<h3 id="requirements">Requirements</h3>
+<p>angularjs 1.2.32 </p>
+<h3 id="manual-download">Manual download</h3>
+<p>After downloading dependencies you need to download build version of this project: <a href="https://github.com/zhangxuelian/angularjs-xue/tree/master/dist">https://github.com/zhangxuelian/angularjs-xue/tree/master/dist</a><br>You could import the components by require or script tag.  </p>
+<h4 id="adding-dependency-to-your-project">Adding dependency to your project</h4>
+<p>When you are done downloading all the dependencies and project files the only remaining part is to add dependencies on the ui.xue AngularJS module:</p>
+<pre><code class="language-javascript">angular.module(&#39;myModule&#39;, [&#39;ui.xue&#39;]);</code></pre>
+<h3 id="webpack--jspm">Webpack / JSPM</h3>
+<h4 id="install-with-npm">Install with NPM</h4>
+<pre><code>$ npm install angularjs-xue --save-dev</code></pre><h4 id="usage">Usage</h4>
+<p>To use this project with webpack, follow the NPM instructions. Now, if you want to use pagination and table, you can do:</p>
+<pre><code class="language-javascript">import pagination from &#39;angularjs-xue/src/pagination&#39;;
+import table from &#39;angularjs-xue/src/table/index-nocss.js&#39;;
+
+angular.module(&#39;myModule&#39;, [pagination,table]);</code></pre>
+<h2 id="for-developer">For developer</h2>
+<h3 id="install-global-dependencies-not-required">Install global dependencies (Not required)</h3>
+<pre><code>$ npm install grunt-cli@1.3.2 -g  
+$ npm install karma-cli@2.0.0 -g  </code></pre><h3 id="git-clone-project-to-local">Git clone project to local</h3>
+<p>git clone <a href="https://github.com/zhangxuelian/angularjs-xue.git">https://github.com/zhangxuelian/angularjs-xue.git</a></p>
+<h3 id="bundle">Bundle</h3>
+<pre><code>$ cd angularjs-xue  
+$ npm install  
+$ npm run test
+$ npm run demo</code></pre>
+                    </div>
+                </section>
+                
+                <section class="module-wrap" id="pagination">
+                    <div class="page-header">
+                        <h1>Pagination<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/pagination">xue.pagination</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xuePaginationDemoCtrl" style="overflow: auto;">
+    <xue-pagination class="xui-pagination-sm" total-items="mv.total" max-size="mv.maxSize" ng-model="mv.page"
+        items-per-page="mv.size" boundary-links="true">
+    </xue-pagination>
+    <br /><br />
+    <xue-pagination total-items="mv.total" max-size="mv.maxSize" ng-model="mv.page" items-per-page="mv.size"
+        boundary-links="true">
+    </xue-pagination>
+    <br /><br />
+    <xue-pagination first-text="<<" previous-text="<" next-text=">" last-text=">>" total-items="mv.total"
+        max-size="mv.maxSize" ng-model="mv.page" items-per-page="mv.size" boundary-links="true">
+    </xue-pagination>
+    <br /><br />
+</div>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="xue-pagination-settings">xue-pagination settings</h3>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'pagination')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div>
+                            <uib-tabset active="activeTab">
+                                <uib-tab index="0" heading="Markup">
+                                    <div plunker-content="markup">
+                                        <pre ng-non-bindable>
+                                            <code data-language="html">&lt;div ng-controller=&quot;xuePaginationDemoCtrl&quot; style=&quot;overflow: auto;&quot;&gt;
+    &lt;xue-pagination class=&quot;xui-pagination-sm&quot; total-items=&quot;mv.total&quot; max-size=&quot;mv.maxSize&quot; ng-model=&quot;mv.page&quot;
+        items-per-page=&quot;mv.size&quot; boundary-links=&quot;true&quot;&gt;
+    &lt;/xue-pagination&gt;
+    &lt;br /&gt;&lt;br /&gt;
+    &lt;xue-pagination total-items=&quot;mv.total&quot; max-size=&quot;mv.maxSize&quot; ng-model=&quot;mv.page&quot; items-per-page=&quot;mv.size&quot;
+        boundary-links=&quot;true&quot;&gt;
+    &lt;/xue-pagination&gt;
+    &lt;br /&gt;&lt;br /&gt;
+    &lt;xue-pagination first-text=&quot;&lt;&lt;&quot; previous-text=&quot;&lt;&quot; next-text=&quot;&gt;&quot; last-text=&quot;&gt;&gt;&quot; total-items=&quot;mv.total&quot;
+        max-size=&quot;mv.maxSize&quot; ng-model=&quot;mv.page&quot; items-per-page=&quot;mv.size&quot; boundary-links=&quot;true&quot;&gt;
+    &lt;/xue-pagination&gt;
+    &lt;br /&gt;&lt;br /&gt;
+&lt;/div&gt;</code>
+                                        </pre>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab index="1" heading="JavaScript">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xuePaginationDemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
+    $scope.mv = {
+        total: 100,
+        page: 2,
+        maxSize: 5,
+        size: 10
+    };
+}]);</code></pre>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xuePaginationDemoCtrl',['$scope',function($scope){
+    $scope.mv = {
+        total: 100,
+        page: 2,
+        maxSize: 5,
+        size: 10
+    };
+}]);</script>
+                
+                <section class="module-wrap" id="select">
+                    <div class="page-header">
+                        <h1>Select<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/select">xue.select</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueSelectdemoCtrl">
+    <xue-select select-config="mv.testConfig">
+    </xue-select>
+    <xue-select select-config="mv.emptyConfig">
+    </xue-select>
+</div>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="test-select-doc">test select doc</h3>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'select')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div>
+                            <uib-tabset active="activeTab">
+                                <uib-tab index="0" heading="Markup">
+                                    <div plunker-content="markup">
+                                        <pre ng-non-bindable>
+                                            <code data-language="html">&lt;div ng-controller=&quot;xueSelectdemoCtrl&quot;&gt;
+    &lt;xue-select select-config=&quot;mv.testConfig&quot;&gt;
+    &lt;/xue-select&gt;
+    &lt;xue-select select-config=&quot;mv.emptyConfig&quot;&gt;
+    &lt;/xue-select&gt;
+&lt;/div&gt;</code>
+                                        </pre>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab index="1" heading="JavaScript">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueSelectdemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
+    $scope.mv = {
+        testConfig:{
+            data: [{
+                name: &quot;身份证&quot;,
+                value: &quot;1&quot;
+            }, {
+                name: &quot;护照&quot;,
+                value: &quot;2&quot;
+            }, {
+                name: &quot;居住证&quot;,
+                value: &quot;3&quot;
+            }, {
+                name: &quot;驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证&quot;,
+                value: &quot;4&quot;
+            }],
+            valueField: &#39;value&#39;,
+            textField: &#39;name&#39;,
+            panelHeight: &#39;auto&#39;,
+            panelWidth: &#39;180px&#39;
+        },
+        emptyConfig:{
+            data:[],
+            panelHeight: &#39;250px&#39;,
+            panelWidth: &#39;180px&#39;
+        }
+    };
+}]);
+</code></pre>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueSelectdemoCtrl',['$scope',function($scope){
+    $scope.mv = {
+        testConfig:{
+            data: [{
+                name: "身份证",
+                value: "1"
+            }, {
+                name: "护照",
+                value: "2"
+            }, {
+                name: "居住证",
+                value: "3"
+            }, {
+                name: "驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证",
+                value: "4"
+            }],
+            valueField: 'value',
+            textField: 'name',
+            panelHeight: 'auto',
+            panelWidth: '180px'
+        },
+        emptyConfig:{
+            data:[],
+            panelHeight: '250px',
+            panelWidth: '180px'
+        }
+    };
+}]);
+</script>
+                
+                <section class="module-wrap" id="table">
+                    <div class="page-header">
+                        <h1>Table<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/table">xue.table</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueTableDemoCtrl">
+    <div>
+        {{test}}
+    </div>
+</div>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="test-table-doc">test table doc</h3>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'table')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div>
+                            <uib-tabset active="activeTab">
+                                <uib-tab index="0" heading="Markup">
+                                    <div plunker-content="markup">
+                                        <pre ng-non-bindable>
+                                            <code data-language="html">&lt;div ng-controller=&quot;xueTableDemoCtrl&quot;&gt;
+    &lt;div&gt;
+        {{test}}
+    &lt;/div&gt;
+&lt;/div&gt;</code>
+                                        </pre>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab index="1" heading="JavaScript">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueTableDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+    $scope.test = &quot;table test&quot;;
+}]);</code></pre>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueTableDemoCtrl', ['$scope', function ($scope) {
+    $scope.test = "table test";
+}]);</script>
+                
+                <section class="module-wrap" id="tabs">
+                    <div class="page-header">
+                        <h1>Tabs<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/tabs">xue.tabs</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <xue-tabs-wrap>
+    <xue-tab></xue-tab>
+</xue-tabs-wrap>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="xue-tabs-settings">xue-tabs settings</h3>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'tabs')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div>
+                            <uib-tabset active="activeTab">
+                                <uib-tab index="0" heading="Markup">
+                                    <div plunker-content="markup">
+                                        <pre ng-non-bindable>
+                                            <code data-language="html">&lt;xue-tabs-wrap&gt;
+    &lt;xue-tab&gt;&lt;/xue-tab&gt;
+&lt;/xue-tabs-wrap&gt;</code>
+                                        </pre>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab index="1" heading="JavaScript">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueTabsDemoCtrl&#39;,[function(){
+    
+}]);</code></pre>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueTabsDemoCtrl',[function(){
+    
+}]);</script>
+                
+            </div>
+        </div>
+    </div>
+    <div class="footer-container">
+        Copyright © 2020 angularjs-xue
+    </div>
+    <script src="assets/smoothscroll-angular-custom.js"></script>
+</body>
+
+</html>
