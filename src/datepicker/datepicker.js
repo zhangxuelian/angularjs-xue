@@ -1,5 +1,5 @@
-angular.module('xue.datepicker', ['xue.util.date', 'xue.util.lang', 'jquery'])
-    .directive('xueDatepicker', ['xueUtilDate', 'xueUtilLang', 'jquery', function (xueUtilDate, xueUtilLang, $) {
+angular.module('xue.datepicker', ['xue.util.date', 'xue.util.lang'])
+    .directive('xueDatepicker', ['xueUtilDate', 'xueUtilLang', function (xueUtilDate, xueUtilLang) {
         return {
             restrict: 'E',
             replace: true,

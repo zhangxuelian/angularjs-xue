@@ -1,5 +1,5 @@
 angular.module('xue.select', [])
-    .directive('xueSelect', ['xueUtilArray', 'xueUtilLang','$timeout', 'jquery', function (xueUtilArray, xueUtilLang,$timeout, $) {
+    .directive('xueSelect', ['xueUtilArray', 'xueUtilLang','$timeout', function (xueUtilArray, xueUtilLang,$timeout) {
         return {
             restrict: "E",
             replace: true,

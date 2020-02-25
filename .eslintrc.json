@@ -5,7 +5,8 @@
     "env": {
       "browser": true,
       "jasmine": true,
-      "node": true
+      "node": true,
+      "jquery": true
     },
     "globals": {
       "angular": true,
