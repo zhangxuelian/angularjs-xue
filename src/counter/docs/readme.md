@@ -1,1 +1,1 @@
-### test counter doc
+### counter settings

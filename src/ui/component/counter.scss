@@ -1,98 +1,140 @@
-.xue-counter-wrap{
-    border: 1px solid #CEE0F0;
-    border-radius: 4px;
-    width: 130px;
-    height: 26px;
-    &.disabled{
-        background-color: #f5f7fa;
-        color: #c0c4cc;
+$counter-border-color: #cee0f0 !default;
+$counter-text-bg-color: #f5f7fa !default;
+$counter-text-color: #999 !default;
+$counter-text-hover-color: #0394F9 !default;
+$counter-disabled-bg-color: #c0c4cc !default;
+$counter-disabled-color: #c0c4cc !default;
+
+$counter-font-size: $font-size-base !default;
+$counter-font-size-sm: $font-size-sm !default;
+$counter-font-size-lg: $font-size-lg !default;
+
+$counter-input-padding-y: .25rem !default;
+$counter-input-padding-x: .85rem !default;
+$counter-input-padding-y-sm: .2rem !default;
+$counter-input-padding-x-sm: .5rem !default;
+$counter-input-padding-y-lg: .75rem !default;
+$counter-input-padding-x-lg: 1.5rem !default;
+
+.xue-counter-wrap {
+    display: inline-block;
+    border: $border-width solid $counter-border-color;
+    border-radius: $border-radius;
+    box-sizing: border-box;
+    font-size: $font-size-base;
+
+    &.disabled {
+        background-color: $counter-disabled-bg-color;
+        color: $counter-disabled-color;
         cursor: not-allowed;
-        input:disabled{
-            background-color: #f5f7fa;
+
+        input:disabled {
+            background-color: $counter-disabled-bg-color;
         }
     }
-    &>span{
+
+    &>span {
         text-align: center;
-        height:24px;
-        line-height: 24px;
+        padding: $counter-input-padding-y $counter-input-padding-x;
         float: left;
     }
-    .text,.input{
-        width: 80px;
-        border-left: 1px solid #CEE0F0;
-        border-right: 1px solid #CEE0F0;
+
+    .text,
+    .input {
+        padding: $counter-input-padding-y $counter-input-padding-x;
+        box-sizing: border-box;
+        border-left: $border-width solid $counter-border-color;
+        border-right: $border-width solid $counter-border-color;
     }
-    .input{
+
+    .input {
         position: relative;
-        input{
+
+        input {
             width: 100%;
             text-align: center;
             border: none;
         }
-        &.hasSuffix input{
-            padding-right: 25px;
+
+        &.hasSuffix input {
+            box-sizing: border-box;
         }
-        span{
+
+        span {
             position: absolute;
             top: 0;
             right: 5px;
+            padding: $counter-input-padding-y $counter-input-padding-x;
         }
     }
-    .add,.reduce{
-        color: #999;
+
+    .add,
+    .reduce {
+        color: $counter-text-color;
         font-weight: bold;
-        font-size: 20px;
-        width: 24px;
         cursor: pointer;
-        line-height: 22px;
         position: relative;
-        background-color: #f5f7fa;
-        &:hover{
-            color: #0394F9;
+        background-color: $counter-text-bg-color;
+        padding: $counter-input-padding-y $counter-input-padding-x;
+
+        &:hover {
+            color: $counter-text-hover-color;
         }
-        &.disabled{
+
+        &.disabled {
             cursor: not-allowed;
-            color: #c0c4cc;
-            &:hover{
-                color:#c0c4cc;
+            color: $counter-disabled-color;
+
+            &:hover {
+                color: $counter-disabled-color;
             }
         }
     }
-    .add{
-        border-radius: 0 4px 4px 0;
+
+    .add {
+        border-radius: 0 $border-radius $border-radius 0;
     }
-    .reduce{
-        border-radius: 4px 0 0 4px;
+
+    .reduce {
+        border-radius: $border-radius 0 0 $border-radius;
     }
-    &.large{
-        width: 158px;
-        height: 30px;
-        &>span{
-            height: 28px;
-            line-height: 28px;
+
+    &.large {
+        font-size: $font-size-lg;
+
+        &>span {
+            padding: $counter-input-padding-y-lg $counter-input-padding-x-lg;
         }
-        .text,.input{
-            width: 100px;
+
+        .input span {
+            padding: $counter-input-padding-y-lg $counter-input-padding-x-lg;
         }
-        .add,.reduce{
-            width: 28px;
-            line-height: 26px;
+
+        .text,
+        .input,
+        .add,
+        .reduce {
+            padding: $counter-input-padding-y-lg $counter-input-padding-x-lg;
         }
     }
-    &.small{
-        width: 102px;
-        height: 22px;
-        &>span{
-            height: 20px;
-            line-height: 20px;
+
+    &.small {
+        font-size: $font-size-sm;
+
+        &>span {
+            padding: $counter-input-padding-y-lg $counter-input-padding-x-lg;
         }
-        .text,.input{
-            width: 60px;
+
+        .input span {
+            padding: $counter-input-padding-y-sm $counter-input-padding-x-sm;
         }
-        .add,.reduce{
-            width: 20px;
-            line-height: 18px;
-            font-size: 16px;
+
+        .text,
+        .input,
+        .add,
+        .reduce {
+            padding: $counter-input-padding-y-sm $counter-input-padding-x-sm;
         }
+
     }
 }

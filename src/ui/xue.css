@@ -3146,25 +3146,27 @@ i {
     color: #fff; }
 
 .xue-counter-wrap {
-  border: 1px solid #CEE0F0;
-  border-radius: 4px;
-  width: 130px;
-  height: 26px; }
+  display: inline-block;
+  border: 1px solid #cee0f0;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  font-size: 1rem; }
   .xue-counter-wrap.disabled {
-    background-color: #f5f7fa;
+    background-color: #c0c4cc;
     color: #c0c4cc;
     cursor: not-allowed; }
     .xue-counter-wrap.disabled input:disabled {
-      background-color: #f5f7fa; }
+      background-color: #c0c4cc; }
   .xue-counter-wrap > span {
     text-align: center;
-    height: 24px;
-    line-height: 24px;
+    padding: 0.25rem 0.85rem;
     float: left; }
-  .xue-counter-wrap .text, .xue-counter-wrap .input {
-    width: 80px;
-    border-left: 1px solid #CEE0F0;
-    border-right: 1px solid #CEE0F0; }
+  .xue-counter-wrap .text,
+  .xue-counter-wrap .input {
+    padding: 0.25rem 0.85rem;
+    box-sizing: border-box;
+    border-left: 1px solid #cee0f0;
+    border-right: 1px solid #cee0f0; }
   .xue-counter-wrap .input {
     position: relative; }
     .xue-counter-wrap .input input {
@@ -3172,51 +3174,53 @@ i {
       text-align: center;
       border: none; }
     .xue-counter-wrap .input.hasSuffix input {
-      padding-right: 25px; }
+      box-sizing: border-box; }
     .xue-counter-wrap .input span {
       position: absolute;
       top: 0;
-      right: 5px; }
-  .xue-counter-wrap .add, .xue-counter-wrap .reduce {
+      right: 5px;
+      padding: 0.25rem 0.85rem; }
+  .xue-counter-wrap .add,
+  .xue-counter-wrap .reduce {
     color: #999;
     font-weight: bold;
-    font-size: 20px;
-    width: 24px;
     cursor: pointer;
-    line-height: 22px;
     position: relative;
-    background-color: #f5f7fa; }
-    .xue-counter-wrap .add:hover, .xue-counter-wrap .reduce:hover {
+    background-color: #f5f7fa;
+    padding: 0.25rem 0.85rem; }
+    .xue-counter-wrap .add:hover,
+    .xue-counter-wrap .reduce:hover {
       color: #0394F9; }
-    .xue-counter-wrap .add.disabled, .xue-counter-wrap .reduce.disabled {
+    .xue-counter-wrap .add.disabled,
+    .xue-counter-wrap .reduce.disabled {
       cursor: not-allowed;
       color: #c0c4cc; }
-      .xue-counter-wrap .add.disabled:hover, .xue-counter-wrap .reduce.disabled:hover {
+      .xue-counter-wrap .add.disabled:hover,
+      .xue-counter-wrap .reduce.disabled:hover {
         color: #c0c4cc; }
   .xue-counter-wrap .add {
-    border-radius: 0 4px 4px 0; }
+    border-radius: 0 0.25rem 0.25rem 0; }
   .xue-counter-wrap .reduce {
-    border-radius: 4px 0 0 4px; }
+    border-radius: 0.25rem 0 0 0.25rem; }
   .xue-counter-wrap.large {
-    width: 158px;
-    height: 30px; }
+    font-size: 1.25rem; }
     .xue-counter-wrap.large > span {
-      height: 28px;
-      line-height: 28px; }
-    .xue-counter-wrap.large .text, .xue-counter-wrap.large .input {
-      width: 100px; }
-    .xue-counter-wrap.large .add, .xue-counter-wrap.large .reduce {
-      width: 28px;
-      line-height: 26px; }
+      padding: 0.75rem 1.5rem; }
+    .xue-counter-wrap.large .input span {
+      padding: 0.75rem 1.5rem; }
+    .xue-counter-wrap.large .text,
+    .xue-counter-wrap.large .input,
+    .xue-counter-wrap.large .add,
+    .xue-counter-wrap.large .reduce {
+      padding: 0.75rem 1.5rem; }
   .xue-counter-wrap.small {
-    width: 102px;
-    height: 22px; }
+    font-size: 0.875rem; }
     .xue-counter-wrap.small > span {
-      height: 20px;
-      line-height: 20px; }
-    .xue-counter-wrap.small .text, .xue-counter-wrap.small .input {
-      width: 60px; }
-    .xue-counter-wrap.small .add, .xue-counter-wrap.small .reduce {
-      width: 20px;
-      line-height: 18px;
-      font-size: 16px; }
+      padding: 0.75rem 1.5rem; }
+    .xue-counter-wrap.small .input span {
+      padding: 0.2rem 0.5rem; }
+    .xue-counter-wrap.small .text,
+    .xue-counter-wrap.small .input,
+    .xue-counter-wrap.small .add,
+    .xue-counter-wrap.small .reduce {
+      padding: 0.2rem 0.5rem; }
