@@ -111,6 +111,14 @@ module.exports = function (grunt) {
             }
         },
         copy: {
+            dist: {
+                files: [{
+                    expand: true,
+                    src: ['fonts/*'],
+                    cwd: 'src/ui/icon_font',
+                    dest: 'dist/'
+                }]
+            },
             demohtml: {
                 options: {
                     process: grunt.template.process
@@ -134,7 +142,7 @@ module.exports = function (grunt) {
             demodist: {
                 files: [{
                     expand: true,
-                    src: ['*.min.*'],
+                    src: ['*.min.*', 'fonts/*'],
                     cwd: 'dist',
                     dest: 'demo/assets/'
                 }]
@@ -318,7 +326,7 @@ module.exports = function (grunt) {
         }
     };
 
-    grunt.registerTask('default', ['enforce', 'delFiles', /* 'ddescribe-iit', */  'eslint', 'sass', 'html2js', 'karma', 'build', 'cssmin', 'copy']);
+    grunt.registerTask('default', ['enforce', 'delFiles', /* 'ddescribe-iit', */  'eslint', 'sass', 'html2js', 'karma', 'build', 'cssmin', 'copy:demo']);
     grunt.registerTask('enforce', `Install commit message enforce script if it doesn't exist`, function () {
         if (!grunt.file.exists('.git/hooks/commit-msg')) {
             grunt.file.copy('misc/validate-commit-msg.js', '.git/hooks/commit-msg');
@@ -378,9 +386,10 @@ module.exports = function (grunt) {
         var toolJsSrc = grunt.file.expand('misc/tool/*.js');
         grunt.config('concat.dist_tpls.src', toolJsSrc.concat(grunt.config('concat.dist_tpls.src')
             .concat(srcFiles).concat(tpljsFiles)));
-        grunt.task.run(['concat', 'uglify', 'makeModuleMappingFile', 'makeRawFilesJs', 'makeVersionsMappingFile']);
+        grunt.task.run(['concat', 'uglify', 'copy:dist', 'makeModuleMappingFile', 'makeRawFilesJs', 'makeVersionsMappingFile']);
 
     });
+    grunt.registerTask('demo', ['delFiles', 'sass', 'html2js', 'build', 'cssmin', 'copy:demohtml','copy:demoassets','copy:demodist']);
     grunt.registerTask('makeModuleMappingFile', function () {
         var moduleMappingJs = 'demo/assets/module-mapping.json';
         var moduleMappings = grunt.config('moduleFileMapping');
