@@ -107,6 +107,33 @@ angular.module('xue.util.array', []).service('xueUtilArray', [
             }
             return -1;
         };
+        /**
+         * 从数组中查找对象值，返回数组
+         * ps：数组对象为数组
+         * @param {any} arr
+         * @param {any} key
+         * @param {any} valueArr
+         * @returns
+         */
+        this.findInArrByKeys = function (arr, key, valueArr) {
+            var ret = [];
+            try {
+                for (var i = 0; i < arr.length; i++) {
+                    for (var j in valueArr) {
+                        if (arr[i][key] == valueArr[j]) {
+                            ret.push(arr[i]);
+                            valueArr.splice(j, 1);
+                        }
+                    }
+                    if (valueArr.length == 0) {
+                        return ret;
+                    }
+                }
+                return ret;
+            } catch (e) {
+                return ret;
+            }
+        };
 
     }
 ]);

@@ -6,6 +6,7 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "        <input ng-focus=\"focus()\" type=\"text\" class=\"select-show\" title=\"{{selectConfig.inputLabel}}\"\n" +
     "            ng-model=\"selectConfig.inputLabel\" ng-class=\"selectClass\" ng-style=\"showStyle\" ng-change=\"changeIpt()\"\n" +
     "            ng-disabled=\"selectConfig.disabled\" />\n" +
+    "        <i class=\"select-arrow\"></i>\n" +
     "        <div class=\"select-content\" ng-style=\"contentStyle\">\n" +
     "            <ul class=\"select-list\">\n" +
     "                <li ng-click=\"onBeforeSelect(item,$event)\"\n" +
@@ -24,12 +25,13 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "    <div ng-if=\"!selectConfig.checkbox && selectConfig.filter && selectConfig.separate\">\n" +
     "        <input ng-click=\"focus()\" type=\"button\" class=\"select-show\" ng-disabled=\"selectConfig.disabled\"\n" +
     "            title=\"{{selectConfig.inputLabel}}\" ng-class=\"selectClass\" ng-style=\"showStyle\" />\n" +
+    "        <i class=\"select-arrow\"></i>\n" +
     "        <div class=\"select-content select-content-checkbox select-separate\" ng-style=\"contentStyle\">\n" +
     "            <div class=\"separate-wrap\" ng-class=\"{'hidden-filter':!selectConfig.enableEmpty}\">\n" +
     "                <div class=\"select-filter-wrap\">\n" +
     "                    <input type=\"text\" ng-model=\"selectConfig.myLabel\" class=\"select-filter form-control\" />\n" +
     "                </div>\n" +
-    "                <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\" class=\"fa fa-trash\"></i>\n" +
+    "                <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\">x</i>\n" +
     "            </div>\n" +
     "            <ul class=\"select-list\">\n" +
     "                <li ng-click=\"onBeforeSelect(item,$event)\"\n" +
@@ -48,6 +50,7 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "    <div ng-if=\"!selectConfig.checkbox && !selectConfig.filter\">\n" +
     "        <input ng-focus=\"focus()\" type=\"button\" class=\"select-show\" title=\"{{selectConfig.inputLabel}}\"\n" +
     "            ng-class=\"selectClass\" ng-style=\"showStyle\" ng-disabled=\"selectConfig.disabled\" />\n" +
+    "        <i class=\"select-arrow\"></i>\n" +
     "        <div class=\"select-content\" ng-style=\"contentStyle\">\n" +
     "            <ul class=\"select-list\">\n" +
     "                <li ng-click=\"onBeforeSelect(item,$event)\"\n" +
@@ -66,18 +69,19 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "    <div ng-if=\"selectConfig.checkbox && selectConfig.filter\">\n" +
     "        <input ng-click=\"focus()\" type=\"button\" class=\"select-show\" ng-disabled=\"selectConfig.disabled\"\n" +
     "            title=\"{{selectConfig.inputLabel}}\" ng-class=\"selectClass\" ng-style=\"showStyle\" />\n" +
+    "        <i class=\"select-arrow\"></i>\n" +
     "        <div class=\"select-content select-content-checkbox  select-separate\" ng-style=\"contentStyle\">\n" +
     "            <div class=\"separate-wrap\">\n" +
     "                <div class=\"select-filter-wrap\">\n" +
     "                    <input type=\"text\" ng-model=\"selectConfig.myLabel\" class=\"select-filter form-control\" />\n" +
     "                </div>\n" +
-    "                <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\" class=\"fa fa-trash\"></i>\n" +
+    "                <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\">x</i>\n" +
     "            </div>\n" +
     "            <ul ng-style=\"showContent\" class=\"select-list\">\n" +
     "                <li ng-click=\"selectLi(item,$event)\"\n" +
     "                    ng-class=\"{true:'active'}[!!selectConfig.checkRowsMap[item[selectConfig.valueField]]]\"\n" +
     "                    ng-repeat=\"item in selectConfig.data | filter:selectConfig.myLabel | limitTo:selectConfig.showLimit\">\n" +
-    "                    <gx-checkbox ng-checked=\"selectConfig.checkRowsMap[item[selectConfig.valueField]]\"></gx-checkbox>\n" +
+    "                    <xue-checkbox ng-checked=\"selectConfig.checkRowsMap[item[selectConfig.valueField]]\"></xue-checkbox>\n" +
     "                    <span ng-bind=\"item[selectConfig.textField] || textFieldFormat(item)\"></span>\n" +
     "                </li>\n" +
     "                <li ng-if=\"!!!selectConfig.data || !selectConfig.data.length\" class=\"empty-data\">\n" +
@@ -91,12 +95,13 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "    <div ng-if=\"selectConfig.checkbox && !selectConfig.filter\">\n" +
     "        <input ng-click=\"focus()\" type=\"button\" class=\"select-show\" ng-disabled=\"selectConfig.disabled\"\n" +
     "            ng-class=\"selectClass\" ng-style=\"showStyle\" />\n" +
+    "        <i class=\"select-arrow\"></i>\n" +
     "        <div class=\"select-content  select-separate\" ng-style=\"contentStyle\">\n" +
     "            <ul ng-style=\"showContent\" class=\"select-list\">\n" +
     "                <li ng-click=\"selectLi(item,$event)\"\n" +
     "                    ng-class=\"{true:'active'}[!!selectConfig.checkRowsMap[item[selectConfig.valueField]]]\"\n" +
     "                    ng-repeat=\"item in selectConfig.data | filter:selectConfig.myLabel | limitTo:selectConfig.showLimit\">\n" +
-    "                    <gx-checkbox ng-checked=\"selectConfig.checkRowsMap[item[selectConfig.valueField]]\"></gx-checkbox>\n" +
+    "                    <xue-checkbox ng-checked=\"selectConfig.checkRowsMap[item[selectConfig.valueField]]\"></xue-checkbox>\n" +
     "                    <span ng-bind=\"item[selectConfig.textField] || textFieldFormat(item)\"></span>\n" +
     "                </li>\n" +
     "                <li ng-if=\"!!!selectConfig.data || !selectConfig.data.length\" class=\"empty-data\">\n" +
