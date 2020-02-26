@@ -1,0 +1,13 @@
+<div class="xue-counter-wrap {{counterConfig.size}}" ng-class="{'disabled':counterConfig.disabled}">
+    <span ng-click="gxCounterCtrl.changeByBtn('reduce',params)" class="reduce"
+        ng-class="{'disabled':counterConfig.disabled||gxCounterCtrl.number==counterConfig.min}">-</span>
+    <span ng-show="counterConfig.type==1" class="text" ng-model="gxCounterCtrl.number">
+        {{gxCounterCtrl.number}} {{counterConfig.suffix}}</span>
+    <span ng-show="counterConfig.type==2" class="input" ng-class="{'hasSuffix':counterConfig.suffix}">
+        <input ng-disabled="counterConfig.disabled" ng-blur="gxCounterCtrl.inputBlur()"
+            ng-focus="gxCounterCtrl.inputFocus()" ng-change="gxCounterCtrl.inputChange($event)"
+            ng-model="gxCounterCtrl.number" />
+        <span ng-if="counterConfig.suffix">{{counterConfig.suffix}}</span></span>
+    <span ng-click="gxCounterCtrl.changeByBtn('add',params)" class="add"
+        ng-class="{'disabled':counterConfig.disabled||gxCounterCtrl.number==counterConfig.max}">+</span>
+</div>

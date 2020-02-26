@@ -1,0 +1,98 @@
+.xue-counter-wrap{
+    border: 1px solid #CEE0F0;
+    border-radius: 4px;
+    width: 130px;
+    height: 26px;
+    &.disabled{
+        background-color: #f5f7fa;
+        color: #c0c4cc;
+        cursor: not-allowed;
+        input:disabled{
+            background-color: #f5f7fa;
+        }
+    }
+    &>span{
+        text-align: center;
+        height:24px;
+        line-height: 24px;
+        float: left;
+    }
+    .text,.input{
+        width: 80px;
+        border-left: 1px solid #CEE0F0;
+        border-right: 1px solid #CEE0F0;
+    }
+    .input{
+        position: relative;
+        input{
+            width: 100%;
+            text-align: center;
+            border: none;
+        }
+        &.hasSuffix input{
+            padding-right: 25px;
+        }
+        span{
+            position: absolute;
+            top: 0;
+            right: 5px;
+        }
+    }
+    .add,.reduce{
+        color: #999;
+        font-weight: bold;
+        font-size: 20px;
+        width: 24px;
+        cursor: pointer;
+        line-height: 22px;
+        position: relative;
+        background-color: #f5f7fa;
+        &:hover{
+            color: #0394F9;
+        }
+        &.disabled{
+            cursor: not-allowed;
+            color: #c0c4cc;
+            &:hover{
+                color:#c0c4cc;
+            }
+        }
+    }
+    .add{
+        border-radius: 0 4px 4px 0;
+    }
+    .reduce{
+        border-radius: 4px 0 0 4px;
+    }
+    &.large{
+        width: 158px;
+        height: 30px;
+        &>span{
+            height: 28px;
+            line-height: 28px;
+        }
+        .text,.input{
+            width: 100px;
+        }
+        .add,.reduce{
+            width: 28px;
+            line-height: 26px;
+        }
+    }
+    &.small{
+        width: 102px;
+        height: 22px;
+        &>span{
+            height: 20px;
+            line-height: 20px;
+        }
+        .text,.input{
+            width: 60px;
+        }
+        .add,.reduce{
+            width: 20px;
+            line-height: 18px;
+            font-size: 16px;
+        }
+    }
+}

@@ -26,7 +26,7 @@
             </h1>
             <ul>
                 <li><a href="#getting_started">入门指南</a></li>
-                <li><a href="#datepicker">组件文档</a></li>
+                <li><a href="#counter">组件文档</a></li>
                 <li>1.0.0</li>
             </ul>
         </div>
@@ -41,8 +41,9 @@
                 </ul>
                 <ul class="node-menu">
                     <li>
-                        <a href="#datepicker">组件文档</a>
+                        <a href="#counter">组件文档</a>
                         <div class="child-menu"><a
+                                href="#counter">Counter</a></div><div class="child-menu"><a
                                 href="#datepicker">Datepicker</a></div><div class="child-menu"><a
                                 href="#pagination">Pagination</a></div><div class="child-menu"><a
                                 href="#select">Select</a></div><div class="child-menu"><a
@@ -89,6 +90,72 @@ $ npm run test
 $ npm run demo</code></pre>
                     </div>
                 </section>
+                
+                <section class="module-wrap" id="counter">
+                    <div class="page-header">
+                        <h1>Counter<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/counter">xue.counter</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueCounterDemoCtrl">
+  <xue-counter counter-config="vm.counterConfig" ng-number="vm.number"></xue-counter>
+</div>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="test-counter-doc">test counter doc</h3>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'counter')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div>
+                            <uib-tabset active="activeTab">
+                                <uib-tab index="0" heading="Markup">
+                                    <div plunker-content="markup">
+                                        <pre ng-non-bindable>
+                                            <code data-language="html">&lt;div ng-controller=&quot;xueCounterDemoCtrl&quot;&gt;
+  &lt;xue-counter counter-config=&quot;vm.counterConfig&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
+&lt;/div&gt;</code>
+                                        </pre>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab index="1" heading="JavaScript">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueCounterDemoCtrl&#39;, [&#39;$scope&#39;, &#39;$timeout&#39;, function ($scope, $timeout) {
+    $scope.vm = {
+        counterConfig:{
+            suffix: &quot;℃&quot;,
+            max: 30,
+            min: 0
+        },
+        number:1
+    }
+}]);</code></pre>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueCounterDemoCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
+    $scope.vm = {
+        counterConfig:{
+            suffix: "℃",
+            max: 30,
+            min: 0
+        },
+        number:1
+    }
+}]);</script>
                 
                 <section class="module-wrap" id="datepicker">
                     <div class="page-header">
@@ -259,7 +326,6 @@ $ npm run demo</code></pre>
     <div>多选不可过滤</div>
     <xue-select select-config="mv.multFilterConfig">
     </xue-select>
-
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
@@ -295,7 +361,6 @@ $ npm run demo</code></pre>
     &lt;div&gt;多选不可过滤&lt;/div&gt;
     &lt;xue-select select-config=&quot;mv.multFilterConfig&quot;&gt;
     &lt;/xue-select&gt;
-
 &lt;/div&gt;</code>
                                         </pre>
                                     </div>
