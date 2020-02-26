@@ -6,8 +6,8 @@
  * Require angularjs version: 1.2.32
  * License: ISC
  */
-angular.module("ui.xue", ["ui.xue.tpls", "xue.counter","xue.util.lang","xue.util.string","xue.util.date","xue.datepicker","xue.pagination","xue.select","xue.steps","xue.table","xue.tabs","xue.util.array","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util"]);
-angular.module("ui.xue.tpls", ["xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
+angular.module("ui.xue", ["ui.xue.tpls", "xue.counter","xue.util.lang","xue.util.string","xue.util.date","xue.datepicker","xue.menu","xue.pagination","xue.select","xue.steps","xue.table","xue.tabs","xue.util.array","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util"]);
+angular.module("ui.xue.tpls", ["xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
 /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
 //@ sourceMappingURL=jquery-1.10.2.min.map
 */
@@ -913,6 +913,151 @@ angular.module('xue.datepicker', ['xue.util.date', 'xue.util.lang'])
         }
     }])
 
+angular.module('xue.menu', ['xue.util.lang'])
+    .directive('xueMenu',['xueUtilLang', function (xueUtilLang){
+        return {
+            restrict : "E",
+            replace : true,
+            scope : {
+                menuConfig : '='
+            },
+            templateUrl: function (element, attrs) {
+                return attrs.templateUrl || 'xue/template/menu/menu.html'
+            },
+            link:function(scope,ele,attrs){
+                var defaultConfig = {
+                    search: false,//是否支持搜索
+                    autoShrink: true,//是否自动收缩
+                    setFirst: true,//是否选中第一个
+
+                    data: [],//源数据,一维数组或二维数组
+                    showOneDimenIcon: true,//是否展示一级菜单图标
+                    oneDimenName: '',//一级菜单标题字段名
+                    oneDimenIcon: '',//一级菜单图标字段名
+                    
+                    childrenName: '',//二维数组对象名
+                    twoDimenName: '',//二级菜单标题字段名
+                    twoDimenIcon: '',//二级菜单图标字段名
+
+                    clickRouter: function(){},//导航菜单点击回调
+                    routerId: 'id',//导航菜单ID字段名
+                    selectId: null,//选中导航菜单ID
+                    imagePrefix: 'imagestore/', //图片前缀
+                    imageSuffix: '.jpg' //图片后缀
+                };
+                scope.menuConfig = angular.extend(defaultConfig,scope.menuConfig || {});
+
+                //支持搜索菜单
+                if(scope.menuConfig.search){
+                    scope.vm = {
+                        searchValue: '',
+                        menuList: [],
+                        //当前鼠标是否在搜索列表上
+                        onSearchListDiv: false,
+                        select: function(item){
+                            this.searchValue = '';
+                            scope.clickRouter(item);
+                        },
+                        formatData: function(data){
+                            var list = [];
+                            for(var i=0; i<data.length;i++){
+                                list.push(data[i]);
+                                if(data[i][scope.menuConfig.childrenName]){
+                                    var childrenData = data[i][scope.menuConfig.childrenName];
+                                    for(var j=0;j<childrenData.length;j++){
+                                        list.push(childrenData[j]);
+                                    }
+                                }
+                            }
+                            this.menuList = list;
+                        },
+                        /**
+                         * 隐藏搜索框
+                         */
+                        hideSearchBox: function () {
+                            //当鼠标的焦点不在搜索框里面时，失去焦点才去隐藏
+                            if (!this.onSearchListDiv) {
+                                this.searchValue = '';
+                            }
+                        }
+                    };
+                    
+                }
+
+                //导航菜单点击回调
+                scope.clickRouter = function(item){
+                    if(!item[scope.menuConfig.childrenName]){
+                        scope.menuConfig.selectId = item[scope.menuConfig.routerId];
+                        if(xueUtilLang.isFunction(scope.menuConfig.clickRouter)){
+                            scope.menuConfig.clickRouter(item);
+                        }
+                    }else{
+                        var open = item.open;
+                        if(scope.menuConfig.autoShrink){
+                            angular.forEach(scope.menuConfig.data,function(obj,i){
+                                obj.open = false;
+                            });
+                        }
+                        if(open){
+                            item.open = false;
+                        }else{
+                            item.open = true;
+                        }
+                    }
+                }
+
+                //设置数据
+                var dataWatch = scope.$watch("menuConfig.data",function(newVal,oldVal){
+                    if(newVal){
+                        if(scope.menuConfig.setFirst && scope.menuConfig.data.length){
+                            var item = scope.menuConfig.data[0];
+                            scope.clickRouter(item);
+                            if(item[scope.menuConfig.childrenName] && item[scope.menuConfig.childrenName].length){
+                                scope.menuConfig.clickRouter(item[scope.menuConfig.childrenName][0]);
+                                scope.menuConfig.selectId = item[scope.menuConfig.childrenName][0][scope.menuConfig.routerId];
+                                item.open = true;
+                            }
+                        }
+                        if(scope.menuConfig.search){
+                            scope.vm.formatData(newVal);
+                        }
+                    }
+                })
+
+                //设置选中id
+                var idWatch = scope.$watch('menuConfig.selectId',function(newVal,oldVal){
+                    var data = scope.menuConfig.data;
+                    if(newVal && data){
+                        for(var i=0; i<data.length; i++){
+                            if(newVal == data[i][scope.menuConfig.routerId]){
+                                break;
+                            }
+                            if(data[i][scope.menuConfig.childrenName]){
+                                var childrenData = data[i][scope.menuConfig.childrenName];
+                                for(var j=0; j<childrenData.length; j++){
+                                    if(childrenData[j][scope.menuConfig.routerId] == newVal){
+                                        if(scope.menuConfig.autoShrink){
+                                            angular.forEach(data,function(obj){
+                                                obj.open = false;
+                                            });
+                                        }
+                                        data[i].open = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                })
+                
+                scope.$on("$destroy",function(){
+                    dataWatch();
+                    idWatch();
+                })
+
+            }
+        }
+    }])
 angular.module('xue.pagination', [])
 
   .controller('xuePaginationController', ['$scope', '$attrs', '$parse', function ($scope, $attrs, $parse) {
@@ -3955,6 +4100,48 @@ angular.module("xue/template/datepicker/datepicker.html", []).run(["$templateCac
     "</div>");
 }]);
 
+angular.module("xue/template/menu/menu.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("xue/template/menu/menu.html",
+    "<div class=\"xui-menu-wrap\" ng-class=\"{true:'support-search'}[menuConfig.search]\">\n" +
+    "    <div class=\"menu-search\" ng-if=\"menuConfig.search\">\n" +
+    "        <input type=\"text\" class=\"menu-ipt\" ng-model=\"vm.searchValue\" ng-blur=\"vm.hideSearchBox()\">\n" +
+    "        <div class=\"menu-list\" ng-show=\"!!vm.searchValue\"\n" +
+    "            ng-mouseover=\"vm.onSearchListDiv = true\"\n" +
+    "            ng-mouseleave=\"vm.onSearchListDiv = false\">\n" +
+    "            <ul>\n" +
+    "                <li ng-click=\"vm.select(item)\" ng-repeat=\"item in vm.menuList | filter : {menuName:vm.searchValue}\">{{item[menuConfig.oneDimenName]}}</li>\n" +
+    "            </ul>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "    <div class=\"menu-item-wrap\">\n" +
+    "        <div class=\"menu-item\" ng-repeat=\"item in menuConfig.data\">\n" +
+    "            <div class=\"item-title\" ng-click=\"clickRouter(item)\" ng-class=\"{true:'active'}[item[menuConfig.routerId] == menuConfig.selectId]\">\n" +
+    "                <div class=\"title-icon\" ng-if=\"menuConfig.showOneDimenIcon\">\n" +
+    "                    <img alt=\"\" ng-if=\"!!item[menuConfig.oneDimenIcon]\" \n" +
+    "                        ng-src=\"{{menuConfig.imagePrefix+item[menuConfig.oneDimenIcon]+menuConfig.imageSuffix}}\">\n" +
+    "                    <i ng-if=\"!item[menuConfig.oneDimenIcon]\" class=\"fa fa-star\"></i>\n" +
+    "                </div>\n" +
+    "                <div class=\"title-content\" title=\"{{item[menuConfig.oneDimenName]}}\">\n" +
+    "                    {{item[menuConfig.oneDimenName]}}\n" +
+    "                </div>\n" +
+    "                <div class=\"title-arrow\" ng-if=\"!!item[menuConfig.childrenName]\">\n" +
+    "                    <i ng-if=\"!item.open\" class=\"chevron-right\"></i>\n" +
+    "                    <i ng-if=\"!!item.open\" class=\"chevron-down\"></i>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"item-content\" ng-show=\"!!item.open && !!item[menuConfig.childrenName]\">\n" +
+    "                <ul>\n" +
+    "                    <li ng-repeat=\"children in item[menuConfig.childrenName]\" title=\"{{children[menuConfig.twoDimenName]}}\" \n" +
+    "                    ng-click=\"clickRouter(children)\" ng-class=\"{true:'active'}[children[menuConfig.routerId] == menuConfig.selectId]\">\n" +
+    "                        <span>{{children[menuConfig.twoDimenName]}}</span>\n" +
+    "                    </li>\n" +
+    "                </ul>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>");
+}]);
+
 angular.module("xue/template/pagination/pager.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/pagination/pager.html",
     "<ul class=\"pager\">\n" +
@@ -4218,5 +4405,6 @@ angular.module("xue/template/tree/tree.html", []).run(["$templateCache", functio
     "</div>");
 }]);
 angular.module('xue.datepicker').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibDatepickerCss && angular.element(document).find('head').prepend('<style type="text/css">@charset "UTF-8";.xui-datepicker-wrap{position:relative;display:inline-block;}.xui-datepicker-wrap .input-wrap{display:inline-block;width:180px;height:28px;padding:0 15px;position:relative;border:1px solid #cee0f0;transition:border-color 0.2s cubic-bezier(0.645,0.045,0.355,1);border-radius:5px;vertical-align:middle;background:#fff;}.xui-datepicker-wrap .input-wrap:focus{border-color:#409EFF;outline:0;-webkit-boxl-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);}.xui-datepicker-wrap .input-wrap:hover .sufix-input{background:url(../images/del_icon.png) center center no-repeat;cursor:pointer;}.xui-datepicker-wrap .input-wrap .type-ipt{position:absolute;display:inline-block;vertical-align:middle;height:100%;line-height:28px;-webkit-appearance:none;background-color:#fff;background-image:none;box-sizing:border-box;color:#606266;font-size:14px;outline:none;width:150px;font-weight:400;border:none;padding:3px;left:18px;}.xui-datepicker-wrap .input-wrap .prefix-input{position:absolute;background:url(../images/date_icon.png) center center no-repeat;display:inline-block;width:16px;height:26px;top:0;left:2px;vertical-align:middle;}.xui-datepicker-wrap .input-wrap .prefix-input.time-icon{background:url(../images/time_icon.png) center center no-repeat;}.xui-datepicker-wrap .input-wrap .sufix-input{display:inline-block;width:14px;height:26px;position:absolute;right:2px;top:0;}.xui-datepicker-wrap .type-img{display:inline-block;}.xui-datepicker-wrap .type-span{display:inline-block;}.xl-datepicker-content{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-khtml-user-select:none;user-select:none;position:absolute;min-width:317px;top:181px;left:294px;z-index:9999;background:#fff;display:none;box-shadow:0 0 15px 0px rgba(0,0,0,0.2);border-radius:5px;color:#606266;border:solid 1px #DCDFE6;}.xl-datepicker-content ::-webkit-input-placeholder{color:#999;}.xl-datepicker-content :-moz-placeholder{color:#999;}.xl-datepicker-content ::-moz-placeholder{color:#999;}.xl-datepicker-content :-ms-input-placeholder{color:#999;}.xl-datepicker-content .xl-popper-arrow{top:-6px;width:0;height:0;border-left:solid 6px transparent;border-right:solid 6px transparent;border-bottom:solid 6px #fff;position:absolute;left:35px;}.xl-datepicker-content .xl-popper-arrow.arrow-bottom{top:auto;border-bottom:solid 6px transparent;border-top:solid 6px #fff;}.xl-datepicker-content .xl-popper-arrow.arrow-right{left:auto;right:35px;}.xl-datepicker-content .show-date-wrap{padding:5px;border-bottom:solid 1px #DCDFE6;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap{position:relative;display:inline-block;padding:5px;padding-bottom:0;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .show-ipt{height:28px;line-height:28px;border-radius:3px;width:140px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .show-ipt:focus{border:solid 1px #409EFF;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap{position:absolute;width:140px;height:180px;z-index:9999;border:solid 1px #ddd;border-radius:2px;background:#fff;top:34px;box-shadow:0 2px 5px 0 rgba(0,0,0,0.1);}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content{height:150px;display:flex;width:100%;padding:2px;font-size:12px;position:relative;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content::after{content:"";display:block;position:absolute;border-top:solid 1px #ddd;width:118px;height:30px;margin-left:7px;top:63px;border-bottom:solid 1px #ddd;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar{flex-grow:1;text-align:center;height:100%;overflow:hidden;position:relative;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul{list-style:none;position:absolute;width:100%;top:0;transition:top 0.1s;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul::before{content:"";display:block;width:100%;height:60px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul::after{content:"";display:block;width:100%;height:60px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul li{line-height:30px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul li.active{color:#333;font-weight:700;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul li:hover{background:#f0f5fb;cursor:pointer;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-footer{height:30px;border-top:solid 1px #ddd;text-align:right;line-height:26px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-footer .confirm{color:#409eff;font-weight:700;font-size:12px;margin-right:15px;cursor:pointer;}.xl-datepicker-content .xl-content-header{text-align:center;padding:15px 10px;padding-bottom:0;}.xl-datepicker-content .xl-content-header > i{height:16px;width:16px;display:inline-block;cursor:pointer;margin-top:3px;margin-left:3px;margin-right:3px;}.xl-datepicker-content .xl-content-header .xl-d-arrow-left{background:url(../images/d_arrow_left_normal.png);}.xl-datepicker-content .xl-content-header .xl-d-arrow-left:hover{background:url(../images/d_arrow_left_active.png);}.xl-datepicker-content .xl-content-header .xl-arrow-left{background:url(../images/arrow_left_normal.png);}.xl-datepicker-content .xl-content-header .xl-arrow-left:hover{background:url(../images/arrow_left_active.png);}.xl-datepicker-content .xl-content-header .xl-arrow-right{background:url(../images/arrow_right_normal.png);}.xl-datepicker-content .xl-content-header .xl-arrow-right:hover{background:url(../images/arrow_right_active.png);}.xl-datepicker-content .xl-content-header .xl-d-arrow-right{background:url(../images/d_arrow_right_normal.png);}.xl-datepicker-content .xl-content-header .xl-d-arrow-right:hover{background:url(../images/d_arrow_right_active.png);}.xl-datepicker-content .xl-content-header .last-year{float:left;}.xl-datepicker-content .xl-content-header .last-month{float:left;}.xl-datepicker-content .xl-content-header .current-year{line-height:22px;padding:0 5px;cursor:pointer;}.xl-datepicker-content .xl-content-header .current-year input{border:none;width:45px;height:22px;line-height:22px;background:#eaf6ff;border-radius:3px;padding:0 5px;text-align:center;}.xl-datepicker-content .xl-content-header .current-month{line-height:22px;padding:0 5px;cursor:pointer;}.xl-datepicker-content .xl-content-header .current-month input{border:none;width:35px;height:22px;line-height:22px;background:#eaf6ff;border-radius:3px;padding:0 5px;text-align:center;}.xl-datepicker-content .xl-content-header .next-month{float:right;}.xl-datepicker-content .xl-content-header .next-year{float:right;}.xl-datepicker-content .xl-content-body{padding:10px;}.xl-datepicker-content .xl-content-body .xl-datepicker-table{width:100%;}.xl-datepicker-content .xl-content-body .xl-datepicker-table th{padding:10px;text-align:center;border-bottom:solid 1px #eee;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td{text-align:center;padding:7px;font-size:13px;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td.disabled-select{background:#ececec;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td.disabled-select span{cursor:not-allowed;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td.disabled-select spanhover{color:#C0C4CC;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span{width:25px;height:25px;line-height:25px;display:block;cursor:pointer;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span.active{background:#409EFF;border-radius:50%;color:#fff !important;font-weight:400 !important;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span.active:hover{color:#fff;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span.not-current{color:#C0C4CC;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span:hover{color:#409EFF;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span.current{color:#409EFF;font-weight:700;}.xl-datepicker-content .xl-content-footer{border-top:1px solid #e4e4e4;padding:4px;text-align:right;background-color:#fff;position:relative;font-size:0;}.xl-datepicker-content .xl-content-footer button{padding:5px 15px;font-size:12px;border-radius:3px;margin:5px;border:1px solid #DCDFE6;background:#fff;cursor:pointer;}.xl-datepicker-content .xl-content-footer .select-now{border-color:transparent;color:#409EFF;background:transparent;padding-left:0;padding-right:0;}.xl-datepicker-content .xl-content-footer .confirm-date{color:#606266;}.xl-timepicker-content{position:absolute;min-width:180px;height:200px;top:181px;left:294px;z-index:9999;background:#fff;display:none;box-shadow:0 0 15px 0px rgba(0,0,0,0.2);border-radius:5px;color:#606266;border:solid 1px #DCDFE6;}.xl-timepicker-content .xl-content-body{padding:10px 0;}.xl-timepicker-content .xl-content-body .select-time-content{height:150px;display:flex;width:100%;padding:2px;font-size:12px;position:relative;height:180px;}.xl-timepicker-content .xl-content-body .select-time-content::after{content:"";display:block;position:absolute;border-top:solid 1px #ddd;width:118px;height:30px;margin-left:7px;top:63px;border-bottom:solid 1px #ddd;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar{flex-grow:1;text-align:center;height:100%;overflow:hidden;position:relative;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul{list-style:none;position:absolute;width:100%;top:0;transition:top 0.1s;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul::before{content:"";display:block;width:100%;height:60px;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul::after{content:"";display:block;width:100%;height:60px;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul li{line-height:30px;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul li.active{color:#333;font-weight:700;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul li:hover{background:#f0f5fb;cursor:pointer;}.xl-timepicker-content .xl-content-body .select-time-content::after{width:140px;margin-left:16px;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar.disabled-select{cursor:not-allowed;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar.disabled-select ul li{color:#ccc;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar.disabled-select ul li:hover{cursor:not-allowed;}.xl-timepicker-content .xl-popper-arrow{top:-6px;width:0;height:0;border-left:solid 6px transparent;border-right:solid 6px transparent;border-bottom:solid 6px #fff;position:absolute;left:35px;}.xl-timepicker-content .xl-popper-arrow.arrow-bottom{top:auto;border-bottom:solid 6px transparent;border-top:solid 6px #fff;}.xl-timepicker-content .xl-popper-arrow.arrow-right{left:auto;right:35px;}</style>'); angular.$$uibDatepickerCss = true; });
+angular.module('xue.menu').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibMenuCss && angular.element(document).find('head').prepend('<style type="text/css">.xui-menu-wrap{width:100%;height:100%;background:#05172f;color:#fff;font-size:13px;position:relative;}.xui-menu-wrap.support-search{padding-top:45px;}.xui-menu-wrap .menu-search{height:45px;width:100%;position:absolute;top:0;border-bottom:solid 1px #2c4465;}.xui-menu-wrap .menu-search .menu-ipt{height:30px;width:90%;border-radius:15px;margin-top:7px;margin-left:5%;background-color:#1e4673;border:solid 1px #1e4673;color:#9bc6e8;background-image:url(../images/menu_search.png);background-repeat:no-repeat;background-position-x:5px;background-position-y:7px;padding-left:25px;box-sizing:border-box;}.xui-menu-wrap .menu-search .menu-list{position:absolute;top:38px;width:90%;left:5%;z-index:9999;background:#336dae;color:#fff;border-radius:5px;}.xui-menu-wrap .menu-search .menu-list ul{list-style:none;}.xui-menu-wrap .menu-search .menu-list ul li{height:28px;line-height:28px;text-align:left;cursor:pointer;padding:0 10px;color:#a4cded;}.xui-menu-wrap .menu-search .menu-list ul li:hover{color:#fff;}.xui-menu-wrap .menu-item-wrap{width:100%;height:100%;overflow:auto;}.xui-menu-wrap .menu-item{width:100%;}.xui-menu-wrap .menu-item .item-title{height:50px;line-height:50px;font-size:16px;width:100%;padding-left:35px;padding-right:40px;position:relative;box-sizing:border-box;border-left:solid 5px #05172f;background:#05172f;transition:0.3s ease-out;color:#ddd;}.xui-menu-wrap .menu-item .item-title:hover{background:#1e4673;border-left:solid 5px #1e4673;}.xui-menu-wrap .menu-item .item-title:active{background:#1e4673;border-left:solid 5px #177fd1;}.xui-menu-wrap .menu-item .item-title.active{background:#1e4673;border-left:solid 5px #177fd1;color:#A4CDED;}.xui-menu-wrap .menu-item .item-title .title-icon{width:35px;position:absolute;left:0;height:100%;text-align:center;}.xui-menu-wrap .menu-item .item-title .title-icon img{width:16px;height:16px;}.xui-menu-wrap .menu-item .item-title .title-content{text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:100%;height:100%;font-size:16px;cursor:pointer;}.xui-menu-wrap .menu-item .item-title .title-arrow{width:40px;position:absolute;right:0;height:100%;top:0;text-align:center;}.xui-menu-wrap .menu-item .item-title .title-arrow i{display:inline-block;}.xui-menu-wrap .menu-item .item-title .title-arrow i.chevron-right{width:8px;height:13px;background:url(../images/chevron_right.png);}.xui-menu-wrap .menu-item .item-title .title-arrow i.chevron-down{width:13px;height:8px;background:url(../images/chevron_down.png);}.xui-menu-wrap .menu-item .item-content{transition:0.4s ease-out;}.xui-menu-wrap .menu-item .item-content.ng-hide{display:block !important;}.xui-menu-wrap .menu-item .item-content.ng-hide li{height:0px;}.xui-menu-wrap .menu-item .item-content ul{list-style-type:none;}.xui-menu-wrap .menu-item .item-content ul li{height:40px;line-height:40px;font-size:15px;padding-left:39px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;cursor:pointer;border-left:solid 5px #05172f;color:#ddd;transition:0.3s ease-out;}.xui-menu-wrap .menu-item .item-content ul li.active{background:#1e4673;border-left:solid 5px #0394F9;color:#fff;}.xui-menu-wrap .menu-item .item-content ul li.active:hover{border-left:solid 5px #0394F9;}.xui-menu-wrap .menu-item .item-content ul li:hover{background:#1e4673;border-left:solid 5px #1e4673;color:#fff;}.xui-menu-wrap .menu-item .item-content ul li:active{color:#fff;border-left:solid 5px #0394F9;}.xui-menu-wrap .menu-item .item-content ul li img{width:14px;height:14px;vertical-align:middle;margin-left:-10px;}.xui-menu-wrap .menu-item .item-content ul li span{margin-left:5px;vertical-align:middle;}.xui-menu-wrap .menu-item .item-content ul li span:before{display:inline-block;content:"";width:5px;height:5px;background:#ddd;border-radius:3px;margin-left:-8px;margin-right:10px;vertical-align:middle;}</style>'); angular.$$uibMenuCss = true; });
 angular.module('xue.table').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTableCss && angular.element(document).find('head').prepend('<style type="text/css">.xe-table-container{width:100%;height:100%;position:relative;}.xe-table-container .xe-table-header{height:40px;width:100%;position:absolute;top:0;background:blue;}.xe-table-container .xe-table-content{width:100%;height:100%;background:red;}.xe-table-container .xe-table-footer{height:40px;width:100%;position:absolute;bottom:0;background:pink;}</style>'); angular.$$uibTableCss = true; });
 angular.module('xue.tree').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTreeCss && angular.element(document).find('head').prepend('<style type="text/css">.xui-tree-wrap{position:relative;width:100%;height:100%;overflow:auto;padding-bottom:10px;}.xui-tree-wrap.support-search > .tree-list{height:calc(100% - 41px);overflow-y:scroll;}.xui-tree-wrap .tree-search{width:100%;padding:0 10px;text-align:center;border-bottom:1px solid #CEE0F0;}.xui-tree-wrap .tree-search .tree-ipt{height:30px;width:100%;border-radius:15px;margin:5px 0;color:#515a6e;background-image:url(../images/menu_search.png);background-repeat:no-repeat;background-position-x:5px;background-position-y:7px;padding-left:25px;border:1px solid #CEE0F0;}.xui-tree-wrap .tree-search .tree-ipt:focus{border-color:#66afe9;box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);}.xui-tree-wrap .tree-search .search-list{position:absolute;top:38px;width:90%;left:5%;z-index:9999;background:#ddd;border-radius:5px;}.xui-tree-wrap .tree-search .search-list li{height:28px;line-height:28px;text-align:left;cursor:pointer;padding:0 10px;color:#515a6e;}.xui-tree-wrap .tree-search .search-list li:hover{color:#0394F9;}.xui-tree-wrap > .tree-list{padding:0 10px;}.xui-tree-wrap .tree-list{overflow:hidden;}.xui-tree-wrap .tree-list .tree-item{position:relative;padding-left:20px;}.xui-tree-wrap .tree-list .tree-item.level1{padding-left:0px;}.xui-tree-wrap .tree-list .tree-item .tree-row{display:flex;align-items:center;transition:all 0.2s ease;line-height:28px;padding-right:10px;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-align{display:inline-block;vertical-align:middle;}.xui-tree-wrap .tree-list .tree-item .tree-row .expand-icon{position:relative;width:12px;text-align:center;transition:all 0.3s ease;cursor:pointer;z-index:10;}.xui-tree-wrap .tree-list .tree-item .tree-row .expand-icon.expanded{transform:rotate(90deg);}.xui-tree-wrap .tree-list .tree-item .tree-row .check-icon{margin:0 4px;line-height:1;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-icon{display:flex;align-items:center;margin:0 4px;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-title{flex:1;margin:0;border-radius:3px;padding:0 4px;line-height:24px;cursor:pointer;color:#515a6e;transition:all .2s ease-in-out;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-title:hover{background:#eaf4fe;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-title.active{background:#d5e8fc;}.xui-tree-wrap .tree-list .tree-item .tree-row .loading-icon{width:16px;height:16px;background:url("../../../images/common/loading_32x32.gif") center/cover no-repeat;}.xui-tree-wrap .tree-list .tree-item .tree-list.ng-hide{display:block !important;}.xui-tree-wrap .tree-list .tree-item .tree-list.ng-hide .tree-row{height:0;}.xui-tree-wrap .tree-list .tree-item.show-line::before{content:"";position:absolute;width:12px;height:16px;top:6px;background:#fff;z-index:1;left:20px;}.xui-tree-wrap .tree-list .tree-item.show-line::after{content:"";position:absolute;height:100%;top:0;left:25px;border-left:1px dashed #ccc;}.xui-tree-wrap .tree-list .tree-item.show-line:last-child::after{height:8px;}.xui-tree-wrap .tree-list .tree-item.show-line.leaf::before{content:"";position:absolute;width:10px;height:0;top:50%;left:26px;border-top:1px dashed #ccc;}.xui-tree-wrap .tree-list .tree-item.show-line.leaf:last-child::after{height:50%;}.xui-tree-wrap .tree-list .tree-item.show-line.level1{padding-left:0px;}.xui-tree-wrap .tree-list .tree-item.show-line.level1::before{left:0;}.xui-tree-wrap .tree-list .tree-item.show-line.level1::after{left:6px;}.xui-tree-wrap .tree-list .tree-item.show-line.level1:only-of-type::after{border:0 none;}</style>'); angular.$$uibTreeCss = true; });
