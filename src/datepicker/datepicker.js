@@ -10,7 +10,6 @@ angular.module('xue.datepicker', ['xue.util.date', 'xue.util.lang'])
                 maxDate: '=',
                 ngDisabled: '='
             },
-            require: ['xueDatepicker'],
             templateUrl: function (element, attrs) {
                 return attrs.templateUrl || 'xue/template/datepicker/datepicker.html'
             },

@@ -6,12 +6,11 @@ angular.module('ui.xue.demo').controller('xueDatepickerdemoCtrl',['$scope',funct
         }
     }
     $scope.test1 = {
-       value1: "2020-02-25",
-       minDate: "2020-02-24",
-       maxDate: "2020-02-28",
-       config1: {
+        value: "2020-02-25",
+        minDate: "2020-02-24",
+        maxDate: "2020-02-28",
+        config: {
             format: "YYYY-MM-DD"
         }
     }
- 
 }]);

@@ -6,8 +6,8 @@
  * Require angularjs version: 1.2.32
  * License: ISC
  */
-angular.module("ui.xue", ["ui.xue.tpls", "xue.counter","xue.util.lang","xue.util.string","xue.util.date","xue.datepicker","xue.pagination","xue.select","xue.table","xue.tabs","xue.util.array","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util"]);
-angular.module("ui.xue.tpls", ["xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/select/select.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html"]);
+angular.module("ui.xue", ["ui.xue.tpls", "xue.counter","xue.util.lang","xue.util.string","xue.util.date","xue.datepicker","xue.pagination","xue.select","xue.table","xue.tabs","xue.util.array","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util"]);
+angular.module("ui.xue.tpls", ["xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/select/select.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
 /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
 //@ sourceMappingURL=jquery-1.10.2.min.map
 */
@@ -146,7 +146,6 @@ angular.module('xue.datepicker', ['xue.util.date', 'xue.util.lang'])
                 maxDate: '=',
                 ngDisabled: '='
             },
-            require: ['xueDatepicker'],
             templateUrl: function (element, attrs) {
                 return attrs.templateUrl || 'xue/template/datepicker/datepicker.html'
             },
@@ -1488,6 +1487,405 @@ angular.module('xue.tabs', [])
 
         }
     }]);
+angular.module('xue.tree', ['xue.util.lang', 'xue.util.array'])
+    .directive('xueTree',['xueUtilLang', 'xueUtilArray', '$timeout', '$templateCache', function (xueUtilLang, xueUtilArray, $timeout, $templateCache){
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                treeConfig: '='
+            },
+            templateUrl: function (element, attrs) {
+                return attrs.templateUrl || 'xue/template/tree/tree.html'
+            },
+            link: function(scope,ele,attrs) {
+                /**
+                 * 树节点属性
+                 * @param {Object} node 树节点对象
+                 * @param {String} node[scope.treeConfig.nodeName] 名称
+                 * @param {Boolean} node.expanded 是否展开节点 false
+                 * @param {Boolean} node.disabled 禁止选中 false
+                 * @param {Boolean} node.selected 节点是否选中 false
+                 * @param {Boolean} node.checked 节点是否勾选 false
+                 * @param {Boolean} node.chkDisabled 节点复选框是否禁用 false
+                 * @param {String} node.iconClass 节点图标
+                 * @param {Array} node[scope.treeConfig.childName] 子节点列表
+                 */
+                var treeCtrl = scope.treeCtrl = {
+                    defaultConfig: {
+                        data: [], // 树列表数据
+                        dataMap: {}, // 树列表索引
+                        uniqueId: 'id', // 唯一标识字段名
+                        nodeName: 'name', // 节点标题字段名
+                        childName: 'children', // 子节点列表字段名
+                        showIcon: false, // 是否展示图标 false
+                        icon: {
+                            // 当showIcon为true
+                            // 1.如果子节点设置了iconClass,则优先展示iconClass的样式,如果没有：
+                            // 2.如果设置了commonIconClass,则优先展示commonIconClass, 如果没有：
+                            // 3.按是否有子节点来划分节点图标
+                            commonIconClass: '', // 所有节点统一图标
+                            parentIconClass: '', // 有子节点的节点图标 className
+                            leafIconClass: '' // 无节点的节点图标 className
+                        },
+                        search: false, // 是否支持搜索 false
+                        showCheckbox: false, // 是否展示复选框 false
+                        checkOnClick: true, // 在点击时同时勾选/取消勾选节点 showCheckbox为true生效
+                        checkNodes: [], // 勾选的节点数组
+                        lazy: false, // 是否懒加载子节点数据 fasle
+                        expandAll: false, // 是否展开所有节点 false
+                        expandOnClick: false, // 是否在选中树节点时展开子列表 true
+                        accordion: false, // 是否手风琴模式 false
+                        currentNode: '', // 定位选中指定节点
+                        showLine: true, // 是否展示连接线
+                        clickNode: function(){}, // 单击树节点时回调
+                        checkNode: function(){}, // 勾选/取消勾选的事件回调
+                        beforeClick: function(){}, // 单击树节点之前的事件回调
+                        beforeCheck: function(){}, // 勾选、取消勾选树节点之前的事件回调
+                        loadData: function(){}, // 加载子节点数据的方法，仅当 lazy 属性为true 时生效
+                        completeTree: function(){} // 树节点构建完成时回调
+                    },
+                    // 初始化
+                    init: function() {
+                        var self = this;
+                        scope.treeConfig = angular.extend(self.defaultConfig, scope.treeConfig || {});
+                    },
+                    // 初始化树
+                    initTreeData: function (data, depth, parentId) {
+                        var self = this;
+                        angular.forEach(data, function(item, index) {
+                            // 树深度
+                            item.depth = depth;
+                            // 父节点索引
+                            if (parentId != undefined) {
+                                item.parent = parentId;
+                            } else {
+                                // 根节点默认展开
+                                if (index == 0) {
+                                    item.expanded = true; 
+                                }
+                            }
+                            // 复选框初始化
+                            if (self.defaultConfig.showCheckbox) {
+                                if (item.checked) {
+                                    item.checked = 1;
+                                    scope.treeConfig.checkNodes.push(item);
+                                    if (item[scope.treeConfig.childName] && item[scope.treeConfig.childName].length) {
+                                        self.judgeHalfCheck(item, item);
+                                    }
+                                } else {
+                                    item.checked = 0;
+                                }
+                            }
+                            // 全部展开
+                            if (scope.treeConfig.expandAll) {
+                                item.expanded = true;
+                            }
+                            // 树节点索引
+                            scope.treeConfig.dataMap[item[scope.treeConfig.uniqueId]] = item;
+                            // 子节点递归
+                            if (item[scope.treeConfig.childName] && item[scope.treeConfig.childName].length) {
+                                self.initTreeData(item[scope.treeConfig.childName], depth + 1, item[scope.treeConfig.uniqueId]);
+                            } else {
+                                // 非懒加载时定义叶子节点
+                                if (!scope.treeConfig.lazy) {
+                                    item.isLeaf = true;
+                                }
+                            }
+                        });
+                        // 树构建完成回调
+                        if (parentId == undefined) {
+                            if (xueUtilLang.isFunction(scope.treeConfig.completeTree)) {
+                                scope.treeConfig.completeTree();
+                            }
+                        }
+                    },
+                    // 搜索关键字
+                    searchText: '',
+                    // 搜索功能
+                    filterNode: function(data) {
+                        var self = this;
+                        var hideLen = 0;
+                        angular.forEach(data, function(item) {
+                            if (!item.isLeaf) {
+                                self.filterNode(item[scope.treeConfig.childName]);
+                            } else {
+                                // 节点未包含搜索关键字，当其兄弟节点全都未包含搜索关键字时，父节点才隐藏
+                                if (item[scope.treeConfig.nodeName].indexOf(self.searchText) == -1) {
+                                    item.hideNode = true;
+                                    if (item.parent) {
+                                        hideLen++;
+                                        if (scope.treeConfig.dataMap[item.parent][scope.treeConfig.childName].length == hideLen) {
+                                            scope.treeConfig.dataMap[item.parent].hideNode = true;
+                                        }
+                                    }
+                                } else {
+                                // 节点包含搜索关键字，其父节点也取消隐藏
+                                    item.hideNode = false;
+                                    if (item.parent) {
+                                        scope.treeConfig.dataMap[item.parent].hideNode = false; 
+                                    }
+                                }
+                            }
+                        })
+                    },
+                    // 当前选中节点
+                    currentSelectedNode: '',
+                    // 单击延时
+                    clickTimer: null,
+                    // 单击行
+                    clickNode: function (node, event, ifSearch) {
+                        var self = this;
+                        // 取消上次延时未执行的方法
+                        $timeout.cancel(self.clickTimer);
+                        //执行延时
+                        self.clickTimer = $timeout(function() {
+                            if (node.disabled) {
+                                return;
+                            }
+                            // 搜索框点击节点定位
+                            if (ifSearch) {
+                                self.positionNode(node);
+                                if (scope.treeConfig.showCheckbox) {
+                                    self.changeNode(node);
+                                }
+                            }
+                            // 点击节点前回调
+                            if (xueUtilLang.isFunction(scope.treeConfig.beforeClick)) {
+                                var clickFlag = scope.treeConfig.beforeClick(node);
+                                if (clickFlag === false) {
+                                    return;
+                                }
+                            }
+                            // 勾选节点
+                            if (scope.treeConfig.showCheckbox && scope.treeConfig.checkOnClick && !node.chkDisabled) {
+                                self.changeNode(node, event);
+                            }
+                            // 展开节点
+                            if (scope.treeConfig.expandOnClick) {
+                                self.expandNode(node);
+                            }
+                            // 当前节点赋值
+                            self.currentSelectedNode = node[scope.treeConfig.uniqueId];
+                            // 点击节点完成回调
+                            if (xueUtilLang.isFunction(scope.treeConfig.clickNode)) {
+                                scope.treeConfig.clickNode(node);
+                            }
+                            if (event) {
+                                event.stopPropagation();
+                            }
+                        }, 300);
+                    },
+                    // 双击行
+                    dblClickNode: function(node, event) {
+                        var self = this;
+                        $timeout.cancel(self.clickTimer);
+                        self.expandNode(node, event);
+                    },
+                    // 展开节点
+                    expandNode: function (node, event) {
+                        var self = this;
+                        if (node.isLeaf) {
+                            return;
+                        }
+                        node.expanded = !node.expanded;
+                        // 手风琴模式
+                        if (node.expanded && scope.treeConfig.accordion) {
+                            self.collapseNode(node);
+                        }
+                        // 懒加载子节点数据
+                        if (scope.treeConfig.lazy && xueUtilLang.isFunction(scope.treeConfig.loadData) 
+                            && !node[scope.treeConfig.childName]) {
+                            self.loadData(node);
+                        }
+                        if (event) {
+                            event.stopPropagation();
+                        }
+                    },
+                    // 勾选/取消勾选节点
+                    changeNode: function (node, event, parentCheck) {
+                        var self = this;
+                        // 勾选节点前回调
+                        if (xueUtilLang.isFunction(scope.treeConfig.beforeCheck)) {
+                            var checkFlag = scope.treeConfig.beforeCheck(node);
+                            if (checkFlag === false) {
+                                return;
+                            }
+                        }
+                        // 父节点取消选中 子节点也取消
+                        if (parentCheck == 0) {
+                        node.checked = 0; 
+                        } else {
+                            if (node.checked == 0) {
+                                node.checked = 1;
+                            } else {
+                                node.checked = 0;
+                            }
+                        }
+                        // 勾选列表赋值
+                        var checkIndex = xueUtilArray.findObjIndex(scope.treeConfig.checkNodes, scope.treeConfig.uniqueId, node[scope.treeConfig.uniqueId]);
+                        if (node.checked == 1 && checkIndex == -1) {
+                            scope.treeConfig.checkNodes.push(node);
+                        } else if (node.checked == 0 && checkIndex != -1) {
+                            scope.treeConfig.checkNodes.splice(checkIndex, 1);
+                        }
+                        // 更改子节点状态
+                        if (node[scope.treeConfig.childName]) {
+                            self.checkChildren(node[scope.treeConfig.childName], node.checked);
+                        }
+                        // 更改父节点状态
+                        if (node.parent && parentCheck == undefined) {
+                            self.checkParent(node.parent);
+                        }
+                        // 勾选完成回调
+                        if (xueUtilLang.isFunction(scope.treeConfig.checkNode)) {
+                            scope.treeConfig.checkNode(node);
+                        }
+                        if (event) {
+                            event.stopPropagation();
+                        }
+                    },
+                    // 勾选/取消勾选父节点时 全选/取消全选子节点
+                    checkChildren: function(nodes, parentCheck) {
+                        var self = this;
+                        angular.forEach(nodes, function(item) {
+                            self.changeNode(item, '', parentCheck);
+                        })
+                    },
+                    // 勾选/取消勾选子节点 判断是否勾选/取消勾选父节点
+                    checkParent: function(parentId) {
+                        var self = this;
+                        var parentNode = scope.treeConfig.dataMap[parentId];
+                        // 子节点全勾选数量
+                        var totalCheck = 0;
+                        // 子节点半勾选数量
+                        var haveCheck = 0;
+                        angular.forEach(parentNode[scope.treeConfig.childName], function(item) {
+                            if (item.checked == 1) {
+                                totalCheck++;
+                            } else if (item.checked == 2) {
+                                haveCheck++;
+                            }
+                        })
+                        // 全勾选的子节点数量等于全部子节点 父节点也全勾选
+                        if (totalCheck == parentNode[scope.treeConfig.childName].length) {
+                            parentNode.checked = 1;
+                            scope.treeConfig.checkNodes.push(parentNode);
+                        } else if (totalCheck > 0) {
+                            // 存在勾选的子节点  则父节点半勾选
+                            parentNode.checked = 2;
+                            scope.treeConfig.checkNodes.push(parentNode);
+                        } else if (totalCheck == 0) {
+                            if (haveCheck > 0) {
+                                parentNode.checked = 2;
+                                scope.treeConfig.checkNodes.push(parentNode);
+                            } else {
+                                // 不存在勾选的子节点 父节点不勾选
+                                parentNode.checked = 0;
+                            }
+                        }
+                        // 递归父节点
+                        if (parentNode.parent) {
+                            self.checkParent(parentNode.parent);
+                        }
+                    },
+                    offsetTop: 0,
+                    // 搜索时定位选中指定节点
+                    positionNode: function(node, ifParent) {
+                        var self = this;
+                        // 展开父节点
+                        if (node.parent) {
+                            var parant = scope.treeConfig.dataMap[node.parent];
+                            parant.expanded = true;
+                            // 手风琴模式
+                            if (scope.treeConfig.accordion) {
+                                self.collapseNode(node);
+                            }
+                            self.positionNode(parant, 'parent');
+                            $timeout(function() {
+                                self.offsetTop += document.getElementById('node_' + parant[scope.treeConfig.uniqueId]).offsetTop;
+                            })
+                        }
+                        // 定位选中 选中节点滚动到列表中间
+                        if (!ifParent) {
+                            self.currentSelectedNode = node[scope.treeConfig.uniqueId];
+                            $timeout(function() {
+                                var needScroll = document.getElementById('node_' + self.currentSelectedNode).offsetTop + self.offsetTop - (ele[0].offsetHeight / 2);
+                                if (needScroll > 0) {
+                                    ele[0].scrollTop = needScroll;
+                                } else {
+                                    ele[0].scrollTop = 0;
+                                }
+                                self.offsetTop = 0;
+                            })
+                        }
+                    },
+                    // 手风琴模式收起其兄弟节点
+                    collapseNode: function (node) {
+                        var nodeList;
+                        if (node.parent) {
+                            nodeList = scope.treeConfig.dataMap[node.parent][scope.treeConfig.childName];
+                        } else {
+                            // 根节点
+                            nodeList = scope.treeConfig.data;
+                        }
+                        if (nodeList.length > 1) {
+                            angular.forEach(nodeList, function(item) {
+                                if (item[scope.treeConfig.uniqueId] != node[scope.treeConfig.uniqueId]) {
+                                    item.expanded = false;
+                                }
+                            })
+                        }
+                    },
+                    // 懒加载子节点数据
+                    loadData: function(node) {
+                        node.loading = true;
+                        scope.treeConfig.loadData(node, function(data) {
+                            // 业务数据回调
+                            if (data && data.length) {
+                                self.initTreeData(data, node.depth + 1, node[scope.treeConfig.uniqueId]);
+                                node[scope.treeConfig.childName] = data;
+                            } else {
+                                node.isLeaf = true;
+                            }
+                            node.loading = false;
+                        })
+                    },
+                    // 判断当前勾选节点是选中还是半选中
+                    judgeHalfCheck: function(nodes, parentNode) {
+                        var self = this;
+                        angular.forEach(nodes[scope.treeConfig.childName], function(item) {
+                            if (!item.checked) {
+                                parentNode.checked = 2;
+                            } else if (item[scope.treeConfig.childName] && item[scope.treeConfig.childName].length) { 
+                                self.judgeHalfCheck(item, parentNode);
+                            }
+                        })
+                    }
+                }
+                treeCtrl.init();
+
+                //格式化
+                var unbindWatch = scope.$watch('treeConfig.data',function(newValue,oldValue){
+                    if (newValue.length) {
+                        treeCtrl.initTreeData(newValue, 1);
+                    }
+                });
+                var unbindWatch1 = scope.$watch('treeConfig.currentNode',function(newValue,oldValue){
+                    if (newValue) {
+                        treeCtrl.positionNode(scope.treeConfig.dataMap[newValue]);
+                    } else {
+                        treeCtrl.currentSelectedNode = '';
+                    }
+                });
+                scope.$on("$destroy", function() {
+                    unbindWatch();
+                    unbindWatch1();
+                    $templateCache.remove('xue/template/tree/tree.html');
+                })
+            }
+        }
+    }])
 angular.module('xue.util.array', []).service('xueUtilArray', [
     function () {
         /**
@@ -3651,5 +4049,64 @@ angular.module("xue/template/tabs/tabs_wrap.html", []).run(["$templateCache", fu
     "    </div>\n" +
     "</div>");
 }]);
+
+angular.module("xue/template/tree/tree.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("xue/template/tree/tree.html",
+    "<div class=\"xui-tree-wrap\" ng-class=\"{'support-search':treeConfig.search}\">\n" +
+    "    <div class=\"tree-search\" ng-if=\"treeConfig.search\">\n" +
+    "        <input class=\"tree-ipt\"\n" +
+    "            type=\"text\"\n" +
+    "            ng-model=\"treeCtrl.searchText\"\n" +
+    "            ng-change=\"treeCtrl.filterNode(treeConfig.data)\" />\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <ul class=\"tree-list\">\n" +
+    "        <li id=\"{{ 'node_' + item[treeConfig.uniqueId] }}\"\n" +
+    "            class=\"tree-item {{ 'level' + item.depth }}\"\n" +
+    "            ng-include=\"'treeTemp'\"\n" +
+    "            ng-if=\"!item.hideNode\"\n" +
+    "            ng-class=\"{'leaf': item.isLeaf, 'show-line': treeConfig.showLine}\"\n" +
+    "            ng-repeat=\"item in treeConfig.data\">\n" +
+    "        </li>\n" +
+    "    </ul>\n" +
+    "\n" +
+    "    <script id=\"treeTemp\" type=\"text/ng-template\">\n" +
+    "        <div class=\"tree-row\"\n" +
+    "            ng-click=\"treeCtrl.clickNode(item, $event)\"\n" +
+    "            ng-dblclick=\"treeCtrl.dblClickNode(item, $event)\">\n" +
+    "                <span class=\"expand-icon node-align xui-icon\"\n" +
+    "                    ng-click=\"treeCtrl.expandNode(item, $event)\"\n" +
+    "                    ng-class=\"{'expanded': item.expanded, 'xui-icon-md-arrow-dropright': !item.isLeaf}\">\n" +
+    "                </span>\n" +
+    "                <span class=\"check-icon node-align\"\n" +
+    "                    ng-if=\"treeConfig.showCheckbox && !item.chkDisabled\"\n" +
+    "                    ng-click=\"treeCtrl.changeNode(item, $event)\">\n" +
+    "                        <gx-multi-checkbox multi-type=\"item.checked\" ng-disabled=\"item.disabled\"></gx-multi-checkbox>\n" +
+    "                </span>\n" +
+    "                <span class=\"node-icon node-align\" ng-show=\"treeConfig.showIcon\">\n" +
+    "                    <i ng-if=\"item.iconClass\" class=\"{{ item.iconClass }}\"></i>\n" +
+    "                    <i ng-if=\"!item.iconClass && treeConfig.icon.commonIconClass\" class=\"{{ treeConfig.icon.commonIconClass }}\"></i>\n" +
+    "                    <i ng-if=\"!item.iconClass && !treeConfig.icon.commonIconClass\" ng-class=\"{true: treeConfig.icon.parentIconClass, false: treeConfig.icon.leafIconClass}[!item.isLeaf]\"></i>\n" +
+    "                </span>\n" +
+    "                <span class=\"node-title node-align\"\n" +
+    "                    title=\"{{ item[treeConfig.nodeName] }}\"\n" +
+    "                    ng-class=\"{'active': treeCtrl.currentSelectedNode === item[treeConfig.uniqueId]}\">\n" +
+    "                        {{ item[treeConfig.nodeName] }}\n" +
+    "                </span>\n" +
+    "                <span class=\"loading-icon node-align\" ng-show=\"item.loading\"></span>\n" +
+    "        </div>\n" +
+    "        <ul class=\"tree-list\" ng-if=\"item.expanded\" ng-if=\"!item.isLeaf\">\n" +
+    "            <li id=\"{{ 'node_' + item[treeConfig.uniqueId] }}\"\n" +
+    "                class=\"tree-item {{ 'level' + item.depth }}\" \n" +
+    "                ng-include=\"'treeTemp'\"\n" +
+    "                ng-if=\"!item.hideNode\"\n" +
+    "                ng-class=\"{'leaf': item.isLeaf, 'show-line': treeConfig.showLine}\"\n" +
+    "                ng-repeat=\"item in item[treeConfig.childName]\">\n" +
+    "            </li>\n" +
+    "        </ul>\n" +
+    "    </script>\n" +
+    "</div>");
+}]);
 angular.module('xue.datepicker').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibDatepickerCss && angular.element(document).find('head').prepend('<style type="text/css">@charset "UTF-8";.xui-datepicker-wrap{position:relative;display:inline-block;}.xui-datepicker-wrap .input-wrap{display:inline-block;width:180px;height:28px;padding:0 15px;position:relative;border:1px solid #cee0f0;transition:border-color 0.2s cubic-bezier(0.645,0.045,0.355,1);border-radius:5px;vertical-align:middle;background:#fff;}.xui-datepicker-wrap .input-wrap:focus{border-color:#409EFF;outline:0;-webkit-boxl-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);}.xui-datepicker-wrap .input-wrap:hover .sufix-input{background:url(../images/del_icon.png) center center no-repeat;cursor:pointer;}.xui-datepicker-wrap .input-wrap .type-ipt{position:absolute;display:inline-block;vertical-align:middle;height:100%;line-height:28px;-webkit-appearance:none;background-color:#fff;background-image:none;box-sizing:border-box;color:#606266;font-size:14px;outline:none;width:150px;font-weight:400;border:none;padding:3px;left:18px;}.xui-datepicker-wrap .input-wrap .prefix-input{position:absolute;background:url(../images/date_icon.png) center center no-repeat;display:inline-block;width:16px;height:26px;top:0;left:2px;vertical-align:middle;}.xui-datepicker-wrap .input-wrap .prefix-input.time-icon{background:url(../images/time_icon.png) center center no-repeat;}.xui-datepicker-wrap .input-wrap .sufix-input{display:inline-block;width:14px;height:26px;position:absolute;right:2px;top:0;}.xui-datepicker-wrap .type-img{display:inline-block;}.xui-datepicker-wrap .type-span{display:inline-block;}.xl-datepicker-content{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-khtml-user-select:none;user-select:none;position:absolute;min-width:317px;top:181px;left:294px;z-index:9999;background:#fff;display:none;box-shadow:0 0 15px 0px rgba(0,0,0,0.2);border-radius:5px;color:#606266;border:solid 1px #DCDFE6;}.xl-datepicker-content ::-webkit-input-placeholder{color:#999;}.xl-datepicker-content :-moz-placeholder{color:#999;}.xl-datepicker-content ::-moz-placeholder{color:#999;}.xl-datepicker-content :-ms-input-placeholder{color:#999;}.xl-datepicker-content .xl-popper-arrow{top:-6px;width:0;height:0;border-left:solid 6px transparent;border-right:solid 6px transparent;border-bottom:solid 6px #fff;position:absolute;left:35px;}.xl-datepicker-content .xl-popper-arrow.arrow-bottom{top:auto;border-bottom:solid 6px transparent;border-top:solid 6px #fff;}.xl-datepicker-content .xl-popper-arrow.arrow-right{left:auto;right:35px;}.xl-datepicker-content .show-date-wrap{padding:5px;border-bottom:solid 1px #DCDFE6;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap{position:relative;display:inline-block;padding:5px;padding-bottom:0;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .show-ipt{height:28px;line-height:28px;border-radius:3px;width:140px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .show-ipt:focus{border:solid 1px #409EFF;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap{position:absolute;width:140px;height:180px;z-index:9999;border:solid 1px #ddd;border-radius:2px;background:#fff;top:34px;box-shadow:0 2px 5px 0 rgba(0,0,0,0.1);}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content{height:150px;display:flex;width:100%;padding:2px;font-size:12px;position:relative;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content::after{content:"";display:block;position:absolute;border-top:solid 1px #ddd;width:118px;height:30px;margin-left:7px;top:63px;border-bottom:solid 1px #ddd;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar{flex-grow:1;text-align:center;height:100%;overflow:hidden;position:relative;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul{list-style:none;position:absolute;width:100%;top:0;transition:top 0.1s;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul::before{content:"";display:block;width:100%;height:60px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul::after{content:"";display:block;width:100%;height:60px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul li{line-height:30px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul li.active{color:#333;font-weight:700;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul li:hover{background:#f0f5fb;cursor:pointer;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-footer{height:30px;border-top:solid 1px #ddd;text-align:right;line-height:26px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-footer .confirm{color:#409eff;font-weight:700;font-size:12px;margin-right:15px;cursor:pointer;}.xl-datepicker-content .xl-content-header{text-align:center;padding:15px 10px;padding-bottom:0;}.xl-datepicker-content .xl-content-header > i{height:16px;width:16px;display:inline-block;cursor:pointer;margin-top:3px;margin-left:3px;margin-right:3px;}.xl-datepicker-content .xl-content-header .xl-d-arrow-left{background:url(../images/d_arrow_left_normal.png);}.xl-datepicker-content .xl-content-header .xl-d-arrow-left:hover{background:url(../images/d_arrow_left_active.png);}.xl-datepicker-content .xl-content-header .xl-arrow-left{background:url(../images/arrow_left_normal.png);}.xl-datepicker-content .xl-content-header .xl-arrow-left:hover{background:url(../images/arrow_left_active.png);}.xl-datepicker-content .xl-content-header .xl-arrow-right{background:url(../images/arrow_right_normal.png);}.xl-datepicker-content .xl-content-header .xl-arrow-right:hover{background:url(../images/arrow_right_active.png);}.xl-datepicker-content .xl-content-header .xl-d-arrow-right{background:url(../images/d_arrow_right_normal.png);}.xl-datepicker-content .xl-content-header .xl-d-arrow-right:hover{background:url(../images/d_arrow_right_active.png);}.xl-datepicker-content .xl-content-header .last-year{float:left;}.xl-datepicker-content .xl-content-header .last-month{float:left;}.xl-datepicker-content .xl-content-header .current-year{line-height:22px;padding:0 5px;cursor:pointer;}.xl-datepicker-content .xl-content-header .current-year input{border:none;width:45px;height:22px;line-height:22px;background:#eaf6ff;border-radius:3px;padding:0 5px;text-align:center;}.xl-datepicker-content .xl-content-header .current-month{line-height:22px;padding:0 5px;cursor:pointer;}.xl-datepicker-content .xl-content-header .current-month input{border:none;width:35px;height:22px;line-height:22px;background:#eaf6ff;border-radius:3px;padding:0 5px;text-align:center;}.xl-datepicker-content .xl-content-header .next-month{float:right;}.xl-datepicker-content .xl-content-header .next-year{float:right;}.xl-datepicker-content .xl-content-body{padding:10px;}.xl-datepicker-content .xl-content-body .xl-datepicker-table{width:100%;}.xl-datepicker-content .xl-content-body .xl-datepicker-table th{padding:10px;text-align:center;border-bottom:solid 1px #eee;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td{text-align:center;padding:7px;font-size:13px;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td.disabled-select{background:#ececec;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td.disabled-select span{cursor:not-allowed;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td.disabled-select spanhover{color:#C0C4CC;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span{width:25px;height:25px;line-height:25px;display:block;cursor:pointer;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span.active{background:#409EFF;border-radius:50%;color:#fff !important;font-weight:400 !important;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span.active:hover{color:#fff;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span.not-current{color:#C0C4CC;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span:hover{color:#409EFF;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span.current{color:#409EFF;font-weight:700;}.xl-datepicker-content .xl-content-footer{border-top:1px solid #e4e4e4;padding:4px;text-align:right;background-color:#fff;position:relative;font-size:0;}.xl-datepicker-content .xl-content-footer button{padding:5px 15px;font-size:12px;border-radius:3px;margin:5px;border:1px solid #DCDFE6;background:#fff;cursor:pointer;}.xl-datepicker-content .xl-content-footer .select-now{border-color:transparent;color:#409EFF;background:transparent;padding-left:0;padding-right:0;}.xl-datepicker-content .xl-content-footer .confirm-date{color:#606266;}.xl-timepicker-content{position:absolute;min-width:180px;height:200px;top:181px;left:294px;z-index:9999;background:#fff;display:none;box-shadow:0 0 15px 0px rgba(0,0,0,0.2);border-radius:5px;color:#606266;border:solid 1px #DCDFE6;}.xl-timepicker-content .xl-content-body{padding:10px 0;}.xl-timepicker-content .xl-content-body .select-time-content{height:150px;display:flex;width:100%;padding:2px;font-size:12px;position:relative;height:180px;}.xl-timepicker-content .xl-content-body .select-time-content::after{content:"";display:block;position:absolute;border-top:solid 1px #ddd;width:118px;height:30px;margin-left:7px;top:63px;border-bottom:solid 1px #ddd;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar{flex-grow:1;text-align:center;height:100%;overflow:hidden;position:relative;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul{list-style:none;position:absolute;width:100%;top:0;transition:top 0.1s;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul::before{content:"";display:block;width:100%;height:60px;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul::after{content:"";display:block;width:100%;height:60px;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul li{line-height:30px;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul li.active{color:#333;font-weight:700;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul li:hover{background:#f0f5fb;cursor:pointer;}.xl-timepicker-content .xl-content-body .select-time-content::after{width:140px;margin-left:16px;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar.disabled-select{cursor:not-allowed;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar.disabled-select ul li{color:#ccc;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar.disabled-select ul li:hover{cursor:not-allowed;}.xl-timepicker-content .xl-popper-arrow{top:-6px;width:0;height:0;border-left:solid 6px transparent;border-right:solid 6px transparent;border-bottom:solid 6px #fff;position:absolute;left:35px;}.xl-timepicker-content .xl-popper-arrow.arrow-bottom{top:auto;border-bottom:solid 6px transparent;border-top:solid 6px #fff;}.xl-timepicker-content .xl-popper-arrow.arrow-right{left:auto;right:35px;}</style>'); angular.$$uibDatepickerCss = true; });
 angular.module('xue.table').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTableCss && angular.element(document).find('head').prepend('<style type="text/css">.xe-table-container{width:100%;height:100%;position:relative;}.xe-table-container .xe-table-header{height:40px;width:100%;position:absolute;top:0;background:blue;}.xe-table-container .xe-table-content{width:100%;height:100%;background:red;}.xe-table-container .xe-table-footer{height:40px;width:100%;position:absolute;bottom:0;background:pink;}</style>'); angular.$$uibTableCss = true; });
+angular.module('xue.tree').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTreeCss && angular.element(document).find('head').prepend('<style type="text/css">.xui-tree-wrap{position:relative;width:100%;height:100%;overflow:auto;padding-bottom:10px;}.xui-tree-wrap.support-search > .tree-list{height:calc(100% - 41px);overflow-y:scroll;}.xui-tree-wrap .tree-search{width:100%;padding:0 10px;text-align:center;border-bottom:1px solid #CEE0F0;}.xui-tree-wrap .tree-search .tree-ipt{height:30px;width:100%;border-radius:15px;margin:5px 0;color:#515a6e;background-image:url(../images/menu_search.png);background-repeat:no-repeat;background-position-x:5px;background-position-y:7px;padding-left:25px;border:1px solid #CEE0F0;}.xui-tree-wrap .tree-search .tree-ipt:focus{border-color:#66afe9;box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);}.xui-tree-wrap .tree-search .search-list{position:absolute;top:38px;width:90%;left:5%;z-index:9999;background:#ddd;border-radius:5px;}.xui-tree-wrap .tree-search .search-list li{height:28px;line-height:28px;text-align:left;cursor:pointer;padding:0 10px;color:#515a6e;}.xui-tree-wrap .tree-search .search-list li:hover{color:#0394F9;}.xui-tree-wrap > .tree-list{padding:0 10px;}.xui-tree-wrap .tree-list{overflow:hidden;}.xui-tree-wrap .tree-list .tree-item{position:relative;padding-left:20px;}.xui-tree-wrap .tree-list .tree-item.level1{padding-left:0px;}.xui-tree-wrap .tree-list .tree-item .tree-row{display:flex;align-items:center;transition:all 0.2s ease;line-height:28px;padding-right:10px;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-align{display:inline-block;vertical-align:middle;}.xui-tree-wrap .tree-list .tree-item .tree-row .expand-icon{position:relative;width:12px;text-align:center;transition:all 0.3s ease;cursor:pointer;z-index:10;}.xui-tree-wrap .tree-list .tree-item .tree-row .expand-icon.expanded{transform:rotate(90deg);}.xui-tree-wrap .tree-list .tree-item .tree-row .check-icon{margin:0 4px;line-height:1;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-icon{display:flex;align-items:center;margin:0 4px;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-title{flex:1;margin:0;border-radius:3px;padding:0 4px;line-height:24px;cursor:pointer;color:#515a6e;transition:all .2s ease-in-out;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-title:hover{background:#eaf4fe;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-title.active{background:#d5e8fc;}.xui-tree-wrap .tree-list .tree-item .tree-row .loading-icon{width:16px;height:16px;background:url("../../../images/common/loading_32x32.gif") center/cover no-repeat;}.xui-tree-wrap .tree-list .tree-item .tree-list.ng-hide{display:block !important;}.xui-tree-wrap .tree-list .tree-item .tree-list.ng-hide .tree-row{height:0;}.xui-tree-wrap .tree-list .tree-item.show-line::before{content:"";position:absolute;width:12px;height:16px;top:6px;background:#fff;z-index:1;left:20px;}.xui-tree-wrap .tree-list .tree-item.show-line::after{content:"";position:absolute;height:100%;top:0;left:25px;border-left:1px dashed #ccc;}.xui-tree-wrap .tree-list .tree-item.show-line:last-child::after{height:8px;}.xui-tree-wrap .tree-list .tree-item.show-line.leaf::before{content:"";position:absolute;width:10px;height:0;top:50%;left:26px;border-top:1px dashed #ccc;}.xui-tree-wrap .tree-list .tree-item.show-line.leaf:last-child::after{height:50%;}.xui-tree-wrap .tree-list .tree-item.show-line.level1{padding-left:0px;}.xui-tree-wrap .tree-list .tree-item.show-line.level1::before{left:0;}.xui-tree-wrap .tree-list .tree-item.show-line.level1::after{left:6px;}.xui-tree-wrap .tree-list .tree-item.show-line.level1:only-of-type::after{border:0 none;}</style>'); angular.$$uibTreeCss = true; });

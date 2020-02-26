@@ -1,0 +1,140 @@
+.xui-tree-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding-bottom: 10px; }
+  .xui-tree-wrap.support-search > .tree-list {
+    height: calc(100% - 41px);
+    overflow-y: scroll; }
+  .xui-tree-wrap .tree-search {
+    width: 100%;
+    padding: 0 10px;
+    text-align: center;
+    border-bottom: 1px solid #CEE0F0; }
+    .xui-tree-wrap .tree-search .tree-ipt {
+      height: 30px;
+      width: 100%;
+      border-radius: 15px;
+      margin: 5px 0;
+      color: #515a6e;
+      background-image: url(../images/menu_search.png);
+      background-repeat: no-repeat;
+      background-position-x: 5px;
+      background-position-y: 7px;
+      padding-left: 25px;
+      border: 1px solid #CEE0F0; }
+      .xui-tree-wrap .tree-search .tree-ipt:focus {
+        border-color: #66afe9;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); }
+    .xui-tree-wrap .tree-search .search-list {
+      position: absolute;
+      top: 38px;
+      width: 90%;
+      left: 5%;
+      z-index: 9999;
+      background: #ddd;
+      border-radius: 5px; }
+      .xui-tree-wrap .tree-search .search-list li {
+        height: 28px;
+        line-height: 28px;
+        text-align: left;
+        cursor: pointer;
+        padding: 0 10px;
+        color: #515a6e; }
+        .xui-tree-wrap .tree-search .search-list li:hover {
+          color: #0394F9; }
+  .xui-tree-wrap > .tree-list {
+    padding: 0 10px; }
+  .xui-tree-wrap .tree-list {
+    overflow: hidden; }
+    .xui-tree-wrap .tree-list .tree-item {
+      position: relative;
+      padding-left: 20px; }
+      .xui-tree-wrap .tree-list .tree-item.level1 {
+        padding-left: 0px; }
+      .xui-tree-wrap .tree-list .tree-item .tree-row {
+        display: flex;
+        align-items: center;
+        transition: all 0.2s ease;
+        line-height: 28px;
+        padding-right: 10px; }
+        .xui-tree-wrap .tree-list .tree-item .tree-row .node-align {
+          display: inline-block;
+          vertical-align: middle; }
+        .xui-tree-wrap .tree-list .tree-item .tree-row .expand-icon {
+          position: relative;
+          width: 12px;
+          text-align: center;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          z-index: 10; }
+          .xui-tree-wrap .tree-list .tree-item .tree-row .expand-icon.expanded {
+            transform: rotate(90deg); }
+        .xui-tree-wrap .tree-list .tree-item .tree-row .check-icon {
+          margin: 0 4px;
+          line-height: 1; }
+        .xui-tree-wrap .tree-list .tree-item .tree-row .node-icon {
+          display: flex;
+          align-items: center;
+          margin: 0 4px; }
+        .xui-tree-wrap .tree-list .tree-item .tree-row .node-title {
+          flex: 1;
+          margin: 0;
+          border-radius: 3px;
+          padding: 0 4px;
+          line-height: 24px;
+          cursor: pointer;
+          color: #515a6e;
+          transition: all .2s ease-in-out;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis; }
+          .xui-tree-wrap .tree-list .tree-item .tree-row .node-title:hover {
+            background: #eaf4fe; }
+          .xui-tree-wrap .tree-list .tree-item .tree-row .node-title.active {
+            background: #d5e8fc; }
+        .xui-tree-wrap .tree-list .tree-item .tree-row .loading-icon {
+          width: 16px;
+          height: 16px;
+          background: url("../../../images/common/loading_32x32.gif") center/cover no-repeat; }
+      .xui-tree-wrap .tree-list .tree-item .tree-list.ng-hide {
+        display: block !important; }
+        .xui-tree-wrap .tree-list .tree-item .tree-list.ng-hide .tree-row {
+          height: 0; }
+      .xui-tree-wrap .tree-list .tree-item.show-line::before {
+        content: "";
+        position: absolute;
+        width: 12px;
+        height: 16px;
+        top: 6px;
+        background: #fff;
+        z-index: 1;
+        left: 20px; }
+      .xui-tree-wrap .tree-list .tree-item.show-line::after {
+        content: "";
+        position: absolute;
+        height: 100%;
+        top: 0;
+        left: 25px;
+        border-left: 1px dashed #ccc; }
+      .xui-tree-wrap .tree-list .tree-item.show-line:last-child::after {
+        height: 8px; }
+      .xui-tree-wrap .tree-list .tree-item.show-line.leaf::before {
+        content: "";
+        position: absolute;
+        width: 10px;
+        height: 0;
+        top: 50%;
+        left: 26px;
+        border-top: 1px dashed #ccc; }
+      .xui-tree-wrap .tree-list .tree-item.show-line.leaf:last-child::after {
+        height: 50%; }
+      .xui-tree-wrap .tree-list .tree-item.show-line.level1 {
+        padding-left: 0px; }
+        .xui-tree-wrap .tree-list .tree-item.show-line.level1::before {
+          left: 0; }
+        .xui-tree-wrap .tree-list .tree-item.show-line.level1::after {
+          left: 6px; }
+        .xui-tree-wrap .tree-list .tree-item.show-line.level1:only-of-type::after {
+          border: 0 none; }

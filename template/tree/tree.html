@@ -1,0 +1,54 @@
+<div class="xui-tree-wrap" ng-class="{'support-search':treeConfig.search}">
+    <div class="tree-search" ng-if="treeConfig.search">
+        <input class="tree-ipt"
+            type="text"
+            ng-model="treeCtrl.searchText"
+            ng-change="treeCtrl.filterNode(treeConfig.data)" />
+    </div>
+
+    <ul class="tree-list">
+        <li id="{{ 'node_' + item[treeConfig.uniqueId] }}"
+            class="tree-item {{ 'level' + item.depth }}"
+            ng-include="'treeTemp'"
+            ng-if="!item.hideNode"
+            ng-class="{'leaf': item.isLeaf, 'show-line': treeConfig.showLine}"
+            ng-repeat="item in treeConfig.data">
+        </li>
+    </ul>
+
+    <script id="treeTemp" type="text/ng-template">
+        <div class="tree-row"
+            ng-click="treeCtrl.clickNode(item, $event)"
+            ng-dblclick="treeCtrl.dblClickNode(item, $event)">
+                <span class="expand-icon node-align xui-icon"
+                    ng-click="treeCtrl.expandNode(item, $event)"
+                    ng-class="{'expanded': item.expanded, 'xui-icon-md-arrow-dropright': !item.isLeaf}">
+                </span>
+                <span class="check-icon node-align"
+                    ng-if="treeConfig.showCheckbox && !item.chkDisabled"
+                    ng-click="treeCtrl.changeNode(item, $event)">
+                        <gx-multi-checkbox multi-type="item.checked" ng-disabled="item.disabled"></gx-multi-checkbox>
+                </span>
+                <span class="node-icon node-align" ng-show="treeConfig.showIcon">
+                    <i ng-if="item.iconClass" class="{{ item.iconClass }}"></i>
+                    <i ng-if="!item.iconClass && treeConfig.icon.commonIconClass" class="{{ treeConfig.icon.commonIconClass }}"></i>
+                    <i ng-if="!item.iconClass && !treeConfig.icon.commonIconClass" ng-class="{true: treeConfig.icon.parentIconClass, false: treeConfig.icon.leafIconClass}[!item.isLeaf]"></i>
+                </span>
+                <span class="node-title node-align"
+                    title="{{ item[treeConfig.nodeName] }}"
+                    ng-class="{'active': treeCtrl.currentSelectedNode === item[treeConfig.uniqueId]}">
+                        {{ item[treeConfig.nodeName] }}
+                </span>
+                <span class="loading-icon node-align" ng-show="item.loading"></span>
+        </div>
+        <ul class="tree-list" ng-if="item.expanded" ng-if="!item.isLeaf">
+            <li id="{{ 'node_' + item[treeConfig.uniqueId] }}"
+                class="tree-item {{ 'level' + item.depth }}" 
+                ng-include="'treeTemp'"
+                ng-if="!item.hideNode"
+                ng-class="{'leaf': item.isLeaf, 'show-line': treeConfig.showLine}"
+                ng-repeat="item in item[treeConfig.childName]">
+            </li>
+        </ul>
+    </script>
+</div>
