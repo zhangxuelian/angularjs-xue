@@ -109,6 +109,5 @@ angular.module("xue/template/datepicker/datepicker.html", []).run(["$templateCac
     "        </div>\n" +
     "        <div class=\"xl-popper-arrow\"></div>\n" +
     "    </div>\n" +
-    "\n" +
     "</div>");
 }]);

@@ -89,7 +89,7 @@ angular.module('xue.select', [])
                }
 
                //element
-               var ele = $(attrs.$$element);
+                ele = $(attrs.$$element);
 
                //get label and value from checkRows
                scope.getData = function(){
@@ -265,7 +265,7 @@ angular.module('xue.select', [])
                        if(!item[scope.selectConfig.valueField]){
                            if(scope.selectConfig.checkLimit){
                                if(scope.selectConfig.checkLimit == scope.selectConfig.checkRows.length){
-                                   modalExt.modalTip({content:"最多只能选"+scope.selectConfig.checkLimit+"个选项！",type:"warning"});
+                                //    modalExt.modalTip({content:"最多只能选"+scope.selectConfig.checkLimit+"个选项！",type:"warning"});
                                    return;
                                }
                            }

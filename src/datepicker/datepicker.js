@@ -10,7 +10,10 @@ angular.module('xue.datepicker', ['xue.util.date', 'xue.util.lang'])
                 maxDate: '=',
                 ngDisabled: '='
             },
-            templateUrl: 'xue/template/datepicker/datepicker.html',
+            require: ['xueDatepicker'],
+            templateUrl: function (element, attrs) {
+                return attrs.templateUrl || 'xue/template/datepicker/datepicker.html'
+            },
             link: function(scope,ele,attrs){
 
                 var xlDatepickerCtrl = scope.xlDatepickerCtrl = {
