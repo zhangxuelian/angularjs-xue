@@ -166,8 +166,11 @@ $ npm run demo</code></pre>
                     </div>
                     <div class="page-content">
                         <div class="content-html">
-                            <div ng-controller="xueDatepickerdemoCtrl" style="overflow: auto;">
-    <xue-datepicker date-config="config" ng-val="value"></xue-datepicker>
+                            <div ng-controller="xueDatepickerdemoCtrl">
+    <xue-datepicker date-config="test.config" ng-val="test.value"></xue-datepicker>
+    </br>
+    </br>
+    <xue-datepicker date-config="test1.config1" min-date="test1.minDate" max-date="test1.maxDate" ng-val="test1.value1"></xue-datepicker>
 </div>
 
                         </div>
@@ -188,8 +191,11 @@ $ npm run demo</code></pre>
                                 <uib-tab index="0" heading="Markup">
                                     <div plunker-content="markup">
                                         <pre ng-non-bindable>
-                                            <code data-language="html">&lt;div ng-controller=&quot;xueDatepickerdemoCtrl&quot; style=&quot;overflow: auto;&quot;&gt;
-    &lt;xue-datepicker date-config=&quot;config&quot; ng-val=&quot;value&quot;&gt;&lt;/xue-datepicker&gt;
+                                            <code data-language="html">&lt;div ng-controller=&quot;xueDatepickerdemoCtrl&quot;&gt;
+    &lt;xue-datepicker date-config=&quot;test.config&quot; ng-val=&quot;test.value&quot;&gt;&lt;/xue-datepicker&gt;
+    &lt;/br&gt;
+    &lt;/br&gt;
+    &lt;xue-datepicker date-config=&quot;test1.config1&quot; min-date=&quot;test1.minDate&quot; max-date=&quot;test1.maxDate&quot; ng-val=&quot;test1.value1&quot;&gt;&lt;/xue-datepicker&gt;
 &lt;/div&gt;
 </code>
                                         </pre>
@@ -199,10 +205,21 @@ $ npm run demo</code></pre>
                                     <div plunker-content="javascript">
                                         <pre
                                             ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueDatepickerdemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
-    $scope.value = &quot;2020-02-25 14:00:00&quot;
-    $scope.config = {
-        format: &quot;YYYY-MM-DD hh:mm:ss&quot;
+    $scope.test = {
+        value: &quot;2020-02-25 14:00:00&quot;,
+        config: {
+            format: &quot;YYYY-MM-DD hh:mm:ss&quot;
+        }
     }
+    $scope.test1 = {
+       value1: &quot;2020-02-25&quot;,
+       minDate: &quot;2020-02-24&quot;,
+       maxDate: &quot;2020-02-28&quot;,
+       config1: {
+            format: &quot;YYYY-MM-DD&quot;
+        }
+    }
+ 
 }]);</code></pre>
                                     </div>
                                 </uib-tab>
@@ -211,10 +228,21 @@ $ npm run demo</code></pre>
                     </div>
                 </section>
                 <script>angular.module('ui.xue.demo').controller('xueDatepickerdemoCtrl',['$scope',function($scope){
-    $scope.value = "2020-02-25 14:00:00"
-    $scope.config = {
-        format: "YYYY-MM-DD hh:mm:ss"
+    $scope.test = {
+        value: "2020-02-25 14:00:00",
+        config: {
+            format: "YYYY-MM-DD hh:mm:ss"
+        }
     }
+    $scope.test1 = {
+       value1: "2020-02-25",
+       minDate: "2020-02-24",
+       maxDate: "2020-02-28",
+       config1: {
+            format: "YYYY-MM-DD"
+        }
+    }
+ 
 }]);</script>
                 
                 <section class="module-wrap" id="pagination">
@@ -582,6 +610,12 @@ $ npm run demo</code></pre>
                         <div class="content-html">
                             <xue-tabs-wrap>
     <xue-tab></xue-tab>
+    <div>
+        <i class="xui-icon xui-icon-ios-grid"></i>
+        <i class="xui-icon xui-icon-ios-information-circle-outline"></i>
+        <i class="xui-icon xui-icon-ios-alert-outline"></i>
+        <i class="xui-icon xui-icon-ios-notifications-outline"></i>
+    </div>
 </xue-tabs-wrap>
                         </div>
                         <div class="content-md markdown-wrap">
@@ -603,6 +637,12 @@ $ npm run demo</code></pre>
                                         <pre ng-non-bindable>
                                             <code data-language="html">&lt;xue-tabs-wrap&gt;
     &lt;xue-tab&gt;&lt;/xue-tab&gt;
+    &lt;div&gt;
+        &lt;i class=&quot;xui-icon xui-icon-ios-grid&quot;&gt;&lt;/i&gt;
+        &lt;i class=&quot;xui-icon xui-icon-ios-information-circle-outline&quot;&gt;&lt;/i&gt;
+        &lt;i class=&quot;xui-icon xui-icon-ios-alert-outline&quot;&gt;&lt;/i&gt;
+        &lt;i class=&quot;xui-icon xui-icon-ios-notifications-outline&quot;&gt;&lt;/i&gt;
+    &lt;/div&gt;
 &lt;/xue-tabs-wrap&gt;</code>
                                         </pre>
                                     </div>

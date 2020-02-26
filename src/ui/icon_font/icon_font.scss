@@ -1,0 +1,32 @@
+$icons-font-path: "./fonts";
+$icons-font-family: "Ionicons";
+$icons-version: "1.0.0";
+
+@font-face {
+    font-family: $icons-font-family;
+    src: url("#{$icons-font-path}/ionicons.woff2?v=#{$icons-version}") format("woff2"),
+         url("#{$icons-font-path}/ionicons.woff?v=#{$icons-version}") format("woff"),
+         url("#{$icons-font-path}/ionicons.ttf?v=#{$icons-version}") format("truetype"),
+         url("#{$icons-font-path}/ionicons.svg?v=#{$icons-version}#Ionicons") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@mixin xui-icon() {
+    display: inline-block;
+    font-family: $icons-font-family;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-rendering: auto;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    vertical-align: middle;
+}
+
+.xui-icon {
+    @include xui-icon();
+}

@@ -146,7 +146,10 @@ angular.module('xue.datepicker', ['xue.util.date', 'xue.util.lang'])
                 maxDate: '=',
                 ngDisabled: '='
             },
-            templateUrl: 'xue/template/datepicker/datepicker.html',
+            require: ['xueDatepicker'],
+            templateUrl: function (element, attrs) {
+                return attrs.templateUrl || 'xue/template/datepicker/datepicker.html'
+            },
             link: function(scope,ele,attrs){
 
                 var xlDatepickerCtrl = scope.xlDatepickerCtrl = {
@@ -1220,7 +1223,7 @@ angular.module('xue.select', [])
                }
 
                //element
-               var ele = $(attrs.$$element);
+                ele = $(attrs.$$element);
 
                //get label and value from checkRows
                scope.getData = function(){
@@ -1396,7 +1399,7 @@ angular.module('xue.select', [])
                        if(!item[scope.selectConfig.valueField]){
                            if(scope.selectConfig.checkLimit){
                                if(scope.selectConfig.checkLimit == scope.selectConfig.checkRows.length){
-                                   modalExt.modalTip({content:"最多只能选"+scope.selectConfig.checkLimit+"个选项！",type:"warning"});
+                                //    modalExt.modalTip({content:"最多只能选"+scope.selectConfig.checkLimit+"个选项！",type:"warning"});
                                    return;
                                }
                            }
@@ -3466,7 +3469,6 @@ angular.module("xue/template/datepicker/datepicker.html", []).run(["$templateCac
     "        </div>\n" +
     "        <div class=\"xl-popper-arrow\"></div>\n" +
     "    </div>\n" +
-    "\n" +
     "</div>");
 }]);
 
