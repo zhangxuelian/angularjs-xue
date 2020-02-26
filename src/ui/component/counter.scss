@@ -102,10 +102,6 @@ $counter-input-padding-x-lg: 1.5rem !default;
     &.large {
         font-size: $font-size-lg;
 
-        &>span {
-            padding: $counter-input-padding-y-lg $counter-input-padding-x-lg;
-        }
-
         .input span {
             padding: $counter-input-padding-y-lg $counter-input-padding-x-lg;
         }
@@ -120,10 +116,6 @@ $counter-input-padding-x-lg: 1.5rem !default;
 
     &.small {
         font-size: $font-size-sm;
-
-        &>span {
-            padding: $counter-input-padding-y-lg $counter-input-padding-x-lg;
-        }
 
         .input span {
             padding: $counter-input-padding-y-sm $counter-input-padding-x-sm;

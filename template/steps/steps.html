@@ -1,0 +1,21 @@
+<div class="xue-steps-wrap {{stepsConfig.direction}} {{stepsConfig.theme}} {{stepsConfig.alignCenter?'is-center':''}} {{stepsConfig.size}}">
+    <div class="step-item" ng-repeat="option in stepsConfig.options"
+        ng-class="{'active':option[stepsConfig.idField]==ngValue,'passed':option.passed,'future':option[stepsConfig.idField]!=ngValue && !option.passed,'last':$last}">
+        <div class="step-bar">
+            <div class="bar-icon {{stepsConfig.iconStyle}}" ng-click="stepsCtrl.stepClick(option)">
+                <img class="bar-icon-inner" ng-if="stepsConfig.iconStyle=='img'" ng-src="{{option.imgUrl}}" alt="">
+                <i class="bar-icon-inner {{option.iconfont}}" ng-if="stepsConfig.iconStyle=='iconfont'"></i>
+                <span class="bar-icon-inner" ng-if="stepsConfig.iconStyle=='num'">{{$index+1}}</span>
+                <span class="bar-icon-inner"
+                    ng-if="stepsConfig.iconStyle=='statusNum' && !option.passed">{{$index+1}}</span>
+                <i class="bar-icon-inner fa fa-check"
+                    ng-if="(stepsConfig.iconStyle=='statusNum'||stepsConfig.iconStyle=='strokeStatus'||stepsConfig.iconStyle=='fillStatus') && option.passed && option[stepsConfig.idField]!=ngValue"></i>
+            </div>
+            <div class="bar-line"></div>
+        </div>
+        <div class="step-main">
+            <div class="step-title" ng-click="stepsCtrl.stepClick(option)">{{option[stepsConfig.nameField]}}</div>
+            <div class="step-description">{{option[stepsConfig.descField]}}</div>
+        </div>
+    </div>
+</div>

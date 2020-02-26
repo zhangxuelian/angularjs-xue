@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   padding: 0;
   margin: 0; }
@@ -3204,8 +3205,6 @@ i {
     border-radius: 0.25rem 0 0 0.25rem; }
   .xue-counter-wrap.large {
     font-size: 1.25rem; }
-    .xue-counter-wrap.large > span {
-      padding: 0.75rem 1.5rem; }
     .xue-counter-wrap.large .input span {
       padding: 0.75rem 1.5rem; }
     .xue-counter-wrap.large .text,
@@ -3215,8 +3214,6 @@ i {
       padding: 0.75rem 1.5rem; }
   .xue-counter-wrap.small {
     font-size: 0.875rem; }
-    .xue-counter-wrap.small > span {
-      padding: 0.75rem 1.5rem; }
     .xue-counter-wrap.small .input span {
       padding: 0.2rem 0.5rem; }
     .xue-counter-wrap.small .text,
@@ -3224,3 +3221,189 @@ i {
     .xue-counter-wrap.small .add,
     .xue-counter-wrap.small .reduce {
       padding: 0.2rem 0.5rem; }
+
+.xue-steps-wrap {
+  display: -ms-flexbox;
+  /* 混合版本语法: IE 10 */
+  display: -webkit-flex;
+  /* 新版本语法: Chrome 21+ */
+  display: flex; }
+  .xue-steps-wrap .step-item {
+    position: relative;
+    -webkit-flex: 1;
+    /* Chrome */
+    -ms-flex: 1;
+    /* IE 10 */
+    flex: 1; }
+    .xue-steps-wrap .step-item.last .bar-line {
+      display: none; }
+    .xue-steps-wrap .step-item .step-bar {
+      position: relative; }
+    .xue-steps-wrap .step-item .bar-icon {
+      width: 24px;
+      height: 24px;
+      display: -ms-inline-flexbox;
+      display: -webkit-inline-flex;
+      display: inline-flex;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      background-color: #dae1ec;
+      border-radius: 50%;
+      color: #dae1ec;
+      cursor: pointer;
+      position: relative;
+      z-index: 5; }
+      .xue-steps-wrap .step-item .bar-icon img {
+        width: 100%;
+        height: 100%; }
+      .xue-steps-wrap .step-item .bar-icon:hover {
+        cursor: pointer; }
+      .xue-steps-wrap .step-item .bar-icon.point {
+        width: 8px;
+        height: 8px; }
+      .xue-steps-wrap .step-item .bar-icon.num, .xue-steps-wrap .step-item .bar-icon.statusNum, .xue-steps-wrap .step-item .bar-icon.strokeStatus {
+        border: 2px solid #dae1ec;
+        background-color: #fff; }
+      .xue-steps-wrap .step-item .bar-icon.iconfont, .xue-steps-wrap .step-item .bar-icon.img {
+        background-color: #fff; }
+    .xue-steps-wrap .step-item .bar-line {
+      position: absolute;
+      background-color: #dae1ec; }
+    .xue-steps-wrap .step-item .step-main {
+      position: relative;
+      text-align: left; }
+    .xue-steps-wrap .step-item .step-title {
+      margin-bottom: 5px; }
+      .xue-steps-wrap .step-item .step-title:hover {
+        cursor: pointer; }
+    .xue-steps-wrap .step-item.active .bar-icon.fillStatus::before {
+      content: "";
+      width: 70%;
+      height: 70%;
+      background-color: #fff;
+      border-radius: 50%; }
+    .xue-steps-wrap .step-item.future .bar-icon.strokeStatus, .xue-steps-wrap .step-item.future .bar-icon.point {
+      background-color: #dae1ec; }
+    .xue-steps-wrap .step-item.future .step-main {
+      color: #999; }
+  .xue-steps-wrap.horizontal .step-item {
+    display: inline-block; }
+    .xue-steps-wrap.horizontal .step-item .step-bar {
+      margin-bottom: 8px; }
+      .xue-steps-wrap.horizontal .step-item .step-bar .bar-line {
+        top: 50%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 2px; }
+      .xue-steps-wrap.horizontal .step-item .step-bar .bar-icon {
+        vertical-align: middle; }
+    .xue-steps-wrap.horizontal .step-item .step-main {
+      white-space: normal;
+      width: 100%; }
+  .xue-steps-wrap.horizontal.is-center .step-item .step-bar {
+    text-align: center; }
+    .xue-steps-wrap.horizontal.is-center .step-item .step-bar .bar-line {
+      left: 50%;
+      right: -50%; }
+  .xue-steps-wrap.horizontal.is-center .step-item .step-main {
+    text-align: center; }
+  .xue-steps-wrap.vertical {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 100%; }
+    .xue-steps-wrap.vertical .step-item {
+      display: -ms-flexbox;
+      /* 混合版本语法: IE 10 */
+      display: -webkit-flex;
+      /* 新版本语法: Chrome 21+ */
+      display: flex;
+      -webkit-flex: 1;
+      /* Chrome */
+      -ms-flex: 1;
+      /* IE 10 */
+      flex: 1; }
+      .xue-steps-wrap.vertical .step-item .step-bar .bar-line {
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 2px; }
+      .xue-steps-wrap.vertical .step-item .step-bar .bar-icon {
+        vertical-align: top; }
+      .xue-steps-wrap.vertical .step-item .step-main {
+        flex-grow: 1;
+        margin-left: 10px; }
+  .xue-steps-wrap.blue-theme .step-item.passed .bar-icon.num, .xue-steps-wrap.blue-theme .step-item.passed .bar-icon.statusNum, .xue-steps-wrap.blue-theme .step-item.passed .bar-icon.strokeStatus, .xue-steps-wrap.blue-theme .step-item.passed .bar-icon.point {
+    border: 2px solid #0394F9;
+    color: #0394F9; }
+  .xue-steps-wrap.blue-theme .step-item.passed .bar-icon.iconfont {
+    color: #0394F9; }
+  .xue-steps-wrap.blue-theme .step-item.passed .bar-icon.point {
+    background-color: #0394F9; }
+  .xue-steps-wrap.blue-theme .step-item.passed .bar-icon.fillStatus {
+    background-color: #0394F9;
+    border: none;
+    color: #fff; }
+  .xue-steps-wrap.blue-theme .step-item.passed .bar-line {
+    background-color: #0394F9; }
+  .xue-steps-wrap.blue-theme .step-item.active .bar-icon.num, .xue-steps-wrap.blue-theme .step-item.active .bar-icon.statusNum, .xue-steps-wrap.blue-theme .step-item.active .bar-icon.point, .xue-steps-wrap.blue-theme .step-item.active .bar-icon.fillStatus {
+    background-color: #0394F9;
+    border: 2px solid #0394F9;
+    color: #fff; }
+  .xue-steps-wrap.blue-theme .step-item.active .bar-icon.strokeStatus {
+    border: 2px solid #0394F9; }
+    .xue-steps-wrap.blue-theme .step-item.active .bar-icon.strokeStatus::before {
+      content: "";
+      width: 70%;
+      height: 70%;
+      background-color: #0394F9;
+      border-radius: 50%; }
+  .xue-steps-wrap.blue-theme .step-item.active .bar-icon.iconfont {
+    color: #0394F9; }
+  .xue-steps-wrap.blue-theme .step-item.active .step-title {
+    color: #0394F9; }
+  .xue-steps-wrap.green-theme .step-item.passed .bar-icon.num, .xue-steps-wrap.green-theme .step-item.passed .bar-icon.statusNum, .xue-steps-wrap.green-theme .step-item.passed .bar-icon.strokeStatus, .xue-steps-wrap.green-theme .step-item.passed .bar-icon.point {
+    border: 2px solid #13BA5A;
+    color: #13BA5A; }
+  .xue-steps-wrap.green-theme .step-item.passed .bar-icon.iconfont {
+    color: #13BA5A; }
+  .xue-steps-wrap.green-theme .step-item.passed .bar-icon.point {
+    background-color: #13BA5A; }
+  .xue-steps-wrap.green-theme .step-item.passed .bar-icon.fillStatus {
+    background-color: #13BA5A;
+    border: none;
+    color: #fff; }
+  .xue-steps-wrap.green-theme .step-item.passed .bar-line {
+    background-color: #13BA5A; }
+  .xue-steps-wrap.green-theme .step-item.active .bar-icon.num, .xue-steps-wrap.green-theme .step-item.active .bar-icon.statusNum, .xue-steps-wrap.green-theme .step-item.active .bar-icon.point, .xue-steps-wrap.green-theme .step-item.active .bar-icon.fillStatus {
+    background-color: #13BA5A;
+    border: 2px solid #13BA5A;
+    color: #fff; }
+  .xue-steps-wrap.green-theme .step-item.active .bar-icon.strokeStatus {
+    border: 2px solid #13BA5A; }
+    .xue-steps-wrap.green-theme .step-item.active .bar-icon.strokeStatus::before {
+      content: "";
+      width: 70%;
+      height: 70%;
+      background-color: #13BA5A;
+      border-radius: 50%; }
+  .xue-steps-wrap.green-theme .step-item.active .bar-icon.iconfont {
+    color: #13BA5A; }
+  .xue-steps-wrap.green-theme .step-item.active .step-title {
+    color: #13BA5A; }
+  .xue-steps-wrap.small .step-item .bar-icon:not(.point) {
+    width: 16px;
+    height: 16px; }
+  .xue-steps-wrap.small .step-item .step-main {
+    font-size: 12px; }
+  .xue-steps-wrap.large .step-item .bar-icon:not(.point) {
+    width: 32px;
+    height: 32px;
+    font-size: 18px; }
+  .xue-steps-wrap.large .step-item .step-title {
+    font-size: 16px; }

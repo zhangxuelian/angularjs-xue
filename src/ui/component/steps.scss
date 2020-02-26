@@ -1,0 +1,313 @@
+$blue-theme:#0394F9 !default;
+$green-theme:#13BA5A !default;
+
+$steps-default-color: #dae1ec !default;
+$step-text-default-color: #999 !default;
+
+.xue-steps-wrap {
+    @mixin displayFlex {
+        display: -ms-flexbox;
+        /* 混合版本语法: IE 10 */
+        display: -webkit-flex;
+        /* 新版本语法: Chrome 21+ */
+        display: flex;
+    }
+
+    @mixin flex1 {
+        -webkit-flex: 1;
+        /* Chrome */
+        -ms-flex: 1;
+        /* IE 10 */
+        flex: 1;
+    }
+
+    @mixin buildThemes($color) {
+        .step-item {
+            &.passed {
+                .bar-icon {
+
+                    &.num,
+                    &.statusNum,
+                    &.strokeStatus,
+                    &.point {
+                        border: 2px solid $color;
+                        color: $color;
+                    }
+
+                    &.iconfont {
+                        color: $color;
+                    }
+
+                    &.point {
+                        background-color: $color;
+                    }
+
+                    &.fillStatus {
+                        background-color: $color;
+                        border: none;
+                        color: #fff;
+                    }
+                }
+
+                .bar-line {
+                    background-color: $color;
+                }
+
+            }
+
+            &.active {
+                .bar-icon {
+
+                    &.num,
+                    &.statusNum,
+                    &.point,
+                    &.fillStatus {
+                        background-color: $color;
+                        border: 2px solid $color;
+                        color: #fff;
+                    }
+
+                    &.strokeStatus {
+                        border: 2px solid $color;
+
+                        &::before {
+                            content: "";
+                            width: 70%;
+                            height: 70%;
+                            background-color: $color;
+                            border-radius: 50%;
+                        }
+                    }
+
+                    &.iconfont {
+                        color: $color;
+                    }
+                }
+
+                .step-title {
+                    color: $color;
+                }
+            }
+        }
+    }
+
+    @include displayFlex;
+
+    .step-item {
+        position: relative;
+        @include flex1;
+
+        &.last {
+            .bar-line {
+                display: none;
+            }
+        }
+
+        .step-bar {
+            position: relative;
+        }
+
+        .bar-icon {
+            width: 24px;
+            height: 24px;
+            display: -ms-inline-flexbox;
+            display: -webkit-inline-flex;
+            display: inline-flex;
+
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+
+            background-color: $steps-default-color;
+            border-radius: 50%;
+            color: $steps-default-color;
+            cursor: pointer;
+            position: relative;
+            z-index: 5;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &.point {
+                width: 8px;
+                height: 8px;
+            }
+
+            &.num,
+            &.statusNum,
+            &.strokeStatus {
+                border: 2px solid $steps-default-color;
+                background-color: #fff;
+            }
+
+            &.iconfont,
+            &.img {
+                background-color: #fff;
+            }
+        }
+
+        .bar-line {
+            position: absolute;
+            background-color: $steps-default-color;
+        }
+
+        .step-main {
+            position: relative;
+            text-align: left;
+        }
+
+        .step-title {
+            margin-bottom: 5px;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        &.active {
+            .bar-icon.fillStatus::before {
+                content: "";
+                width: 70%;
+                height: 70%;
+                background-color: #fff;
+                border-radius: 50%;
+            }
+        }
+
+        &.future {
+            .bar-icon {
+
+                &.strokeStatus,
+                &.point {
+                    background-color: $steps-default-color;
+                }
+            }
+
+            .step-main {
+                color: $step-text-default-color;
+            }
+        }
+    }
+
+    &.horizontal {
+        .step-item {
+            display: inline-block;
+
+            .step-bar {
+                margin-bottom: 8px;
+
+                .bar-line {
+                    top: 50%;
+                    left: 0;
+                    right: 0;
+                    width: 100%;
+                    height: 2px;
+                }
+
+                .bar-icon {
+                    vertical-align: middle;
+                }
+            }
+
+            .step-main {
+                white-space: normal;
+                width: 100%;
+            }
+        }
+
+        &.is-center {
+            .step-item {
+                .step-bar {
+                    text-align: center;
+
+                    .bar-line {
+                        left: 50%;
+                        right: -50%;
+                    }
+                }
+
+                .step-main {
+                    text-align: center;
+                }
+            }
+        }
+
+    }
+
+    &.vertical {
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        height: 100%;
+
+        .step-item {
+            @include displayFlex;
+            @include flex1;
+
+            .step-bar {
+                .bar-line {
+                    top: 0;
+                    bottom: 0;
+                    left: 50%;
+                    width: 2px;
+                }
+
+                .bar-icon {
+                    vertical-align: top;
+                }
+            }
+
+            .step-main {
+                flex-grow: 1;
+                margin-left: 10px;
+            }
+        }
+    }
+
+    &.blue-theme {
+        @include buildThemes($blue-theme);
+    }
+
+    &.green-theme {
+        @include buildThemes($green-theme);
+    }
+
+    &.small {
+        .step-item {
+            .bar-icon:not(.point) {
+                width: 16px;
+                height: 16px;
+            }
+
+            .step-main {
+                font-size: 12px;
+            }
+        }
+    }
+
+    &.large {
+        .step-item {
+            .bar-icon:not(.point) {
+                width: 32px;
+                height: 32px;
+                font-size: 18px;
+            }
+
+            .step-title {
+                font-size: 16px;
+            }
+        }
+    }
+
+
+}

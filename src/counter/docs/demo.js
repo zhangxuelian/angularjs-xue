@@ -3,8 +3,8 @@ angular.module('ui.xue.demo').controller('xueCounterDemoCtrl', ['$scope', '$time
         counterConfig:{
             suffix: "℃",
             max: 300,
-            min: 20
-            // type:2
+            min: 20,
+            type:2
         },
         counterConfigLg:{
             suffix: "℃",

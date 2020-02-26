@@ -47,6 +47,7 @@
                                 href="#datepicker">Datepicker</a></div><div class="child-menu"><a
                                 href="#pagination">Pagination</a></div><div class="child-menu"><a
                                 href="#select">Select</a></div><div class="child-menu"><a
+                                href="#steps">Steps</a></div><div class="child-menu"><a
                                 href="#table">Table</a></div><div class="child-menu"><a
                                 href="#tabs">Tabs</a></div>
                     </li>
@@ -139,8 +140,8 @@ $ npm run demo</code></pre>
         counterConfig:{
             suffix: &quot;℃&quot;,
             max: 300,
-            min: 20
-            // type:2
+            min: 20,
+            type:2
         },
         counterConfigLg:{
             suffix: &quot;℃&quot;,
@@ -170,8 +171,8 @@ $ npm run demo</code></pre>
         counterConfig:{
             suffix: "℃",
             max: 300,
-            min: 20
-            // type:2
+            min: 20,
+            type:2
         },
         counterConfigLg:{
             suffix: "℃",
@@ -391,7 +392,7 @@ $ npm run demo</code></pre>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
-                            <h3 id="test-select-doc">test select doc</h3>
+                            <h3 id="select-setting">select setting</h3>
 
                         </div>
                     </div>
@@ -574,6 +575,86 @@ $ npm run demo</code></pre>
             checkbox: true,
             filter: false
         }
+    };
+}]);</script>
+                
+                <section class="module-wrap" id="steps">
+                    <div class="page-header">
+                        <h1>Steps<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/steps">xue.steps</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueStepsDemoCtrl">
+    <xue-steps steps-config="stepsConfig" ng-value="value"></xue-steps>
+</div>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="steps-setting">steps setting</h3>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'steps')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div>
+                            <uib-tabset active="activeTab">
+                                <uib-tab index="0" heading="Markup">
+                                    <div plunker-content="markup">
+                                        <pre ng-non-bindable>
+                                            <code data-language="html">&lt;div ng-controller=&quot;xueStepsDemoCtrl&quot;&gt;
+    &lt;xue-steps steps-config=&quot;stepsConfig&quot; ng-value=&quot;value&quot;&gt;&lt;/xue-steps&gt;
+&lt;/div&gt;</code>
+                                        </pre>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab index="1" heading="JavaScript">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueStepsDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+    $scope.value = 1;
+    $scope.stepsConfig = {
+        theme:&#39;green-theme&#39;,
+        alignCenter: true,
+        options: [{
+            title: &#39;Finished&#39;,
+            code: 0
+        }, {
+            title: &#39;In Progress&#39;,
+            code: 1
+        }, {
+            title: &#39;Waiting&#39;,
+            code: 2
+        }]
+    };
+}]);</code></pre>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueStepsDemoCtrl', ['$scope', function ($scope) {
+    $scope.value = 1;
+    $scope.stepsConfig = {
+        theme:'green-theme',
+        alignCenter: true,
+        options: [{
+            title: 'Finished',
+            code: 0
+        }, {
+            title: 'In Progress',
+            code: 1
+        }, {
+            title: 'Waiting',
+            code: 2
+        }]
     };
 }]);</script>
                 
