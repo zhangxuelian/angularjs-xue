@@ -1,0 +1,15 @@
+<div class="xue-autoselect-wrap">
+    <input ng-focus="selectCtrl.watch.focus($event)" type="text" class="select-show" ng-model="ngVal"
+        ng-class="selectCtrl.selectClass" ng-style="selectCtrl.iptStyle" ng-disabled="ngDisabled" />
+    <div class="auto-select-content" ng-style="selectCtrl.contentStyle" id="{{selectConfig.id}}">
+        <ul>
+            <li ng-repeat="item in selectConfig.data | filter:ngVal  | limitTo:selectConfig.showLimit"
+                ng-click="selectCtrl.selectItem(item)">
+                <span>{{item}}</span>
+            </li>
+            <li ng-if="!!!selectConfig.data || !selectConfig.data.length" class="empty-data">
+                <span>暂无数据</span>
+            </li>
+        </ul>
+    </div>
+</div>

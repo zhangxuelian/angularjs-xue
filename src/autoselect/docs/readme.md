@@ -1,0 +1,1 @@
+# autoselect setting

@@ -26,7 +26,7 @@
             </h1>
             <ul>
                 <li><a href="#getting_started">入门指南</a></li>
-                <li><a href="#counter">组件文档</a></li>
+                <li><a href="#autoselect">组件文档</a></li>
                 <li>1.0.0</li>
             </ul>
         </div>
@@ -41,8 +41,9 @@
                 </ul>
                 <ul class="node-menu">
                     <li>
-                        <a href="#counter">组件文档</a>
+                        <a href="#autoselect">组件文档</a>
                         <div class="child-menu"><a
+                                href="#autoselect">Autoselect</a></div><div class="child-menu"><a
                                 href="#counter">Counter</a></div><div class="child-menu"><a
                                 href="#datepicker">Datepicker</a></div><div class="child-menu"><a
                                 href="#menu">Menu</a></div><div class="child-menu"><a
@@ -94,6 +95,74 @@ $ npm run test
 $ npm run demo</code></pre>
                     </div>
                 </section>
+                
+                <section class="module-wrap" id="autoselect">
+                    <div class="page-header">
+                        <h1>Autoselect<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/autoselect">xue.autoselect</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueAutoSelectDemoCtrl">
+    <xue-autoselect select-config="vm.config" ng-val="vm.value"></xue-autoselect>
+</div>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h1 id="autoselect-setting">autoselect setting</h1>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'autoselect')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div>
+                            <uib-tabset active="activeTab">
+                                <uib-tab index="0" heading="Markup">
+                                    <div plunker-content="markup">
+                                        <pre ng-non-bindable>
+                                            <code data-language="html">&lt;div ng-controller=&quot;xueAutoSelectDemoCtrl&quot;&gt;
+    &lt;xue-autoselect select-config=&quot;vm.config&quot; ng-val=&quot;vm.value&quot;&gt;&lt;/xue-autoselect&gt;
+&lt;/div&gt;</code>
+                                        </pre>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab index="1" heading="JavaScript">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueAutoSelectDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+    $scope.vm = {
+        value:&#39;&#39;,
+        config: {
+            data: [ &quot;身份证&quot;,&quot;护照&quot;,&quot;居住证&quot;,&quot;驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证&quot;,&#39;往来通行证&#39;,&#39;港澳通行证&#39;],
+            selectCallback: function(item){
+                console.log(item);
+            }
+        }
+    }
+}])</code></pre>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueAutoSelectDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        value:'',
+        config: {
+            data: [ "身份证","护照","居住证","驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证",'往来通行证','港澳通行证'],
+            selectCallback: function(item){
+                console.log(item);
+            }
+        }
+    }
+}])</script>
                 
                 <section class="module-wrap" id="counter">
                     <div class="page-header">
