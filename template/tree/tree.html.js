@@ -29,7 +29,7 @@ angular.module("xue/template/tree/tree.html", []).run(["$templateCache", functio
     "                <span class=\"check-icon node-align\"\n" +
     "                    ng-if=\"treeConfig.showCheckbox && !item.chkDisabled\"\n" +
     "                    ng-click=\"treeCtrl.changeNode(item, $event)\">\n" +
-    "                        <gx-multi-checkbox multi-type=\"item.checked\" ng-disabled=\"item.disabled\"></gx-multi-checkbox>\n" +
+    "                        <xue-multi-checkbox multi-type=\"item.checked\" ng-disabled=\"item.disabled\"></xue-multi-checkbox>\n" +
     "                </span>\n" +
     "                <span class=\"node-icon node-align\" ng-show=\"treeConfig.showIcon\">\n" +
     "                    <i ng-if=\"item.iconClass\" class=\"{{ item.iconClass }}\"></i>\n" +

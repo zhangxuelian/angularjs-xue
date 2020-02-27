@@ -27,7 +27,7 @@
                 <span class="check-icon node-align"
                     ng-if="treeConfig.showCheckbox && !item.chkDisabled"
                     ng-click="treeCtrl.changeNode(item, $event)">
-                        <gx-multi-checkbox multi-type="item.checked" ng-disabled="item.disabled"></gx-multi-checkbox>
+                        <xue-multi-checkbox multi-type="item.checked" ng-disabled="item.disabled"></xue-multi-checkbox>
                 </span>
                 <span class="node-icon node-align" ng-show="treeConfig.showIcon">
                     <i ng-if="item.iconClass" class="{{ item.iconClass }}"></i>
