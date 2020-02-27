@@ -31,7 +31,8 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "                <div class=\"select-filter-wrap\">\n" +
     "                    <input type=\"text\" ng-model=\"selectConfig.myLabel\" class=\"select-filter form-control\" />\n" +
     "                </div>\n" +
-    "                <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\">x</i>\n" +
+    "                <!-- <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\">x</i> -->\n" +
+    "                <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\" class=\"xui-icon xui-icon-ios-trash\"></i>\n" +
     "            </div>\n" +
     "            <ul class=\"select-list\">\n" +
     "                <li ng-click=\"onBeforeSelect(item,$event)\"\n" +
@@ -75,7 +76,8 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "                <div class=\"select-filter-wrap\">\n" +
     "                    <input type=\"text\" ng-model=\"selectConfig.myLabel\" class=\"select-filter form-control\" />\n" +
     "                </div>\n" +
-    "                <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\">x</i>\n" +
+    "                <!-- <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\">x</i> -->\n" +
+    "                <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\" class=\"xui-icon xui-icon-ios-trash\"></i>\n" +
     "            </div>\n" +
     "            <ul ng-style=\"showContent\" class=\"select-list\">\n" +
     "                <li ng-click=\"selectLi(item,$event)\"\n" +

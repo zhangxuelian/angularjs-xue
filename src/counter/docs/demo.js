@@ -1,4 +1,4 @@
-angular.module('ui.xue.demo').controller('xueCounterDemoCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
+angular.module('ui.xue.demo').controller('xueCounterDemoCtrl', ['$scope', function ($scope) {
     $scope.vm = {
         counterConfig:{
             suffix: "℃",

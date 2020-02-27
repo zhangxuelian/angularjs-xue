@@ -29,7 +29,8 @@
                 <div class="select-filter-wrap">
                     <input type="text" ng-model="selectConfig.myLabel" class="select-filter form-control" />
                 </div>
-                <i ng-click="clear()" ng-if="selectConfig.enableEmpty" title="清空">x</i>
+                <!-- <i ng-click="clear()" ng-if="selectConfig.enableEmpty" title="清空">x</i> -->
+                <i ng-click="clear()" ng-if="selectConfig.enableEmpty" title="清空" class="xui-icon xui-icon-ios-trash"></i>
             </div>
             <ul class="select-list">
                 <li ng-click="onBeforeSelect(item,$event)"
@@ -73,7 +74,8 @@
                 <div class="select-filter-wrap">
                     <input type="text" ng-model="selectConfig.myLabel" class="select-filter form-control" />
                 </div>
-                <i ng-click="clear()" ng-if="selectConfig.enableEmpty" title="清空">x</i>
+                <!-- <i ng-click="clear()" ng-if="selectConfig.enableEmpty" title="清空">x</i> -->
+                <i ng-click="clear()" ng-if="selectConfig.enableEmpty" title="清空" class="xui-icon xui-icon-ios-trash"></i>
             </div>
             <ul ng-style="showContent" class="select-list">
                 <li ng-click="selectLi(item,$event)"

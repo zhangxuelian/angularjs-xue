@@ -1,0 +1,55 @@
+<div class="xue-notice-container" ng-mouseenter="gxNoticeCtrl.mouseenter()" ng-mouseleave="gxNoticeCtrl.mouseleave()"> 
+    <div class="xue-notice-icon" title="{{noticeConfig.title || '消息提醒'}}">
+        <i class="xui-icon xui-icon-md-notifications-outline notice-icon"></i>
+        <!-- <img class="notice-icon" src="" alt="" onerror="javascript:this.src='common/directives/images/gx_notice/warn.png'"> -->
+        <span class="notice-count" title="{{noticeConfig.count}}" ng-show="noticeConfig.count>0">{{noticeConfig.count>99?'99+':noticeConfig.count}}</span>
+    </div>
+    <div class="xue-notice-content-wrap" id="{{noticeConfig.modalId}}" ng-mouseenter="gxNoticeCtrl.mouseenter()" ng-mouseleave="gxNoticeCtrl.mouseleave()">
+        <div class="xue-notice-content" >
+            <div class="notice-tab">
+                <div class="tab-item" ng-repeat="item in noticeConfig.tabItem" ng-class="{true:'active'}[noticeConfig.selectTabId == item.id]" 
+                ng-click="gxNoticeCtrl.tabItemClick(item)">
+                    <span class="item-name">{{item.name}}
+                        <span class="item-count" ng-class="{'circle':'circle','number':''}[noticeConfig.tabMark]" ng-show="item.count>0" title="{{item.count}}">
+                            {{noticeConfig.tabMark == 'number' ? (item.count>99?'99+':item.count) : ''}}
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="notice-content" scroll-bottom="noticeConfig.loadNextPage()">
+                <ul>
+                    <li class="content-wrap" ng-if="noticeConfig.noticeList.length" ng-click="noticeConfig.itemClick(item)"
+                        ng-repeat="item in noticeConfig.noticeList | limitTo : noticeConfig.listMaxLen">
+                        <span class="content" title="{{item[noticeConfig.formatField.completeContent] || item.completeContent || item[noticeConfig.formatField.content] || item.content}}">
+                            【<b ng-if="noticeConfig.formatField.contentTitle" class="content-title" title="{{item[noticeConfig.formatField.contentTitle] || item.formatField.contentTitle}}">
+                                {{item[noticeConfig.formatField.contentTitle] || item.formatField.contentTitle}}</b>】
+                            {{item[noticeConfig.formatField.content] || item.content}}
+                        </span>
+                        <span class="time">{{item[noticeConfig.formatField.time] || item.time}}</span>
+                    </li>
+                    <li class="content-type-wrap" ng-if="noticeConfig.noticeTypeList.length" ng-click="noticeConfig.itemClick(item)"
+                        ng-repeat="item in noticeConfig.noticeTypeList | limitTo : noticeConfig.listMaxLen">
+                        <span class="content-type" title="{{item[noticeConfig.formatField.contentType] || item.contentType}}">
+                            <!-- <b ng-if="noticeConfig.formatField.contentTitle">【{{item[noticeConfig.formatField.contentTitle] || item.formatField.contentTitle}}】</b> -->
+                            {{item[noticeConfig.formatField.contentType] || item.contentType}}
+                        </span>
+                        <span class="count">
+                            <i>{{(item[noticeConfig.formatField.count] || item.count)>99?'99+':(item[noticeConfig.formatField.count] || item.count)}}</i>
+                        </span>
+                    </li>
+                    <li ng-if="!noticeConfig.noticeList.length && !noticeConfig.noticeTypeList.length" class="no-data-tip">
+                        {{noticeConfig.emptyNoticeTip}}
+                    </li>
+                    <li ng-if="noticeConfig.noticeList.length">
+                        <p class="baseline" ng-if="noticeConfig.tabItem[noticeConfig.selectTabId].count <= 99">没有更多数据了</p>   
+                        <P class="baseline" ng-if="noticeConfig.tabItem[noticeConfig.selectTabId].count > 99">更多数据请点击右下角查看全部</P> 
+                    </li>
+                </ul>
+            </div>
+            <div class="notice-footer" ng-if="noticeConfig.showFooter">
+                <div class="footer-item" ng-repeat="item in noticeConfig.footerContent" ng-show="!!item.show" ng-click="item.click()">{{item.name}}</div>
+            </div>
+        </div>
+        <div class="triangle"></div>
+    </div>
+</div>

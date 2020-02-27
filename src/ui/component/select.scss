@@ -119,10 +119,11 @@ $vertical-align-middle: middle !default;
                 i {
                     position: absolute;
                     top: 12px;
-                    right: 7px;
+                    right: 5px;
                     cursor: pointer;
                     color: $gray-600;
-                    line-height: 16px;
+                    line-height: 18px;
+                    font-size: 18px;
                 }
             }
         }
@@ -240,5 +241,6 @@ $vertical-align-middle: middle !default;
         line-height: 18px;
         text-align: center;
         color: $white;
+        vertical-align: baseline;
     }
 }

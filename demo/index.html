@@ -45,6 +45,7 @@
                         <div class="child-menu"><a
                                 href="#counter">Counter</a></div><div class="child-menu"><a
                                 href="#datepicker">Datepicker</a></div><div class="child-menu"><a
+                                href="#notice">Notice</a></div><div class="child-menu"><a
                                 href="#pagination">Pagination</a></div><div class="child-menu"><a
                                 href="#select">Select</a></div><div class="child-menu"><a
                                 href="#steps">Steps</a></div><div class="child-menu"><a
@@ -136,7 +137,7 @@ $ npm run demo</code></pre>
                                 <uib-tab index="1" heading="JavaScript">
                                     <div plunker-content="javascript">
                                         <pre
-                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueCounterDemoCtrl&#39;, [&#39;$scope&#39;, &#39;$timeout&#39;, function ($scope, $timeout) {
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueCounterDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     $scope.vm = {
         counterConfig:{
             suffix: &quot;℃&quot;,
@@ -167,7 +168,7 @@ $ npm run demo</code></pre>
                         </div>
                     </div>
                 </section>
-                <script>angular.module('ui.xue.demo').controller('xueCounterDemoCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
+                <script>angular.module('ui.xue.demo').controller('xueCounterDemoCtrl', ['$scope', function ($scope) {
     $scope.vm = {
         counterConfig:{
             suffix: "℃",
@@ -275,6 +276,108 @@ $ npm run demo</code></pre>
         maxDate: "2020-02-28",
         config: {
             format: "YYYY-MM-DD"
+        }
+    }
+}]);</script>
+                
+                <section class="module-wrap" id="notice">
+                    <div class="page-header">
+                        <h1>Notice<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/notice">xue.notice</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueNoticeDemoCtrl">
+    <xue-notice notice-config="vm.config"></xue-notice>
+</div>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="notice-settings">notice settings</h3>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'notice')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div>
+                            <uib-tabset active="activeTab">
+                                <uib-tab index="0" heading="Markup">
+                                    <div plunker-content="markup">
+                                        <pre ng-non-bindable>
+                                            <code data-language="html">&lt;div ng-controller=&quot;xueNoticeDemoCtrl&quot;&gt;
+    &lt;xue-notice notice-config=&quot;vm.config&quot;&gt;&lt;/xue-notice&gt;
+&lt;/div&gt;</code>
+                                        </pre>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab index="1" heading="JavaScript">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueNoticeDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+    $scope.vm = {
+        config: {
+            count: 0,
+            selectTabId: 1,
+            listMaxLen: 10,
+            noticeTypeList: [],
+            noticeList: [],
+            tabMark: &#39;number&#39;,
+            tabItem: [{
+                id: 0,
+                name: &#39;通知提醒&#39;,
+                count: 3
+            }, {
+                id: 1,
+                name: &#39;待办事项&#39;,
+                count: 5
+            }, {
+                id: 2,
+                name: &#39;系统公告&#39;,
+                count: 7
+            }],
+            tabItemClick: function (item) {
+                console.log(item)
+            }
+        }
+    }
+}]);</code></pre>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueNoticeDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        config: {
+            count: 0,
+            selectTabId: 1,
+            listMaxLen: 10,
+            noticeTypeList: [],
+            noticeList: [],
+            tabMark: 'number',
+            tabItem: [{
+                id: 0,
+                name: '通知提醒',
+                count: 3
+            }, {
+                id: 1,
+                name: '待办事项',
+                count: 5
+            }, {
+                id: 2,
+                name: '系统公告',
+                count: 7
+            }],
+            tabItemClick: function (item) {
+                console.log(item)
+            }
         }
     }
 }]);</script>

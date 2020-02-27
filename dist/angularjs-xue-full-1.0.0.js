@@ -2,12 +2,12 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-02-26
+ * Version: 1.0.0 - 2020-02-27
  * Require angularjs version: 1.2.32
  * License: ISC
  */
-angular.module("ui.xue", ["ui.xue.tpls", "xue.counter","xue.util.lang","xue.util.string","xue.util.date","xue.datepicker","xue.pagination","xue.select","xue.steps","xue.table","xue.tabs","xue.util.array","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util"]);
-angular.module("ui.xue.tpls", ["xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
+angular.module("ui.xue", ["ui.xue.tpls", "xue.counter","xue.util.lang","xue.util.string","xue.util.date","xue.datepicker","xue.notice","xue.pagination","xue.select","xue.steps","xue.table","xue.tabs","xue.util.array","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util"]);
+angular.module("ui.xue.tpls", ["xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
 /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
 //@ sourceMappingURL=jquery-1.10.2.min.map
 */
@@ -913,6 +913,119 @@ angular.module('xue.datepicker', ['xue.util.date', 'xue.util.lang'])
         }
     }])
 
+angular.module('xue.notice', [])
+.directive('xueNotice',["xueUtilLang","$timeout",function(xueUtilLang,$timeout){
+    return {
+        restrict: "E",
+        replace: true,
+        scope: {
+            noticeConfig : '='
+        },
+        templateUrl: function (element, attrs) {
+            return attrs.templateUrl || "xue/template/notice/notice.html";
+        },
+        link: function(scope,ele,attrs){
+
+            var gxNoticeCtrl = scope.gxNoticeCtrl = {
+                defaultConfig: {
+                    modalId: null,
+                    title: '', // 滑过显示标题
+                    // iconUrl: 'common/directives/images/gx_notice/warn.png', // 图标
+                    width: '366px', // 提示容器宽
+                    height: '266px', // 提示容器高
+                    count: 0, // 总提示记录数，为0时不显示
+                    selectTabId: 0,
+                    tabItem: [{
+                        id: 0,
+                        name: '消息提醒',
+                        count: 2
+                    },{
+                        id: 1,
+                        name: '系统通知',
+                        count: 3
+                    }],
+                    tabMark: 'number', //number 数字 circle 圆点
+                    showNotice: true, // 显示提示内容
+                    formatField: { // 字段名格式化
+                        contentTitle: '',
+                        content: 'content',
+                        time: 'time',
+                        completeContent: '',
+                        contentType: 'contentType',
+                        count: 'count'
+                    },
+                    listMaxLen: 10, // 消息列表最多显示数
+                    noticeList: [], // 提示内容列表，对象：{content: '提示内容',time: '2019-08-20 17:13:55'}
+                    showNoticeType: false, // 显示提示分类（与提示内容应互斥）
+                    noticeTypeList: [], // 提示分类列表，对象：{contentType: '提示分类内容', count: 0}
+                    emptyNoticeTip: '暂没有新消息', // 无消息提示语
+                    showFooter: true, // 是否显示提示尾部操作
+                    footerContent: [{ // 消息提醒尾部操作
+                        name: '当前标记已读',
+                        click:  function(){}
+                    },{
+                        name: '查看全部',
+                        click: function(){}
+                    }],
+                    tabItemClick: function(){},
+                    itemClick: function(){}, //列表项点击回调
+                    loadNextPage: function(){}, //列表滚动到底部加载下一页回调函数
+                    listHide: function(){}, //列表消失回调函数
+                    listShow: function(){} //列表显示回调函数
+                },
+                tabItemClick: function(item){
+                    $('#'+scope.noticeConfig.modalId+' .notice-content').scrollTop(0);
+                    scope.noticeConfig.selectTabId = item.id;
+                    if(xueUtilLang.isFunction(scope.noticeConfig.tabItemClick)){
+                        scope.noticeConfig.tabItemClick(item);
+                    }
+                },
+                showPanel: false,
+                mouseenter: function(){
+                    gxNoticeCtrl.showPanel = true;
+                    var $target = $('#'+scope.noticeConfig.modalId);
+                    var top = $(ele).offset().top,
+                        left = $(ele).offset().left,
+                        width = $(ele).width(),
+                        height = $(ele).height(),
+                        targetWidth = $target.outerWidth();
+                    $target.css({
+                        'top': top + height + 15 + 'px',
+                        'left': left + width/2 - targetWidth/2 + 'px'
+                    });
+                    $('body').append($target);
+                    if($target.is(':hidden')){
+                        $target.fadeIn();
+                        scope.noticeConfig.listShow();
+                    }
+                },
+                mouseleave: function(){
+                    gxNoticeCtrl.showPanel = false;
+                    var $target = $('#'+scope.noticeConfig.modalId);
+                    $timeout(function(){
+                        if(!$target.is(':hidden') && !gxNoticeCtrl.showPanel){
+                            $target.fadeOut();
+                            scope.noticeConfig.listHide();
+                        }
+                    },500);
+                },
+                init: function(){
+                    var self = this;
+                    scope.noticeConfig = angular.extend(self.defaultConfig,scope.noticeConfig);
+                    scope.noticeConfig.modalId = 'gxNotice_'+new Date().getTime();
+                    self.destroy();
+                },
+                destroy: function(){
+                    scope.$on('$destroy',function(){
+                        $("#"+scope.noticeConfig.modalId).remove();
+                    });
+                }
+            }
+
+            gxNoticeCtrl.init();
+        }
+    }
+}])
 angular.module('xue.pagination', [])
 
   .controller('xuePaginationController', ['$scope', '$attrs', '$parse', function ($scope, $attrs, $parse) {
@@ -1139,7 +1252,7 @@ angular.module('xue.select', [])
             scope: {
                 ngChecked: "="
             },
-            template: '<div class="xue-checkbox-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"><i>√</i></div>'
+            template: '<div class="xue-checkbox-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"><i class="xui-icon xui-icon-md-checkmark"></i></div>'
         }
     })
     .directive('xueSelect', ['xueUtilArray', 'xueUtilLang', function (xueUtilArray, xueUtilLang) {
@@ -3955,6 +4068,65 @@ angular.module("xue/template/datepicker/datepicker.html", []).run(["$templateCac
     "</div>");
 }]);
 
+angular.module("xue/template/notice/notice.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("xue/template/notice/notice.html",
+    "<div class=\"xue-notice-container\" ng-mouseenter=\"gxNoticeCtrl.mouseenter()\" ng-mouseleave=\"gxNoticeCtrl.mouseleave()\"> \n" +
+    "    <div class=\"xue-notice-icon\" title=\"{{noticeConfig.title || '消息提醒'}}\">\n" +
+    "        <i class=\"xui-icon xui-icon-md-notifications-outline notice-icon\"></i>\n" +
+    "        <!-- <img class=\"notice-icon\" src=\"\" alt=\"\" onerror=\"javascript:this.src='common/directives/images/gx_notice/warn.png'\"> -->\n" +
+    "        <span class=\"notice-count\" title=\"{{noticeConfig.count}}\" ng-show=\"noticeConfig.count>0\">{{noticeConfig.count>99?'99+':noticeConfig.count}}</span>\n" +
+    "    </div>\n" +
+    "    <div class=\"xue-notice-content-wrap\" id=\"{{noticeConfig.modalId}}\" ng-mouseenter=\"gxNoticeCtrl.mouseenter()\" ng-mouseleave=\"gxNoticeCtrl.mouseleave()\">\n" +
+    "        <div class=\"xue-notice-content\" >\n" +
+    "            <div class=\"notice-tab\">\n" +
+    "                <div class=\"tab-item\" ng-repeat=\"item in noticeConfig.tabItem\" ng-class=\"{true:'active'}[noticeConfig.selectTabId == item.id]\" \n" +
+    "                ng-click=\"gxNoticeCtrl.tabItemClick(item)\">\n" +
+    "                    <span class=\"item-name\">{{item.name}}\n" +
+    "                        <span class=\"item-count\" ng-class=\"{'circle':'circle','number':''}[noticeConfig.tabMark]\" ng-show=\"item.count>0\" title=\"{{item.count}}\">\n" +
+    "                            {{noticeConfig.tabMark == 'number' ? (item.count>99?'99+':item.count) : ''}}\n" +
+    "                        </span>\n" +
+    "                    </span>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"notice-content\" scroll-bottom=\"noticeConfig.loadNextPage()\">\n" +
+    "                <ul>\n" +
+    "                    <li class=\"content-wrap\" ng-if=\"noticeConfig.noticeList.length\" ng-click=\"noticeConfig.itemClick(item)\"\n" +
+    "                        ng-repeat=\"item in noticeConfig.noticeList | limitTo : noticeConfig.listMaxLen\">\n" +
+    "                        <span class=\"content\" title=\"{{item[noticeConfig.formatField.completeContent] || item.completeContent || item[noticeConfig.formatField.content] || item.content}}\">\n" +
+    "                            【<b ng-if=\"noticeConfig.formatField.contentTitle\" class=\"content-title\" title=\"{{item[noticeConfig.formatField.contentTitle] || item.formatField.contentTitle}}\">\n" +
+    "                                {{item[noticeConfig.formatField.contentTitle] || item.formatField.contentTitle}}</b>】\n" +
+    "                            {{item[noticeConfig.formatField.content] || item.content}}\n" +
+    "                        </span>\n" +
+    "                        <span class=\"time\">{{item[noticeConfig.formatField.time] || item.time}}</span>\n" +
+    "                    </li>\n" +
+    "                    <li class=\"content-type-wrap\" ng-if=\"noticeConfig.noticeTypeList.length\" ng-click=\"noticeConfig.itemClick(item)\"\n" +
+    "                        ng-repeat=\"item in noticeConfig.noticeTypeList | limitTo : noticeConfig.listMaxLen\">\n" +
+    "                        <span class=\"content-type\" title=\"{{item[noticeConfig.formatField.contentType] || item.contentType}}\">\n" +
+    "                            <!-- <b ng-if=\"noticeConfig.formatField.contentTitle\">【{{item[noticeConfig.formatField.contentTitle] || item.formatField.contentTitle}}】</b> -->\n" +
+    "                            {{item[noticeConfig.formatField.contentType] || item.contentType}}\n" +
+    "                        </span>\n" +
+    "                        <span class=\"count\">\n" +
+    "                            <i>{{(item[noticeConfig.formatField.count] || item.count)>99?'99+':(item[noticeConfig.formatField.count] || item.count)}}</i>\n" +
+    "                        </span>\n" +
+    "                    </li>\n" +
+    "                    <li ng-if=\"!noticeConfig.noticeList.length && !noticeConfig.noticeTypeList.length\" class=\"no-data-tip\">\n" +
+    "                        {{noticeConfig.emptyNoticeTip}}\n" +
+    "                    </li>\n" +
+    "                    <li ng-if=\"noticeConfig.noticeList.length\">\n" +
+    "                        <p class=\"baseline\" ng-if=\"noticeConfig.tabItem[noticeConfig.selectTabId].count <= 99\">没有更多数据了</p>   \n" +
+    "                        <P class=\"baseline\" ng-if=\"noticeConfig.tabItem[noticeConfig.selectTabId].count > 99\">更多数据请点击右下角查看全部</P> \n" +
+    "                    </li>\n" +
+    "                </ul>\n" +
+    "            </div>\n" +
+    "            <div class=\"notice-footer\" ng-if=\"noticeConfig.showFooter\">\n" +
+    "                <div class=\"footer-item\" ng-repeat=\"item in noticeConfig.footerContent\" ng-show=\"!!item.show\" ng-click=\"item.click()\">{{item.name}}</div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "        <div class=\"triangle\"></div>\n" +
+    "    </div>\n" +
+    "</div>");
+}]);
+
 angular.module("xue/template/pagination/pager.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/pagination/pager.html",
     "<ul class=\"pager\">\n" +
@@ -4017,7 +4189,8 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "                <div class=\"select-filter-wrap\">\n" +
     "                    <input type=\"text\" ng-model=\"selectConfig.myLabel\" class=\"select-filter form-control\" />\n" +
     "                </div>\n" +
-    "                <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\">x</i>\n" +
+    "                <!-- <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\">x</i> -->\n" +
+    "                <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\" class=\"xui-icon xui-icon-ios-trash\"></i>\n" +
     "            </div>\n" +
     "            <ul class=\"select-list\">\n" +
     "                <li ng-click=\"onBeforeSelect(item,$event)\"\n" +
@@ -4061,7 +4234,8 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "                <div class=\"select-filter-wrap\">\n" +
     "                    <input type=\"text\" ng-model=\"selectConfig.myLabel\" class=\"select-filter form-control\" />\n" +
     "                </div>\n" +
-    "                <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\">x</i>\n" +
+    "                <!-- <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\">x</i> -->\n" +
+    "                <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\" class=\"xui-icon xui-icon-ios-trash\"></i>\n" +
     "            </div>\n" +
     "            <ul ng-style=\"showContent\" class=\"select-list\">\n" +
     "                <li ng-click=\"selectLi(item,$event)\"\n" +

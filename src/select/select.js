@@ -6,7 +6,7 @@ angular.module('xue.select', [])
             scope: {
                 ngChecked: "="
             },
-            template: '<div class="xue-checkbox-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"><i>√</i></div>'
+            template: '<div class="xue-checkbox-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"><i class="xui-icon xui-icon-md-checkmark"></i></div>'
         }
     })
     .directive('xueSelect', ['xueUtilArray', 'xueUtilLang', function (xueUtilArray, xueUtilLang) {
