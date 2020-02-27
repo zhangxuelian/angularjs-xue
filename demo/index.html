@@ -45,6 +45,7 @@
                         <div class="child-menu"><a
                                 href="#counter">Counter</a></div><div class="child-menu"><a
                                 href="#datepicker">Datepicker</a></div><div class="child-menu"><a
+                                href="#menu">Menu</a></div><div class="child-menu"><a
                                 href="#notice">Notice</a></div><div class="child-menu"><a
                                 href="#pagination">Pagination</a></div><div class="child-menu"><a
                                 href="#select">Select</a></div><div class="child-menu"><a
@@ -279,6 +280,142 @@ $ npm run demo</code></pre>
         }
     }
 }]);</script>
+                
+                <section class="module-wrap" id="menu">
+                    <div class="page-header">
+                        <h1>Menu<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/menu">xue.menu</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueMenuDemoCtrl">
+    <xue-menu menu-config="menuConfig"></xue-menu>
+</div>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="xue-menu-settings">xue-menu settings</h3>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'menu')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div>
+                            <uib-tabset active="activeTab">
+                                <uib-tab index="0" heading="Markup">
+                                    <div plunker-content="markup">
+                                        <pre ng-non-bindable>
+                                            <code data-language="html">&lt;div ng-controller=&quot;xueMenuDemoCtrl&quot;&gt;
+    &lt;xue-menu menu-config=&quot;menuConfig&quot;&gt;&lt;/xue-menu&gt;
+&lt;/div&gt;</code>
+                                        </pre>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab index="1" heading="JavaScript">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueMenuDemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
+    $scope.menuConfig = {
+        search: true,
+        data: [{
+            id: 1,
+            menuName: &quot;菜单1&quot;,
+            subMenus: [{
+                id: 11,
+                menuName: &quot;菜单项1-1&quot;
+            },{
+                id: 12,
+                menuName: &quot;菜单项1-2&quot;
+            },{
+                id: 13,
+                menuName: &quot;菜单项1-3&quot;
+            },{
+                id: 14,
+                menuName: &quot;菜单项1-4&quot;
+            }]
+        },{
+            id: 2,
+            menuName: &quot;菜单2&quot;,
+            subMenus: [{
+                id: 21,
+                menuName: &quot;菜单项2-1&quot;
+            },{
+                id: 22,
+                menuName: &quot;菜单项2-2&quot;
+            },{
+                id: 23,
+                menuName: &quot;菜单项2-3&quot;
+            },{
+                id: 24,
+                menuName: &quot;菜单项2-4&quot;
+            }]
+        }],
+        clickRouter: function(item) {//导航菜单点击回调
+            console.log(item);
+        },
+        oneDimenName: &#39;menuName&#39;,//一级菜单标题字段名
+        childrenName: &#39;subMenus&#39;,//二维数组对象名
+        twoDimenName: &#39;menuName&#39;//二级菜单标题字段名
+    }
+}]);
+</code></pre>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueMenuDemoCtrl',['$scope',function($scope){
+    $scope.menuConfig = {
+        search: true,
+        data: [{
+            id: 1,
+            menuName: "菜单1",
+            subMenus: [{
+                id: 11,
+                menuName: "菜单项1-1"
+            },{
+                id: 12,
+                menuName: "菜单项1-2"
+            },{
+                id: 13,
+                menuName: "菜单项1-3"
+            },{
+                id: 14,
+                menuName: "菜单项1-4"
+            }]
+        },{
+            id: 2,
+            menuName: "菜单2",
+            subMenus: [{
+                id: 21,
+                menuName: "菜单项2-1"
+            },{
+                id: 22,
+                menuName: "菜单项2-2"
+            },{
+                id: 23,
+                menuName: "菜单项2-3"
+            },{
+                id: 24,
+                menuName: "菜单项2-4"
+            }]
+        }],
+        clickRouter: function(item) {//导航菜单点击回调
+            console.log(item);
+        },
+        oneDimenName: 'menuName',//一级菜单标题字段名
+        childrenName: 'subMenus',//二维数组对象名
+        twoDimenName: 'menuName'//二级菜单标题字段名
+    }
+}]);
+</script>
                 
                 <section class="module-wrap" id="notice">
                     <div class="page-header">

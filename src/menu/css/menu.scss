@@ -1,0 +1,209 @@
+.xui-menu-wrap{
+    width: 100%;
+    height: 100%;
+    /* background: #1B1B1B; */
+    background: #05172f;
+    color: #fff;
+    font-size: 13px;
+    position: relative;
+    &.support-search{
+        padding-top: 45px;
+    }
+    .menu-search{
+        height: 45px;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        border-bottom: solid 1px #2c4465;
+        .menu-ipt{
+            height: 30px;
+            width: 90%;
+            border-radius: 15px;
+            margin-top: 7px;
+            margin-left: 5%;
+            background-color: #1e4673;
+            border: solid 1px #1e4673;
+            color: #9bc6e8;
+            background-image: url(../images/menu_search.png);
+            background-repeat: no-repeat;
+            background-position-x: 5px;
+            background-position-y: 7px;
+            padding-left: 25px;
+            box-sizing: border-box;
+        }
+        .menu-list{
+            position: absolute;
+            top: 38px;
+            width: 90%;
+            left: 5%;
+            z-index: 9999;
+            background: #336dae;
+            color: #fff;
+            border-radius: 5px;
+            ul{
+                list-style: none;
+                li{
+                    height: 28px;
+                    line-height: 28px;
+                    text-align: left;
+                    cursor: pointer;
+                    padding: 0 10px;
+                    color: #a4cded;
+                    &:hover{
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+    .menu-item-wrap{
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+    }
+    .menu-item{
+        width: 100%;
+        .item-title{
+            height: 50px;
+            line-height: 50px;
+            font-size: 16px;
+            width: 100%;
+            padding-left: 35px;
+            padding-right: 40px;
+            position: relative;
+            box-sizing: border-box;
+            /* border-left: solid 5px #1B1B1B; */
+            border-left: solid 5px #05172f; 
+            /* background: #1B1B1B; */
+            background: #05172f;
+            transition: 0.3s ease-out;
+            color: #ddd;
+            &:hover{
+                /* background: #26343F;
+                border-left: solid 5px #26343f;
+                color: #fff; */
+                background: #1e4673;
+                border-left: solid 5px #1e4673;
+            }
+            &:active{
+                /* border-left: solid 5px #0394F9;
+                color: #fff; */
+                background: #1e4673;
+                border-left: solid 5px #177fd1;
+            }
+            &.active{
+                /* background: #074e80;
+                border-left: solid 5px #0394F9;
+                color: #fff; */
+                background: #1e4673;
+                border-left: solid 5px #177fd1;
+                color: #A4CDED;
+            }
+            .title-icon{
+                width:35px;
+                position: absolute;
+                left: 0;
+                height: 100%;
+                text-align: center;
+                img{
+                    width: 16px;
+                    height: 16px;
+                }
+            }
+            .title-content{
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                width: 100%;
+                height: 100%;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            .title-arrow{
+                width: 40px;
+                position: absolute;
+                right: 0;
+                height: 100%;
+                top: 0;
+                text-align: center;
+                i{
+                    display: inline-block;
+                    &.chevron-right{
+                        width: 8px;
+                        height: 13px;
+                        background: url(../images/chevron_right.png);
+                    }
+                    &.chevron-down{
+                        width: 13px;
+                        height: 8px;
+                        background: url(../images/chevron_down.png);
+                    }
+                }
+            }
+        }
+        .item-content{
+            transition: 0.4s ease-out;
+            &.ng-hide{
+                display: block!important;
+                li{
+                    height: 0px;
+                }
+            }
+            ul{
+                list-style-type: none;
+                li{
+                    height: 40px;
+                    line-height: 40px;
+                    font-size: 15px;
+                    padding-left: 39px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    cursor: pointer;
+                    /* border-left: solid 5px #1B1B1B; */
+                    border-left: solid 5px #05172f;
+                    color: #ddd;
+                    transition: 0.3s ease-out;
+                    &.active{
+                        background: #1e4673;
+                        border-left: solid 5px #0394F9;
+                        color: #fff;
+                        &:hover{
+                            border-left: solid 5px #0394F9;
+                        }
+                    }
+                    &:hover{
+                        background: #1e4673;
+                        border-left: solid 5px #1e4673;
+                        color: #fff;
+                    }
+                    &:active{
+                        color: #fff;
+                        border-left: solid 5px #0394F9;
+                    }
+                    img{
+                        width: 14px;
+                        height: 14px;
+                        vertical-align: middle;
+                        margin-left: -10px;
+                    }
+                    span{
+                        margin-left: 5px;
+                        vertical-align: middle;
+                        &:before{
+                            display: inline-block;
+                            content: "";
+                            width: 5px;
+                            height: 5px;
+                            background: #ddd;
+                            border-radius: 3px;
+                            margin-left: -8px;
+                            margin-right: 10px;
+                            vertical-align: middle;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
