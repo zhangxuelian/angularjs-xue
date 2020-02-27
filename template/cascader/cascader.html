@@ -1,0 +1,29 @@
+<div class="xui-cascader-container">
+    <div class="cascader-input-wrapper" 
+        ng-click="cascaderCtrl.toggleSelect($event)" 
+        ng-mouseover="cascaderCtrl.showDelete = true" 
+        ng-mouseleave="cascaderCtrl.showDelete = false">
+            <input ng-model="ngVal" type="text" class="cascader-input" 
+                ng-style="cascaderConfig.css.inputStyle" 
+                ng-class="cascaderConfig.css.inputClassName"
+                placeholder="请选择" title="{{ ngVal }}" readonly>
+            <i class="cascader-icon fa fa-close" ng-if="cascaderCtrl.showDelete && !!ngVal" title="清空" ng-click="cascaderCtrl.clear($event)"></i>
+            <i class="cascader-icon fa fa-caret-down" ng-if="!(cascaderCtrl.showDelete && !!ngVal)" ng-class="{'expanded': cascaderCtrl.showSelect}"></i>
+    </div>
+    <div class="cascader-select-wrapper" 
+        ng-show="cascaderCtrl.showSelect"
+        ng-mouseover="cascaderCtrl.onSelectDiv = true" 
+        ng-mouseleave="cascaderCtrl.onSelectDiv = false">
+            <ul class="select-list" ng-class="cascaderConfig.css.panelClassName"
+                ng-style="cascaderConfig.css.panelStyle" ng-if="list.length" 
+                ng-repeat="list in cascaderCtrl.selectList">
+                    <li class="select-item" 
+                        title="{{ item[cascaderConfig.textField] }}"
+                        ng-class="{'active': item[cascaderConfig.valueField] == cascaderCtrl.selectValue[item.depth]}"
+                        ng-repeat="item in list" ng-click="cascaderCtrl.clickItem(item)">
+                            {{ item[cascaderConfig.textField] }}
+                            <i class="cascader-icon fa fa-angle-right" ng-if="!item.isLeaf"></i>
+                    </li>
+            </ul>
+    </div>
+</div>

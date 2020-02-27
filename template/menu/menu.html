@@ -1,5 +1,6 @@
 <div class="xui-menu-wrap" ng-class="{true:'support-search'}[menuConfig.search]">
     <div class="menu-search" ng-if="menuConfig.search">
+        <i class="menu-search-icon xui-icon xui-icon-md-search"></i>
         <input type="text" class="menu-ipt" ng-model="vm.searchValue" ng-blur="vm.hideSearchBox()">
         <div class="menu-list" ng-show="!!vm.searchValue"
             ng-mouseover="vm.onSearchListDiv = true"
@@ -21,8 +22,8 @@
                     {{item[menuConfig.oneDimenName]}}
                 </div>
                 <div class="title-arrow" ng-if="!!item[menuConfig.childrenName]">
-                    <i ng-if="!item.open" class="chevron-right"></i>
-                    <i ng-if="!!item.open" class="chevron-down"></i>
+                    <i ng-if="!item.open" class="xui-icon xui-icon-md-arrow-forward"></i>
+                    <i ng-if="!!item.open" class="xui-icon xui-icon-md-arrow-down"></i>
                 </div>
             </div>
             <div class="item-content" ng-show="!!item.open && !!item[menuConfig.childrenName]">

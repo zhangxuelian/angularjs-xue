@@ -26,7 +26,7 @@
             </h1>
             <ul>
                 <li><a href="#getting_started">入门指南</a></li>
-                <li><a href="#counter">组件文档</a></li>
+                <li><a href="#cascader">组件文档</a></li>
                 <li>1.0.0</li>
             </ul>
         </div>
@@ -41,8 +41,9 @@
                 </ul>
                 <ul class="node-menu">
                     <li>
-                        <a href="#counter">组件文档</a>
+                        <a href="#cascader">组件文档</a>
                         <div class="child-menu"><a
+                                href="#cascader">Cascader</a></div><div class="child-menu"><a
                                 href="#counter">Counter</a></div><div class="child-menu"><a
                                 href="#datepicker">Datepicker</a></div><div class="child-menu"><a
                                 href="#menu">Menu</a></div><div class="child-menu"><a
@@ -94,6 +95,222 @@ $ npm run test
 $ npm run demo</code></pre>
                     </div>
                 </section>
+                
+                <section class="module-wrap" id="cascader">
+                    <div class="page-header">
+                        <h1>Cascader<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/cascader">xue.cascader</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueCascaderDemoCtrl">
+    <xue-cascader cascader-config="testConfig" ng-val="testValue"></xue-cascader>
+    </br>
+    </br>
+    <xue-cascader cascader-config="areaConfig" ng-val="areaValue"></xue-cascader>
+</div>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="xue-cascader-settings">xue-cascader settings</h3>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'cascader')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div>
+                            <uib-tabset active="activeTab">
+                                <uib-tab index="0" heading="Markup">
+                                    <div plunker-content="markup">
+                                        <pre ng-non-bindable>
+                                            <code data-language="html">&lt;div ng-controller=&quot;xueCascaderDemoCtrl&quot;&gt;
+    &lt;xue-cascader cascader-config=&quot;testConfig&quot; ng-val=&quot;testValue&quot;&gt;&lt;/xue-cascader&gt;
+    &lt;/br&gt;
+    &lt;/br&gt;
+    &lt;xue-cascader cascader-config=&quot;areaConfig&quot; ng-val=&quot;areaValue&quot;&gt;&lt;/xue-cascader&gt;
+&lt;/div&gt;</code>
+                                        </pre>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab index="1" heading="JavaScript">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueCascaderDemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
+    $scope.testValue = &quot;&quot;;
+    $scope.testConfig = {
+        data: [
+            {
+                label: &#39;节点1&#39;,
+                value: 1,
+                children: [{
+                    label: &#39;节点1-1&#39;,
+                    value: 11,
+                    children: [{
+                        label: &#39;节点1-1-1&#39;,
+                        value: 111
+                    }]
+                }, {
+                    label: &#39;节点1-2&#39;,
+                    value: 12
+                }, {
+                    label: &#39;节点1-3&#39;,
+                    value: 13
+                }]
+            },
+            {
+                label: &#39;节点2&#39;,
+                value: 2,
+                children: [{
+                    label: &#39;节点2-1&#39;,
+                    value: 21,
+                    children: [{
+                        label: &#39;节点2-1-1&#39;,
+                        value: 211
+                    }]
+                }, {
+                    label: &#39;节点2-2&#39;,
+                    value: 22,
+                    children: [{
+                        label: &#39;节点2-2-1&#39;,
+                        value: 221
+                    }]
+                }, {
+                    label: &#39;节点2-3&#39;,
+                    value: 23
+                }]
+            },
+            {
+                label: &#39;节点3&#39;,
+                value: 3,
+                children: [{
+                    label: &#39;节点3-1&#39;,
+                    value: 31,
+                    children: [{
+                        label: &#39;节点3-1-1&#39;,
+                        value: 311
+                    }]
+                }, {
+                    label: &#39;节点3-2&#39;,
+                    value: 32
+                }, {
+                    label: &#39;节点3-3&#39;,
+                    value: 33
+                }]
+            }
+        ],
+        css: {
+            inputStyle: {
+                width: &#39;196px&#39;,
+                height: &#39;28px&#39;
+            }
+        }
+    }
+
+    $scope.areaValue = &quot;&quot;;
+    $scope.areaConfig = {
+        type: &#39;area&#39;,
+        css: {
+            inputStyle: {
+                width: &#39;196px&#39;,
+                height: &#39;28px&#39;
+            }
+        }
+    }
+}]);</code></pre>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueCascaderDemoCtrl',['$scope',function($scope){
+    $scope.testValue = "";
+    $scope.testConfig = {
+        data: [
+            {
+                label: '节点1',
+                value: 1,
+                children: [{
+                    label: '节点1-1',
+                    value: 11,
+                    children: [{
+                        label: '节点1-1-1',
+                        value: 111
+                    }]
+                }, {
+                    label: '节点1-2',
+                    value: 12
+                }, {
+                    label: '节点1-3',
+                    value: 13
+                }]
+            },
+            {
+                label: '节点2',
+                value: 2,
+                children: [{
+                    label: '节点2-1',
+                    value: 21,
+                    children: [{
+                        label: '节点2-1-1',
+                        value: 211
+                    }]
+                }, {
+                    label: '节点2-2',
+                    value: 22,
+                    children: [{
+                        label: '节点2-2-1',
+                        value: 221
+                    }]
+                }, {
+                    label: '节点2-3',
+                    value: 23
+                }]
+            },
+            {
+                label: '节点3',
+                value: 3,
+                children: [{
+                    label: '节点3-1',
+                    value: 31,
+                    children: [{
+                        label: '节点3-1-1',
+                        value: 311
+                    }]
+                }, {
+                    label: '节点3-2',
+                    value: 32
+                }, {
+                    label: '节点3-3',
+                    value: 33
+                }]
+            }
+        ],
+        css: {
+            inputStyle: {
+                width: '196px',
+                height: '28px'
+            }
+        }
+    }
+
+    $scope.areaValue = "";
+    $scope.areaConfig = {
+        type: 'area',
+        css: {
+            inputStyle: {
+                width: '196px',
+                height: '28px'
+            }
+        }
+    }
+}]);</script>
                 
                 <section class="module-wrap" id="counter">
                     <div class="page-header">

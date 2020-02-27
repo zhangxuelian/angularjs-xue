@@ -1,0 +1,198 @@
+$menu-bg: #05172f !default;
+$menu-color: $white !default;
+$menu-hover-bg: #1e4673 !default;
+$menu-active-color: #a4cded !default;
+$menu-active-border-color: #177fd1 !default;
+$menu-item-color: #ddd !default;
+$menu-item-active-color: #0394F9 !default;
+
+$menu-search-height: 2.8125rem !default;
+$menu-search-item-height: 1.75rem !default;
+$menu-search-color: #9bc6e8 !default;
+$menu-search-border-width: $border-width !default;
+$menu-search-border-color: #2c4465 !default;
+$menu-search-list-bg: #336dae !default;
+
+.xui-menu-wrap{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: $menu-bg;
+    color: $menu-color;
+    &.support-search{
+        padding-top: $menu-search-height;
+    }
+    .menu-search{
+        height:$menu-search-height;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        border-bottom: $menu-search-border-width solid $menu-search-border-color;
+        .menu-search-icon {
+            position: absolute;
+            font-size: 22px;
+            top: 12px;
+            left: 5%;
+            padding-left: 5px;
+            color: $menu-search-color;
+        }
+        .menu-ipt{
+            height: 30px;
+            width: 90%;
+            border-radius: 15px;
+            margin-top: 7px;
+            margin-left: 5%;
+            background-color: $menu-hover-bg;
+            border-color: $menu-hover-bg;
+            color: $menu-search-color;
+            padding-left: 30px;
+            box-sizing: border-box;
+            outline: 0;
+        }
+        .menu-list{
+            position: absolute;
+            top: 38px;
+            width: 90%;
+            left: 5%;
+            z-index: 9999;
+            background: $menu-search-list-bg;
+            color: $menu-color;
+            border-radius: 5px;
+            ul{
+                list-style: none;
+                li{
+                    height: $menu-search-item-height;
+                    line-height: $menu-search-item-height;
+                    text-align: left;
+                    cursor: pointer;
+                    padding: 0 10px;
+                    color: $menu-active-color;
+                    &:hover{
+                        color: $menu-color;
+                    }
+                }
+            }
+        }
+    }
+    .menu-item-wrap{
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        .menu-item{
+            width: 100%;
+            .item-title{
+                height: 50px;
+                line-height: 50px;
+                font-size: 16px;
+                width: 100%;
+                padding-left: 35px;
+                padding-right: 40px;
+                position: relative;
+                box-sizing: border-box;
+                border-left: solid 5px $menu-bg; 
+                background: $menu-bg;
+                transition: 0.3s ease-out;
+                color: #ddd;
+                &:hover{
+                    background: $menu-hover-bg;
+                    border-left: solid 5px $menu-hover-bg;
+                }
+                &.active{
+                    background: $menu-hover-bg;
+                    border-left: solid 5px $menu-active-border-color;
+                    color: $menu-active-color;
+                }
+                .title-icon{
+                    width:35px;
+                    position: absolute;
+                    left: 0;
+                    height: 100%;
+                    text-align: center;
+                    img{
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+                .title-content{
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    width: 100%;
+                    height: 100%;
+                    font-size: 16px;
+                    cursor: pointer;
+                }
+                .title-arrow{
+                    width: 40px;
+                    position: absolute;
+                    right: 0;
+                    height: 100%;
+                    top: 0;
+                    text-align: center;
+                    i{
+                        font-size: 12px;
+                    }
+                }
+            }
+            .item-content{
+                transition: 0.4s ease-out;
+                &.ng-hide{
+                    display: block!important;
+                    li{
+                        height: 0px;
+                    }
+                }
+                ul{
+                    list-style-type: none;
+                    li{
+                        height: 40px;
+                        line-height: 40px;
+                        font-size: 15px;
+                        padding-left: 39px;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        cursor: pointer;
+                        border-left: solid 5px $menu-bg;
+                        color: $menu-item-color;
+                        transition: 0.3s ease-out;
+                        &.active{
+                            background: $menu-hover-bg;
+                            border-left: solid 5px $menu-item-active-color;
+                            color: $menu-color;
+                            &:hover{
+                                border-left: solid 5px $menu-item-active-color;
+                            }
+                        }
+                        &:hover{
+                            background: $menu-hover-bg;
+                            border-left: solid 5px $menu-hover-bg;
+                            color: $menu-color;
+                        }
+                        img{
+                            width: 14px;
+                            height: 14px;
+                            vertical-align: middle;
+                            margin-left: -10px;
+                        }
+                        span{
+                            margin-left: 5px;
+                            vertical-align: middle;
+                            &:before{
+                                display: inline-block;
+                                content: "";
+                                width: 5px;
+                                height: 5px;
+                                background: $menu-item-color;
+                                border-radius: 3px;
+                                margin-left: -8px;
+                                margin-right: 10px;
+                                vertical-align: middle;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

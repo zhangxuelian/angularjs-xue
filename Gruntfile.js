@@ -117,6 +117,11 @@ module.exports = function (grunt) {
                     src: ['fonts/*'],
                     cwd: 'src/ui/icon_font',
                     dest: 'dist/'
+                },{
+                    expand: true,
+                    src: ['data/*'],
+                    cwd: 'misc',
+                    dest: 'dist/'
                 }]
             },
             demohtml: {
@@ -142,7 +147,7 @@ module.exports = function (grunt) {
             demodist: {
                 files: [{
                     expand: true,
-                    src: ['*.min.*', 'fonts/*'],
+                    src: ['*.min.*', 'fonts/*', 'data/*'],
                     cwd: 'dist',
                     dest: 'demo/assets/'
                 }]

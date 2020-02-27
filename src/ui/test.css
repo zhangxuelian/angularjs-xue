@@ -3596,6 +3596,239 @@ i {
       left: -8px;
       top: -7px; }
 
+.xui-menu-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #05172f;
+  color: #fff; }
+  .xui-menu-wrap.support-search {
+    padding-top: 2.8125rem; }
+  .xui-menu-wrap .menu-search {
+    height: 2.8125rem;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    border-bottom: 1px solid #2c4465; }
+    .xui-menu-wrap .menu-search .menu-search-icon {
+      position: absolute;
+      font-size: 22px;
+      top: 12px;
+      left: 5%;
+      padding-left: 5px;
+      color: #9bc6e8; }
+    .xui-menu-wrap .menu-search .menu-ipt {
+      height: 30px;
+      width: 90%;
+      border-radius: 15px;
+      margin-top: 7px;
+      margin-left: 5%;
+      background-color: #1e4673;
+      border-color: #1e4673;
+      color: #9bc6e8;
+      padding-left: 30px;
+      box-sizing: border-box;
+      outline: 0; }
+    .xui-menu-wrap .menu-search .menu-list {
+      position: absolute;
+      top: 38px;
+      width: 90%;
+      left: 5%;
+      z-index: 9999;
+      background: #336dae;
+      color: #fff;
+      border-radius: 5px; }
+      .xui-menu-wrap .menu-search .menu-list ul {
+        list-style: none; }
+        .xui-menu-wrap .menu-search .menu-list ul li {
+          height: 1.75rem;
+          line-height: 1.75rem;
+          text-align: left;
+          cursor: pointer;
+          padding: 0 10px;
+          color: #a4cded; }
+          .xui-menu-wrap .menu-search .menu-list ul li:hover {
+            color: #fff; }
+  .xui-menu-wrap .menu-item-wrap {
+    width: 100%;
+    height: 100%;
+    overflow: auto; }
+    .xui-menu-wrap .menu-item-wrap .menu-item {
+      width: 100%; }
+      .xui-menu-wrap .menu-item-wrap .menu-item .item-title {
+        height: 50px;
+        line-height: 50px;
+        font-size: 16px;
+        width: 100%;
+        padding-left: 35px;
+        padding-right: 40px;
+        position: relative;
+        box-sizing: border-box;
+        border-left: solid 5px #05172f;
+        background: #05172f;
+        transition: 0.3s ease-out;
+        color: #ddd; }
+        .xui-menu-wrap .menu-item-wrap .menu-item .item-title:hover {
+          background: #1e4673;
+          border-left: solid 5px #1e4673; }
+        .xui-menu-wrap .menu-item-wrap .menu-item .item-title.active {
+          background: #1e4673;
+          border-left: solid 5px #177fd1;
+          color: #a4cded; }
+        .xui-menu-wrap .menu-item-wrap .menu-item .item-title .title-icon {
+          width: 35px;
+          position: absolute;
+          left: 0;
+          height: 100%;
+          text-align: center; }
+          .xui-menu-wrap .menu-item-wrap .menu-item .item-title .title-icon img {
+            width: 16px;
+            height: 16px; }
+        .xui-menu-wrap .menu-item-wrap .menu-item .item-title .title-content {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          width: 100%;
+          height: 100%;
+          font-size: 16px;
+          cursor: pointer; }
+        .xui-menu-wrap .menu-item-wrap .menu-item .item-title .title-arrow {
+          width: 40px;
+          position: absolute;
+          right: 0;
+          height: 100%;
+          top: 0;
+          text-align: center; }
+          .xui-menu-wrap .menu-item-wrap .menu-item .item-title .title-arrow i {
+            font-size: 12px; }
+      .xui-menu-wrap .menu-item-wrap .menu-item .item-content {
+        transition: 0.4s ease-out; }
+        .xui-menu-wrap .menu-item-wrap .menu-item .item-content.ng-hide {
+          display: block !important; }
+          .xui-menu-wrap .menu-item-wrap .menu-item .item-content.ng-hide li {
+            height: 0px; }
+        .xui-menu-wrap .menu-item-wrap .menu-item .item-content ul {
+          list-style-type: none; }
+          .xui-menu-wrap .menu-item-wrap .menu-item .item-content ul li {
+            height: 40px;
+            line-height: 40px;
+            font-size: 15px;
+            padding-left: 39px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            cursor: pointer;
+            border-left: solid 5px #05172f;
+            color: #ddd;
+            transition: 0.3s ease-out; }
+            .xui-menu-wrap .menu-item-wrap .menu-item .item-content ul li.active {
+              background: #1e4673;
+              border-left: solid 5px #0394F9;
+              color: #fff; }
+              .xui-menu-wrap .menu-item-wrap .menu-item .item-content ul li.active:hover {
+                border-left: solid 5px #0394F9; }
+            .xui-menu-wrap .menu-item-wrap .menu-item .item-content ul li:hover {
+              background: #1e4673;
+              border-left: solid 5px #1e4673;
+              color: #fff; }
+            .xui-menu-wrap .menu-item-wrap .menu-item .item-content ul li img {
+              width: 14px;
+              height: 14px;
+              vertical-align: middle;
+              margin-left: -10px; }
+            .xui-menu-wrap .menu-item-wrap .menu-item .item-content ul li span {
+              margin-left: 5px;
+              vertical-align: middle; }
+              .xui-menu-wrap .menu-item-wrap .menu-item .item-content ul li span:before {
+                display: inline-block;
+                content: "";
+                width: 5px;
+                height: 5px;
+                background: #ddd;
+                border-radius: 3px;
+                margin-left: -8px;
+                margin-right: 10px;
+                vertical-align: middle; }
+
+.xui-cascader-container {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle; }
+  .xui-cascader-container .cascader-input-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%; }
+    .xui-cascader-container .cascader-input-wrapper .cascader-input {
+      position: relative;
+      width: 200px;
+      height: 30px;
+      padding: 3px 30px 3px 7px;
+      padding-right: 30px;
+      font-size: 14px;
+      border: 1px solid #cee0f0;
+      border-radius: 4px;
+      color: #555;
+      background-color: #fff;
+      cursor: pointer;
+      transition: border .2s ease-in-out; }
+    .xui-cascader-container .cascader-input-wrapper:hover .close-icon {
+      display: block; }
+    .xui-cascader-container .cascader-input-wrapper .close-icon {
+      display: none; }
+  .xui-cascader-container .cascader-select-wrapper {
+    position: absolute;
+    width: auto;
+    margin: 5px 0;
+    padding: 0;
+    overflow: visible;
+    background-color: #fff;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+    z-index: 900; }
+    .xui-cascader-container .cascader-select-wrapper .select-list {
+      display: inline-block;
+      width: 100px;
+      height: 180px;
+      margin: 0;
+      padding: 5px 0;
+      vertical-align: top;
+      border: 1px solid #e3e8ee;
+      overflow: auto; }
+      .xui-cascader-container .cascader-select-wrapper .select-list .select-item {
+        position: relative;
+        margin: 0;
+        padding: 7px 20px 7px 10px;
+        line-height: 1.5;
+        color: #657180;
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+        transition: all .2s ease-in-out; }
+        .xui-cascader-container .cascader-select-wrapper .select-list .select-item:hover {
+          background: #f3f3f3; }
+        .xui-cascader-container .cascader-select-wrapper .select-list .select-item.active {
+          background-color: #f3f3f3;
+          color: #39f; }
+  .xui-cascader-container .cascader-icon {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    line-height: 1;
+    margin-top: -7px;
+    font-size: 14px;
+    color: #9ea7b4;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out; }
+    .xui-cascader-container .cascader-icon.expanded {
+      transform: rotate(180deg); }
+  .xui-cascader-container ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px; }
+  .xui-cascader-container ::-webkit-scrollbar-button {
+    width: 0; }
+
 .test .test-blue {
   color: #5BABE6; }
 
