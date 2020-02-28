@@ -5215,8 +5215,6 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                      * 元素触发blur事件
                      */
                     triggerBlur: function (val) {
-                        console.log(val);
-                        
                         // 如果没有传值进来，则val会是一个对象
                         var newVal = (typeof val == "string" && val && val !== "NaN") ? $.trim(val) : $.trim(ele[0].value);
                         if (scope.xueValidate.required) {

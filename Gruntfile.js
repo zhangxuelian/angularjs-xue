@@ -117,7 +117,7 @@ module.exports = function (grunt) {
                     src: ['fonts/*'],
                     cwd: 'src/ui/icon_font',
                     dest: 'dist/'
-                },{
+                }, {
                     expand: true,
                     src: ['data/*'],
                     cwd: 'misc',
@@ -151,6 +151,12 @@ module.exports = function (grunt) {
                     cwd: 'dist',
                     dest: 'demo/assets/'
                 }]
+            }
+        },
+        watch: {
+            watchDemo: {
+                files: ['template/**/*.html','src/**/*.*','misc/demo/**/*.*'],
+                tasks: ['demo']
             }
         },
         'ddescribe-iit': {
@@ -331,7 +337,7 @@ module.exports = function (grunt) {
         }
     };
 
-    grunt.registerTask('default', ['enforce', 'delFiles', /* 'ddescribe-iit', */  'eslint', 'sass', 'html2js', 'karma', 'build', 'cssmin','demo']);
+    grunt.registerTask('default', ['enforce', 'delFiles', /* 'ddescribe-iit', */  'eslint', 'sass', 'html2js', 'karma', 'build', 'cssmin', 'justDemo']);
     grunt.registerTask('enforce', `Install commit message enforce script if it doesn't exist`, function () {
         if (!grunt.file.exists('.git/hooks/commit-msg')) {
             grunt.file.copy('misc/validate-commit-msg.js', '.git/hooks/commit-msg');
@@ -394,7 +400,8 @@ module.exports = function (grunt) {
         grunt.task.run(['concat', 'uglify', 'copy:dist', 'makeModuleMappingFile', 'makeRawFilesJs', 'makeVersionsMappingFile']);
 
     });
-    grunt.registerTask('demo', ['delFiles', 'sass', 'html2js', 'build', 'cssmin', 'copy:demohtml','copy:demoassets','copy:demodist']);
+    grunt.registerTask('demo', ['delFiles', 'sass', 'html2js', 'build', 'cssmin', 'copy:demohtml', 'copy:demoassets', 'copy:demodist']);
+    grunt.registerTask('justDemo', ['copy:demohtml', 'copy:demoassets', 'copy:demodist']);
     grunt.registerTask('makeModuleMappingFile', function () {
         var moduleMappingJs = 'demo/assets/module-mapping.json';
         var moduleMappings = grunt.config('moduleFileMapping');
