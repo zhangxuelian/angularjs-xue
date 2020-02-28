@@ -6,7 +6,7 @@
  * Require angularjs version: 1.2.32
  * License: ISC
  */
-angular.module("ui.xue", ["ui.xue.tpls", "xue.autoselect","xue.util.lang","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.menu","xue.notice","xue.pagination","xue.scroller","xue.select","xue.steps","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util"]);
+angular.module("ui.xue", ["ui.xue.tpls", "xue.autoselect","xue.util.lang","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.loading","xue.menu","xue.notice","xue.pagination","xue.scroller","xue.select","xue.steps","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util"]);
 angular.module("ui.xue.tpls", ["xue/template/autoselect/autoselect.html","xue/template/cascader/cascader.html","xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/scroller/scroller.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
 /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
 //@ sourceMappingURL=jquery-1.10.2.min.map
@@ -1274,17 +1274,6 @@ angular.module('xue.directives', [])
             }
         }
     })
-    //keyup监听删除非数字字符
-    .directive("filterNumber", function () {
-        return {
-            link: function (scope, element) {
-                var regex = /\D/g;
-                element.bind('keyup', function () {
-                    this.value = this.value.replace(regex, '');
-                });
-            }
-        }
-    })
     //等待repeat轮询完成
     .directive("repeatFinish", function () {
         return {
@@ -1563,7 +1552,7 @@ angular.module('xue.directives', [])
                 //监听值变化
                 ngModelCtrl.$viewChangeListeners.push(function () {
                     //获取对象中的某个属性path
-                    var path = attrs.gxFilterNumber;
+                    var path = attrs.xueFilterNumber;
                     var value = ngModelCtrl.$viewValue.replace(/[^\d]/g, '');
                     // new Function('scope', 'path', 'value', 'scope.' + path + '=value')(scope, path, value);
                 });
@@ -1638,6 +1627,67 @@ angular.module('xue.directives', [])
             }
         }
     }]);
+angular.module('xue.loading', [])
+    .directive('xueLoading', ['$compile', function ($compile) {
+        return {
+            restrict: "A",
+            scope: {
+                loadingConfig: '=xueLoading'
+            },
+            link: function (scope, ele, attrs) {
+
+                var loadingConfig = {
+                    isShowLoading: false, // false 不显示加载窗
+                    theme: 'default-theme', // 'default-theme','dark-theme'
+                    msg: '', // 加载中需展示的文字，如：'加载中……'
+                    className: '', // 自定义样式类名
+                    loadingTypeClass: 'ball-circus', // 'ball-circus','square-jelly-box','ball-spin-clockwise'
+                    // 'line-spin-clockwise','ball-clip-rotate','ball-pulse-sync'
+                    itemArr: null, //不同加载样式所需的dom数不同。
+                    zIndex: 99
+                }
+                scope.loadingConfig = angular.extend(loadingConfig, scope.loadingConfig);
+                var renderObj = {
+                    template: '<div class="loading-shade" ng-class="loadingConfig.className" ng-style="{\'z-index\':loadingConfig.zIndex}"\
+                        ng-if="loadingConfig.isShowLoading">\
+                        <div class="loading-content" ng-class="loadingConfig.theme">\
+                            <div class="loading-container" ng-class="loadingConfig.loadingTypeClass">\
+                                <div class="loading-item" ng-repeat="x in loadingConfig.itemArr track by $index"></div>\
+                            </div>\
+                            <div class="loading-text">{{loadingConfig.msg}}</div>\
+                        </div>\
+                    </div>',
+                    // 不同的加载样式，需要的dom节点数不一样
+                    createArrByLen: function () {
+                        var loadingItemMap = {
+                            'ball-circus': 5,
+                            'square-jelly-box': 2,
+                            'ball-pulse-sync': 3,
+                            'ball-spin-clockwise': 8,
+                            'line-spin-clockwise': 8,
+                            'ball-clip-rotate': 1
+                        };
+                        var len = loadingItemMap[scope.loadingConfig.loadingTypeClass];
+                        var arr = [],
+                            i = len;
+                        while (i--) {
+                            arr[i] = 0;
+                        }
+                        scope.loadingConfig.itemArr = arr;
+                    },
+                    appendHtml: function () {
+                        var dom = $(renderObj.template);
+                        var render = $compile(dom)(scope);
+                        ele.append(render);
+                    }
+                };
+                renderObj.createArrByLen();
+                renderObj.appendHtml();
+                //销毁
+                scope.$on("$destroy", function () {})
+            }
+        }
+    }])
 angular.module('xue.menu', ['xue.util.lang'])
     .directive('xueMenu',['xueUtilLang', function (xueUtilLang){
         return {

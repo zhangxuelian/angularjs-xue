@@ -1,10 +1,11 @@
-.xue-autoselect-wrap{
+.xue-autoselect-wrap {
     position: relative;
     display: inline-block;
     vertical-align: middle;
     height: 30px;
     line-height: 28px;
-    .select-show{
+
+    .select-show {
         @include select-input;
         text-align: left;
         height: 28px;
@@ -15,7 +16,7 @@
         padding: 0 5px;
         background-position: center right;
         background-repeat: no-repeat;
-        padding-right: 18px!important;
+        padding-right: 18px !important;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
@@ -23,7 +24,8 @@
         box-sizing: border-box;
     }
 }
-.auto-select-content{
+
+.auto-select-content {
     position: absolute;
     display: none;
     top: 29px;
@@ -35,13 +37,15 @@
     border: solid 1px #cee0f0;
     box-shadow: 0px 3px 7px 0px rgba(85, 176, 255, 0.3);
     box-sizing: border-box;
-    ul{
-        width:100% !important;
+
+    ul {
+        width: 100% !important;
         overflow: auto !important;
         height: 100% !important;
         // IE8滚动条箭头颜色，重设原来的浅色调避免弹框太小时完全无滚动条
         scrollbar-arrow-color: #000000;
-        li{
+
+        li {
             width: 100% !important;
             min-height: 28px !important;
             line-height: 28px !important;
@@ -50,45 +54,53 @@
             cursor: pointer;
             text-align: left !important;
             display: table;
-            padding-left:3px;
-            margin: 0!important;
+            padding-left: 3px;
+            margin: 0 !important;
             border-collapse: initial;
             box-sizing: border-box;
-            &:hover{
-                background:#0394f9;
-                color:#fff;
+
+            &:hover {
+                background: #0394f9;
+                color: #fff;
             }
-            input[type='checkbox']{
+
+            input[type='checkbox'] {
                 vertical-align: middle;
                 margin-top: -2px;
                 width: 15px;
                 display: table-cell;
             }
-            span{
+
+            span {
                 display: table-cell;
                 width: 100%;
                 padding: 0 5px;
                 word-break: break-all;
             }
+
             &.empty-data {
                 color: #999;
-                padding: 0!important;
+                padding: 0 !important;
+
                 span {
                     text-align: center;
                     padding: 0;
                     font-size: 12px;
                 }
+
                 &:hover {
                     background: #f8f8f8;
                     color: #999999;
                 }
             }
         }
-        li:last-child{
-            border-bottom:none;
+
+        li:last-child {
+            border-bottom: none;
         }
-        .active{
-            color:#0394f9;
+
+        .active {
+            color: #0394f9;
         }
     }
 }

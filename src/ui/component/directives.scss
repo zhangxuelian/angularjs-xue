@@ -142,12 +142,12 @@
 
 .xue-radio-group-wrap {
     display: inline-block;
-    // width:20px;
     height: 20px;
     line-height: 20px;
     vertical-align: middle;
     position: relative;
     margin-right: 10px;
+    margin-left: 1px;
 
     input.checkbox-input {
         opacity: 0;
@@ -205,38 +205,46 @@
 .xue-toggle-wrap {
     display: inline-block;
     vertical-align: middle;
-    width: 34px;
-    height: 14px;
+    width: 30px;
     position: relative;
     cursor: pointer;
 
     &.active {
         .toggle-bar {
-            // background: url(../images/toggle_bar_bg_active.png);
+            background: #13BA5A;
         }
 
         .toggle-button {
-            right: -1px;
-            left: auto;
-            // background: url(../images/toggle-button_active.png);
+            left: 12px;
+            border: 1px solid #13BA5A;
         }
     }
 
     .toggle-bar {
-        width: 28px;
-        height: 12px;
-        top: 1px;
-        position: absolute;
-        // background: url(../images/toggle_bar_bg.png);
+        transition: All 0.3s ease;
+        -webkit-transition: All 0.3s ease;
+        -moz-transition: All 0.3s ease;
+        -o-transition: All 0.3s ease;
+        width: 100%;
+        height: 20px;
+        background: #CAE7FC;
+        border-radius: 9px;
     }
 
     .toggle-button {
+        transition: All 0.3s ease;
+        -webkit-transition: All 0.3s ease;
+        -moz-transition: All 0.3s ease;
+        -o-transition: All 0.3s ease;
         position: absolute;
-        top: -2px;
-        left: -1px;
-        height: 18px;
         width: 18px;
-        // background: url(../images/toggle-button.png);
+        height: 18px;
+        border-radius: 9px;
+        background: #fff;
+        top: 0;
+        left: 0;
+        border: 1px solid #CEE0F0;
+        box-shadow: 0px 1px 2px 0px rgba(86, 120, 159, 0.15);
     }
 }
 

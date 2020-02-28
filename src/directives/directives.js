@@ -51,17 +51,6 @@ angular.module('xue.directives', [])
             }
         }
     })
-    //keyup监听删除非数字字符
-    .directive("filterNumber", function () {
-        return {
-            link: function (scope, element) {
-                var regex = /\D/g;
-                element.bind('keyup', function () {
-                    this.value = this.value.replace(regex, '');
-                });
-            }
-        }
-    })
     //等待repeat轮询完成
     .directive("repeatFinish", function () {
         return {
@@ -340,7 +329,7 @@ angular.module('xue.directives', [])
                 //监听值变化
                 ngModelCtrl.$viewChangeListeners.push(function () {
                     //获取对象中的某个属性path
-                    var path = attrs.gxFilterNumber;
+                    var path = attrs.xueFilterNumber;
                     var value = ngModelCtrl.$viewValue.replace(/[^\d]/g, '');
                     // new Function('scope', 'path', 'value', 'scope.' + path + '=value')(scope, path, value);
                 });
