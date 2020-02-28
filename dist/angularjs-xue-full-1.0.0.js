@@ -2,11 +2,11 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-02-27
+ * Version: 1.0.0 - 2020-02-28
  * Require angularjs version: 1.2.32
  * License: ISC
  */
-angular.module("ui.xue", ["ui.xue.tpls", "xue.autoselect","xue.counter","xue.util.lang","xue.util.string","xue.util.date","xue.datepicker","xue.menu","xue.notice","xue.pagination","xue.select","xue.steps","xue.table","xue.tabs","xue.util.array","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util"]);
+angular.module("ui.xue", ["ui.xue.tpls", "xue.autoselect","xue.counter","xue.util.lang","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.menu","xue.notice","xue.pagination","xue.select","xue.steps","xue.table","xue.tabs","xue.util.array","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util"]);
 angular.module("ui.xue.tpls", ["xue/template/autoselect/autoselect.html","xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
 /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
 //@ sourceMappingURL=jquery-1.10.2.min.map
@@ -1038,6 +1038,423 @@ angular.module('xue.datepicker', ['xue.util.date', 'xue.util.lang'])
         }
     }])
 
+angular.module('xue.directives', [])
+    //锁定
+    .directive("lockedMask", function () {
+        return {
+            restrict: 'A',
+            scope: {
+                lockedMask: '='
+            },
+            link: function (scope, ele, attrs) {
+                function setMask() {
+                    $(ele).attr("title", scope.lockedMask.tipText);
+                    $(ele).css({
+                        "cursor": "help",
+                        "position": "relative"
+                    });
+                    $(ele).find("#lockedMask").remove();
+                    $(ele).append("<div id='lockedMask' style='width:100%;height:100%;position:absolute;z-index:20; border:solid 1px #F9FAFA;background:url(images/mask.png);top:0;left:0'></div>");
+                    ele.bind("click", function (e) {
+                        // modalExt.modalTip({
+                        //     content: scope.lockedMask.tipText,
+                        //     type: "warning",
+                        //     height: 150
+                        // });
+                        e.stopPropagation();
+                        e.preventDefault();
+                    });
+                    /* ele.find("*").off("click").off("dblclick"); */
+                }
+
+                function removeMask() {
+                    $(ele).removeAttr("title");
+                    $(ele).css({
+                        "cursor": "auto",
+                        "position": "static"
+                    });
+                    $(ele).unbind('click');
+                    $(ele).find("#lockedMask").remove();
+                }
+                if (scope.lockedMask.isLock) {
+                    setMask();
+                }
+                scope.$watch('lockedMask', function (newVal, oldVal) {
+                    if (newVal && newVal.isLock) {
+                        setMask();
+                    } else if (newVal && !newVal.isLock) {
+                        removeMask();
+                    }
+                }, true)
+
+
+            }
+        }
+    })
+    //keyup监听删除非数字字符
+    .directive("filterNumber", function () {
+        return {
+            link: function (scope, element) {
+                var regex = /\D/g;
+                element.bind('keyup', function () {
+                    this.value = this.value.replace(regex, '');
+                });
+            }
+        }
+    })
+    //等待repeat轮询完成
+    .directive("repeatFinish", function () {
+        return {
+            restrict: 'A',
+            link: function (scope, elem, attr) {
+                if (scope.$last == true) {
+                    scope.$eval(attr.repeatFinish);
+                }
+            }
+        }
+    })
+    //等待图片加载完成
+    .directive("loadImage", function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                element.bind('load', function () {
+                    scope.$apply(attrs.loadImage);
+                });
+            }
+        }
+    })
+    //keyup监听删除非数字字符
+    .directive("filterNumber", function () {
+        return {
+            link: function (scope, element) {
+                var regex = /\D/g;
+                element.bind('keyup', function () {
+                    this.value = this.value.replace(regex, '');
+                });
+            }
+        }
+    })
+    //error处理
+    .directive("errSrc", function () {
+        return {
+            link: function (scope, element, attrs) {
+                element.bind("error", function () {
+                    if (attrs.src != attrs.errSrc) {
+                        attrs.$set("src", attrs.errSrc);
+                    }
+                });
+            }
+        }
+    })
+    //鼠标移入显示，移出隐藏
+    .directive('mouseOverLeave', function () {
+        return {
+            restrict: 'A',
+            scope: {
+                hover: "="
+            },
+            link: function (scope, elem, attr) {
+                elem.bind('mouseover', function () {
+                    elem.css("cursor", "pointer");
+                    scope.$apply(function () {
+                        scope.hover = true;
+                    });
+                });
+                elem.bind('mouseleave', function () {
+                    scope.$apply(function () {
+                        scope.hover = false;
+                    });
+                });
+            }
+        }
+    })
+    // radio base on angularjs
+    .directive('xueRadio', function () {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                ngChecked: "="
+            },
+            template: '<div class="xue-radio-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"></div>'
+        }
+    })
+    // checkbox base on angularjs
+    .directive('xueCheckbox', function () {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                ngChecked: "="
+            },
+            template: '<div class="xue-checkbox-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"><i class="xui-icon xui-icon-md-checkmark"></i></div>'
+        }
+    })
+    // toggle switch base on angularjs
+    .directive('xueMultiCheckbox', function () {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                multiType: "=",
+                ngDisabled: "="
+            },
+            template: '<label class="xue-multi-checkbox-wrap">' +
+                '<span class="multi-checkbox" ng-class="{1:\'multi-checkbox-checked\',2:\'multi-checkbox-indeterminate\'}[multiType]"></span>' +
+                '<input type="checkbox" class="multi-checkbox-input" ng-disabled="ngDisabled"></label>'
+        }
+    })
+    //switch开关
+    .directive("xueToggle", function () {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                ngDisabled: '=',
+                toggleConfig: '='
+            },
+            template: "<div class='xue-toggle-wrap' ng-class=\"{true:'active'}[toggleConfig.disabled]\"><div ng-click='switchToggle()'><div class='toggle-bar'></div><div class='toggle-button'></div></div></div>",
+            link: function (scope, ele, attrs) {
+                var toggleConfig = {
+                    disabled: false,
+                    onSelect: function () {}
+                };
+                scope.toggleConfig = angular.extend(toggleConfig, scope.toggleConfig);
+                if (scope.ngDisabled) {
+                    scope.toggleConfig.disabled = scope.ngDisabled;
+                }
+                scope.switchToggle = function () {
+                    /* scope.toggleConfig.disabled = !scope.toggleConfig.disabled;
+                    scope.ngDisabled = scope.toggleConfig.disabled; */
+                    scope.toggleConfig.onSelect(scope.toggleConfig.disabled);
+                }
+                scope.$watch("ngDisabled", function (newVal, oldVal) {
+                    scope.toggleConfig.disabled = newVal;
+                });
+            }
+        }
+    })
+    // toggle switch base on angularjs
+    .directive('xueToggleSwitch', ['xueUtilLang', function (xueUtilLang) {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                ngChecked: "=",
+                toggleClick: "=",
+                clickParam: "="
+            },
+            template: '<label class="xue-toggle-switch-wrap">' +
+                '<input class="swith-checkbox" type="checkbox" ng-model="ngChecked" ng-click="clickEvent()"/>' +
+                '<div class="switch-bg"></div><div class="toggle-btn"></div></label>',
+            link: function (scope, element, attr) {
+                scope.clickEvent = function () {
+                    if (xueUtilLang.isFunction(scope.toggleClick)) {
+                        scope.toggleClick(scope.clickParam || "");
+                    }
+                }
+            }
+        }
+    }])
+    // 单选指令组
+    .directive('xueRadioGroup', ['xueUtilLang', function (xueUtilLang) {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                value: '=', // Radio 的 value
+                label: '=',
+                disabled: '=',
+                radioClick: "&", // 绑定父元素事件
+                name: '=' // 选项值
+            },
+            template: '<div class="xue-radio-group-wrap">' +
+                '<label ng-class="{\'active\':value==label,\'disabled\':disabled}" class="radio-item">' +
+                '<input  class="checkbox-input" type="radio" name="common-radio" ng-disabled="disabled"  value="{{value}}" ng-model="value" ng-click="onChecked(value)"/>' +
+                '</label>' +
+                '<span class="radio-name" ng-click="onChecked(value)" ng-class={\'disabled\':disabled}>{{name}}</span>' +
+                '</div>',
+            link: function (scope, elem, attr) {
+                scope.onChecked = function (value) {
+                    if (scope.label != value && !scope.disabled) {
+                        scope.label = value;
+                    }
+                    if (xueUtilLang.isFunction(scope.radioClick)) {
+                        scope.radioClick();
+                    }
+                }
+            }
+        }
+    }])
+    /**
+     * 无菜单权限页面显示
+     */
+    .directive('menuService', function () {
+        return {
+            restrict: 'A',
+            scope: {
+                menuService: "="
+            },
+            template: '<div class="menu-service-container">' +
+                '<p>{{menuService.text}}</p>' +
+                '</div>'
+        }
+    })
+    //鼠标右键事件指令
+    .directive('ngRightClick', ['$parse', function ($parse) {
+        return function (scope, element, attrs) {
+            var fn = $parse(attrs.ngRightClick);
+            element.bind('contextmenu', function (event) {
+                scope.$apply(function () {
+                    event.preventDefault();
+                    fn(scope, {
+                        $event: event
+                    });
+                });
+            });
+        };
+    }])
+    //插入HTML片段
+    .directive('dyCompile', ['$compile', function ($compile) {
+        return {
+            replace: true,
+            restrict: 'EA',
+            link: function (scope, elm, iAttrs) {
+                var DUMMY_SCOPE = {
+                        $destroy: angular.noop
+                    },
+                    root = elm,
+                    childScope,
+                    destroyChildScope = function () {
+                        (childScope || DUMMY_SCOPE).$destroy();
+                    };
+
+                iAttrs.$observe("html", function (html) {
+                    if (html) {
+                        destroyChildScope();
+                        childScope = scope.$new(false);
+                        var content = $compile(html)(childScope);
+                        root.replaceWith(content);
+                        root = content;
+                    }
+
+                    scope.$on("$destroy", destroyChildScope);
+                });
+            }
+        };
+    }])
+    // ng-model for contenteditable
+    .directive('contenteditable', function () {
+        return {
+            restrict: "A",
+            require: "ngModel",
+            link: function (scope, element, attrs, ctrl) {
+                element.bind('keyup', function () {
+                    scope.$apply(function () {
+                        var html = element.html();
+                        ctrl.$setViewValue(html);
+                    });
+                });
+            }
+        }
+    })
+    //鼠标滚动事件（当滚动到底部时触发）
+    .directive('scrollBottom', function () {
+        return function (scope, element, attrs) {
+            // 内层DIV的滚动加载
+            var raw = element[0];
+            element.bind('scroll', function () {
+                if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
+                    scope.$apply(attrs.scrollBottom);
+                }
+            });
+        };
+    })
+    //$watch删除非数字字符
+    .directive("xueFilterNumber", function () {
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            link: function (scope, ele, attrs, ngModelCtrl) {
+                //监听值变化
+                ngModelCtrl.$viewChangeListeners.push(function () {
+                    //获取对象中的某个属性path
+                    var path = attrs.gxFilterNumber;
+                    var value = ngModelCtrl.$viewValue.replace(/[^\d]/g, '');
+                    // new Function('scope', 'path', 'value', 'scope.' + path + '=value')(scope, path, value);
+                });
+            }
+        }
+    })
+    // 重写title指令
+    .directive('title', ['$timeout', function ($timeout) {
+        return {
+            restrict: "A",
+            link: function (scope, ele, attrs) {
+                scope.oldTitle = null;
+                ele.bind("mouseenter mouseleave click mousewheel", function (e) {
+                    var type = e.type,
+                        self = this;
+                    if (type == 'mouseenter') {
+                        $('body').find("#common-title-tip").remove();
+                        var title = scope.oldTitle = self.title;
+                        self.title = '';
+                        if (title && title.length > 0) {
+                            // 校验table data-ng-bind-html生成的title
+                            if (self.children.length && self.children[0].title && self.parentNode.nodeName == 'TR') {
+                                title = scope.oldTitle = self.children[0].title;
+                                self.children[0].title = '';
+                            }
+                            var showEle = $('<div></div>', {
+                                text: title,
+                                id: 'common-title-tip'
+                            });
+                            showEle.hide();
+                            showEle.appendTo('body');
+                            $timeout(function () {
+                                showEle.show();
+                                chekPosition(e);
+                            }, 500)
+                        }
+                    }
+                    if (type == 'mouseleave') {
+                        $('body').find("#common-title-tip").remove();
+                        if (scope.oldTitle) {
+                            self.title = scope.oldTitle;
+                            scope.oldTitle = null;
+                        }
+                    }
+                    if (type == 'click' || type == 'mousewheel') {
+                        $('body').find("#common-title-tip").remove();
+                    }
+                })
+
+                // 判断title位置
+                function chekPosition(e) {
+                    var panelEle = $('#common-title-tip');
+                    var panelWidth = panelEle.outerWidth(), //提示内容宽度
+                        panelHeight = panelEle.outerHeight(), //提示内容高度
+                        targetHeight = $(ele).outerHeight(), //  hover元素高度
+                        // targetWidth = $(ele).width(),// hover元素宽度
+                        finalLeft = $(ele).offset().left + e.offsetX,
+                        finalTop = $(ele).offset().top + targetHeight;
+                    // 超出右边界
+                    if (finalLeft + panelWidth > document.body.scrollWidth) {
+                        finalLeft = document.body.scrollWidth - panelWidth;
+                    }
+                    // 超出下边界
+                    if (finalTop + panelHeight > document.body.scrollHeight) {
+                        finalTop = document.body.scrollHeight - panelHeight;
+                    }
+                    panelEle.css({
+                        'top': finalTop,
+                        'left': finalLeft
+                    })
+                }
+            }
+        }
+    }]);
 angular.module('xue.menu', ['xue.util.lang'])
     .directive('xueMenu',['xueUtilLang', function (xueUtilLang){
         return {
@@ -1515,16 +1932,7 @@ angular.module('xue.pagination', [])
     };
   }]);
 angular.module('xue.select', [])
-    .directive('xueCheckbox', function () {
-        return {
-            restrict: "E",
-            replace: true,
-            scope: {
-                ngChecked: "="
-            },
-            template: '<div class="xue-checkbox-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"><i class="xui-icon xui-icon-md-checkmark"></i></div>'
-        }
-    })
+
     .directive('xueSelect', ['xueUtilArray', 'xueUtilLang', function (xueUtilArray, xueUtilLang) {
         return {
             restrict: "E",
@@ -1539,282 +1947,283 @@ angular.module('xue.select', [])
             templateUrl: function (element, attrs) {
                 return attrs.templateUrl || "xue/template/select/select.html";
             },
-            link:function(scope,ele,attrs){
+            link: function (scope, ele, attrs) {
                 var assistVar = {
-                   unbindWatch1:null,
-                   unbindWatch2:null,
-                   unbindWatch3:null,
-                   unbindWatch4:null
-               }
-               //common select config
-               var selectConfig = {
-                   filter : true,//过滤器开关 为false时与select标签功能一致
-                   enableEmpty: true, //是否可以置空
-                   separate : true,//输入与过滤分离 为false时输入与过滤合并为一体
-                   checkbox : false,//多选开关
-                   position : 'down',//面板显示位置,默认在下
-                   data : [],//select数据源（数组）
-                   valueField : 'value',//对应选项value值
-                   textField : 'label',//显示在输入框中的字段名
-                   textFieldFormat: function(){},//自定义显示在输入框中的内容
-                   height : '28px',//输入框高度
-                   panelHeight : '250px',//面板高度
-                   panelWidth : '180px',//面板以及输入框宽度
-                   showLimit : 50,//匹配前n条记录
-                   inputLabel : "",//输入框内容
-                   myLabel : "",
-                   setValue : '',//设置值
-                   value : '',//值
-                   label : '',//输入框的值
-                   checkRows : [],//选中数组Row
-                   checkLimit : null,//最多选n条记录
-                   checkRowsMap : {},//选中记录map
-                   onBeforeSelect: function(){}, // 选择前回调
-                   onSelect : function(){},//选择回调
-                   assign:function(){},//赋值回调
-                   clearAll : function(){},//清空回调
-                   disabled : false,//disabled开关
-                   cancelWatch : function(){//取消监听（取消后重新设置data和setValue都不会监听到，慎用）
-                       assistVar.unbindWatch2();
-                   },
-                   reset:function(){//重置
-                       scope.selectConfig.value = '';
-                       if(typeof(attrs.getVal) != 'undefined'){
-                           scope.getVal = '';
-                       }
-                       scope.selectConfig.label = '';
-                       scope.selectConfig.checkRows = [];
-                       scope.selectConfig.setValue = '';
-                       ele.find(".select-show").val('');
-                       ele.find(".select-show").attr('title','');
-                       scope.selectConfig.checkRowsMap = {};
-                   }
-               };
-               
-               //extend
-               scope.selectConfig = angular.extend(selectConfig,scope.selectConfig);
-               if(scope.ngDisabled){
-                   scope.selectConfig.disabled = true;
-               }
-               
-               //textFieldFormat
-               scope.textFieldFormat = function(item){
-                   if(xueUtilLang.isFunction(scope.selectConfig.textFieldFormat)){
-                       item[scope.selectConfig.textField] = scope.selectConfig.textFieldFormat(item) || item[scope.selectConfig.textField] || "";
-                   }
-               }
+                    unbindWatch1: null,
+                    unbindWatch2: null,
+                    unbindWatch3: null,
+                    unbindWatch4: null
+                }
+                //common select config
+                var selectConfig = {
+                    filter: true, //过滤器开关 为false时与select标签功能一致
+                    enableEmpty: true, //是否可以置空
+                    separate: true, //输入与过滤分离 为false时输入与过滤合并为一体
+                    checkbox: false, //多选开关
+                    position: 'down', //面板显示位置,默认在下
+                    data: [], //select数据源（数组）
+                    valueField: 'value', //对应选项value值
+                    textField: 'label', //显示在输入框中的字段名
+                    textFieldFormat: function () {}, //自定义显示在输入框中的内容
+                    height: '28px', //输入框高度
+                    panelHeight: '250px', //面板高度
+                    panelWidth: '180px', //面板以及输入框宽度
+                    showLimit: 50, //匹配前n条记录
+                    inputLabel: "", //输入框内容
+                    myLabel: "",
+                    setValue: '', //设置值
+                    value: '', //值
+                    label: '', //输入框的值
+                    checkRows: [], //选中数组Row
+                    checkLimit: null, //最多选n条记录
+                    checkRowsMap: {}, //选中记录map
+                    onBeforeSelect: function () {}, // 选择前回调
+                    onSelect: function () {}, //选择回调
+                    assign: function () {}, //赋值回调
+                    clearAll: function () {}, //清空回调
+                    disabled: false, //disabled开关
+                    cancelWatch: function () { //取消监听（取消后重新设置data和setValue都不会监听到，慎用）
+                        assistVar.unbindWatch2();
+                    },
+                    reset: function () { //重置
+                        scope.selectConfig.value = '';
+                        if (typeof (attrs.getVal) != 'undefined') {
+                            scope.getVal = '';
+                        }
+                        scope.selectConfig.label = '';
+                        scope.selectConfig.checkRows = [];
+                        scope.selectConfig.setValue = '';
+                        ele.find(".select-show").val('');
+                        ele.find(".select-show").attr('title', '');
+                        scope.selectConfig.checkRowsMap = {};
+                    }
+                };
 
-               //element
+                //extend
+                scope.selectConfig = angular.extend(selectConfig, scope.selectConfig);
+                if (scope.ngDisabled) {
+                    scope.selectConfig.disabled = true;
+                }
+
+                //textFieldFormat
+                scope.textFieldFormat = function (item) {
+                    if (xueUtilLang.isFunction(scope.selectConfig.textFieldFormat)) {
+                        item[scope.selectConfig.textField] = scope.selectConfig.textFieldFormat(item) || item[scope.selectConfig.textField] || "";
+                    }
+                }
+
+                //element
                 ele = $(attrs.$$element);
 
-               //get label and value from checkRows
-               scope.getData = function(){
-                   var label = "", value = "";
-                   if(scope.selectConfig.checkRows.length != 0){
-                       scope.selectConfig.checkRowsMap = {};
-                       $.each(scope.selectConfig.checkRows,function(i,item){
-                           scope.textFieldFormat(item);
-                           label += item[scope.selectConfig.textField]+",";
-                           value += item[scope.selectConfig.valueField]+",";
-                           scope.selectConfig.checkRowsMap[item[scope.selectConfig.valueField]] = true;
-                       });
-                       if(label){
-                           label = label.substring(0,label.length - 1);
-                           value = value.substring(0,value.length - 1);
-                       }
-                   }
-                   scope.selectConfig.label = label;
-                   scope.selectConfig.value = value;
-                   if(typeof(attrs.getVal) != 'undefined'){
-                       scope.getVal = value;
-                   }
-                   ele.find(".select-show").val(label);
-                   ele.find(".select-show").attr("title",label);
-                   scope.selectConfig.inputLabel = label;
-               }
+                //get label and value from checkRows
+                scope.getData = function () {
+                    var label = "",
+                        value = "";
+                    if (scope.selectConfig.checkRows.length != 0) {
+                        scope.selectConfig.checkRowsMap = {};
+                        $.each(scope.selectConfig.checkRows, function (i, item) {
+                            scope.textFieldFormat(item);
+                            label += item[scope.selectConfig.textField] + ",";
+                            value += item[scope.selectConfig.valueField] + ",";
+                            scope.selectConfig.checkRowsMap[item[scope.selectConfig.valueField]] = true;
+                        });
+                        if (label) {
+                            label = label.substring(0, label.length - 1);
+                            value = value.substring(0, value.length - 1);
+                        }
+                    }
+                    scope.selectConfig.label = label;
+                    scope.selectConfig.value = value;
+                    if (typeof (attrs.getVal) != 'undefined') {
+                        scope.getVal = value;
+                    }
+                    ele.find(".select-show").val(label);
+                    ele.find(".select-show").attr("title", label);
+                    scope.selectConfig.inputLabel = label;
+                }
 
-               //assign
-               assistVar.unbindWatch1 = scope.$watch("setVal",function(newValue,oldValue){
-                   if(typeof(newValue) != 'undefined'){
-                       scope.selectConfig.setValue = newValue;
-                   }
-               });
-               
-               assistVar.unbindWatch2 = scope.$watch("selectConfig.data + selectConfig.setValue",function(newValue,oldValue){
-                   if(scope.selectConfig && typeof(scope.selectConfig.setValue) != 'undefined'){
-                       if(scope.selectConfig.checkbox){//多选
-                           var valueArr = scope.selectConfig.setValue.split(",");
-                           var rows = xueUtilArray.findInArrByKeys(scope.selectConfig.data,scope.selectConfig.valueField,valueArr) || [];
-                           scope.selectConfig.checkRows = rows;
-                           scope.getData();
-                       }else{//单选
-                           var index = xueUtilArray.findObjIndex(scope.selectConfig.data,scope.selectConfig.valueField,scope.selectConfig.setValue);
-                           if(index != -1){
-                               scope.selectConfig.checkRows = [];
-                               scope.selectConfig.checkRows.push(scope.selectConfig.data[index]);
-                               scope.getData();
-                           }
-                       }
-                   }
-               },true);
+                //assign
+                assistVar.unbindWatch1 = scope.$watch("setVal", function (newValue, oldValue) {
+                    if (typeof (newValue) != 'undefined') {
+                        scope.selectConfig.setValue = newValue;
+                    }
+                });
 
-               //assign
-               assistVar.unbindWatch3 = scope.$watch("selectConfig.value",function(newValue,oldValue){
-                   if(scope.selectConfig && xueUtilLang.isFunction(scope.selectConfig.assign) && scope.selectConfig.checkRows.length){
-                       scope.selectConfig.assign(scope.selectConfig.checkRows);
-                   }
-               })
+                assistVar.unbindWatch2 = scope.$watch("selectConfig.data + selectConfig.setValue", function (newValue, oldValue) {
+                    if (scope.selectConfig && typeof (scope.selectConfig.setValue) != 'undefined') {
+                        if (scope.selectConfig.checkbox) { //多选
+                            var valueArr = scope.selectConfig.setValue.split(",");
+                            var rows = xueUtilArray.findInArrByKeys(scope.selectConfig.data, scope.selectConfig.valueField, valueArr) || [];
+                            scope.selectConfig.checkRows = rows;
+                            scope.getData();
+                        } else { //单选
+                            var index = xueUtilArray.findObjIndex(scope.selectConfig.data, scope.selectConfig.valueField, scope.selectConfig.setValue);
+                            if (index != -1) {
+                                scope.selectConfig.checkRows = [];
+                                scope.selectConfig.checkRows.push(scope.selectConfig.data[index]);
+                                scope.getData();
+                            }
+                        }
+                    }
+                }, true);
 
-               //layout
-              scope.selectClass = attrs.selectClass;
-               scope.contentStyle = {
-                   width:scope.selectConfig.panelWidth,
-                   height:scope.selectConfig.panelHeight,
-                   top:scope.selectConfig.height
-               }
-               scope.showStyle = {
-                   width:scope.selectConfig.panelWidth,
-                   height:scope.selectConfig.height
-               }
-               
-               //listener
-               assistVar.unbindWatch4 = scope.$watch("ngDisabled",function(newValue,oldValue){
-                   if(newValue){
-                       scope.selectConfig.disabled = true;
-                   }else if(typeof(newValue) != 'undefined'){
-                       scope.selectConfig.disabled = false;
-                   }
-               });
-               
-               scope.focus = function(){
-                   $(".select-content").hide();
-                   if(ele.find(".select-content").is(":hidden")){
-                       ele.find(".select-content").show();
-                       //单选可过滤且分离
-                       if((!scope.selectConfig.checkbox && scope.selectConfig.filter && scope.selectConfig.separate) || scope.selectConfig.checkbox){
-                           ele.find(".select-content>input[type='text']").focus();
-                       }
-                   }else{
-                       //ele.find(".select-content").hide();
-                   }
-               }
-               
-               scope.clear = function(){
-                   scope.selectConfig.value = '';
-                   if(typeof(attrs.getVal) != 'undefined'){
-                       scope.getVal = '';
-                   }
-                   scope.selectConfig.label = '';
-                   scope.selectConfig.checkRows = [];
-                   ele.find(".select-show").val('');
-                   ele.find(".select-show").attr('title','');
-                   scope.selectConfig.setValue = '';
-                   scope.selectConfig.clearAll();
-                   scope.selectConfig.checkRowsMap = {};
-               }
+                //assign
+                assistVar.unbindWatch3 = scope.$watch("selectConfig.value", function (newValue, oldValue) {
+                    if (scope.selectConfig && xueUtilLang.isFunction(scope.selectConfig.assign) && scope.selectConfig.checkRows.length) {
+                        scope.selectConfig.assign(scope.selectConfig.checkRows);
+                    }
+                })
 
-               $(document).off("click");
-               $(document).on("click",function(e){
-                   if((typeof e.target.className) == 'string' && e.target.className.indexOf("select-content") == -1
-                   && e.target.className.indexOf("select-show") == -1 
-                      && $(e.target).parents(".xui-select-warp").length == 0
-                   ){
-                       $(".select-content").hide();
-                   }
-               });
+                //layout
+                scope.selectClass = attrs.selectClass;
+                scope.contentStyle = {
+                    width: scope.selectConfig.panelWidth,
+                    height: scope.selectConfig.panelHeight,
+                    top: scope.selectConfig.height
+                }
+                scope.showStyle = {
+                    width: scope.selectConfig.panelWidth,
+                    height: scope.selectConfig.height
+                }
 
-               scope.changeIpt = function(){
-                   if(scope.selectConfig.inputLabel == ""){
-                       if(xueUtilLang.isFunction(scope.selectConfig.clearAll)){
-                           scope.selectConfig.value = '';
-                           if(typeof(attrs.getVal) != 'undefined'){
-                               scope.getVal = '';
-                           }
-                           scope.selectConfig.label = '';
-                           scope.selectConfig.checkRows = [];
-                           scope.selectConfig.clearAll();
-                       }
-                   }
-               } 
+                //listener
+                assistVar.unbindWatch4 = scope.$watch("ngDisabled", function (newValue, oldValue) {
+                    if (newValue) {
+                        scope.selectConfig.disabled = true;
+                    } else if (typeof (newValue) != 'undefined') {
+                        scope.selectConfig.disabled = false;
+                    }
+                });
 
-               //单选
-               scope.selectSingle = function(row){
-                   if(!scope.selectConfig.checkRowsMap[row[scope.selectConfig.valueField]]){
-                       scope.checkOne(row);
-                   }else{
-                       scope.disCheck(row);
-                   }
-               }
-               scope.disCheck = function(row){
-                   var lastData = [];
-                   var lastMapData = {};
-                   angular.forEach(scope.selectConfig.checkRows,function(item,index) {
-                       if(item[scope.selectConfig.valueField]===row[scope.selectConfig.valueField]){
-                           //scope.selectConfig.checkRows.splice(index,1);
-                       }else{
-                           lastData.push(item);
-                           lastMapData[item[scope.selectConfig.valueField]] = false;
-                       }
-                   });
-                   scope.selectConfig.checkRows = lastData;
-                   scope.selectConfig.checkRowsMap=lastMapData;
-                   
-               }
-               scope.checkOne = function(row){
-                   if(!scope.selectConfig.checkRowsMap[row[scope.selectConfig.valueField]]){
-                       scope.selectConfig.checkRows.push(row);
-                       scope.selectConfig.checkRowsMap[row[scope.selectConfig.valueField]] = true;
-                   }
-               }
-            //    scope.test = false;
-               scope.onBeforeSelect = function(item,event){
-                   var stopSelect = scope.selectConfig.onBeforeSelect(item,scope.ngItem);
-                   if (!stopSelect && typeof(stopSelect) != 'undefined') {
-                       ele.find(".select-content").hide();
-                       return;
-                   }
-                   scope.onSelect(item,event);
-               }
-               //onSelect
-               scope.onSelect = function(item,event){
-                   if(scope.selectConfig.checkbox){
-                       if(!item[scope.selectConfig.valueField]){
-                           if(scope.selectConfig.checkLimit){
-                               if(scope.selectConfig.checkLimit == scope.selectConfig.checkRows.length){
-                                //    modalExt.modalTip({content:"最多只能选"+scope.selectConfig.checkLimit+"个选项！",type:"warning"});
-                                   return;
-                               }
-                           }
-                       }
-                       scope.selectSingle(item);
-                   }else{
-                       ele.find(".select-content").hide();
-                       scope.selectConfig.checkRows = [];
-                       scope.selectConfig.checkRows.push(item);
-                   }
-                   scope.getData();
-                   if(xueUtilLang.isFunction(scope.selectConfig.onSelect)){
-                       scope.selectConfig.onSelect(item,scope.ngItem);
-                   }
-               }
-               //selectLi
-               scope.selectLi = function(item,event){
-                   if($(event.target)[0].nodeName == "INPUT"){
-                       return;
-                   }
-                   scope.onBeforeSelect(item,event);
-               }
+                scope.focus = function () {
+                    $(".select-content").hide();
+                    if (ele.find(".select-content").is(":hidden")) {
+                        ele.find(".select-content").show();
+                        //单选可过滤且分离
+                        if ((!scope.selectConfig.checkbox && scope.selectConfig.filter && scope.selectConfig.separate) || scope.selectConfig.checkbox) {
+                            ele.find(".select-content>input[type='text']").focus();
+                        }
+                    } else {
+                        //ele.find(".select-content").hide();
+                    }
+                }
 
-               //销毁
-               scope.$on("$destroy", function() {
-                   assistVar.unbindWatch1();
-                   assistVar.unbindWatch2();
-                   assistVar.unbindWatch3();
-                   assistVar.unbindWatch4();
-                   scope.selectConfig = null;
-                   $(ele).remove();
-               })
-           }
+                scope.clear = function () {
+                    scope.selectConfig.value = '';
+                    if (typeof (attrs.getVal) != 'undefined') {
+                        scope.getVal = '';
+                    }
+                    scope.selectConfig.label = '';
+                    scope.selectConfig.checkRows = [];
+                    ele.find(".select-show").val('');
+                    ele.find(".select-show").attr('title', '');
+                    scope.selectConfig.setValue = '';
+                    scope.selectConfig.clearAll();
+                    scope.selectConfig.checkRowsMap = {};
+                }
+
+                $(document).off("click");
+                $(document).on("click", function (e) {
+                    if ((typeof e.target.className) == 'string' && e.target.className.indexOf("select-content") == -1 &&
+                        e.target.className.indexOf("select-show") == -1 &&
+                        $(e.target).parents(".xui-select-warp").length == 0
+                    ) {
+                        $(".select-content").hide();
+                    }
+                });
+
+                scope.changeIpt = function () {
+                    if (scope.selectConfig.inputLabel == "") {
+                        if (xueUtilLang.isFunction(scope.selectConfig.clearAll)) {
+                            scope.selectConfig.value = '';
+                            if (typeof (attrs.getVal) != 'undefined') {
+                                scope.getVal = '';
+                            }
+                            scope.selectConfig.label = '';
+                            scope.selectConfig.checkRows = [];
+                            scope.selectConfig.clearAll();
+                        }
+                    }
+                }
+
+                //单选
+                scope.selectSingle = function (row) {
+                    if (!scope.selectConfig.checkRowsMap[row[scope.selectConfig.valueField]]) {
+                        scope.checkOne(row);
+                    } else {
+                        scope.disCheck(row);
+                    }
+                }
+                scope.disCheck = function (row) {
+                    var lastData = [];
+                    var lastMapData = {};
+                    angular.forEach(scope.selectConfig.checkRows, function (item, index) {
+                        if (item[scope.selectConfig.valueField] === row[scope.selectConfig.valueField]) {
+                            //scope.selectConfig.checkRows.splice(index,1);
+                        } else {
+                            lastData.push(item);
+                            lastMapData[item[scope.selectConfig.valueField]] = false;
+                        }
+                    });
+                    scope.selectConfig.checkRows = lastData;
+                    scope.selectConfig.checkRowsMap = lastMapData;
+
+                }
+                scope.checkOne = function (row) {
+                    if (!scope.selectConfig.checkRowsMap[row[scope.selectConfig.valueField]]) {
+                        scope.selectConfig.checkRows.push(row);
+                        scope.selectConfig.checkRowsMap[row[scope.selectConfig.valueField]] = true;
+                    }
+                }
+                //    scope.test = false;
+                scope.onBeforeSelect = function (item, event) {
+                    var stopSelect = scope.selectConfig.onBeforeSelect(item, scope.ngItem);
+                    if (!stopSelect && typeof (stopSelect) != 'undefined') {
+                        ele.find(".select-content").hide();
+                        return;
+                    }
+                    scope.onSelect(item, event);
+                }
+                //onSelect
+                scope.onSelect = function (item, event) {
+                    if (scope.selectConfig.checkbox) {
+                        if (!item[scope.selectConfig.valueField]) {
+                            if (scope.selectConfig.checkLimit) {
+                                if (scope.selectConfig.checkLimit == scope.selectConfig.checkRows.length) {
+                                    //    modalExt.modalTip({content:"最多只能选"+scope.selectConfig.checkLimit+"个选项！",type:"warning"});
+                                    return;
+                                }
+                            }
+                        }
+                        scope.selectSingle(item);
+                    } else {
+                        ele.find(".select-content").hide();
+                        scope.selectConfig.checkRows = [];
+                        scope.selectConfig.checkRows.push(item);
+                    }
+                    scope.getData();
+                    if (xueUtilLang.isFunction(scope.selectConfig.onSelect)) {
+                        scope.selectConfig.onSelect(item, scope.ngItem);
+                    }
+                }
+                //selectLi
+                scope.selectLi = function (item, event) {
+                    if ($(event.target)[0].nodeName == "INPUT") {
+                        return;
+                    }
+                    scope.onBeforeSelect(item, event);
+                }
+
+                //销毁
+                scope.$on("$destroy", function () {
+                    assistVar.unbindWatch1();
+                    assistVar.unbindWatch2();
+                    assistVar.unbindWatch3();
+                    assistVar.unbindWatch4();
+                    scope.selectConfig = null;
+                    $(ele).remove();
+                })
+            }
         }
     }])
 angular.module('xue.steps', [])

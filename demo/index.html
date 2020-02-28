@@ -46,6 +46,7 @@
                                 href="#autoselect">Autoselect</a></div><div class="child-menu"><a
                                 href="#counter">Counter</a></div><div class="child-menu"><a
                                 href="#datepicker">Datepicker</a></div><div class="child-menu"><a
+                                href="#directives">Directives</a></div><div class="child-menu"><a
                                 href="#menu">Menu</a></div><div class="child-menu"><a
                                 href="#notice">Notice</a></div><div class="child-menu"><a
                                 href="#pagination">Pagination</a></div><div class="child-menu"><a
@@ -137,10 +138,10 @@ $ npm run demo</code></pre>
                                         <pre
                                             ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueAutoSelectDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     $scope.vm = {
-        value:&#39;&#39;,
+        value: &#39;&#39;,
         config: {
-            data: [ &quot;身份证&quot;,&quot;护照&quot;,&quot;居住证&quot;,&quot;驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证&quot;,&#39;往来通行证&#39;,&#39;港澳通行证&#39;],
-            selectCallback: function(item){
+            data: [&quot;身份证&quot;, &quot;护照&quot;, &quot;居住证&quot;, &quot;驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证&quot;, &#39;往来通行证&#39;, &#39;港澳通行证&#39;],
+            selectCallback: function (item) {
                 console.log(item);
             }
         }
@@ -154,10 +155,10 @@ $ npm run demo</code></pre>
                 </section>
                 <script>angular.module('ui.xue.demo').controller('xueAutoSelectDemoCtrl', ['$scope', function ($scope) {
     $scope.vm = {
-        value:'',
+        value: '',
         config: {
-            data: [ "身份证","护照","居住证","驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证",'往来通行证','港澳通行证'],
-            selectCallback: function(item){
+            data: ["身份证", "护照", "居住证", "驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证", '往来通行证', '港澳通行证'],
+            selectCallback: function (item) {
                 console.log(item);
             }
         }
@@ -349,6 +350,100 @@ $ npm run demo</code></pre>
         }
     }
 }]);</script>
+                
+                <section class="module-wrap" id="directives">
+                    <div class="page-header">
+                        <h1>Directives<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/directives">xue.directives</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueDirectivesDemoCtrl">
+    单选框：<xue-radio ng-checked="vm.ischeck" ng-click="vm.ischeck=!vm.ischeck"></xue-radio>
+    <xue-radio ng-checked="!vm.ischeck"></xue-radio>
+    复选框：<xue-checkbox ng-checked="vm.ischeck" ng-click="vm.ischeck=!vm.ischeck"></xue-checkbox>
+
+    <xue-toggle toggle-config="vm.toggleConfig" ng-disabled="vm.toggleConfig.disabled"></xue-toggle>
+    <xue-toggle-switch ng-checked="vm.isOpen"></xue-toggle-switch>
+
+    <div>单选组</div>
+    <xue-radio-group name="'通过'" label="vm.approvalStatus" value="'Y'" radio-click="vm.approvalStatus='Y'">
+    </xue-radio-group>
+    <xue-radio-group name="'不通过'" label="vm.approvalStatus" value="'N'" radio-click="vm.approvalStatus='N'">
+    </xue-radio-group>
+</div>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h1 id="test-directives">test directives</h1>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'directives')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div>
+                            <uib-tabset active="activeTab">
+                                <uib-tab index="0" heading="Markup">
+                                    <div plunker-content="markup">
+                                        <pre ng-non-bindable>
+                                            <code data-language="html">&lt;div ng-controller=&quot;xueDirectivesDemoCtrl&quot;&gt;
+    单选框：&lt;xue-radio ng-checked=&quot;vm.ischeck&quot; ng-click=&quot;vm.ischeck=!vm.ischeck&quot;&gt;&lt;/xue-radio&gt;
+    &lt;xue-radio ng-checked=&quot;!vm.ischeck&quot;&gt;&lt;/xue-radio&gt;
+    复选框：&lt;xue-checkbox ng-checked=&quot;vm.ischeck&quot; ng-click=&quot;vm.ischeck=!vm.ischeck&quot;&gt;&lt;/xue-checkbox&gt;
+
+    &lt;xue-toggle toggle-config=&quot;vm.toggleConfig&quot; ng-disabled=&quot;vm.toggleConfig.disabled&quot;&gt;&lt;/xue-toggle&gt;
+    &lt;xue-toggle-switch ng-checked=&quot;vm.isOpen&quot;&gt;&lt;/xue-toggle-switch&gt;
+
+    &lt;div&gt;单选组&lt;/div&gt;
+    &lt;xue-radio-group name=&quot;&#39;通过&#39;&quot; label=&quot;vm.approvalStatus&quot; value=&quot;&#39;Y&#39;&quot; radio-click=&quot;vm.approvalStatus=&#39;Y&#39;&quot;&gt;
+    &lt;/xue-radio-group&gt;
+    &lt;xue-radio-group name=&quot;&#39;不通过&#39;&quot; label=&quot;vm.approvalStatus&quot; value=&quot;&#39;N&#39;&quot; radio-click=&quot;vm.approvalStatus=&#39;N&#39;&quot;&gt;
+    &lt;/xue-radio-group&gt;
+&lt;/div&gt;</code>
+                                        </pre>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab index="1" heading="JavaScript">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueDirectivesDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+    $scope.vm = {
+        ischeck: true,
+        approvalStatus: &#39;&#39;,
+        toggleConfig: {
+            disabled: false,
+            onSelect: function (flag) {
+                console.log(flag);
+            }
+        },
+        isOpen:true
+    }
+}])</code></pre>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueDirectivesDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        ischeck: true,
+        approvalStatus: '',
+        toggleConfig: {
+            disabled: false,
+            onSelect: function (flag) {
+                console.log(flag);
+            }
+        },
+        isOpen:true
+    }
+}])</script>
                 
                 <section class="module-wrap" id="menu">
                     <div class="page-header">
