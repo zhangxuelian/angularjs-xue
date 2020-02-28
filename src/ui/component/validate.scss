@@ -1,0 +1,239 @@
+.xui-validate-container {
+
+    input {
+        outline: none;
+    }
+
+    label {
+        display: inline-block;
+        font-weight: bold;
+    }
+
+    .gx-line {
+        height: 30px;
+    }
+
+    /*表单验证：右侧提示信息*/
+    .gx-error {
+        position: relative;
+        line-height: 18px;
+        border-radius: 3px;
+        font-size: 12px;
+        color: #fe3232;
+        font-family: 'MicrosoftYaHei';
+        vertical-align: middle;
+        margin-left: 2px;
+        margin-bottom: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 180px;
+    }
+
+    .gx-error:after {
+        border-color: rgba(136, 183, 213, 0);
+        border-right-color: #d45252;
+        border-width: 6px;
+        margin-top: -6px;
+    }
+
+    input,textarea {
+        &.gx-error-tip {
+            border: 1px solid #d45252 !important;
+            background-color: #ffffe9 !important;
+        }
+    
+        &.gx-error-tip:hover {
+            border: 1px solid #d45252;
+        }
+    
+        /**验证错误后，边框变红**/
+        &.gx-error-tip:focus {
+            border: 1px solid #d45252 !important;
+            -moz-box-shadow: 0 0 2px rgba(212, 82, 82, 0.8) !important;
+            -ms-box-shadow: 0 0 2px rgba(212, 82, 82, 0.8) !important;
+            -webkit-box-shadow: 0 0 2px rgba(212, 82, 82, 0.8) !important;
+            box-shadow: 0 0 2px rgba(212, 82, 82, 0.8) !important;
+        }
+    }
+    
+    .gx-icon-logo {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+    .gx-error-logo {
+        background: url(../../../images/interrogate/record/model/inputerror.png) no-repeat;
+        background-size: contain;
+    }
+
+    .gx-right-logo {
+        background: url(../../../images/interrogate/record/model/inputsucess.png) no-repeat;
+        background-size: contain;
+    }
+
+    .gx-require-logo:before {
+        content: "*";
+        width: 10px;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        color: #f60505;
+    }
+
+    /*错误提示信息位置*/
+    .gx-show-tip {
+        display: inline-block;
+        margin-left: 3px;
+        vertical-align: middle;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    /*清除按钮*/
+    .icon-clean {
+        display: inline-block;
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        background: url(../../../images/interrogate/record/model/input_clean.png) no-repeat;
+        right: 8px;
+        margin-top: 9px;
+        cursor: pointer;
+    }
+
+    .gx-msg {
+        line-height: 1;
+    }
+
+    .form-item {
+        height: 45px;
+    }
+
+    &.personInfo-update {
+        .user-content {
+            .line {
+                margin-bottom: 17px;
+            }
+        }
+    }
+
+    &.modal-body.cabinet-update-container {
+        .cabinet-update-content {
+            .cabinet-content {
+                .col-md-4 {
+                    height: 45px;
+                    // white-space: normal;
+                }
+            }
+            &.hide-serial-number {
+                padding-top: 185px;
+            }
+        }
+    }
+
+    &.register-left {
+        .schedule-module-row {
+            .cell-title {
+                height: 30px !important;
+                line-height: 1 !important;
+            }
+            .cell-content {
+                height: 30px !important;
+                vertical-align: middle !important;
+
+                .sign-wrap-small {
+                    margin-right: 170px;
+                }
+            }
+        }
+    }
+
+    .collect-info-list {
+        height: 37px !important;
+    }
+
+    .leavearea-modal-container {
+        .input-part {
+            height: 38px;
+            line-height: 35px;
+        }
+    }
+
+    .gx-row {
+        display: inline-block;
+        height: 60px;
+        line-height: 50px;
+
+        li {
+            margin-top: 0 !important;
+            vertical-align: top;
+
+            .gx-title {
+                vertical-align: top;
+            }
+        }
+    }
+
+    .common-select-container {
+        .select-show {
+            &.directive-error {
+                border: 1px solid #d45252;
+                background-color: #ffffe9;
+            }
+        }
+    } 
+
+    .xl-datepicker-container {
+        .input-wrap {
+            &.directive-error {
+                border: 1px solid #d45252;
+                background-color: #ffffe9;
+
+                .type-ipt{
+                    background-color: #ffffe9;
+                }
+            }
+        }
+    }
+
+    .update-content {
+        .col-md-12 {
+            height: 45px;
+        }
+    }
+
+
+    &.add-photo-body {
+        .update-content {
+            .person-info-form {
+                .search-row {
+                    height: 33px;
+                }
+            }
+        }
+    } 
+
+    &.person-info {
+        .person-info-form {
+            .search-row {
+                height: 33px;
+            }
+        }
+    }
+
+    &.person-effects-container {
+        .schedule-module {
+            .person-effects-row {
+                li {
+                    height: 35px;
+                }
+            }
+        }
+    }
+}

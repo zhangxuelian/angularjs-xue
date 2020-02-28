@@ -56,7 +56,8 @@
                                 href="#steps">Steps</a></div><div class="child-menu"><a
                                 href="#table">Table</a></div><div class="child-menu"><a
                                 href="#tabs">Tabs</a></div><div class="child-menu"><a
-                                href="#tree">Tree</a></div>
+                                href="#tree">Tree</a></div><div class="child-menu"><a
+                                href="#validate">Validate</a></div>
                     </li>
                 </ul>
             </div>
@@ -1572,6 +1573,78 @@ $ npm run demo</code></pre>
         }],
         showCheckbox: true
     }
+}]);
+</script>
+                
+                <section class="module-wrap" id="validate">
+                    <div class="page-header">
+                        <h1>Validate<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/validate">xue.validate</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueValidateDemoCtrl">
+    <div class="xui-validate-container">
+        <input type="text" ng-model="pcIp" xue-validate="xueValidConfig.pcIp">
+    </div>
+</div>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="test-validate-doc">test validate doc</h3>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'validate')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div>
+                            <uib-tabset active="activeTab">
+                                <uib-tab index="0" heading="Markup">
+                                    <div plunker-content="markup">
+                                        <pre ng-non-bindable>
+                                            <code data-language="html">&lt;div ng-controller=&quot;xueValidateDemoCtrl&quot;&gt;
+    &lt;div class=&quot;xui-validate-container&quot;&gt;
+        &lt;input type=&quot;text&quot; ng-model=&quot;pcIp&quot; xue-validate=&quot;xueValidConfig.pcIp&quot;&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code>
+                                        </pre>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab index="1" heading="JavaScript">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueValidateDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+    $scope.pcIp = &#39;&#39;;
+    $scope.xueValidConfig = {
+        pcIp: {
+            requiredTip: &quot;IP地址不能为空&quot;,
+            regex: &quot;ip&quot;,
+            errorTip: &quot;请填写正确的IP格式！&quot;
+        }
+    };
+}]);
+</code></pre>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueValidateDemoCtrl', ['$scope', function ($scope) {
+    $scope.pcIp = '';
+    $scope.xueValidConfig = {
+        pcIp: {
+            requiredTip: "IP地址不能为空",
+            regex: "ip",
+            errorTip: "请填写正确的IP格式！"
+        }
+    };
 }]);
 </script>
                 
