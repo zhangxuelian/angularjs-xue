@@ -2,6 +2,7 @@ angular.module("xue/template/menu/menu.html", []).run(["$templateCache", functio
   $templateCache.put("xue/template/menu/menu.html",
     "<div class=\"xui-menu-wrap\" ng-class=\"{true:'support-search'}[menuConfig.search]\">\n" +
     "    <div class=\"menu-search\" ng-if=\"menuConfig.search\">\n" +
+    "        <i class=\"menu-search-icon xui-icon xui-icon-md-search\"></i>\n" +
     "        <input type=\"text\" class=\"menu-ipt\" ng-model=\"vm.searchValue\" ng-blur=\"vm.hideSearchBox()\">\n" +
     "        <div class=\"menu-list\" ng-show=\"!!vm.searchValue\"\n" +
     "            ng-mouseover=\"vm.onSearchListDiv = true\"\n" +
@@ -23,8 +24,8 @@ angular.module("xue/template/menu/menu.html", []).run(["$templateCache", functio
     "                    {{item[menuConfig.oneDimenName]}}\n" +
     "                </div>\n" +
     "                <div class=\"title-arrow\" ng-if=\"!!item[menuConfig.childrenName]\">\n" +
-    "                    <i ng-if=\"!item.open\" class=\"chevron-right\"></i>\n" +
-    "                    <i ng-if=\"!!item.open\" class=\"chevron-down\"></i>\n" +
+    "                    <i ng-if=\"!item.open\" class=\"xui-icon xui-icon-md-arrow-forward\"></i>\n" +
+    "                    <i ng-if=\"!!item.open\" class=\"xui-icon xui-icon-md-arrow-down\"></i>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "            <div class=\"item-content\" ng-show=\"!!item.open && !!item[menuConfig.childrenName]\">\n" +

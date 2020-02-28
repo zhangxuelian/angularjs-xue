@@ -17,6 +17,7 @@ angular.module('ui.xue.demo').controller('xueTreeDemoCtrl',['$scope',function($s
                 name:  'tree-1-3',
                 id: 3
             }]
-        }]
+        }],
+        showCheckbox: true
     }
 }]);

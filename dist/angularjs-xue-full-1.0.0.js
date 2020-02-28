@@ -6,8 +6,8 @@
  * Require angularjs version: 1.2.32
  * License: ISC
  */
-angular.module("ui.xue", ["ui.xue.tpls", "xue.autoselect","xue.counter","xue.util.lang","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.menu","xue.notice","xue.pagination","xue.select","xue.steps","xue.table","xue.tabs","xue.util.array","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util"]);
-angular.module("ui.xue.tpls", ["xue/template/autoselect/autoselect.html","xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
+angular.module("ui.xue", ["ui.xue.tpls", "xue.autoselect","xue.util.lang","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.menu","xue.notice","xue.pagination","xue.scroller","xue.select","xue.steps","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util"]);
+angular.module("ui.xue.tpls", ["xue/template/autoselect/autoselect.html","xue/template/cascader/cascader.html","xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/scroller/scroller.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
 /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
 //@ sourceMappingURL=jquery-1.10.2.min.map
 */
@@ -137,6 +137,189 @@ angular.module('xue.autoselect', [])
                     self.watch.destroy();
                     $('#' + scope.selectConfig.id).remove();
                 });
+            }
+        }
+    }])
+angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
+    .directive('xueCascader', ["$http", "$q", 'xueUtilLang', 'xueUtilArray', function ($http, $q, xueUtilLang, xueUtilArray) {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                cascaderConfig: '=',
+                ngVal: '=',
+                ngDisabled: '='
+            },
+            templateUrl: function (element, attrs) {
+                return attrs.templateUrl || 'xue/template/cascader/cascader.html';
+            },
+            link: function (scope, ele, attrs) {
+                var cascaderCtrl = scope.cascaderCtrl = {
+                    areaUrl: 'assets/data/city.min.js',
+                    defaultConfig: {
+                        data: [],
+                        dataMap: {},
+                        type: '', // 级联框自定义类型 area: 地区选择框
+                        valueField: 'value', // 对应选项value值
+                        textField : 'label', // 显示在输入框中的字段名
+                        childName: 'children', // 选择框子列表字段名
+                        css: { // 自定义样式
+                            inputClassName: '', // 输入框样式类名
+                            inputStyle: {}, // 输入框样式
+                            panelClassName: '', // 选择框单列样式类名
+                            panelStyle: {} // 选择框单列样式
+                        },
+                        onSelect: function(){} //选择回调
+                    },
+                    // 选择框列数据数组
+                    selectList: [],
+                    // 自定义类型 数据加载 异步对象
+                    delay: null,
+                    // 配置初始化
+                    init: function () {
+                        var self = this;
+                        scope.cascaderConfig = angular.extend(self.defaultConfig, scope.cascaderConfig || {});
+                        // 是否使用自定义类型
+                        if (scope.cascaderConfig.type) {
+                            self.delay = $q.defer();
+                            $http.get(self[scope.cascaderConfig.type + 'Url']).success(function(data) {
+                                self.initData(data, 0);
+                                return self.delay.resolve(data);
+                            });
+                        } else {
+                            self.initData(scope.cascaderConfig.data, 0);
+                        }
+                    },
+                    // 数据初始化
+                    initData: function (data, depth) {
+                        var self = this;
+                        self.selectList[depth] = [];
+                        angular.forEach(data, function(item) {
+                            item.depth = depth; // 层级
+                            scope.cascaderConfig.dataMap[item[scope.cascaderConfig.valueField]] = item;
+                            // 子列表递归处理
+                            if (item[scope.cascaderConfig.childName] && item[scope.cascaderConfig.childName].length) {
+                                self.initData(item[scope.cascaderConfig.childName], depth + 1);    
+                            } else {
+                                // 叶子项
+                                item.isLeaf = true;
+                            }
+                        })
+                        // 根列表赋值
+                        if (depth === 0) {
+                            scope.cascaderConfig.data = self.selectList[0] = data;
+                        }
+                    },
+                    // 根据selectValue获取列表数据
+                    getData: function (data, index) {
+                        var self = this;
+                        var valueIndex = xueUtilArray.findObjIndex(data, scope.cascaderConfig.valueField, self.selectValue[index])
+                        // 当前项存在且存在子列表
+                        if (valueIndex != -1 && !data[valueIndex].isLeaf) {
+                            // 子列表赋值
+                            self.selectList[index + 1] = data[valueIndex][scope.cascaderConfig.childName];
+                            // 递归处理
+                            if (self.selectValue[index + 1]) {
+                                self.getData(data[valueIndex][scope.cascaderConfig.childName], index + 1);
+                            }
+                        }
+                    },
+                    // 是否展示选择框
+                    showSelect: false,
+                    // 鼠标位置是否位于选择框上
+                    onSelectDiv: false,
+                    // 点击不位于选择框的区域隐藏选择框
+                    hideSelect: function () {
+                        if (!cascaderCtrl.onSelectDiv) {
+                            cascaderCtrl.showSelect = false;
+                            cascaderCtrl.resumeValue();
+                        }
+                    },
+                    // 展开/收缩 选择框
+                    toggleSelect: function(event) {
+                        var self = this;
+                        self.showSelect = !self.showSelect;
+                        if (!self.showSelect) {
+                            self.resumeValue();
+                        }
+                        event.stopPropagation();
+                    },
+                    // 选择框选择项数组
+                    selectValue: [],
+                    // 单击项
+                    clickItem: function (item) {
+                        var self = this;
+                        // 选择项数组赋值
+                        self.selectValue[item.depth] = item[scope.cascaderConfig.valueField];
+                        // 单击非叶子项
+                        if (!item.isLeaf) {
+                            self.selectList[item.depth + 1] = item[scope.cascaderConfig.childName];
+                        } else {
+                        // 单击叶子项
+                            self.selectValue = self.selectValue.slice(0, item.depth + 1);
+                            var completeLabel = [];
+                            angular.forEach(self.selectValue, function (item) {
+                                completeLabel.push(scope.cascaderConfig.dataMap[item][scope.cascaderConfig.textField]);
+                            })
+                            scope.ngVal = completeLabel.join("/");
+                            self.showSelect = false;
+                            if (xueUtilLang.isFunction(scope.cascaderConfig.onSelect)){
+                                scope.cascaderConfig.onSelect(self.selectValue.join("/"));
+                            }
+                        }
+                    },
+                    // 选择框 收缩时 数据恢复
+                    resumeValue: function () {
+                        var self = this;
+                        if (scope.ngVal) {
+                            if (self.selectValue.join("/") != scope.ngVal) {
+                                self.selectValue = scope.ngVal.split("/");
+                                self.getData(scope.cascaderConfig.data, 0);
+                            }
+                        } else {
+                            self.selectValue = [];
+                            self.selectList.length = 1;
+                        }
+                    },
+                    // 清除选择项
+                    clear: function(event) {
+                        var self = this;
+                        scope.ngVal = "";
+                        self.selectValue = [];
+                        self.showSelect = false;
+                        self.selectList.length = 1;
+                        if (event) {
+                            event.stopPropagation();
+                        }
+                    }
+                }
+
+                document.addEventListener('click', cascaderCtrl.hideSelect);
+               
+                var unbindWatch = scope.$watch("ngVal",function(newValue,oldValue){
+                    if (scope.ngVal) {
+                        var valueArr = newValue.split("/");
+                        angular.forEach(valueArr, function(item, index) {
+                            cascaderCtrl.selectValue[index] = item;
+                        })
+                        if (cascaderCtrl.selectValue.length) {
+                            if (scope.cascaderConfig.type) {
+                                cascaderCtrl.delay.promise.then(function(data) {
+                                    cascaderCtrl.getData(data, 0);    
+                                })
+                            } else {
+                                cascaderCtrl.getData(scope.cascaderConfig.data, 0);
+                            }
+                        }
+                    }
+                })
+
+                cascaderCtrl.init();
+
+                scope.$on("$destroy", function() {
+                    document.removeEventListener('click', cascaderCtrl.hideSelect);
+                    unbindWatch();
+                })
             }
         }
     }])
@@ -1192,19 +1375,19 @@ angular.module('xue.directives', [])
         }
     })
     // toggle switch base on angularjs
-    .directive('xueMultiCheckbox', function () {
-        return {
-            restrict: "E",
-            replace: true,
-            scope: {
-                multiType: "=",
-                ngDisabled: "="
-            },
-            template: '<label class="xue-multi-checkbox-wrap">' +
-                '<span class="multi-checkbox" ng-class="{1:\'multi-checkbox-checked\',2:\'multi-checkbox-indeterminate\'}[multiType]"></span>' +
-                '<input type="checkbox" class="multi-checkbox-input" ng-disabled="ngDisabled"></label>'
-        }
-    })
+    // .directive('xueMultiCheckbox', function () {
+    //     return {
+    //         restrict: "E",
+    //         replace: true,
+    //         scope: {
+    //             multiType: "=",
+    //             ngDisabled: "="
+    //         },
+    //         template: '<label class="xue-multi-checkbox-wrap">' +
+    //             '<span class="multi-checkbox" ng-class="{1:\'multi-checkbox-checked\',2:\'multi-checkbox-indeterminate\'}[multiType]"></span>' +
+    //             '<input type="checkbox" class="multi-checkbox-input" ng-disabled="ngDisabled"></label>'
+    //     }
+    // })
     //switch开关
     .directive("xueToggle", function () {
         return {
@@ -1931,6 +2114,97 @@ angular.module('xue.pagination', [])
       }
     };
   }]);
+angular.module('xue.scroller', ['xue.util.lang', 'xue.util.array'])
+    .directive("xueScroller", ['xueUtilLang', '$interval', function(xueUtilLang, $interval) {
+        return {
+            restrict: 'E',
+            replace : true,
+            scope : {
+                scrollConfig : '='
+            },
+            templateUrl: function (element, attrs) {
+                return attrs.templateUrl || 'xue/template/scroller/scroller.html';
+            },
+            link:function(scope,ele,attrs){
+                var defaultConfig = {
+                    //1:一维数组 2：二维数组 3：一维数组（对象：{text:'词条信息',class:'该词条样式'}）
+                    dataType: 1,
+                    //滚动的数组,可接受一维数组和二维数组和数组对象
+                    //二维数组对应的词条样式是一维数组：[['aaa','bbb']]=>[{/*第一个对象的样式*/},{/*第二个对象的样式*/}]
+                    data: [],
+                    //背景样式
+                    backgroundStyle: {},
+                    //高亮样式
+                    highlightStyle: {},
+                    //词条样式
+                    itemStyle: {},
+                    //词条高度
+                    itemHeight: 35,
+                    //滚动至第n个词条
+                    goIndex: -1,
+                    //滚动进度 0-1的小数
+                    goProcess: 0,
+                    //滚动至第n个词条回调
+                    goIndexCallBack: function(){
+                        
+                    },
+                    //滚动至某个进度回调
+                    goProcessCallBack: function(){
+                        
+                    },
+                    //是否循环播放
+                    isLoop: false,
+                    //是否自动播放
+                    isAutoPlay: false,
+                    //自动播放时间间隔（s）
+                    playInterval: 1
+                };
+                
+                scope.scrollConfig = angular.extend(defaultConfig,scope.scrollConfig);
+                var timer = null;
+                if(scope.scrollConfig.isAutoPlay){
+                    timer = $interval(function(){
+                        if(scope.scrollConfig.goIndex < scope.scrollConfig.data.length-1){
+                            scope.scrollConfig.goIndex++;
+                        }else if(scope.scrollConfig.isLoop){
+                            scope.scrollConfig.goIndex = 0;
+                        } else {
+                            $interval.cancel(timer);
+                        }
+                    },(scope.scrollConfig.playInterval || 1)*1000);
+                }
+
+                var dataWatcher = scope.$watch('scrollConfig.data',function(){
+                    
+                },true);
+
+                var indexWatcher = scope.$watch('scrollConfig.goIndex',function(){
+                    if(scope.scrollConfig.goIndex != -1 && xueUtilLang.isFunction(scope.scrollConfig.goIndexCallBack)){
+                        scope.scrollConfig.goIndexCallBack(scope.scrollConfig.goIndex,scope.scrollConfig.data[scope.scrollConfig.goIndex]);
+                    }
+                });
+
+                var processWatcher = scope.$watch('scrollConfig.goProcess',function(newVal,oldVal){
+                    if(scope.scrollConfig.goIndex != -1 && ((newVal && !isNaN(newVal) && newVal > 0 && newVal <= 1 ) || newVal == 0)){
+                        scope.scrollConfig.goIndex = parseInt(scope.scrollConfig.data.length * newVal, 10);
+                        if(xueUtilLang.isFunction(scope.scrollConfig.goProcessCallBack)){
+                            scope.scrollConfig.goProcessCallBack(scope.scrollConfig.goProcess,scope.scrollConfig.data[scope.scrollConfig.goIndex]);
+                        }
+                    }
+                });
+
+                scope.$on("$destroy", function() {
+                    if(timer){
+                        $interval.cancel(timer);
+                    }
+                    dataWatcher();
+                    indexWatcher();
+                    processWatcher();
+                    $(ele).remove();    
+                });
+            }
+        };
+    }])
 angular.module('xue.select', [])
 
     .directive('xueSelect', ['xueUtilArray', 'xueUtilLang', function (xueUtilArray, xueUtilLang) {
@@ -2763,6 +3037,19 @@ angular.module('xue.tree', ['xue.util.lang', 'xue.util.array'])
             }
         }
     }])
+    .directive('xueMultiCheckbox',function(){
+        return{
+            restrict: "E",
+            replace: true,
+            scope: {
+                multiType: "=",
+                ngDisabled: "="
+            },
+            template: '<label class="xui-multi-checkbox-wrap">'+
+                '<span class="multi-checkbox" ng-class="{1:\'multi-checkbox-checked\',2:\'multi-checkbox-indeterminate\'}[multiType]"></span>'+
+                '<input type="checkbox" class="multi-checkbox-input" ng-disabled="ngDisabled"></label>'
+        }
+    });
 angular.module('xue.util.array', []).service('xueUtilArray', [
     function () {
         /**
@@ -4635,6 +4922,39 @@ angular.module("xue/template/autoselect/autoselect.html", []).run(["$templateCac
     "</div>");
 }]);
 
+angular.module("xue/template/cascader/cascader.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("xue/template/cascader/cascader.html",
+    "<div class=\"xui-cascader-container\">\n" +
+    "    <div class=\"cascader-input-wrapper\" \n" +
+    "        ng-click=\"cascaderCtrl.toggleSelect($event)\" \n" +
+    "        ng-mouseover=\"cascaderCtrl.showDelete = true\" \n" +
+    "        ng-mouseleave=\"cascaderCtrl.showDelete = false\">\n" +
+    "            <input ng-model=\"ngVal\" type=\"text\" class=\"cascader-input\" \n" +
+    "                ng-style=\"cascaderConfig.css.inputStyle\" \n" +
+    "                ng-class=\"cascaderConfig.css.inputClassName\"\n" +
+    "                placeholder=\"请选择\" title=\"{{ ngVal }}\" readonly>\n" +
+    "            <i class=\"cascader-icon fa fa-close\" ng-if=\"cascaderCtrl.showDelete && !!ngVal\" title=\"清空\" ng-click=\"cascaderCtrl.clear($event)\"></i>\n" +
+    "            <i class=\"cascader-icon fa fa-caret-down\" ng-if=\"!(cascaderCtrl.showDelete && !!ngVal)\" ng-class=\"{'expanded': cascaderCtrl.showSelect}\"></i>\n" +
+    "    </div>\n" +
+    "    <div class=\"cascader-select-wrapper\" \n" +
+    "        ng-show=\"cascaderCtrl.showSelect\"\n" +
+    "        ng-mouseover=\"cascaderCtrl.onSelectDiv = true\" \n" +
+    "        ng-mouseleave=\"cascaderCtrl.onSelectDiv = false\">\n" +
+    "            <ul class=\"select-list\" ng-class=\"cascaderConfig.css.panelClassName\"\n" +
+    "                ng-style=\"cascaderConfig.css.panelStyle\" ng-if=\"list.length\" \n" +
+    "                ng-repeat=\"list in cascaderCtrl.selectList\">\n" +
+    "                    <li class=\"select-item\" \n" +
+    "                        title=\"{{ item[cascaderConfig.textField] }}\"\n" +
+    "                        ng-class=\"{'active': item[cascaderConfig.valueField] == cascaderCtrl.selectValue[item.depth]}\"\n" +
+    "                        ng-repeat=\"item in list\" ng-click=\"cascaderCtrl.clickItem(item)\">\n" +
+    "                            {{ item[cascaderConfig.textField] }}\n" +
+    "                            <i class=\"cascader-icon fa fa-angle-right\" ng-if=\"!item.isLeaf\"></i>\n" +
+    "                    </li>\n" +
+    "            </ul>\n" +
+    "    </div>\n" +
+    "</div>");
+}]);
+
 angular.module("xue/template/counter/counter.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/counter/counter.html",
     "<div class=\"xue-counter-wrap {{counterConfig.size}}\" ng-class=\"{'disabled':counterConfig.disabled}\">\n" +
@@ -4770,6 +5090,7 @@ angular.module("xue/template/menu/menu.html", []).run(["$templateCache", functio
   $templateCache.put("xue/template/menu/menu.html",
     "<div class=\"xui-menu-wrap\" ng-class=\"{true:'support-search'}[menuConfig.search]\">\n" +
     "    <div class=\"menu-search\" ng-if=\"menuConfig.search\">\n" +
+    "        <i class=\"menu-search-icon xui-icon xui-icon-md-search\"></i>\n" +
     "        <input type=\"text\" class=\"menu-ipt\" ng-model=\"vm.searchValue\" ng-blur=\"vm.hideSearchBox()\">\n" +
     "        <div class=\"menu-list\" ng-show=\"!!vm.searchValue\"\n" +
     "            ng-mouseover=\"vm.onSearchListDiv = true\"\n" +
@@ -4791,8 +5112,8 @@ angular.module("xue/template/menu/menu.html", []).run(["$templateCache", functio
     "                    {{item[menuConfig.oneDimenName]}}\n" +
     "                </div>\n" +
     "                <div class=\"title-arrow\" ng-if=\"!!item[menuConfig.childrenName]\">\n" +
-    "                    <i ng-if=\"!item.open\" class=\"chevron-right\"></i>\n" +
-    "                    <i ng-if=\"!!item.open\" class=\"chevron-down\"></i>\n" +
+    "                    <i ng-if=\"!item.open\" class=\"xui-icon xui-icon-md-arrow-forward\"></i>\n" +
+    "                    <i ng-if=\"!!item.open\" class=\"xui-icon xui-icon-md-arrow-down\"></i>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "            <div class=\"item-content\" ng-show=\"!!item.open && !!item[menuConfig.childrenName]\">\n" +
@@ -4894,6 +5215,27 @@ angular.module("xue/template/pagination/pagination.html", []).run(["$templateCac
     "        <a href class=\"page-link\" ng-click=\"selectPage(totalPages)\">{{getText('last')}}</a>\n" +
     "    </li>\n" +
     "</ul>");
+}]);
+
+angular.module("xue/template/scroller/scroller.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("xue/template/scroller/scroller.html",
+    "<div class=\"xui-scroller-container\" ng-style=\"scrollConfig.backgroundStyle\">\n" +
+    "    <div class=\"scroller-content\">\n" +
+    "        <div class=\"dynamic-container\" ng-style=\"{'top':-scrollConfig.goIndex*scrollConfig.itemHeight+'px' || 0}\">\n" +
+    "            <ul ng-repeat=\"item in scrollConfig.data track by $index\" ng-style=\"scrollConfig.goIndex == $index ? scrollConfig.highlightStyle : {}\">\n" +
+    "                <li ng-if=\"scrollConfig.dataType == 1\" ng-style=\"scrollConfig.itemStyle\">\n" +
+    "                    {{item}}\n" +
+    "                </li>\n" +
+    "                <li ng-if=\"scrollConfig.dataType == 2\" ng-repeat=\"list in item\" ng-style=\"scrollConfig.itemStyle[$index]\">\n" +
+    "                    {{list}}\n" +
+    "                </li>\n" +
+    "                <li ng-if=\"scrollConfig.dataType == 3\" ng-style=\"scrollConfig.itemStyle\" ng-class=\"item.class\">\n" +
+    "                    {{item.text}}\n" +
+    "                </li>\n" +
+    "            </ul>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>");
 }]);
 
 angular.module("xue/template/select/select.html", []).run(["$templateCache", function($templateCache) {
@@ -5105,7 +5447,7 @@ angular.module("xue/template/tree/tree.html", []).run(["$templateCache", functio
     "                <span class=\"check-icon node-align\"\n" +
     "                    ng-if=\"treeConfig.showCheckbox && !item.chkDisabled\"\n" +
     "                    ng-click=\"treeCtrl.changeNode(item, $event)\">\n" +
-    "                        <gx-multi-checkbox multi-type=\"item.checked\" ng-disabled=\"item.disabled\"></gx-multi-checkbox>\n" +
+    "                        <xue-multi-checkbox multi-type=\"item.checked\" ng-disabled=\"item.disabled\"></xue-multi-checkbox>\n" +
     "                </span>\n" +
     "                <span class=\"node-icon node-align\" ng-show=\"treeConfig.showIcon\">\n" +
     "                    <i ng-if=\"item.iconClass\" class=\"{{ item.iconClass }}\"></i>\n" +
@@ -5132,6 +5474,5 @@ angular.module("xue/template/tree/tree.html", []).run(["$templateCache", functio
     "</div>");
 }]);
 angular.module('xue.datepicker').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibDatepickerCss && angular.element(document).find('head').prepend('<style type="text/css">@charset "UTF-8";.xui-datepicker-wrap{position:relative;display:inline-block;}.xui-datepicker-wrap .input-wrap{display:inline-block;width:180px;height:28px;padding:0 15px;position:relative;border:1px solid #cee0f0;transition:border-color 0.2s cubic-bezier(0.645,0.045,0.355,1);border-radius:5px;vertical-align:middle;background:#fff;}.xui-datepicker-wrap .input-wrap:focus{border-color:#409EFF;outline:0;-webkit-boxl-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);}.xui-datepicker-wrap .input-wrap:hover .sufix-input{background:url(../images/del_icon.png) center center no-repeat;cursor:pointer;}.xui-datepicker-wrap .input-wrap .type-ipt{position:absolute;display:inline-block;vertical-align:middle;height:100%;line-height:28px;-webkit-appearance:none;background-color:#fff;background-image:none;box-sizing:border-box;color:#606266;font-size:14px;outline:none;width:150px;font-weight:400;border:none;padding:3px;left:18px;}.xui-datepicker-wrap .input-wrap .prefix-input{position:absolute;background:url(../images/date_icon.png) center center no-repeat;display:inline-block;width:16px;height:26px;top:0;left:2px;vertical-align:middle;}.xui-datepicker-wrap .input-wrap .prefix-input.time-icon{background:url(../images/time_icon.png) center center no-repeat;}.xui-datepicker-wrap .input-wrap .sufix-input{display:inline-block;width:14px;height:26px;position:absolute;right:2px;top:0;}.xui-datepicker-wrap .type-img{display:inline-block;}.xui-datepicker-wrap .type-span{display:inline-block;}.xl-datepicker-content{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-khtml-user-select:none;user-select:none;position:absolute;min-width:317px;top:181px;left:294px;z-index:9999;background:#fff;display:none;box-shadow:0 0 15px 0px rgba(0,0,0,0.2);border-radius:5px;color:#606266;border:solid 1px #DCDFE6;}.xl-datepicker-content ::-webkit-input-placeholder{color:#999;}.xl-datepicker-content :-moz-placeholder{color:#999;}.xl-datepicker-content ::-moz-placeholder{color:#999;}.xl-datepicker-content :-ms-input-placeholder{color:#999;}.xl-datepicker-content .xl-popper-arrow{top:-6px;width:0;height:0;border-left:solid 6px transparent;border-right:solid 6px transparent;border-bottom:solid 6px #fff;position:absolute;left:35px;}.xl-datepicker-content .xl-popper-arrow.arrow-bottom{top:auto;border-bottom:solid 6px transparent;border-top:solid 6px #fff;}.xl-datepicker-content .xl-popper-arrow.arrow-right{left:auto;right:35px;}.xl-datepicker-content .show-date-wrap{padding:5px;border-bottom:solid 1px #DCDFE6;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap{position:relative;display:inline-block;padding:5px;padding-bottom:0;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .show-ipt{height:28px;line-height:28px;border-radius:3px;width:140px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .show-ipt:focus{border:solid 1px #409EFF;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap{position:absolute;width:140px;height:180px;z-index:9999;border:solid 1px #ddd;border-radius:2px;background:#fff;top:34px;box-shadow:0 2px 5px 0 rgba(0,0,0,0.1);}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content{height:150px;display:flex;width:100%;padding:2px;font-size:12px;position:relative;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content::after{content:"";display:block;position:absolute;border-top:solid 1px #ddd;width:118px;height:30px;margin-left:7px;top:63px;border-bottom:solid 1px #ddd;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar{flex-grow:1;text-align:center;height:100%;overflow:hidden;position:relative;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul{list-style:none;position:absolute;width:100%;top:0;transition:top 0.1s;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul::before{content:"";display:block;width:100%;height:60px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul::after{content:"";display:block;width:100%;height:60px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul li{line-height:30px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul li.active{color:#333;font-weight:700;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul li:hover{background:#f0f5fb;cursor:pointer;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-footer{height:30px;border-top:solid 1px #ddd;text-align:right;line-height:26px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-footer .confirm{color:#409eff;font-weight:700;font-size:12px;margin-right:15px;cursor:pointer;}.xl-datepicker-content .xl-content-header{text-align:center;padding:15px 10px;padding-bottom:0;}.xl-datepicker-content .xl-content-header > i{height:16px;width:16px;display:inline-block;cursor:pointer;margin-top:3px;margin-left:3px;margin-right:3px;}.xl-datepicker-content .xl-content-header .xl-d-arrow-left{background:url(../images/d_arrow_left_normal.png);}.xl-datepicker-content .xl-content-header .xl-d-arrow-left:hover{background:url(../images/d_arrow_left_active.png);}.xl-datepicker-content .xl-content-header .xl-arrow-left{background:url(../images/arrow_left_normal.png);}.xl-datepicker-content .xl-content-header .xl-arrow-left:hover{background:url(../images/arrow_left_active.png);}.xl-datepicker-content .xl-content-header .xl-arrow-right{background:url(../images/arrow_right_normal.png);}.xl-datepicker-content .xl-content-header .xl-arrow-right:hover{background:url(../images/arrow_right_active.png);}.xl-datepicker-content .xl-content-header .xl-d-arrow-right{background:url(../images/d_arrow_right_normal.png);}.xl-datepicker-content .xl-content-header .xl-d-arrow-right:hover{background:url(../images/d_arrow_right_active.png);}.xl-datepicker-content .xl-content-header .last-year{float:left;}.xl-datepicker-content .xl-content-header .last-month{float:left;}.xl-datepicker-content .xl-content-header .current-year{line-height:22px;padding:0 5px;cursor:pointer;}.xl-datepicker-content .xl-content-header .current-year input{border:none;width:45px;height:22px;line-height:22px;background:#eaf6ff;border-radius:3px;padding:0 5px;text-align:center;}.xl-datepicker-content .xl-content-header .current-month{line-height:22px;padding:0 5px;cursor:pointer;}.xl-datepicker-content .xl-content-header .current-month input{border:none;width:35px;height:22px;line-height:22px;background:#eaf6ff;border-radius:3px;padding:0 5px;text-align:center;}.xl-datepicker-content .xl-content-header .next-month{float:right;}.xl-datepicker-content .xl-content-header .next-year{float:right;}.xl-datepicker-content .xl-content-body{padding:10px;}.xl-datepicker-content .xl-content-body .xl-datepicker-table{width:100%;}.xl-datepicker-content .xl-content-body .xl-datepicker-table th{padding:10px;text-align:center;border-bottom:solid 1px #eee;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td{text-align:center;padding:7px;font-size:13px;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td.disabled-select{background:#ececec;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td.disabled-select span{cursor:not-allowed;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td.disabled-select spanhover{color:#C0C4CC;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span{width:25px;height:25px;line-height:25px;display:block;cursor:pointer;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span.active{background:#409EFF;border-radius:50%;color:#fff !important;font-weight:400 !important;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span.active:hover{color:#fff;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span.not-current{color:#C0C4CC;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span:hover{color:#409EFF;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span.current{color:#409EFF;font-weight:700;}.xl-datepicker-content .xl-content-footer{border-top:1px solid #e4e4e4;padding:4px;text-align:right;background-color:#fff;position:relative;font-size:0;}.xl-datepicker-content .xl-content-footer button{padding:5px 15px;font-size:12px;border-radius:3px;margin:5px;border:1px solid #DCDFE6;background:#fff;cursor:pointer;}.xl-datepicker-content .xl-content-footer .select-now{border-color:transparent;color:#409EFF;background:transparent;padding-left:0;padding-right:0;}.xl-datepicker-content .xl-content-footer .confirm-date{color:#606266;}.xl-timepicker-content{position:absolute;min-width:180px;height:200px;top:181px;left:294px;z-index:9999;background:#fff;display:none;box-shadow:0 0 15px 0px rgba(0,0,0,0.2);border-radius:5px;color:#606266;border:solid 1px #DCDFE6;}.xl-timepicker-content .xl-content-body{padding:10px 0;}.xl-timepicker-content .xl-content-body .select-time-content{height:150px;display:flex;width:100%;padding:2px;font-size:12px;position:relative;height:180px;}.xl-timepicker-content .xl-content-body .select-time-content::after{content:"";display:block;position:absolute;border-top:solid 1px #ddd;width:118px;height:30px;margin-left:7px;top:63px;border-bottom:solid 1px #ddd;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar{flex-grow:1;text-align:center;height:100%;overflow:hidden;position:relative;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul{list-style:none;position:absolute;width:100%;top:0;transition:top 0.1s;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul::before{content:"";display:block;width:100%;height:60px;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul::after{content:"";display:block;width:100%;height:60px;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul li{line-height:30px;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul li.active{color:#333;font-weight:700;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul li:hover{background:#f0f5fb;cursor:pointer;}.xl-timepicker-content .xl-content-body .select-time-content::after{width:140px;margin-left:16px;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar.disabled-select{cursor:not-allowed;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar.disabled-select ul li{color:#ccc;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar.disabled-select ul li:hover{cursor:not-allowed;}.xl-timepicker-content .xl-popper-arrow{top:-6px;width:0;height:0;border-left:solid 6px transparent;border-right:solid 6px transparent;border-bottom:solid 6px #fff;position:absolute;left:35px;}.xl-timepicker-content .xl-popper-arrow.arrow-bottom{top:auto;border-bottom:solid 6px transparent;border-top:solid 6px #fff;}.xl-timepicker-content .xl-popper-arrow.arrow-right{left:auto;right:35px;}</style>'); angular.$$uibDatepickerCss = true; });
-angular.module('xue.menu').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibMenuCss && angular.element(document).find('head').prepend('<style type="text/css">.xui-menu-wrap{width:100%;height:100%;background:#05172f;color:#fff;font-size:13px;position:relative;}.xui-menu-wrap.support-search{padding-top:45px;}.xui-menu-wrap .menu-search{height:45px;width:100%;position:absolute;top:0;border-bottom:solid 1px #2c4465;}.xui-menu-wrap .menu-search .menu-ipt{height:30px;width:90%;border-radius:15px;margin-top:7px;margin-left:5%;background-color:#1e4673;border:solid 1px #1e4673;color:#9bc6e8;background-image:url(../images/menu_search.png);background-repeat:no-repeat;background-position-x:5px;background-position-y:7px;padding-left:25px;box-sizing:border-box;}.xui-menu-wrap .menu-search .menu-list{position:absolute;top:38px;width:90%;left:5%;z-index:9999;background:#336dae;color:#fff;border-radius:5px;}.xui-menu-wrap .menu-search .menu-list ul{list-style:none;}.xui-menu-wrap .menu-search .menu-list ul li{height:28px;line-height:28px;text-align:left;cursor:pointer;padding:0 10px;color:#a4cded;}.xui-menu-wrap .menu-search .menu-list ul li:hover{color:#fff;}.xui-menu-wrap .menu-item-wrap{width:100%;height:100%;overflow:auto;}.xui-menu-wrap .menu-item{width:100%;}.xui-menu-wrap .menu-item .item-title{height:50px;line-height:50px;font-size:16px;width:100%;padding-left:35px;padding-right:40px;position:relative;box-sizing:border-box;border-left:solid 5px #05172f;background:#05172f;transition:0.3s ease-out;color:#ddd;}.xui-menu-wrap .menu-item .item-title:hover{background:#1e4673;border-left:solid 5px #1e4673;}.xui-menu-wrap .menu-item .item-title:active{background:#1e4673;border-left:solid 5px #177fd1;}.xui-menu-wrap .menu-item .item-title.active{background:#1e4673;border-left:solid 5px #177fd1;color:#A4CDED;}.xui-menu-wrap .menu-item .item-title .title-icon{width:35px;position:absolute;left:0;height:100%;text-align:center;}.xui-menu-wrap .menu-item .item-title .title-icon img{width:16px;height:16px;}.xui-menu-wrap .menu-item .item-title .title-content{text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:100%;height:100%;font-size:16px;cursor:pointer;}.xui-menu-wrap .menu-item .item-title .title-arrow{width:40px;position:absolute;right:0;height:100%;top:0;text-align:center;}.xui-menu-wrap .menu-item .item-title .title-arrow i{display:inline-block;}.xui-menu-wrap .menu-item .item-title .title-arrow i.chevron-right{width:8px;height:13px;background:url(../images/chevron_right.png);}.xui-menu-wrap .menu-item .item-title .title-arrow i.chevron-down{width:13px;height:8px;background:url(../images/chevron_down.png);}.xui-menu-wrap .menu-item .item-content{transition:0.4s ease-out;}.xui-menu-wrap .menu-item .item-content.ng-hide{display:block !important;}.xui-menu-wrap .menu-item .item-content.ng-hide li{height:0px;}.xui-menu-wrap .menu-item .item-content ul{list-style-type:none;}.xui-menu-wrap .menu-item .item-content ul li{height:40px;line-height:40px;font-size:15px;padding-left:39px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;cursor:pointer;border-left:solid 5px #05172f;color:#ddd;transition:0.3s ease-out;}.xui-menu-wrap .menu-item .item-content ul li.active{background:#1e4673;border-left:solid 5px #0394F9;color:#fff;}.xui-menu-wrap .menu-item .item-content ul li.active:hover{border-left:solid 5px #0394F9;}.xui-menu-wrap .menu-item .item-content ul li:hover{background:#1e4673;border-left:solid 5px #1e4673;color:#fff;}.xui-menu-wrap .menu-item .item-content ul li:active{color:#fff;border-left:solid 5px #0394F9;}.xui-menu-wrap .menu-item .item-content ul li img{width:14px;height:14px;vertical-align:middle;margin-left:-10px;}.xui-menu-wrap .menu-item .item-content ul li span{margin-left:5px;vertical-align:middle;}.xui-menu-wrap .menu-item .item-content ul li span:before{display:inline-block;content:"";width:5px;height:5px;background:#ddd;border-radius:3px;margin-left:-8px;margin-right:10px;vertical-align:middle;}</style>'); angular.$$uibMenuCss = true; });
 angular.module('xue.table').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTableCss && angular.element(document).find('head').prepend('<style type="text/css">.xe-table-container{width:100%;height:100%;position:relative;}.xe-table-container .xe-table-header{height:40px;width:100%;position:absolute;top:0;background:blue;}.xe-table-container .xe-table-content{width:100%;height:100%;background:red;}.xe-table-container .xe-table-footer{height:40px;width:100%;position:absolute;bottom:0;background:pink;}</style>'); angular.$$uibTableCss = true; });
-angular.module('xue.tree').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTreeCss && angular.element(document).find('head').prepend('<style type="text/css">.xui-tree-wrap{position:relative;width:100%;height:100%;overflow:auto;padding-bottom:10px;}.xui-tree-wrap.support-search > .tree-list{height:calc(100% - 41px);overflow-y:scroll;}.xui-tree-wrap .tree-search{width:100%;padding:0 10px;text-align:center;border-bottom:1px solid #CEE0F0;}.xui-tree-wrap .tree-search .tree-ipt{height:30px;width:100%;border-radius:15px;margin:5px 0;color:#515a6e;background-image:url(../images/menu_search.png);background-repeat:no-repeat;background-position-x:5px;background-position-y:7px;padding-left:25px;border:1px solid #CEE0F0;}.xui-tree-wrap .tree-search .tree-ipt:focus{border-color:#66afe9;box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);}.xui-tree-wrap .tree-search .search-list{position:absolute;top:38px;width:90%;left:5%;z-index:9999;background:#ddd;border-radius:5px;}.xui-tree-wrap .tree-search .search-list li{height:28px;line-height:28px;text-align:left;cursor:pointer;padding:0 10px;color:#515a6e;}.xui-tree-wrap .tree-search .search-list li:hover{color:#0394F9;}.xui-tree-wrap > .tree-list{padding:0 10px;}.xui-tree-wrap .tree-list{overflow:hidden;}.xui-tree-wrap .tree-list .tree-item{position:relative;padding-left:20px;}.xui-tree-wrap .tree-list .tree-item.level1{padding-left:0px;}.xui-tree-wrap .tree-list .tree-item .tree-row{display:flex;align-items:center;transition:all 0.2s ease;line-height:28px;padding-right:10px;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-align{display:inline-block;vertical-align:middle;}.xui-tree-wrap .tree-list .tree-item .tree-row .expand-icon{position:relative;width:12px;text-align:center;transition:all 0.3s ease;cursor:pointer;z-index:10;}.xui-tree-wrap .tree-list .tree-item .tree-row .expand-icon.expanded{transform:rotate(90deg);}.xui-tree-wrap .tree-list .tree-item .tree-row .check-icon{margin:0 4px;line-height:1;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-icon{display:flex;align-items:center;margin:0 4px;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-title{flex:1;margin:0;border-radius:3px;padding:0 4px;line-height:24px;cursor:pointer;color:#515a6e;transition:all .2s ease-in-out;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-title:hover{background:#eaf4fe;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-title.active{background:#d5e8fc;}.xui-tree-wrap .tree-list .tree-item .tree-row .loading-icon{width:16px;height:16px;background:url("../../../images/common/loading_32x32.gif") center/cover no-repeat;}.xui-tree-wrap .tree-list .tree-item .tree-list.ng-hide{display:block !important;}.xui-tree-wrap .tree-list .tree-item .tree-list.ng-hide .tree-row{height:0;}.xui-tree-wrap .tree-list .tree-item.show-line::before{content:"";position:absolute;width:12px;height:16px;top:6px;background:#fff;z-index:1;left:20px;}.xui-tree-wrap .tree-list .tree-item.show-line::after{content:"";position:absolute;height:100%;top:0;left:25px;border-left:1px dashed #ccc;}.xui-tree-wrap .tree-list .tree-item.show-line:last-child::after{height:8px;}.xui-tree-wrap .tree-list .tree-item.show-line.leaf::before{content:"";position:absolute;width:10px;height:0;top:50%;left:26px;border-top:1px dashed #ccc;}.xui-tree-wrap .tree-list .tree-item.show-line.leaf:last-child::after{height:50%;}.xui-tree-wrap .tree-list .tree-item.show-line.level1{padding-left:0px;}.xui-tree-wrap .tree-list .tree-item.show-line.level1::before{left:0;}.xui-tree-wrap .tree-list .tree-item.show-line.level1::after{left:6px;}.xui-tree-wrap .tree-list .tree-item.show-line.level1:only-of-type::after{border:0 none;}</style>'); angular.$$uibTreeCss = true; });
+angular.module('xue.tree').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTreeCss && angular.element(document).find('head').prepend('<style type="text/css">.xui-tree-wrap{position:relative;width:100%;height:100%;overflow:auto;padding-bottom:10px;}.xui-tree-wrap.support-search > .tree-list{height:calc(100% - 41px);overflow-y:scroll;}.xui-tree-wrap .tree-search{width:100%;padding:0 10px;text-align:center;border-bottom:1px solid #CEE0F0;}.xui-tree-wrap .tree-search .tree-ipt{height:30px;width:100%;border-radius:15px;margin:5px 0;color:#515a6e;background-image:url(../images/menu_search.png);background-repeat:no-repeat;background-position-x:5px;background-position-y:7px;padding-left:25px;border:1px solid #CEE0F0;}.xui-tree-wrap .tree-search .tree-ipt:focus{border-color:#66afe9;box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);}.xui-tree-wrap .tree-search .search-list{position:absolute;top:38px;width:90%;left:5%;z-index:9999;background:#ddd;border-radius:5px;}.xui-tree-wrap .tree-search .search-list li{height:28px;line-height:28px;text-align:left;cursor:pointer;padding:0 10px;color:#515a6e;}.xui-tree-wrap .tree-search .search-list li:hover{color:#0394F9;}.xui-tree-wrap > .tree-list{padding:0 10px;}.xui-tree-wrap .tree-list{overflow:hidden;}.xui-tree-wrap .tree-list .tree-item{position:relative;padding-left:20px;}.xui-tree-wrap .tree-list .tree-item.level1{padding-left:0px;}.xui-tree-wrap .tree-list .tree-item .tree-row{display:flex;align-items:center;transition:all 0.2s ease;line-height:28px;padding-right:10px;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-align{display:inline-block;vertical-align:middle;}.xui-tree-wrap .tree-list .tree-item .tree-row .expand-icon{position:relative;width:12px;text-align:center;transition:all 0.3s ease;cursor:pointer;z-index:10;}.xui-tree-wrap .tree-list .tree-item .tree-row .expand-icon.expanded{transform:rotate(90deg);}.xui-tree-wrap .tree-list .tree-item .tree-row .check-icon{margin:0 4px;line-height:1;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-icon{display:flex;align-items:center;margin:0 4px;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-title{flex:1;margin:0;border-radius:3px;padding:0 4px;line-height:24px;cursor:pointer;color:#515a6e;transition:all .2s ease-in-out;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-title:hover{background:#eaf4fe;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-title.active{background:#d5e8fc;}.xui-tree-wrap .tree-list .tree-item .tree-row .loading-icon{width:16px;height:16px;background:url("../../../images/common/loading_32x32.gif") center/cover no-repeat;}.xui-tree-wrap .tree-list .tree-item .tree-list.ng-hide{display:block !important;}.xui-tree-wrap .tree-list .tree-item .tree-list.ng-hide .tree-row{height:0;}.xui-tree-wrap .tree-list .tree-item.show-line::before{content:"";position:absolute;width:12px;height:16px;top:6px;background:#fff;z-index:1;left:20px;}.xui-tree-wrap .tree-list .tree-item.show-line::after{content:"";position:absolute;height:100%;top:0;left:25px;border-left:1px dashed #ccc;}.xui-tree-wrap .tree-list .tree-item.show-line:last-child::after{height:8px;}.xui-tree-wrap .tree-list .tree-item.show-line.leaf::before{content:"";position:absolute;width:10px;height:0;top:50%;left:26px;border-top:1px dashed #ccc;}.xui-tree-wrap .tree-list .tree-item.show-line.leaf:last-child::after{height:50%;}.xui-tree-wrap .tree-list .tree-item.show-line.level1{padding-left:0px;}.xui-tree-wrap .tree-list .tree-item.show-line.level1::before{left:0;}.xui-tree-wrap .tree-list .tree-item.show-line.level1::after{left:6px;}.xui-tree-wrap .tree-list .tree-item.show-line.level1:only-of-type::after{border:0 none;}.xui-multi-checkbox-wrap{position:relative;display:inline-block;vertical-align:middle;margin:0;cursor:pointer;}.xui-multi-checkbox-wrap .multi-checkbox{position:relative;display:inline-block;vertical-align:middle;width:16px;height:16px;border:1px solid #dcdee2;border-radius:2px;background-color:#fff;transition:border-color .2s ease-in-out,background-color .2s ease-in-out,box-shadow .2s ease-in-out;}.xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-checked{border-color:#2d8cf0;background-color:#2d8cf0;}.xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-checked:after{width:4px;height:8px;top:2px;left:5px;border:2px solid #fff;border-top:0;border-left:0;transform:rotate(45deg) scale(1);}.xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-indeterminate{border-color:#2d8cf0;background-color:#2d8cf0;}.xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-indeterminate:after{width:10px;height:1px;left:2px;top:6px;border:1px solid #fff;}.xui-multi-checkbox-wrap .multi-checkbox:after{content:"";position:absolute;}.xui-multi-checkbox-wrap .multi-checkbox-input{position:absolute;width:100%;height:100%;top:0;bottom:0;left:0;right:0;z-index:1;opacity:0;cursor:pointer;}</style>'); angular.$$uibTreeCss = true; });
