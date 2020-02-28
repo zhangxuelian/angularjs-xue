@@ -397,16 +397,3 @@ angular.module('xue.tree', ['xue.util.lang', 'xue.util.array'])
             }
         }
     }])
-    .directive('xueMultiCheckbox',function(){
-        return{
-            restrict: "E",
-            replace: true,
-            scope: {
-                multiType: "=",
-                ngDisabled: "="
-            },
-            template: '<label class="xui-multi-checkbox-wrap">'+
-                '<span class="multi-checkbox" ng-class="{1:\'multi-checkbox-checked\',2:\'multi-checkbox-indeterminate\'}[multiType]"></span>'+
-                '<input type="checkbox" class="multi-checkbox-input" ng-disabled="ngDisabled"></label>'
-        }
-    });

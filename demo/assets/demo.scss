@@ -181,7 +181,8 @@ body {
                 width: 100%;
                 height: 100%;
                 overflow: auto;
-
+                padding: 10px;
+                box-sizing: border-box;
                 .module-wrap {
                     .page-header {
                         margin-bottom: 10px;

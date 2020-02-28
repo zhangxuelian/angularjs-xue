@@ -4840,6 +4840,132 @@ i {
           -o-animation-delay: 0s;
           animation-delay: 0s; }
 
+.xui-validate-container {
+  /*表单验证：右侧提示信息*/
+  /*错误提示信息位置*/
+  /*清除按钮*/ }
+  .xui-validate-container input {
+    outline: none; }
+  .xui-validate-container label {
+    display: inline-block;
+    font-weight: bold; }
+  .xui-validate-container .gx-line {
+    height: 30px; }
+  .xui-validate-container .gx-error {
+    position: relative;
+    line-height: 18px;
+    border-radius: 3px;
+    font-size: 12px;
+    color: #fe3232;
+    font-family: 'MicrosoftYaHei';
+    vertical-align: middle;
+    margin-left: 2px;
+    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 180px; }
+  .xui-validate-container .gx-error:after {
+    border-color: rgba(136, 183, 213, 0);
+    border-right-color: #d45252;
+    border-width: 6px;
+    margin-top: -6px; }
+  .xui-validate-container input, .xui-validate-container textarea {
+    /**验证错误后，边框变红**/ }
+    .xui-validate-container input.gx-error-tip, .xui-validate-container textarea.gx-error-tip {
+      border: 1px solid #d45252 !important;
+      background-color: #ffffe9 !important; }
+    .xui-validate-container input.gx-error-tip:hover, .xui-validate-container textarea.gx-error-tip:hover {
+      border: 1px solid #d45252; }
+    .xui-validate-container input.gx-error-tip:focus, .xui-validate-container textarea.gx-error-tip:focus {
+      border: 1px solid #d45252 !important;
+      -moz-box-shadow: 0 0 2px rgba(212, 82, 82, 0.8) !important;
+      -ms-box-shadow: 0 0 2px rgba(212, 82, 82, 0.8) !important;
+      -webkit-box-shadow: 0 0 2px rgba(212, 82, 82, 0.8) !important;
+      box-shadow: 0 0 2px rgba(212, 82, 82, 0.8) !important; }
+  .xui-validate-container .gx-icon-logo {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin-right: 5px; }
+  .xui-validate-container .gx-error-logo {
+    background: url(../../../images/interrogate/record/model/inputerror.png) no-repeat;
+    background-size: contain; }
+  .xui-validate-container .gx-right-logo {
+    background: url(../../../images/interrogate/record/model/inputsucess.png) no-repeat;
+    background-size: contain; }
+  .xui-validate-container .gx-require-logo:before {
+    content: "*";
+    width: 10px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    color: #f60505; }
+  .xui-validate-container .gx-show-tip {
+    display: inline-block;
+    margin-left: 3px;
+    vertical-align: middle; }
+  .xui-validate-container .hide {
+    display: none; }
+  .xui-validate-container .icon-clean {
+    display: inline-block;
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: url(../../../images/interrogate/record/model/input_clean.png) no-repeat;
+    right: 8px;
+    margin-top: 9px;
+    cursor: pointer; }
+  .xui-validate-container .gx-msg {
+    line-height: 1; }
+  .xui-validate-container .form-item {
+    height: 45px; }
+  .xui-validate-container.personInfo-update .user-content .line {
+    margin-bottom: 17px; }
+  .xui-validate-container.modal-body.cabinet-update-container .cabinet-update-content .cabinet-content .col-md-4 {
+    height: 45px; }
+  .xui-validate-container.modal-body.cabinet-update-container .cabinet-update-content.hide-serial-number {
+    padding-top: 185px; }
+  .xui-validate-container.register-left .schedule-module-row .cell-title {
+    height: 30px !important;
+    line-height: 1 !important; }
+  .xui-validate-container.register-left .schedule-module-row .cell-content {
+    height: 30px !important;
+    vertical-align: middle !important; }
+    .xui-validate-container.register-left .schedule-module-row .cell-content .sign-wrap-small {
+      margin-right: 170px; }
+  .xui-validate-container .collect-info-list {
+    height: 37px !important; }
+  .xui-validate-container .leavearea-modal-container .input-part {
+    height: 38px;
+    line-height: 35px; }
+  .xui-validate-container .gx-row {
+    display: inline-block;
+    height: 60px;
+    line-height: 50px; }
+    .xui-validate-container .gx-row li {
+      margin-top: 0 !important;
+      vertical-align: top; }
+      .xui-validate-container .gx-row li .gx-title {
+        vertical-align: top; }
+  .xui-validate-container .common-select-container .select-show.directive-error {
+    border: 1px solid #d45252;
+    background-color: #ffffe9; }
+  .xui-validate-container .xl-datepicker-container .input-wrap.directive-error {
+    border: 1px solid #d45252;
+    background-color: #ffffe9; }
+    .xui-validate-container .xl-datepicker-container .input-wrap.directive-error .type-ipt {
+      background-color: #ffffe9; }
+  .xui-validate-container .update-content .col-md-12 {
+    height: 45px; }
+  .xui-validate-container.add-photo-body .update-content .person-info-form .search-row {
+    height: 33px; }
+  .xui-validate-container.person-info .person-info-form .search-row {
+    height: 33px; }
+  .xui-validate-container.person-effects-container .schedule-module .person-effects-row li {
+    height: 35px; }
+
 .test .test-blue {
   color: #5BABE6; }
 
