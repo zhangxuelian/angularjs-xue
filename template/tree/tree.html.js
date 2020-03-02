@@ -41,7 +41,7 @@ angular.module("xue/template/tree/tree.html", []).run(["$templateCache", functio
     "                    ng-class=\"{'active': treeCtrl.currentSelectedNode === item[treeConfig.uniqueId]}\">\n" +
     "                        {{ item[treeConfig.nodeName] }}\n" +
     "                </span>\n" +
-    "                <span class=\"loading-icon node-align\" ng-show=\"item.loading\"></span>\n" +
+    "                <span class=\"loading-icon node-align xui-icon xui-icon-ios-loading\" ng-show=\"item.loading\"></span>\n" +
     "        </div>\n" +
     "        <ul class=\"tree-list\" ng-if=\"item.expanded\" ng-if=\"!item.isLeaf\">\n" +
     "            <li id=\"{{ 'node_' + item[treeConfig.uniqueId] }}\"\n" +

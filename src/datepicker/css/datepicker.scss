@@ -20,7 +20,7 @@
         }
         &:hover{
             .sufix-input{
-                background: url(../images/del_icon.png) center center no-repeat;
+                display: inline-block;
                 cursor: pointer; 
             }
         }
@@ -45,24 +45,16 @@
         }
         .prefix-input{
             position: absolute;
-            background: url(../images/date_icon.png) center center no-repeat;
-            display: inline-block;
-            width: 16px;
-            height: 26px;
-            top: 0;
+            font-size: 18px;
+            top: 5px;
             left: 2px;
-            vertical-align: middle;
-            &.time-icon{
-                background: url(../images/time_icon.png) center center no-repeat;
-            }
         }
         .sufix-input{
-            display: inline-block;
-            width: 14px;
-            height: 26px;
+            display: none;
+            font-size: 16px;
             position: absolute;
             right: 2px;
-            top: 0;
+            top: 5px;
             /* &:hover{
                 background: url(../images/del_icon.jpg) center center no-repeat;
                 cursor: pointer;
@@ -192,10 +184,13 @@
             padding: 5px;
             padding-bottom: 0;
             .show-ipt{
+                width: 140px;
                 height: 28px;
                 line-height: 28px;
+                border: 1px solid #ddd;
+                padding-left: 8px;
+                padding-right: 8px;
                 border-radius: 3px;
-                width: 140px;
                 &:focus{
                     border: solid 1px #409EFF;
                 }
@@ -242,30 +237,6 @@
             margin-top: 3px;
             margin-left: 3px;
             margin-right: 3px;
-        }
-        .xl-d-arrow-left{
-            background: url(../images/d_arrow_left_normal.png);
-            &:hover{
-                background: url(../images/d_arrow_left_active.png);
-            }
-        }
-        .xl-arrow-left{
-            background: url(../images/arrow_left_normal.png);
-            &:hover{
-                background: url(../images/arrow_left_active.png);
-            }
-        }
-        .xl-arrow-right{
-            background: url(../images/arrow_right_normal.png);
-            &:hover{
-                background: url(../images/arrow_right_active.png);
-            }
-        }
-        .xl-d-arrow-right{
-            background: url(../images/d_arrow_right_normal.png);
-            &:hover{
-                background: url(../images/d_arrow_right_active.png);
-            }
         }
         .last-year{
             float: left;

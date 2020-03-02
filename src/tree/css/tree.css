@@ -95,9 +95,7 @@
           .xui-tree-wrap .tree-list .tree-item .tree-row .node-title.active {
             background: #d5e8fc; }
         .xui-tree-wrap .tree-list .tree-item .tree-row .loading-icon {
-          width: 16px;
-          height: 16px;
-          background: url("../../../images/common/loading_32x32.gif") center/cover no-repeat; }
+          font-size: 16px; }
       .xui-tree-wrap .tree-list .tree-item .tree-list.ng-hide {
         display: block !important; }
         .xui-tree-wrap .tree-list .tree-item .tree-list.ng-hide .tree-row {
