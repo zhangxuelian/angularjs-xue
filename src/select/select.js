@@ -1,4 +1,4 @@
-angular.module('xue.select', [])
+angular.module('xue.select', ['xue.util.array', 'xue.util.lang'])
 
     .directive('xueSelect', ['xueUtilArray', 'xueUtilLang', function (xueUtilArray, xueUtilLang) {
         return {
@@ -20,7 +20,7 @@ angular.module('xue.select', [])
                     unbindWatch2: null,
                     unbindWatch3: null,
                     unbindWatch4: null
-                }
+                };
                 //common select config
                 var selectConfig = {
                     filter: true, //过滤器开关 为false时与select标签功能一致

@@ -1,11 +1,7 @@
 /**
  * 可更改内容的下拉选择框（仅限取明词，不适用取词选对象）
- * @Author: zhangxuelian 
- * @Date: 2019-11-15 11:13:56 
- * @Last Modified by: chenpeiyu
- * @Last Modified time: 2020-02-27 16:28:17
  */
-angular.module('xue.autoselect', [])
+angular.module('xue.autoselect', ['xue.util.lang'])
     .directive('xueAutoselect', ['xueUtilLang', function (xueUtilLang) {
         return {
             restrict: "E",
@@ -37,7 +33,7 @@ angular.module('xue.autoselect', [])
                             $("body")[0].addEventListener("click", self.clickOtherArea);
                         },
                         clickOtherArea: function (e) {
-                            if ($(e.target).attr("class") != "xue-autoselect-wrap" && $(e.target).parents(".xue-autoselect-wrap").length == 0 &&
+                            if ($(e.target).attr("class") != "xui-autoselect-wrap" && $(e.target).parents(".xui-autoselect-wrap").length == 0 &&
                                 $(e.target).attr("id") != scope.selectConfig.id && $(e.target).parents("#" + scope.selectConfig.id).length == 0) {
                                 selectCtrl.hidePanel();
                             }
@@ -116,7 +112,6 @@ angular.module('xue.autoselect', [])
 
                 scope.$on("$destroy", function () {
                     var self = this;
-                    // self.watch && self.watch.destroy();
                     self.watch.destroy();
                     $('#' + scope.selectConfig.id).remove();
                 });

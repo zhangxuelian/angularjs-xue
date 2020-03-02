@@ -1,4 +1,4 @@
-angular.module('xue.directives', [])
+angular.module('xue.directives', ['xue.util.lang'])
     //锁定
     .directive("lockedMask", function () {
         return {
@@ -126,7 +126,7 @@ angular.module('xue.directives', [])
             scope: {
                 ngChecked: "="
             },
-            template: '<div class="xue-radio-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"></div>'
+            template: '<div class="xui-radio-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"></div>'
         }
     })
     // checkbox base on angularjs
@@ -137,7 +137,7 @@ angular.module('xue.directives', [])
             scope: {
                 ngChecked: "="
             },
-            template: '<div class="xue-checkbox-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"><i class="xui-icon xui-icon-md-checkmark"></i></div>'
+            template: '<div class="xui-checkbox-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"><i class="xui-icon xui-icon-md-checkmark"></i></div>'
         }
     })
     // toggle switch base on angularjs
@@ -149,7 +149,7 @@ angular.module('xue.directives', [])
                 multiType: "=",
                 ngDisabled: "="
             },
-            template: '<label class="xue-multi-checkbox-wrap">' +
+            template: '<label class="xui-multi-checkbox-wrap">' +
                 '<span class="multi-checkbox" ng-class="{1:\'multi-checkbox-checked\',2:\'multi-checkbox-indeterminate\'}[multiType]"></span>' +
                 '<input type="checkbox" class="multi-checkbox-input" ng-disabled="ngDisabled"></label>'
         }
@@ -163,7 +163,7 @@ angular.module('xue.directives', [])
                 ngDisabled: '=',
                 toggleConfig: '='
             },
-            template: "<div class='xue-toggle-wrap' ng-class=\"{true:'active'}[toggleConfig.disabled]\"><div ng-click='switchToggle()'><div class='toggle-bar'></div><div class='toggle-button'></div></div></div>",
+            template: "<div class='xui-toggle-wrap' ng-class=\"{true:'active'}[toggleConfig.disabled]\"><div ng-click='switchToggle()'><div class='toggle-bar'></div><div class='toggle-button'></div></div></div>",
             link: function (scope, ele, attrs) {
                 var toggleConfig = {
                     disabled: false,
@@ -194,7 +194,7 @@ angular.module('xue.directives', [])
                 toggleClick: "=",
                 clickParam: "="
             },
-            template: '<label class="xue-toggle-switch-wrap">' +
+            template: '<label class="xui-toggle-switch-wrap">' +
                 '<input class="swith-checkbox" type="checkbox" ng-model="ngChecked" ng-click="clickEvent()"/>' +
                 '<div class="switch-bg"></div><div class="toggle-btn"></div></label>',
             link: function (scope, element, attr) {
@@ -218,7 +218,7 @@ angular.module('xue.directives', [])
                 radioClick: "&", // 绑定父元素事件
                 name: '=' // 选项值
             },
-            template: '<div class="xue-radio-group-wrap">' +
+            template: '<div class="xui-radio-group-wrap">' +
                 '<label ng-class="{\'active\':value==label,\'disabled\':disabled}" class="radio-item">' +
                 '<input  class="checkbox-input" type="radio" name="common-radio" ng-disabled="disabled"  value="{{value}}" ng-model="value" ng-click="onChecked(value)"/>' +
                 '</label>' +
@@ -320,6 +320,59 @@ angular.module('xue.directives', [])
             });
         };
     })
+    //图片懒加载
+    .directive('lazyLoadImg', ['$timeout', function ($timeout) {
+        return {
+            restrict: "A",
+            link: function (scope, element, attrs) {
+                var imgPrefix = attrs.imgPrefix ? attrs.imgPrefix : 'constant_imagestore_url';
+                if (scope.$last == true) {
+                    //获取滚动父元素
+                    var container = element.parent();
+                    //获取父元素下的图片容器（用来计算位置）
+                    var cardList = Array.prototype.slice.call(container.children(".card"));
+                    //获取父元素下需要懒加载的图片
+                    var imgsList = Array.prototype.slice.call(container.find(".lazyImg"));
+                    //下一次开始检查图片的位置
+                    var lastIndex = 0;
+                    //页面首屏渲染，动态数据渲染有延时，这里使用timeout
+                    $timeout(function () {
+                        imageLoad(imgsList, cardList, container, lastIndex);
+                    });
+                    //监听父元素滚动事件
+                    container.bind('scroll', function () {
+                        //节流函数
+                        var canRun = true;
+                        return function () {
+                            if (!canRun) {
+                                return;
+                            }
+                            canRun = false;
+                            //500毫秒加载一次
+                            $timeout(function () {
+                                imageLoad(imgsList, cardList, container, lastIndex);
+                                canRun = true;
+                            }, 500);
+                        };
+                    });
+                }
+
+                function imageLoad(imgs, cards, container, lastIndex) {
+                    if (imgs.length < 1) {
+                        return;
+                    }
+                    for (var i = lastIndex; i < imgs.length; i++) {
+                        if (cards[i].offsetTop < container[0].clientHeight + container[0].scrollTop) {
+                            if (imgs[i].getAttribute("lazy-src")) {
+                                imgs[i].src = imgPrefix + imgs[i].getAttribute("lazy-src");
+                            }
+                            lastIndex = i + 1;
+                        }
+                    }
+                }
+            }
+        }
+    }])
     //$watch删除非数字字符
     .directive("xueFilterNumber", function () {
         return {

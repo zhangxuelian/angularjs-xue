@@ -1,13 +1,13 @@
 angular.module("xue/template/notice/notice.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/notice/notice.html",
-    "<div class=\"xue-notice-container\" ng-mouseenter=\"gxNoticeCtrl.mouseenter()\" ng-mouseleave=\"gxNoticeCtrl.mouseleave()\"> \n" +
-    "    <div class=\"xue-notice-icon\" title=\"{{noticeConfig.title || '消息提醒'}}\">\n" +
+    "<div class=\"xui-notice-container\" ng-mouseenter=\"gxNoticeCtrl.mouseenter()\" ng-mouseleave=\"gxNoticeCtrl.mouseleave()\"> \n" +
+    "    <div class=\"xui-notice-icon\" title=\"{{noticeConfig.title || '消息提醒'}}\">\n" +
     "        <i class=\"xui-icon xui-icon-md-notifications-outline notice-icon\"></i>\n" +
     "        <!-- <img class=\"notice-icon\" src=\"\" alt=\"\" onerror=\"javascript:this.src='common/directives/images/gx_notice/warn.png'\"> -->\n" +
     "        <span class=\"notice-count\" title=\"{{noticeConfig.count}}\" ng-show=\"noticeConfig.count>0\">{{noticeConfig.count>99?'99+':noticeConfig.count}}</span>\n" +
     "    </div>\n" +
-    "    <div class=\"xue-notice-content-wrap\" id=\"{{noticeConfig.modalId}}\" ng-mouseenter=\"gxNoticeCtrl.mouseenter()\" ng-mouseleave=\"gxNoticeCtrl.mouseleave()\">\n" +
-    "        <div class=\"xue-notice-content\" >\n" +
+    "    <div class=\"xui-notice-content-wrap\" id=\"{{noticeConfig.modalId}}\" ng-mouseenter=\"gxNoticeCtrl.mouseenter()\" ng-mouseleave=\"gxNoticeCtrl.mouseleave()\">\n" +
+    "        <div class=\"xui-notice-content\" >\n" +
     "            <div class=\"notice-tab\">\n" +
     "                <div class=\"tab-item\" ng-repeat=\"item in noticeConfig.tabItem\" ng-class=\"{true:'active'}[noticeConfig.selectTabId == item.id]\" \n" +
     "                ng-click=\"gxNoticeCtrl.tabItemClick(item)\">\n" +

@@ -1,4 +1,3 @@
-
 require('../../template/select/select.html.js');
 require('./select');
 

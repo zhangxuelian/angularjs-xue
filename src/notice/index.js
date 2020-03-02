@@ -1,4 +1,3 @@
-
 require('../../template/notice/notice.html.js');
 require('./notice');
 

@@ -1,4 +1,3 @@
-
 require('./directives');
 var MODULE_NAME = 'xue.module.directives';
 

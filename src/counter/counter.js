@@ -1,4 +1,4 @@
-angular.module('xue.counter', [])
+angular.module('xue.counter', ['xue.util.lang'])
     .directive('xueCounter', ['xueUtilLang', function (xueUtilLang) {
         return {
             restrict: "E",

@@ -3,8 +3,9 @@ $green-theme:#13BA5A !default;
 
 $steps-default-color: #dae1ec !default;
 $step-text-default-color: #999 !default;
+$step-bg-color: $white;
 
-.xue-steps-wrap {
+.xui-steps-wrap {
     @mixin displayFlex {
         display: -ms-flexbox;
         /* 混合版本语法: IE 10 */
@@ -147,12 +148,12 @@ $step-text-default-color: #999 !default;
             &.statusNum,
             &.strokeStatus {
                 border: 2px solid $steps-default-color;
-                background-color: #fff;
+                background-color: $step-bg-color;
             }
 
             &.iconfont,
             &.img {
-                background-color: #fff;
+                background-color: $step-bg-color;
             }
         }
 
@@ -179,7 +180,7 @@ $step-text-default-color: #999 !default;
                 content: "";
                 width: 70%;
                 height: 70%;
-                background-color: #fff;
+                background-color: $step-bg-color;
                 border-radius: 50%;
             }
         }
@@ -308,6 +309,4 @@ $step-text-default-color: #999 !default;
             }
         }
     }
-
-
 }

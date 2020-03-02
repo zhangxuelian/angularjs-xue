@@ -1,4 +1,11 @@
-.xue-autoselect-wrap {
+$autoselect-content-bg-color: #f8f8f8 !default;
+$autoselect-content-border-color: #cee0f0 !default;
+$autoselect-text-color: #2b3646 !default;
+$autoselect-active-color: #0394f9 !default;
+$autoselect-active-text-color: $white !default;
+$autoselect-empty-text-color: $gray-600 !default;
+
+.xui-autoselect-wrap {
     position: relative;
     display: inline-block;
     vertical-align: middle;
@@ -20,8 +27,8 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        background-color: #fff;
         box-sizing: border-box;
+        color: $autoselect-text-color;
     }
 }
 
@@ -32,9 +39,9 @@
     width: 180px;
     height: 250px;
     z-index: 9999;
-    background: #f8f8f8;
+    background: $autoselect-content-bg-color;
     overflow: auto;
-    border: solid 1px #cee0f0;
+    border: $border-width solid $autoselect-content-border-color;
     box-shadow: 0px 3px 7px 0px rgba(85, 176, 255, 0.3);
     box-sizing: border-box;
 
@@ -43,14 +50,14 @@
         overflow: auto !important;
         height: 100% !important;
         // IE8滚动条箭头颜色，重设原来的浅色调避免弹框太小时完全无滚动条
-        scrollbar-arrow-color: #000000;
+        scrollbar-arrow-color: $black;
 
         li {
             width: 100% !important;
             min-height: 28px !important;
             line-height: 28px !important;
-            border-bottom: solid 1px #cee0f0;
-            color: #2b3646;
+            border-bottom: $border-width solid $autoselect-content-border-color;
+            color: $autoselect-text-color;
             cursor: pointer;
             text-align: left !important;
             display: table;
@@ -60,8 +67,8 @@
             box-sizing: border-box;
 
             &:hover {
-                background: #0394f9;
-                color: #fff;
+                background: $autoselect-active-color;
+                color: $autoselect-active-text-color;
             }
 
             input[type='checkbox'] {
@@ -79,7 +86,7 @@
             }
 
             &.empty-data {
-                color: #999;
+                color: $autoselect-empty-text-color;
                 padding: 0 !important;
 
                 span {
@@ -89,8 +96,8 @@
                 }
 
                 &:hover {
-                    background: #f8f8f8;
-                    color: #999999;
+                    background: $autoselect-content-bg-color;
+                    color: $autoselect-empty-text-color;
                 }
             }
         }
@@ -100,7 +107,7 @@
         }
 
         .active {
-            color: #0394f9;
+            color: $autoselect-active-color;
         }
     }
 }

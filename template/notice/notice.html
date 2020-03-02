@@ -1,11 +1,11 @@
-<div class="xue-notice-container" ng-mouseenter="gxNoticeCtrl.mouseenter()" ng-mouseleave="gxNoticeCtrl.mouseleave()"> 
-    <div class="xue-notice-icon" title="{{noticeConfig.title || '消息提醒'}}">
+<div class="xui-notice-container" ng-mouseenter="gxNoticeCtrl.mouseenter()" ng-mouseleave="gxNoticeCtrl.mouseleave()"> 
+    <div class="xui-notice-icon" title="{{noticeConfig.title || '消息提醒'}}">
         <i class="xui-icon xui-icon-md-notifications-outline notice-icon"></i>
         <!-- <img class="notice-icon" src="" alt="" onerror="javascript:this.src='common/directives/images/gx_notice/warn.png'"> -->
         <span class="notice-count" title="{{noticeConfig.count}}" ng-show="noticeConfig.count>0">{{noticeConfig.count>99?'99+':noticeConfig.count}}</span>
     </div>
-    <div class="xue-notice-content-wrap" id="{{noticeConfig.modalId}}" ng-mouseenter="gxNoticeCtrl.mouseenter()" ng-mouseleave="gxNoticeCtrl.mouseleave()">
-        <div class="xue-notice-content" >
+    <div class="xui-notice-content-wrap" id="{{noticeConfig.modalId}}" ng-mouseenter="gxNoticeCtrl.mouseenter()" ng-mouseleave="gxNoticeCtrl.mouseleave()">
+        <div class="xui-notice-content" >
             <div class="notice-tab">
                 <div class="tab-item" ng-repeat="item in noticeConfig.tabItem" ng-class="{true:'active'}[noticeConfig.selectTabId == item.id]" 
                 ng-click="gxNoticeCtrl.tabItemClick(item)">

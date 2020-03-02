@@ -1,4 +1,4 @@
-<div class="xue-steps-wrap {{stepsConfig.direction}} {{stepsConfig.theme}} {{stepsConfig.alignCenter?'is-center':''}} {{stepsConfig.size}}">
+<div class="xui-steps-wrap {{stepsConfig.direction}} {{stepsConfig.theme}} {{stepsConfig.alignCenter?'is-center':''}} {{stepsConfig.size}}">
     <div class="step-item" ng-repeat="option in stepsConfig.options"
         ng-class="{'active':option[stepsConfig.idField]==ngValue,'passed':option.passed,'future':option[stepsConfig.idField]!=ngValue && !option.passed,'last':$last}">
         <div class="step-bar">

@@ -1,6 +1,6 @@
 angular.module("xue/template/steps/steps.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/steps/steps.html",
-    "<div class=\"xue-steps-wrap {{stepsConfig.direction}} {{stepsConfig.theme}} {{stepsConfig.alignCenter?'is-center':''}} {{stepsConfig.size}}\">\n" +
+    "<div class=\"xui-steps-wrap {{stepsConfig.direction}} {{stepsConfig.theme}} {{stepsConfig.alignCenter?'is-center':''}} {{stepsConfig.size}}\">\n" +
     "    <div class=\"step-item\" ng-repeat=\"option in stepsConfig.options\"\n" +
     "        ng-class=\"{'active':option[stepsConfig.idField]==ngValue,'passed':option.passed,'future':option[stepsConfig.idField]!=ngValue && !option.passed,'last':$last}\">\n" +
     "        <div class=\"step-bar\">\n" +

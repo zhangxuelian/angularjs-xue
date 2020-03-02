@@ -2,11 +2,11 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-02-28
+ * Version: 1.0.0 - 2020-03-02
  * Require angularjs version: 1.2.32
  * License: ISC
  */
-angular.module("ui.xue", ["ui.xue.tpls", "xue.autoselect","xue.util.lang","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.loading","xue.menu","xue.notice","xue.pagination","xue.scroller","xue.select","xue.steps","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util","xue.validate"]);
+angular.module("ui.xue", ["ui.xue.tpls", "xue.util.lang","xue.autoselect","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.loading","xue.menu","xue.notice","xue.pagination","xue.scroller","xue.select","xue.steps","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util","xue.validate"]);
 angular.module("ui.xue.tpls", ["xue/template/autoselect/autoselect.html","xue/template/cascader/cascader.html","xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/scroller/scroller.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
 /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
 //@ sourceMappingURL=jquery-1.10.2.min.map
@@ -17,12 +17,8 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 
 /**
  * 可更改内容的下拉选择框（仅限取明词，不适用取词选对象）
- * @Author: zhangxuelian 
- * @Date: 2019-11-15 11:13:56 
- * @Last Modified by: chenpeiyu
- * @Last Modified time: 2020-02-27 16:28:17
  */
-angular.module('xue.autoselect', [])
+angular.module('xue.autoselect', ['xue.util.lang'])
     .directive('xueAutoselect', ['xueUtilLang', function (xueUtilLang) {
         return {
             restrict: "E",
@@ -54,7 +50,7 @@ angular.module('xue.autoselect', [])
                             $("body")[0].addEventListener("click", self.clickOtherArea);
                         },
                         clickOtherArea: function (e) {
-                            if ($(e.target).attr("class") != "xue-autoselect-wrap" && $(e.target).parents(".xue-autoselect-wrap").length == 0 &&
+                            if ($(e.target).attr("class") != "xui-autoselect-wrap" && $(e.target).parents(".xui-autoselect-wrap").length == 0 &&
                                 $(e.target).attr("id") != scope.selectConfig.id && $(e.target).parents("#" + scope.selectConfig.id).length == 0) {
                                 selectCtrl.hidePanel();
                             }
@@ -133,7 +129,6 @@ angular.module('xue.autoselect', [])
 
                 scope.$on("$destroy", function () {
                     var self = this;
-                    // self.watch && self.watch.destroy();
                     self.watch.destroy();
                     $('#' + scope.selectConfig.id).remove();
                 });
@@ -323,7 +318,7 @@ angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
             }
         }
     }])
-angular.module('xue.counter', [])
+angular.module('xue.counter', ['xue.util.lang'])
     .directive('xueCounter', ['xueUtilLang', function (xueUtilLang) {
         return {
             restrict: "E",
@@ -1221,7 +1216,7 @@ angular.module('xue.datepicker', ['xue.util.date', 'xue.util.lang'])
         }
     }])
 
-angular.module('xue.directives', [])
+angular.module('xue.directives', ['xue.util.lang'])
     //锁定
     .directive("lockedMask", function () {
         return {
@@ -1349,7 +1344,7 @@ angular.module('xue.directives', [])
             scope: {
                 ngChecked: "="
             },
-            template: '<div class="xue-radio-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"></div>'
+            template: '<div class="xui-radio-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"></div>'
         }
     })
     // checkbox base on angularjs
@@ -1360,7 +1355,7 @@ angular.module('xue.directives', [])
             scope: {
                 ngChecked: "="
             },
-            template: '<div class="xue-checkbox-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"><i class="xui-icon xui-icon-md-checkmark"></i></div>'
+            template: '<div class="xui-checkbox-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"><i class="xui-icon xui-icon-md-checkmark"></i></div>'
         }
     })
     // toggle switch base on angularjs
@@ -1372,7 +1367,7 @@ angular.module('xue.directives', [])
                 multiType: "=",
                 ngDisabled: "="
             },
-            template: '<label class="xue-multi-checkbox-wrap">' +
+            template: '<label class="xui-multi-checkbox-wrap">' +
                 '<span class="multi-checkbox" ng-class="{1:\'multi-checkbox-checked\',2:\'multi-checkbox-indeterminate\'}[multiType]"></span>' +
                 '<input type="checkbox" class="multi-checkbox-input" ng-disabled="ngDisabled"></label>'
         }
@@ -1386,7 +1381,7 @@ angular.module('xue.directives', [])
                 ngDisabled: '=',
                 toggleConfig: '='
             },
-            template: "<div class='xue-toggle-wrap' ng-class=\"{true:'active'}[toggleConfig.disabled]\"><div ng-click='switchToggle()'><div class='toggle-bar'></div><div class='toggle-button'></div></div></div>",
+            template: "<div class='xui-toggle-wrap' ng-class=\"{true:'active'}[toggleConfig.disabled]\"><div ng-click='switchToggle()'><div class='toggle-bar'></div><div class='toggle-button'></div></div></div>",
             link: function (scope, ele, attrs) {
                 var toggleConfig = {
                     disabled: false,
@@ -1417,7 +1412,7 @@ angular.module('xue.directives', [])
                 toggleClick: "=",
                 clickParam: "="
             },
-            template: '<label class="xue-toggle-switch-wrap">' +
+            template: '<label class="xui-toggle-switch-wrap">' +
                 '<input class="swith-checkbox" type="checkbox" ng-model="ngChecked" ng-click="clickEvent()"/>' +
                 '<div class="switch-bg"></div><div class="toggle-btn"></div></label>',
             link: function (scope, element, attr) {
@@ -1441,7 +1436,7 @@ angular.module('xue.directives', [])
                 radioClick: "&", // 绑定父元素事件
                 name: '=' // 选项值
             },
-            template: '<div class="xue-radio-group-wrap">' +
+            template: '<div class="xui-radio-group-wrap">' +
                 '<label ng-class="{\'active\':value==label,\'disabled\':disabled}" class="radio-item">' +
                 '<input  class="checkbox-input" type="radio" name="common-radio" ng-disabled="disabled"  value="{{value}}" ng-model="value" ng-click="onChecked(value)"/>' +
                 '</label>' +
@@ -1543,6 +1538,59 @@ angular.module('xue.directives', [])
             });
         };
     })
+    //图片懒加载
+    .directive('lazyLoadImg', ['$timeout', function ($timeout) {
+        return {
+            restrict: "A",
+            link: function (scope, element, attrs) {
+                var imgPrefix = attrs.imgPrefix ? attrs.imgPrefix : 'constant_imagestore_url';
+                if (scope.$last == true) {
+                    //获取滚动父元素
+                    var container = element.parent();
+                    //获取父元素下的图片容器（用来计算位置）
+                    var cardList = Array.prototype.slice.call(container.children(".card"));
+                    //获取父元素下需要懒加载的图片
+                    var imgsList = Array.prototype.slice.call(container.find(".lazyImg"));
+                    //下一次开始检查图片的位置
+                    var lastIndex = 0;
+                    //页面首屏渲染，动态数据渲染有延时，这里使用timeout
+                    $timeout(function () {
+                        imageLoad(imgsList, cardList, container, lastIndex);
+                    });
+                    //监听父元素滚动事件
+                    container.bind('scroll', function () {
+                        //节流函数
+                        var canRun = true;
+                        return function () {
+                            if (!canRun) {
+                                return;
+                            }
+                            canRun = false;
+                            //500毫秒加载一次
+                            $timeout(function () {
+                                imageLoad(imgsList, cardList, container, lastIndex);
+                                canRun = true;
+                            }, 500);
+                        };
+                    });
+                }
+
+                function imageLoad(imgs, cards, container, lastIndex) {
+                    if (imgs.length < 1) {
+                        return;
+                    }
+                    for (var i = lastIndex; i < imgs.length; i++) {
+                        if (cards[i].offsetTop < container[0].clientHeight + container[0].scrollTop) {
+                            if (imgs[i].getAttribute("lazy-src")) {
+                                imgs[i].src = imgPrefix + imgs[i].getAttribute("lazy-src");
+                            }
+                            lastIndex = i + 1;
+                        }
+                    }
+                }
+            }
+        }
+    }])
     //$watch删除非数字字符
     .directive("xueFilterNumber", function () {
         return {
@@ -1645,7 +1693,7 @@ angular.module('xue.loading', [])
                     // 'line-spin-clockwise','ball-clip-rotate','ball-pulse-sync'
                     itemArr: null, //不同加载样式所需的dom数不同。
                     zIndex: 99
-                }
+                };
                 scope.loadingConfig = angular.extend(loadingConfig, scope.loadingConfig);
                 var renderObj = {
                     template: '<div class="loading-shade" ng-class="loadingConfig.className" ng-style="{\'z-index\':loadingConfig.zIndex}"\
@@ -1833,119 +1881,119 @@ angular.module('xue.menu', ['xue.util.lang'])
             }
         }
     }])
-angular.module('xue.notice', [])
-.directive('xueNotice',["xueUtilLang","$timeout",function(xueUtilLang,$timeout){
-    return {
-        restrict: "E",
-        replace: true,
-        scope: {
-            noticeConfig : '='
-        },
-        templateUrl: function (element, attrs) {
-            return attrs.templateUrl || "xue/template/notice/notice.html";
-        },
-        link: function(scope,ele,attrs){
+angular.module('xue.notice', ['xue.util.lang'])
+    .directive('xueNotice', ["xueUtilLang", "$timeout", function (xueUtilLang, $timeout) {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                noticeConfig: '='
+            },
+            templateUrl: function (element, attrs) {
+                return attrs.templateUrl || "xue/template/notice/notice.html";
+            },
+            link: function (scope, ele, attrs) {
 
-            var gxNoticeCtrl = scope.gxNoticeCtrl = {
-                defaultConfig: {
-                    modalId: null,
-                    title: '', // 滑过显示标题
-                    // iconUrl: 'common/directives/images/gx_notice/warn.png', // 图标
-                    width: '366px', // 提示容器宽
-                    height: '266px', // 提示容器高
-                    count: 0, // 总提示记录数，为0时不显示
-                    selectTabId: 0,
-                    tabItem: [{
-                        id: 0,
-                        name: '消息提醒',
-                        count: 2
-                    },{
-                        id: 1,
-                        name: '系统通知',
-                        count: 3
-                    }],
-                    tabMark: 'number', //number 数字 circle 圆点
-                    showNotice: true, // 显示提示内容
-                    formatField: { // 字段名格式化
-                        contentTitle: '',
-                        content: 'content',
-                        time: 'time',
-                        completeContent: '',
-                        contentType: 'contentType',
-                        count: 'count'
+                var gxNoticeCtrl = scope.gxNoticeCtrl = {
+                    defaultConfig: {
+                        modalId: null,
+                        title: '', // 滑过显示标题
+                        // iconUrl: 'common/directives/images/gx_notice/warn.png', // 图标
+                        width: '366px', // 提示容器宽
+                        height: '266px', // 提示容器高
+                        count: 0, // 总提示记录数，为0时不显示
+                        selectTabId: 0,
+                        tabItem: [{
+                            id: 0,
+                            name: '消息提醒',
+                            count: 2
+                        }, {
+                            id: 1,
+                            name: '系统通知',
+                            count: 3
+                        }],
+                        tabMark: 'number', //number 数字 circle 圆点
+                        showNotice: true, // 显示提示内容
+                        formatField: { // 字段名格式化
+                            contentTitle: '',
+                            content: 'content',
+                            time: 'time',
+                            completeContent: '',
+                            contentType: 'contentType',
+                            count: 'count'
+                        },
+                        listMaxLen: 10, // 消息列表最多显示数
+                        noticeList: [], // 提示内容列表，对象：{content: '提示内容',time: '2019-08-20 17:13:55'}
+                        showNoticeType: false, // 显示提示分类（与提示内容应互斥）
+                        noticeTypeList: [], // 提示分类列表，对象：{contentType: '提示分类内容', count: 0}
+                        emptyNoticeTip: '暂没有新消息', // 无消息提示语
+                        showFooter: true, // 是否显示提示尾部操作
+                        footerContent: [{ // 消息提醒尾部操作
+                            name: '当前标记已读',
+                            click: function () {}
+                        }, {
+                            name: '查看全部',
+                            click: function () {}
+                        }],
+                        tabItemClick: function () {},
+                        itemClick: function () {}, //列表项点击回调
+                        loadNextPage: function () {}, //列表滚动到底部加载下一页回调函数
+                        listHide: function () {}, //列表消失回调函数
+                        listShow: function () {} //列表显示回调函数
                     },
-                    listMaxLen: 10, // 消息列表最多显示数
-                    noticeList: [], // 提示内容列表，对象：{content: '提示内容',time: '2019-08-20 17:13:55'}
-                    showNoticeType: false, // 显示提示分类（与提示内容应互斥）
-                    noticeTypeList: [], // 提示分类列表，对象：{contentType: '提示分类内容', count: 0}
-                    emptyNoticeTip: '暂没有新消息', // 无消息提示语
-                    showFooter: true, // 是否显示提示尾部操作
-                    footerContent: [{ // 消息提醒尾部操作
-                        name: '当前标记已读',
-                        click:  function(){}
-                    },{
-                        name: '查看全部',
-                        click: function(){}
-                    }],
-                    tabItemClick: function(){},
-                    itemClick: function(){}, //列表项点击回调
-                    loadNextPage: function(){}, //列表滚动到底部加载下一页回调函数
-                    listHide: function(){}, //列表消失回调函数
-                    listShow: function(){} //列表显示回调函数
-                },
-                tabItemClick: function(item){
-                    $('#'+scope.noticeConfig.modalId+' .notice-content').scrollTop(0);
-                    scope.noticeConfig.selectTabId = item.id;
-                    if(xueUtilLang.isFunction(scope.noticeConfig.tabItemClick)){
-                        scope.noticeConfig.tabItemClick(item);
-                    }
-                },
-                showPanel: false,
-                mouseenter: function(){
-                    gxNoticeCtrl.showPanel = true;
-                    var $target = $('#'+scope.noticeConfig.modalId);
-                    var top = $(ele).offset().top,
-                        left = $(ele).offset().left,
-                        width = $(ele).width(),
-                        height = $(ele).height(),
-                        targetWidth = $target.outerWidth();
-                    $target.css({
-                        'top': top + height + 15 + 'px',
-                        'left': left + width/2 - targetWidth/2 + 'px'
-                    });
-                    $('body').append($target);
-                    if($target.is(':hidden')){
-                        $target.fadeIn();
-                        scope.noticeConfig.listShow();
-                    }
-                },
-                mouseleave: function(){
-                    gxNoticeCtrl.showPanel = false;
-                    var $target = $('#'+scope.noticeConfig.modalId);
-                    $timeout(function(){
-                        if(!$target.is(':hidden') && !gxNoticeCtrl.showPanel){
-                            $target.fadeOut();
-                            scope.noticeConfig.listHide();
+                    tabItemClick: function (item) {
+                        $('#' + scope.noticeConfig.modalId + ' .notice-content').scrollTop(0);
+                        scope.noticeConfig.selectTabId = item.id;
+                        if (xueUtilLang.isFunction(scope.noticeConfig.tabItemClick)) {
+                            scope.noticeConfig.tabItemClick(item);
                         }
-                    },500);
-                },
-                init: function(){
-                    var self = this;
-                    scope.noticeConfig = angular.extend(self.defaultConfig,scope.noticeConfig);
-                    scope.noticeConfig.modalId = 'gxNotice_'+new Date().getTime();
-                    self.destroy();
-                },
-                destroy: function(){
-                    scope.$on('$destroy',function(){
-                        $("#"+scope.noticeConfig.modalId).remove();
-                    });
+                    },
+                    showPanel: false,
+                    mouseenter: function () {
+                        gxNoticeCtrl.showPanel = true;
+                        var $target = $('#' + scope.noticeConfig.modalId);
+                        var top = $(ele).offset().top,
+                            left = $(ele).offset().left,
+                            width = $(ele).width(),
+                            height = $(ele).height(),
+                            targetWidth = $target.outerWidth();
+                        $target.css({
+                            'top': top + height + 15 + 'px',
+                            'left': left + width / 2 - targetWidth / 2 + 'px'
+                        });
+                        $('body').append($target);
+                        if ($target.is(':hidden')) {
+                            $target.fadeIn();
+                            scope.noticeConfig.listShow();
+                        }
+                    },
+                    mouseleave: function () {
+                        gxNoticeCtrl.showPanel = false;
+                        var $target = $('#' + scope.noticeConfig.modalId);
+                        $timeout(function () {
+                            if (!$target.is(':hidden') && !gxNoticeCtrl.showPanel) {
+                                $target.fadeOut();
+                                scope.noticeConfig.listHide();
+                            }
+                        }, 500);
+                    },
+                    init: function () {
+                        var self = this;
+                        scope.noticeConfig = angular.extend(self.defaultConfig, scope.noticeConfig);
+                        scope.noticeConfig.modalId = 'gxNotice_' + new Date().getTime();
+                        self.destroy();
+                    },
+                    destroy: function () {
+                        scope.$on('$destroy', function () {
+                            $("#" + scope.noticeConfig.modalId).remove();
+                        });
+                    }
                 }
-            }
 
-            gxNoticeCtrl.init();
+                gxNoticeCtrl.init();
+            }
         }
-    }
-}])
+    }])
 angular.module('xue.pagination', [])
 
   .controller('xuePaginationController', ['$scope', '$attrs', '$parse', function ($scope, $attrs, $parse) {
@@ -2255,7 +2303,7 @@ angular.module('xue.scroller', ['xue.util.lang', 'xue.util.array'])
             }
         };
     }])
-angular.module('xue.select', [])
+angular.module('xue.select', ['xue.util.array', 'xue.util.lang'])
 
     .directive('xueSelect', ['xueUtilArray', 'xueUtilLang', function (xueUtilArray, xueUtilLang) {
         return {
@@ -2277,7 +2325,7 @@ angular.module('xue.select', [])
                     unbindWatch2: null,
                     unbindWatch3: null,
                     unbindWatch4: null
-                }
+                };
                 //common select config
                 var selectConfig = {
                     filter: true, //过滤器开关 为false时与select标签功能一致
@@ -2550,7 +2598,7 @@ angular.module('xue.select', [])
             }
         }
     }])
-angular.module('xue.steps', [])
+angular.module('xue.steps', ['xue.util.lang', 'xue.util.array'])
     .directive('xueSteps', ['xueUtilLang', "xueUtilArray", function (xueUtilLang, xueUtilArray) {
         return {
             restrict: "E",
@@ -5583,9 +5631,10 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
     }])
 angular.module("xue/template/autoselect/autoselect.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/autoselect/autoselect.html",
-    "<div class=\"xue-autoselect-wrap\">\n" +
+    "<div class=\"xui-autoselect-wrap\">\n" +
     "    <input ng-focus=\"selectCtrl.watch.focus($event)\" type=\"text\" class=\"select-show\" ng-model=\"ngVal\"\n" +
-    "        ng-class=\"selectCtrl.selectClass\" ng-style=\"selectCtrl.iptStyle\" ng-disabled=\"ngDisabled\" />\n" +
+    "        title=\"{{ngVal}}\" ng-class=\"selectCtrl.selectClass\" ng-style=\"selectCtrl.iptStyle\"\n" +
+    "        ng-disabled=\"ngDisabled\" />\n" +
     "    <div class=\"auto-select-content\" ng-style=\"selectCtrl.contentStyle\" id=\"{{selectConfig.id}}\">\n" +
     "        <ul>\n" +
     "            <li ng-repeat=\"item in selectConfig.data | filter:ngVal  | limitTo:selectConfig.showLimit\"\n" +
@@ -5635,7 +5684,7 @@ angular.module("xue/template/cascader/cascader.html", []).run(["$templateCache",
 
 angular.module("xue/template/counter/counter.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/counter/counter.html",
-    "<div class=\"xue-counter-wrap {{counterConfig.size}}\" ng-class=\"{'disabled':counterConfig.disabled}\">\n" +
+    "<div class=\"xui-counter-wrap {{counterConfig.size}}\" ng-class=\"{'disabled':counterConfig.disabled}\">\n" +
     "    <span ng-click=\"gxCounterCtrl.changeByBtn('reduce',params)\" class=\"reduce\"\n" +
     "        ng-class=\"{'disabled':counterConfig.disabled||gxCounterCtrl.number==counterConfig.min}\">-</span>\n" +
     "    <span ng-show=\"counterConfig.type==1\" class=\"text\" ng-model=\"gxCounterCtrl.number\">\n" +
@@ -5809,14 +5858,14 @@ angular.module("xue/template/menu/menu.html", []).run(["$templateCache", functio
 
 angular.module("xue/template/notice/notice.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/notice/notice.html",
-    "<div class=\"xue-notice-container\" ng-mouseenter=\"gxNoticeCtrl.mouseenter()\" ng-mouseleave=\"gxNoticeCtrl.mouseleave()\"> \n" +
-    "    <div class=\"xue-notice-icon\" title=\"{{noticeConfig.title || '消息提醒'}}\">\n" +
+    "<div class=\"xui-notice-container\" ng-mouseenter=\"gxNoticeCtrl.mouseenter()\" ng-mouseleave=\"gxNoticeCtrl.mouseleave()\"> \n" +
+    "    <div class=\"xui-notice-icon\" title=\"{{noticeConfig.title || '消息提醒'}}\">\n" +
     "        <i class=\"xui-icon xui-icon-md-notifications-outline notice-icon\"></i>\n" +
     "        <!-- <img class=\"notice-icon\" src=\"\" alt=\"\" onerror=\"javascript:this.src='common/directives/images/gx_notice/warn.png'\"> -->\n" +
     "        <span class=\"notice-count\" title=\"{{noticeConfig.count}}\" ng-show=\"noticeConfig.count>0\">{{noticeConfig.count>99?'99+':noticeConfig.count}}</span>\n" +
     "    </div>\n" +
-    "    <div class=\"xue-notice-content-wrap\" id=\"{{noticeConfig.modalId}}\" ng-mouseenter=\"gxNoticeCtrl.mouseenter()\" ng-mouseleave=\"gxNoticeCtrl.mouseleave()\">\n" +
-    "        <div class=\"xue-notice-content\" >\n" +
+    "    <div class=\"xui-notice-content-wrap\" id=\"{{noticeConfig.modalId}}\" ng-mouseenter=\"gxNoticeCtrl.mouseenter()\" ng-mouseleave=\"gxNoticeCtrl.mouseleave()\">\n" +
+    "        <div class=\"xui-notice-content\" >\n" +
     "            <div class=\"notice-tab\">\n" +
     "                <div class=\"tab-item\" ng-repeat=\"item in noticeConfig.tabItem\" ng-class=\"{true:'active'}[noticeConfig.selectTabId == item.id]\" \n" +
     "                ng-click=\"gxNoticeCtrl.tabItemClick(item)\">\n" +
@@ -6036,7 +6085,7 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
 
 angular.module("xue/template/steps/steps.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/steps/steps.html",
-    "<div class=\"xue-steps-wrap {{stepsConfig.direction}} {{stepsConfig.theme}} {{stepsConfig.alignCenter?'is-center':''}} {{stepsConfig.size}}\">\n" +
+    "<div class=\"xui-steps-wrap {{stepsConfig.direction}} {{stepsConfig.theme}} {{stepsConfig.alignCenter?'is-center':''}} {{stepsConfig.size}}\">\n" +
     "    <div class=\"step-item\" ng-repeat=\"option in stepsConfig.options\"\n" +
     "        ng-class=\"{'active':option[stepsConfig.idField]==ngValue,'passed':option.passed,'future':option[stepsConfig.idField]!=ngValue && !option.passed,'last':$last}\">\n" +
     "        <div class=\"step-bar\">\n" +

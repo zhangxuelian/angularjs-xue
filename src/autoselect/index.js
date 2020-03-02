@@ -1,4 +1,3 @@
-
 require('../../template/autoselect/autoselect.html.js');
 require('./autoselect');
 

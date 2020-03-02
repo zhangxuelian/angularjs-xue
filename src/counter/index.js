@@ -1,4 +1,3 @@
-
 require('../../template/counter/counter.html.js');
 require('./counter');
 

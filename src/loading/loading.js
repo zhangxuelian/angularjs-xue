@@ -16,7 +16,7 @@ angular.module('xue.loading', [])
                     // 'line-spin-clockwise','ball-clip-rotate','ball-pulse-sync'
                     itemArr: null, //不同加载样式所需的dom数不同。
                     zIndex: 99
-                }
+                };
                 scope.loadingConfig = angular.extend(loadingConfig, scope.loadingConfig);
                 var renderObj = {
                     template: '<div class="loading-shade" ng-class="loadingConfig.className" ng-style="{\'z-index\':loadingConfig.zIndex}"\

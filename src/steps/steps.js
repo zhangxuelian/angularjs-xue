@@ -1,4 +1,4 @@
-angular.module('xue.steps', [])
+angular.module('xue.steps', ['xue.util.lang', 'xue.util.array'])
     .directive('xueSteps', ['xueUtilLang', "xueUtilArray", function (xueUtilLang, xueUtilArray) {
         return {
             restrict: "E",

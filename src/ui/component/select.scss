@@ -8,7 +8,8 @@ $select-font-size: 1rem !default;
 $select-height: 28px !default;
 $select-content-bg-color: $gray-100 !default;
 $select-active-color: #0394f9 !default;
-$select-list-color: $gray-800 !default;
+$select-text-color: $gray-800 !default;
+$select-empty-text-color: $gray-600 !default;
 $vertical-align-middle: middle !default;
 
 @mixin select-input {
@@ -39,7 +40,7 @@ $vertical-align-middle: middle !default;
 
     .select-show {
         @include select-input;
-        position: releative;
+        position: relative;
         text-align: left;
         height: $select-height;
         line-height: $select-height;
@@ -50,7 +51,7 @@ $vertical-align-middle: middle !default;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        color: $select-list-color;
+        color: $select-text-color;
     }
 
     .select-arrow {
@@ -150,7 +151,7 @@ $vertical-align-middle: middle !default;
                 min-height: $select-height !important;
                 line-height: $select-height !important;
                 border-bottom: $border-width solid $select-border-color;
-                color: $select-list-color;
+                color: $select-text-color;
                 cursor: pointer;
                 text-align: left !important;
                 display: table;
@@ -179,7 +180,7 @@ $vertical-align-middle: middle !default;
                 }
 
                 &.empty-data {
-                    color: $gray-600;
+                    color: $select-empty-text-color;
                     padding: 0 !important;
 
                     span {
@@ -190,7 +191,7 @@ $vertical-align-middle: middle !default;
 
                     &:hover {
                         background: $select-content-bg-color;
-                        color: $gray-600;
+                        color: $select-empty-text-color;
                     }
                 }
             }
