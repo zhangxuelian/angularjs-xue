@@ -153,12 +153,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        watch: {
-            watchDemo: {
-                files: ['template/**/*.html','src/**/*.*','misc/demo/**/*.*'],
-                tasks: ['demo']
-            }
-        },
         'ddescribe-iit': {
             files: [
                 'src/**/test/*.spec.js'
@@ -191,6 +185,32 @@ module.exports = function (grunt) {
                 'grunt version:minor:"SNAPSHOT"',
                 'git commit package.json -m "chore(release): Starting v%version%"'
             ]
+        },
+        connect: {
+            options: {
+                port: 8081,
+                livereload: 35729  //声明给 watch 监听的端口
+            },
+            server: {
+                options: {
+                    open: true,
+                    base: {
+                        path: 'demo',
+                        options: {
+                            index: 'index.html'
+                        }
+                    },
+                }
+            }
+        },
+        watch: {
+            livereload: {
+                options: {
+                    livereload: '<%=connect.options.livereload%>'  //监听前面声明的端口  35729
+                },
+                files: ['template/**/*.html', 'src/**/*.*', 'misc/demo/**/*.*'],
+                tasks: ['demo']
+            }
         }
     });
 
@@ -463,5 +483,5 @@ module.exports = function (grunt) {
             }
         });
     });
-
+    grunt.registerTask('serve', ['connect:server', 'watch']);
 }
