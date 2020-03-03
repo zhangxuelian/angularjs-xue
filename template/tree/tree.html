@@ -39,7 +39,7 @@
                     ng-class="{'active': treeCtrl.currentSelectedNode === item[treeConfig.uniqueId]}">
                         {{ item[treeConfig.nodeName] }}
                 </span>
-                <span class="loading-icon node-align" ng-show="item.loading"></span>
+                <span class="loading-icon node-align xui-icon xui-icon-ios-loading" ng-show="item.loading"></span>
         </div>
         <ul class="tree-list" ng-if="item.expanded" ng-if="!item.isLeaf">
             <li id="{{ 'node_' + item[treeConfig.uniqueId] }}"
