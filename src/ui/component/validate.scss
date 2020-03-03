@@ -59,20 +59,9 @@
     
     .gx-icon-logo {
         display: inline-block;
-        width: 14px;
-        height: 14px;
+        font-size: 14px;
         vertical-align: middle;
         margin-right: 5px;
-    }
-
-    .gx-error-logo {
-        background: url(../../../images/interrogate/record/model/inputerror.png) no-repeat;
-        background-size: contain;
-    }
-
-    .gx-right-logo {
-        background: url(../../../images/interrogate/record/model/inputsucess.png) no-repeat;
-        background-size: contain;
     }
 
     .gx-require-logo:before {

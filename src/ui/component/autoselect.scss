@@ -13,22 +13,14 @@ $autoselect-empty-text-color: $gray-600 !default;
     line-height: 28px;
 
     .select-show {
-        @include select-input;
+        // @include select-input;
         text-align: left;
-        height: 28px;
-        line-height: 28px;
-        display: inline-block;
-        vertical-align: middle;
         width: 180px;
-        padding: 0 5px;
         background-position: center right;
         background-repeat: no-repeat;
         padding-right: 18px !important;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-        box-sizing: border-box;
         color: $autoselect-text-color;
+        @include text-overflow-ellipsis;
     }
 }
 

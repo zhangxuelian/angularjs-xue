@@ -1,5 +1,6 @@
 $icons-font-path: "./fonts";
 $icons-font-family: "Ionicons";
+$ali-icons-font-family: "fonticon";
 $icons-version: "1.0.0";
 
 @font-face {
@@ -8,6 +9,16 @@ $icons-version: "1.0.0";
          url("#{$icons-font-path}/ionicons.woff?v=#{$icons-version}") format("woff"),
          url("#{$icons-font-path}/ionicons.ttf?v=#{$icons-version}") format("truetype"),
          url("#{$icons-font-path}/ionicons.svg?v=#{$icons-version}#Ionicons") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: $ali-icons-font-family;
+    src: url("#{$icons-font-path}/iconfont.woff2") format("woff2"),
+         url("#{$icons-font-path}/iconfont.woff") format("woff"),
+         url("#{$icons-font-path}/iconfont.ttf") format("truetype"),
+         url("#{$icons-font-path}/iconfont.svg#fonticon") format("svg");
     font-weight: normal;
     font-style: normal;
 }
@@ -29,4 +40,9 @@ $icons-version: "1.0.0";
 
 .xui-icon {
     @include xui-icon();
+}
+
+.xui-extra-icon {
+    @include xui-icon();
+    font-family: $ali-icons-font-family;
 }

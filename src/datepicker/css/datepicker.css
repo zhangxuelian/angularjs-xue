@@ -49,11 +49,7 @@
       font-size: 16px;
       position: absolute;
       right: 2px;
-      top: 5px;
-      /* &:hover{
-                background: url(../images/del_icon.jpg) center center no-repeat;
-                cursor: pointer;
-            } */ }
+      top: 5px; }
   .xui-datepicker-wrap .type-img {
     display: inline-block; }
   .xui-datepicker-wrap .type-span {

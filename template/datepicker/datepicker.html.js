@@ -49,14 +49,14 @@ angular.module("xue/template/datepicker/datepicker.html", []).run(["$templateCac
     "            </span>\n" +
     "        </div>\n" +
     "        <div class=\"xl-content-header\">\n" +
-    "            <i class=\"last-year xl-d-arrow-left\" ng-click=\"xlDatepickerCtrl.changeYearMonth(-1,0)\" title=\"上一年\"></i>\n" +
-    "            <i class=\"last-month xl-arrow-left\" ng-click=\"xlDatepickerCtrl.changeYearMonth(0,-1)\" title=\"上一月\"></i>\n" +
+    "            <i class=\"last-year xui-extra-icon xui-icon-angle-double-left\" ng-click=\"xlDatepickerCtrl.changeYearMonth(-1,0)\" title=\"上一年\"></i>\n" +
+    "            <i class=\"last-month xui-extra-icon xui-icon-angle-left\" ng-click=\"xlDatepickerCtrl.changeYearMonth(0,-1)\" title=\"上一月\"></i>\n" +
     "            <span class=\"current-year\" ng-show=\"!xlDatepickerCtrl.showSelectYear\" ng-click=\"xlDatepickerCtrl.selectYearMonth($event,'year')\">{{xlDatepickerCtrl.currentYear}}年</span>\n" +
     "            <span class=\"current-year\" ng-show=\"xlDatepickerCtrl.showSelectYear\"><input type=\"text\" ng-blur=\"xlDatepickerCtrl.selectYearMonthBlur($event,'year')\" ng-model=\"xlDatepickerCtrl.currentYear\" >年</span>\n" +
     "            <span class=\"current-month\" ng-show=\"!xlDatepickerCtrl.showSelectMonth\" ng-click=\"xlDatepickerCtrl.selectYearMonth($event,'month')\">{{xlDatepickerCtrl.currentMonth}}月</span>\n" +
     "            <span class=\"current-month\" ng-show=\"xlDatepickerCtrl.showSelectMonth\"><input type=\"text\"ng-blur=\"xlDatepickerCtrl.selectYearMonthBlur($event,'month')\" ng-model=\"xlDatepickerCtrl.currentMonth\">月</span>\n" +
-    "            <i class=\"next-year xl-d-arrow-right\" ng-click=\"xlDatepickerCtrl.changeYearMonth(1,0)\" title=\"下一年\"></i>\n" +
-    "            <i class=\"next-month xl-arrow-right\" ng-click=\"xlDatepickerCtrl.changeYearMonth(0,1)\" title=\"下一月\"></i>\n" +
+    "            <i class=\"next-year xui-extra-icon xui-icon-angle-double-right\" ng-click=\"xlDatepickerCtrl.changeYearMonth(1,0)\" title=\"下一年\"></i>\n" +
+    "            <i class=\"next-month xui-extra-icon xui-icon-angle-right\" ng-click=\"xlDatepickerCtrl.changeYearMonth(0,1)\" title=\"下一月\"></i>\n" +
     "        </div>\n" +
     "        <div class=\"xl-content-body\">\n" +
     "            <table class=\"xl-datepicker-table\">\n" +
