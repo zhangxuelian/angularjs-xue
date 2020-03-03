@@ -21,13 +21,14 @@ $tab-border-color: $gray-300 !default;
     .xui-nav-wrap{
         @include list-unstyled();
         @include clearfix();
+        border-bottom: solid 1px $tab-border-color;
         .nav-item{
             float: left;
             .nav-link{
                 display: block;
                 color: $pagination-color;
                 background-color: $tab-bg;
-                border: $tab-border-width solid $tab-border-color;
+                //border: $tab-border-width solid $tab-border-color;
             }
         }
     }

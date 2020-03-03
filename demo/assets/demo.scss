@@ -218,11 +218,20 @@ body {
                         .content-html {
                             float: left;
                             width: 50%;
+                            float: left;
+                            width: 50%;
+                            border: 1px solid #ebebeb;
+                            box-sizing: border-box;
+                            padding: 15px 8px;
+                            background-color: #fff;
+                            border-radius: 3px;
                         }
 
                         .content-md {
-                            float: right;
+                            float: left;
                             width: 50%;
+                            box-sizing: border-box;
+                            padding: 15px 8px;
                         }
                     }
                 }
@@ -262,7 +271,8 @@ body {
 
             pre {
                 padding: 10px;
-                background: #cde1ec;
+                background-color: #fafafa;
+                border: 1px solid #eaeefb;
                 border-radius: 5px;
 
                 code {

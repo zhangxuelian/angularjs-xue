@@ -6217,7 +6217,7 @@ angular.module("xue/template/table/table.html", []).run(["$templateCache", funct
 
 angular.module("xue/template/tabs/tab.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/tabs/tab.html",
-    "<li ng-class=\"[{active: active, disabled: disabled}, classes]\" class=\"nav-item\">\n" +
+    "<li ng-class=\"{'active':active,'disabed':disabed}\" class=\"nav-item\">\n" +
     "    <a class=\"nav-link\" xue-test>{{label}}</a>\n" +
     "</li>");
 }]);
@@ -6228,7 +6228,7 @@ angular.module("xue/template/tabs/tabs_wrap.html", []).run(["$templateCache", fu
     "    <ul class=\"xui-nav-wrap\" ng-transclude></ul>\n" +
     "    <div class=\"xui-tabs-content\">\n" +
     "        <div class=\"tab-pane\" ng-repeat=\"tab in twCtrl.tabs\" \n" +
-    "            ng-class=\"{active: ngModel === tab.value}\"\n" +
+    "            ng-show=\"ngModel == tab.value\"\n" +
     "            xue-tab-content=\"tab\">\n" +
     "        </div>\n" +
     "    </div>\n" +

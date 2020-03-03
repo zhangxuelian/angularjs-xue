@@ -1,8 +1,16 @@
 <div ng-controller="xueTabsDemoCtrl">
     <xue-tabs-wrap type="card" ng-model="vm.activeValue" tab-config="vm.tabConfig">
+        <xue-tab label="'标签1'" value="'1'">
+            <span slot="label"><i class="xui-icon xui-icon-ios-arrow-dropup"></i> 标签1</span>
+            内容1
+        </xue-tab>
+        <xue-tab label="'标签2'" value="'2'">
+            内容2
+        </xue-tab>
+    </xue-tabs-wrap>
+    <xue-tabs-wrap type="card" ng-model="vm.activeValue" tab-config="vm.tabConfig">
         <xue-tab label="item.name" value="item.id" disabled="true" closable="true" 
             ng-repeat="item in vm.tabItems">
-            <span slot="label"><i class="xui-icon xui-icon-ios-arrow-dropup"></i> {{item.name}}</span>
             <div class="test">
                 {{item.content}}
             </div>

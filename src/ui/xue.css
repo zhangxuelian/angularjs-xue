@@ -18,7 +18,7 @@ body {
 hr {
   margin: 1rem 0;
   color: inherit;
-  background-color: currentColor;
+  background-color: #6c757d;
   border: 0;
   opacity: 0.25; }
 
@@ -2947,7 +2947,8 @@ i {
   position: relative; }
   .xui-tabs-wrap .xui-nav-wrap {
     padding-left: 0;
-    list-style: none; }
+    list-style: none;
+    border-bottom: solid 1px #dee2e6; }
     .xui-tabs-wrap .xui-nav-wrap::after {
       display: block;
       clear: both;
@@ -2957,8 +2958,7 @@ i {
       .xui-tabs-wrap .xui-nav-wrap .nav-item .nav-link {
         display: block;
         color: #2180BA;
-        background-color: #fff;
-        border: 1px solid #dee2e6; }
+        background-color: #fff; }
   .xui-tabs-wrap .nav-link {
     padding: 0.25rem 0.85rem; }
 

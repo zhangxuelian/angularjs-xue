@@ -1,6 +1,6 @@
 angular.module('ui.xue.demo').controller('xueTabsDemoCtrl', ['$scope', function ($scope) {
     $scope.vm = {
-        activeValue: "3",
+        activeValue: "2",
         tabConfig: {
             
         },
