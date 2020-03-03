@@ -46,8 +46,6 @@ angular.module('xue.directives', ['xue.util.lang'])
                         removeMask();
                     }
                 }, true)
-
-
             }
         }
     })

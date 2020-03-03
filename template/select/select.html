@@ -1,7 +1,7 @@
 <div class="xui-select-warp">
     <!-- 单选可过滤不分离 -->
     <div ng-if="!selectConfig.checkbox && selectConfig.filter && !selectConfig.separate">
-        <input ng-focus="focus()" type="text" class="select-show" title="{{selectConfig.inputLabel}}"
+        <input ng-focus="focus()" type="text" class="xui-input select-show" title="{{selectConfig.inputLabel}}"
             ng-model="selectConfig.inputLabel" ng-class="selectClass" ng-style="showStyle" ng-change="changeIpt()"
             ng-disabled="selectConfig.disabled" />
         <i class="select-arrow"></i>
@@ -21,13 +21,13 @@
     </div>
     <!-- 单选可过滤且分离 -->
     <div ng-if="!selectConfig.checkbox && selectConfig.filter && selectConfig.separate">
-        <input ng-click="focus()" type="button" class="select-show" ng-disabled="selectConfig.disabled"
+        <input ng-click="focus()" type="button" class="xui-input select-show" ng-disabled="selectConfig.disabled"
             title="{{selectConfig.inputLabel}}" ng-class="selectClass" ng-style="showStyle" />
         <i class="select-arrow"></i>
         <div class="select-content select-content-checkbox select-separate" ng-style="contentStyle">
             <div class="separate-wrap" ng-class="{'hidden-filter':!selectConfig.enableEmpty}">
                 <div class="select-filter-wrap">
-                    <input type="text" ng-model="selectConfig.myLabel" class="select-filter form-control" />
+                    <input type="text" ng-model="selectConfig.myLabel" class="xui-input select-filter" />
                 </div>
                 <!-- <i ng-click="clear()" ng-if="selectConfig.enableEmpty" title="清空">x</i> -->
                 <i ng-click="clear()" ng-if="selectConfig.enableEmpty" title="清空" class="xui-icon xui-icon-ios-trash"></i>
@@ -47,7 +47,7 @@
     </div>
     <!-- 单选不可过滤且分离 -->
     <div ng-if="!selectConfig.checkbox && !selectConfig.filter">
-        <input ng-focus="focus()" type="button" class="select-show" title="{{selectConfig.inputLabel}}"
+        <input ng-focus="focus()" type="button" class="xui-input select-show" title="{{selectConfig.inputLabel}}"
             ng-class="selectClass" ng-style="showStyle" ng-disabled="selectConfig.disabled" />
         <i class="select-arrow"></i>
         <div class="select-content" ng-style="contentStyle">
@@ -66,13 +66,13 @@
     </div>
     <!-- 多选-->
     <div ng-if="selectConfig.checkbox && selectConfig.filter">
-        <input ng-click="focus()" type="button" class="select-show" ng-disabled="selectConfig.disabled"
+        <input ng-click="focus()" type="button" class="xui-input select-show" ng-disabled="selectConfig.disabled"
             title="{{selectConfig.inputLabel}}" ng-class="selectClass" ng-style="showStyle" />
         <i class="select-arrow"></i>
         <div class="select-content select-content-checkbox  select-separate" ng-style="contentStyle">
             <div class="separate-wrap">
                 <div class="select-filter-wrap">
-                    <input type="text" ng-model="selectConfig.myLabel" class="select-filter form-control" />
+                    <input type="text" ng-model="selectConfig.myLabel" class="xui-input select-filter" />
                 </div>
                 <!-- <i ng-click="clear()" ng-if="selectConfig.enableEmpty" title="清空">x</i> -->
                 <i ng-click="clear()" ng-if="selectConfig.enableEmpty" title="清空" class="xui-icon xui-icon-ios-trash"></i>
@@ -93,7 +93,7 @@
     </div>
     <!-- 多选不可过滤-->
     <div ng-if="selectConfig.checkbox && !selectConfig.filter">
-        <input ng-click="focus()" type="button" class="select-show" ng-disabled="selectConfig.disabled"
+        <input ng-click="focus()" type="button" class="xui-input select-show" ng-disabled="selectConfig.disabled"
             ng-class="selectClass" ng-style="showStyle" />
         <i class="select-arrow"></i>
         <div class="select-content  select-separate" ng-style="contentStyle">

@@ -3,7 +3,7 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "<div class=\"xui-select-warp\">\n" +
     "    <!-- 单选可过滤不分离 -->\n" +
     "    <div ng-if=\"!selectConfig.checkbox && selectConfig.filter && !selectConfig.separate\">\n" +
-    "        <input ng-focus=\"focus()\" type=\"text\" class=\"select-show\" title=\"{{selectConfig.inputLabel}}\"\n" +
+    "        <input ng-focus=\"focus()\" type=\"text\" class=\"xui-input select-show\" title=\"{{selectConfig.inputLabel}}\"\n" +
     "            ng-model=\"selectConfig.inputLabel\" ng-class=\"selectClass\" ng-style=\"showStyle\" ng-change=\"changeIpt()\"\n" +
     "            ng-disabled=\"selectConfig.disabled\" />\n" +
     "        <i class=\"select-arrow\"></i>\n" +
@@ -23,13 +23,13 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "    </div>\n" +
     "    <!-- 单选可过滤且分离 -->\n" +
     "    <div ng-if=\"!selectConfig.checkbox && selectConfig.filter && selectConfig.separate\">\n" +
-    "        <input ng-click=\"focus()\" type=\"button\" class=\"select-show\" ng-disabled=\"selectConfig.disabled\"\n" +
+    "        <input ng-click=\"focus()\" type=\"button\" class=\"xui-input select-show\" ng-disabled=\"selectConfig.disabled\"\n" +
     "            title=\"{{selectConfig.inputLabel}}\" ng-class=\"selectClass\" ng-style=\"showStyle\" />\n" +
     "        <i class=\"select-arrow\"></i>\n" +
     "        <div class=\"select-content select-content-checkbox select-separate\" ng-style=\"contentStyle\">\n" +
     "            <div class=\"separate-wrap\" ng-class=\"{'hidden-filter':!selectConfig.enableEmpty}\">\n" +
     "                <div class=\"select-filter-wrap\">\n" +
-    "                    <input type=\"text\" ng-model=\"selectConfig.myLabel\" class=\"select-filter form-control\" />\n" +
+    "                    <input type=\"text\" ng-model=\"selectConfig.myLabel\" class=\"xui-input select-filter\" />\n" +
     "                </div>\n" +
     "                <!-- <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\">x</i> -->\n" +
     "                <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\" class=\"xui-icon xui-icon-ios-trash\"></i>\n" +
@@ -49,7 +49,7 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "    </div>\n" +
     "    <!-- 单选不可过滤且分离 -->\n" +
     "    <div ng-if=\"!selectConfig.checkbox && !selectConfig.filter\">\n" +
-    "        <input ng-focus=\"focus()\" type=\"button\" class=\"select-show\" title=\"{{selectConfig.inputLabel}}\"\n" +
+    "        <input ng-focus=\"focus()\" type=\"button\" class=\"xui-input select-show\" title=\"{{selectConfig.inputLabel}}\"\n" +
     "            ng-class=\"selectClass\" ng-style=\"showStyle\" ng-disabled=\"selectConfig.disabled\" />\n" +
     "        <i class=\"select-arrow\"></i>\n" +
     "        <div class=\"select-content\" ng-style=\"contentStyle\">\n" +
@@ -68,13 +68,13 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "    </div>\n" +
     "    <!-- 多选-->\n" +
     "    <div ng-if=\"selectConfig.checkbox && selectConfig.filter\">\n" +
-    "        <input ng-click=\"focus()\" type=\"button\" class=\"select-show\" ng-disabled=\"selectConfig.disabled\"\n" +
+    "        <input ng-click=\"focus()\" type=\"button\" class=\"xui-input select-show\" ng-disabled=\"selectConfig.disabled\"\n" +
     "            title=\"{{selectConfig.inputLabel}}\" ng-class=\"selectClass\" ng-style=\"showStyle\" />\n" +
     "        <i class=\"select-arrow\"></i>\n" +
     "        <div class=\"select-content select-content-checkbox  select-separate\" ng-style=\"contentStyle\">\n" +
     "            <div class=\"separate-wrap\">\n" +
     "                <div class=\"select-filter-wrap\">\n" +
-    "                    <input type=\"text\" ng-model=\"selectConfig.myLabel\" class=\"select-filter form-control\" />\n" +
+    "                    <input type=\"text\" ng-model=\"selectConfig.myLabel\" class=\"xui-input select-filter\" />\n" +
     "                </div>\n" +
     "                <!-- <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\">x</i> -->\n" +
     "                <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\" class=\"xui-icon xui-icon-ios-trash\"></i>\n" +
@@ -95,7 +95,7 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "    </div>\n" +
     "    <!-- 多选不可过滤-->\n" +
     "    <div ng-if=\"selectConfig.checkbox && !selectConfig.filter\">\n" +
-    "        <input ng-click=\"focus()\" type=\"button\" class=\"select-show\" ng-disabled=\"selectConfig.disabled\"\n" +
+    "        <input ng-click=\"focus()\" type=\"button\" class=\"xui-input select-show\" ng-disabled=\"selectConfig.disabled\"\n" +
     "            ng-class=\"selectClass\" ng-style=\"showStyle\" />\n" +
     "        <i class=\"select-arrow\"></i>\n" +
     "        <div class=\"select-content  select-separate\" ng-style=\"contentStyle\">\n" +
