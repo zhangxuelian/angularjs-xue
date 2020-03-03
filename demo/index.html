@@ -1502,15 +1502,18 @@ $ npm run demo</code></pre>
                     </div>
                     <div class="page-content">
                         <div class="content-html">
-                            <xue-tabs-wrap>
-    <xue-tab></xue-tab>
-    <div>
-        <i class="xui-icon xui-icon-ios-grid"></i>
-        <i class="xui-icon xui-icon-ios-information-circle-outline"></i>
-        <i class="xui-icon xui-icon-ios-alert-outline"></i>
-        <i class="xui-icon xui-icon-ios-notifications-outline"></i>
-    </div>
-</xue-tabs-wrap>
+                            <div ng-controller="xueTabsDemoCtrl">
+    <xue-tabs-wrap type="card" ng-model="vm.activeValue" tab-config="vm.tabConfig">
+        <xue-tab label="item.name" value="item.id" disabled="true" closable="true" 
+            ng-repeat="item in vm.tabItems">
+            <span slot="label"><i class="xui-icon xui-icon-ios-arrow-dropup"></i> {{item.name}}</span>
+            <div class="test">
+                {{item.content}}
+            </div>
+        </xue-tab>
+    </xue-tabs-wrap>
+</div>
+
                         </div>
                         <div class="content-md markdown-wrap">
                             <h3 id="xue-tabs-settings">xue-tabs settings</h3>
@@ -1529,23 +1532,48 @@ $ npm run demo</code></pre>
                                 <uib-tab index="0" heading="Markup">
                                     <div plunker-content="markup">
                                         <pre ng-non-bindable>
-                                            <code data-language="html">&lt;xue-tabs-wrap&gt;
-    &lt;xue-tab&gt;&lt;/xue-tab&gt;
-    &lt;div&gt;
-        &lt;i class=&quot;xui-icon xui-icon-ios-grid&quot;&gt;&lt;/i&gt;
-        &lt;i class=&quot;xui-icon xui-icon-ios-information-circle-outline&quot;&gt;&lt;/i&gt;
-        &lt;i class=&quot;xui-icon xui-icon-ios-alert-outline&quot;&gt;&lt;/i&gt;
-        &lt;i class=&quot;xui-icon xui-icon-ios-notifications-outline&quot;&gt;&lt;/i&gt;
-    &lt;/div&gt;
-&lt;/xue-tabs-wrap&gt;</code>
+                                            <code data-language="html">&lt;div ng-controller=&quot;xueTabsDemoCtrl&quot;&gt;
+    &lt;xue-tabs-wrap type=&quot;card&quot; ng-model=&quot;vm.activeValue&quot; tab-config=&quot;vm.tabConfig&quot;&gt;
+        &lt;xue-tab label=&quot;item.name&quot; value=&quot;item.id&quot; disabled=&quot;true&quot; closable=&quot;true&quot; 
+            ng-repeat=&quot;item in vm.tabItems&quot;&gt;
+            &lt;span slot=&quot;label&quot;&gt;&lt;i class=&quot;xui-icon xui-icon-ios-arrow-dropup&quot;&gt;&lt;/i&gt; {{item.name}}&lt;/span&gt;
+            &lt;div class=&quot;test&quot;&gt;
+                {{item.content}}
+            &lt;/div&gt;
+        &lt;/xue-tab&gt;
+    &lt;/xue-tabs-wrap&gt;
+&lt;/div&gt;
+</code>
                                         </pre>
                                     </div>
                                 </uib-tab>
                                 <uib-tab index="1" heading="JavaScript">
                                     <div plunker-content="javascript">
                                         <pre
-                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueTabsDemoCtrl&#39;,[function(){
-    
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueTabsDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+    $scope.vm = {
+        activeValue: &quot;3&quot;,
+        tabConfig: {
+            
+        },
+        tabItems: [{
+            id: 1,
+            name: &#39;标签一&#39;,
+            content: &#39;标签一的内容&#39;
+        },{
+            id: 2,
+            name: &#39;标签二&#39;,
+            content: &#39;标签二的内容&#39;
+        },{
+            id: 3,
+            name: &#39;标签三&#39;,
+            content: &#39;标签三的内容&#39;
+        },{
+            id: 4,
+            name: &#39;标签四&#39;,
+            content: &#39;标签四的内容&#39;
+        }]
+    }
 }]);</code></pre>
                                     </div>
                                 </uib-tab>
@@ -1553,8 +1581,30 @@ $ npm run demo</code></pre>
                         </div>
                     </div>
                 </section>
-                <script>angular.module('ui.xue.demo').controller('xueTabsDemoCtrl',[function(){
-    
+                <script>angular.module('ui.xue.demo').controller('xueTabsDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        activeValue: "3",
+        tabConfig: {
+            
+        },
+        tabItems: [{
+            id: 1,
+            name: '标签一',
+            content: '标签一的内容'
+        },{
+            id: 2,
+            name: '标签二',
+            content: '标签二的内容'
+        },{
+            id: 3,
+            name: '标签三',
+            content: '标签三的内容'
+        },{
+            id: 4,
+            name: '标签四',
+            content: '标签四的内容'
+        }]
+    }
 }]);</script>
                 
                 <section class="module-wrap" id="tree">

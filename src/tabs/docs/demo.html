@@ -1,9 +1,11 @@
-<xue-tabs-wrap>
-    <xue-tab></xue-tab>
-    <div>
-        <i class="xui-icon xui-icon-ios-grid"></i>
-        <i class="xui-icon xui-icon-ios-information-circle-outline"></i>
-        <i class="xui-icon xui-icon-ios-alert-outline"></i>
-        <i class="xui-icon xui-icon-ios-notifications-outline"></i>
-    </div>
-</xue-tabs-wrap>
+<div ng-controller="xueTabsDemoCtrl">
+    <xue-tabs-wrap type="card" ng-model="vm.activeValue" tab-config="vm.tabConfig">
+        <xue-tab label="item.name" value="item.id" disabled="true" closable="true" 
+            ng-repeat="item in vm.tabItems">
+            <span slot="label"><i class="xui-icon xui-icon-ios-arrow-dropup"></i> {{item.name}}</span>
+            <div class="test">
+                {{item.content}}
+            </div>
+        </xue-tab>
+    </xue-tabs-wrap>
+</div>

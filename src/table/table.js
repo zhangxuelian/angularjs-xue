@@ -10,7 +10,7 @@ angular.module('xue.table', ['xue.util.lang', 'xue.pagination'])
                 return attrs.templateUrl || 'xue/template/table/table.html';
             },
             link: function (scope, ele, attrs) {
-
+                
             }
         };
     }])
