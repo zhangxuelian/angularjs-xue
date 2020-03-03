@@ -5374,11 +5374,11 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                         nextNode.classList.add("hide");
                         ele[0].classList.remove('gx-error-tip');
                         if (isAddSuccess && scope.xueValidate.errorTipPos != "bottom") {
-                            nextNodeI.classList.remove('gx-error-logo');
-                            nextNodeI.classList.add("gx-right-logo");
+                            nextNodeI.classList.remove('xui-icon-ios-close-circle');
+                            nextNodeI.classList.add("xui-icon-ios-checkmark-circle");
                             return;
                         }
-                        nextNodeI.classList.remove('gx-error-logo');
+                        nextNodeI.classList.remove('xui-icon-ios-close-circle');
                     },
                     /**
                      * 校验失败时的页面样式处理
@@ -5398,8 +5398,8 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                         nextNodeLabel.innerHTML = tip;
                         nextNodeLabel.title = tip;
                         ele[0].classList.add('gx-error-tip');
-                        nextNodeI.classList.remove("gx-right-logo");
-                        nextNodeI.classList.add('gx-error-logo');
+                        nextNodeI.classList.remove("xui-icon-ios-checkmark-circle");
+                        nextNodeI.classList.add('xui-icon-ios-close-circle');
                     },
                     /**
                      * 元素触发blur事件
@@ -5522,7 +5522,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                         if (!scope.xueValidate.hasErrorTip) {
                             oDiv.style.display = 'none';
                         }
-                        var errorMsg = "<i class='gx-icon-logo' style='" + iconCssText + "'></i>" +
+                        var errorMsg = "<i class='xui-icon' style='" + iconCssText + "'></i>" +
                                 "<label class='gx-error' title='" + scope.xueValidate.requiredTip + 
                                 "' style='" + lblCssText + "'>" + scope.xueValidate.requiredTip + 
                                 "</label>";
@@ -5842,14 +5842,14 @@ angular.module("xue/template/datepicker/datepicker.html", []).run(["$templateCac
     "            </span>\n" +
     "        </div>\n" +
     "        <div class=\"xl-content-header\">\n" +
-    "            <i class=\"last-year xl-d-arrow-left\" ng-click=\"xlDatepickerCtrl.changeYearMonth(-1,0)\" title=\"上一年\"></i>\n" +
-    "            <i class=\"last-month xl-arrow-left\" ng-click=\"xlDatepickerCtrl.changeYearMonth(0,-1)\" title=\"上一月\"></i>\n" +
+    "            <i class=\"last-year xui-extra-icon xui-icon-angle-double-left\" ng-click=\"xlDatepickerCtrl.changeYearMonth(-1,0)\" title=\"上一年\"></i>\n" +
+    "            <i class=\"last-month xui-extra-icon xui-icon-angle-left\" ng-click=\"xlDatepickerCtrl.changeYearMonth(0,-1)\" title=\"上一月\"></i>\n" +
     "            <span class=\"current-year\" ng-show=\"!xlDatepickerCtrl.showSelectYear\" ng-click=\"xlDatepickerCtrl.selectYearMonth($event,'year')\">{{xlDatepickerCtrl.currentYear}}年</span>\n" +
     "            <span class=\"current-year\" ng-show=\"xlDatepickerCtrl.showSelectYear\"><input type=\"text\" ng-blur=\"xlDatepickerCtrl.selectYearMonthBlur($event,'year')\" ng-model=\"xlDatepickerCtrl.currentYear\" >年</span>\n" +
     "            <span class=\"current-month\" ng-show=\"!xlDatepickerCtrl.showSelectMonth\" ng-click=\"xlDatepickerCtrl.selectYearMonth($event,'month')\">{{xlDatepickerCtrl.currentMonth}}月</span>\n" +
     "            <span class=\"current-month\" ng-show=\"xlDatepickerCtrl.showSelectMonth\"><input type=\"text\"ng-blur=\"xlDatepickerCtrl.selectYearMonthBlur($event,'month')\" ng-model=\"xlDatepickerCtrl.currentMonth\">月</span>\n" +
-    "            <i class=\"next-year xl-d-arrow-right\" ng-click=\"xlDatepickerCtrl.changeYearMonth(1,0)\" title=\"下一年\"></i>\n" +
-    "            <i class=\"next-month xl-arrow-right\" ng-click=\"xlDatepickerCtrl.changeYearMonth(0,1)\" title=\"下一月\"></i>\n" +
+    "            <i class=\"next-year xui-extra-icon xui-icon-angle-double-right\" ng-click=\"xlDatepickerCtrl.changeYearMonth(1,0)\" title=\"下一年\"></i>\n" +
+    "            <i class=\"next-month xui-extra-icon xui-icon-angle-right\" ng-click=\"xlDatepickerCtrl.changeYearMonth(0,1)\" title=\"下一月\"></i>\n" +
     "        </div>\n" +
     "        <div class=\"xl-content-body\">\n" +
     "            <table class=\"xl-datepicker-table\">\n" +

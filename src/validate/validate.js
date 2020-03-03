@@ -196,11 +196,11 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                         nextNode.classList.add("hide");
                         ele[0].classList.remove('gx-error-tip');
                         if (isAddSuccess && scope.xueValidate.errorTipPos != "bottom") {
-                            nextNodeI.classList.remove('gx-error-logo');
-                            nextNodeI.classList.add("gx-right-logo");
+                            nextNodeI.classList.remove('xui-icon-ios-close-circle');
+                            nextNodeI.classList.add("xui-icon-ios-checkmark-circle");
                             return;
                         }
-                        nextNodeI.classList.remove('gx-error-logo');
+                        nextNodeI.classList.remove('xui-icon-ios-close-circle');
                     },
                     /**
                      * 校验失败时的页面样式处理
@@ -220,8 +220,8 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                         nextNodeLabel.innerHTML = tip;
                         nextNodeLabel.title = tip;
                         ele[0].classList.add('gx-error-tip');
-                        nextNodeI.classList.remove("gx-right-logo");
-                        nextNodeI.classList.add('gx-error-logo');
+                        nextNodeI.classList.remove("xui-icon-ios-checkmark-circle");
+                        nextNodeI.classList.add('xui-icon-ios-close-circle');
                     },
                     /**
                      * 元素触发blur事件
@@ -344,7 +344,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                         if (!scope.xueValidate.hasErrorTip) {
                             oDiv.style.display = 'none';
                         }
-                        var errorMsg = "<i class='gx-icon-logo' style='" + iconCssText + "'></i>" +
+                        var errorMsg = "<i class='xui-icon' style='" + iconCssText + "'></i>" +
                                 "<label class='gx-error' title='" + scope.xueValidate.requiredTip + 
                                 "' style='" + lblCssText + "'>" + scope.xueValidate.requiredTip + 
                                 "</label>";
