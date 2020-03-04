@@ -1445,13 +1445,11 @@ $ npm run demo</code></pre>
                     <div class="page-content">
                         <div class="content-html">
                             <div ng-controller="xueTableDemoCtrl">
-    <div>
-        {{test}}
-    </div>
+    <xue-table table-config="vm.tableConfig"></xue-table>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
-                            <h3 id="test-table-doc">test table doc</h3>
+                            <h3 id="table-setting">table setting</h3>
 
                         </div>
                     </div>
@@ -1468,9 +1466,7 @@ $ npm run demo</code></pre>
                                     <div plunker-content="markup">
                                         <pre ng-non-bindable>
                                             <code data-language="html">&lt;div ng-controller=&quot;xueTableDemoCtrl&quot;&gt;
-    &lt;div&gt;
-        {{test}}
-    &lt;/div&gt;
+    &lt;xue-table table-config=&quot;vm.tableConfig&quot;&gt;&lt;/xue-table&gt;
 &lt;/div&gt;</code>
                                         </pre>
                                     </div>
@@ -1479,7 +1475,91 @@ $ npm run demo</code></pre>
                                     <div plunker-content="javascript">
                                         <pre
                                             ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueTableDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
-    $scope.test = &quot;table test&quot;;
+    $scope.vm = {
+        tableConfig: {
+            showTableCol: true,
+            checkbox: true, //单选
+            toolbar: {
+                show: true,
+                title: &#39;表格列表&#39;,
+                tools: [{
+                    text: &#39;刷新&#39;,
+                    icon: &#39;xui-icon xui-icon-ios-refresh&#39;
+                }]
+            },
+            rows: [{
+                id: 1,
+                name1: 1,
+                name2: 1,
+                name3: 1,
+                name4: 1,
+                name5: 1
+            }, {
+                id: 2,
+                name1: 2,
+                name2: 2,
+                name3: 2,
+                name4: 2,
+                name5: 2
+            }, {
+                id: 3,
+                name1: &#39;内容3&#39;,
+                name2: &#39;内容3&#39;,
+                name3: &#39;内容3&#39;,
+                name4: &#39;内容3&#39;,
+                name5: &#39;内容3&#39;
+            }],
+            colunms: [{
+                label: &#39;标题栏1&#39;,
+                name: &#39;name1&#39;
+            }, {
+                label: &#39;标题栏2&#39;,
+                name: &#39;name2&#39;
+            }, {
+                label: &#39;标题栏3&#39;,
+                name: &#39;name3&#39;
+            }, {
+                label: &#39;标题栏4&#39;,
+                name: &#39;name4&#39;
+
+            }, {
+                label: &#39;标题栏5&#39;,
+                name: &#39;name5&#39;
+            }],
+            total: 3,
+            optConfigExt: [{
+                optName: &#39;操作&#39;,
+                optStyle: {
+                    width: &#39;120px&#39;
+                },
+                optContent: [{
+                    id: &#39;add&#39;,
+                    name: &#39;添加&#39;,
+                    className: &quot;xui-icon xui-icon-ios-add-circle-outline&quot;,
+                    callback: function (row) {
+                        console.log(row);
+                    },
+                    formatter: function (row) {
+                        return true;
+                    }
+                }, {
+                    id: &#39;view&#39;,
+                    name: &#39;查看&#39;,
+                    className: &quot;xui-icon xui-icon-ios-create-outline&quot;,
+                    formatter: function () {
+                        return true;
+                    }
+                }, {
+                    id: &#39;cancle&#39;,
+                    name: &#39;取消&#39;,
+                    className: &quot;xui-icon xui-icon-ios-trash-outline&quot;,
+                    formatter: function (row) {
+                        return true;
+                    }
+                }]
+            }]
+        }
+    }
 }]);</code></pre>
                                     </div>
                                 </xue-tab>
@@ -1488,7 +1568,91 @@ $ npm run demo</code></pre>
                     </div>
                 </section>
                 <script>angular.module('ui.xue.demo').controller('xueTableDemoCtrl', ['$scope', function ($scope) {
-    $scope.test = "table test";
+    $scope.vm = {
+        tableConfig: {
+            showTableCol: true,
+            checkbox: true, //单选
+            toolbar: {
+                show: true,
+                title: '表格列表',
+                tools: [{
+                    text: '刷新',
+                    icon: 'xui-icon xui-icon-ios-refresh'
+                }]
+            },
+            rows: [{
+                id: 1,
+                name1: 1,
+                name2: 1,
+                name3: 1,
+                name4: 1,
+                name5: 1
+            }, {
+                id: 2,
+                name1: 2,
+                name2: 2,
+                name3: 2,
+                name4: 2,
+                name5: 2
+            }, {
+                id: 3,
+                name1: '内容3',
+                name2: '内容3',
+                name3: '内容3',
+                name4: '内容3',
+                name5: '内容3'
+            }],
+            colunms: [{
+                label: '标题栏1',
+                name: 'name1'
+            }, {
+                label: '标题栏2',
+                name: 'name2'
+            }, {
+                label: '标题栏3',
+                name: 'name3'
+            }, {
+                label: '标题栏4',
+                name: 'name4'
+
+            }, {
+                label: '标题栏5',
+                name: 'name5'
+            }],
+            total: 3,
+            optConfigExt: [{
+                optName: '操作',
+                optStyle: {
+                    width: '120px'
+                },
+                optContent: [{
+                    id: 'add',
+                    name: '添加',
+                    className: "xui-icon xui-icon-ios-add-circle-outline",
+                    callback: function (row) {
+                        console.log(row);
+                    },
+                    formatter: function (row) {
+                        return true;
+                    }
+                }, {
+                    id: 'view',
+                    name: '查看',
+                    className: "xui-icon xui-icon-ios-create-outline",
+                    formatter: function () {
+                        return true;
+                    }
+                }, {
+                    id: 'cancle',
+                    name: '取消',
+                    className: "xui-icon xui-icon-ios-trash-outline",
+                    formatter: function (row) {
+                        return true;
+                    }
+                }]
+            }]
+        }
+    }
 }]);</script>
                 
                 <section class="module-wrap" id="tabs">

@@ -35,3 +35,31 @@
 .xui-input {
     @include xui-input;
 }
+
+@mixin xui-btn {
+    display: inline-block;
+    padding: $btn-padding-y $btn-padding-x;
+    margin: 0;
+    font-size: $btn-font-size;
+    font-weight: normal;
+    line-height: $btn-line-height;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: $btn-border-width solid transparent;
+    border-radius: $btn-border-radius;
+    box-shadow: $btn-box-shadow;
+    box-sizing: border-box;
+
+    &:hover {
+        color: $btn-link-hover-color;
+    }
+}
