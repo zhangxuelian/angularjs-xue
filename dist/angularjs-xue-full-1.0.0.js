@@ -2,7 +2,7 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-03-03
+ * Version: 1.0.0 - 2020-03-05
  * Require angularjs version: 1.2.32
  * License: ISC
  */
@@ -2715,43 +2715,55 @@ angular.module('xue.tabs', ['xue.util.array'])
                 return attrs.templateUrl || 'xue/template/tabs/tabs_wrap.html';
             },
             link: function (scope, ele, attrs, ctrl) {
-
+                if(typeof scope.ngModel == 'undefined' && typeof attrs.ngModel == 'undefined'){
+                    ctrl.select(0);
+                }
             }
         }
     }])
     .controller('tabsWrapCtrl', ['$scope', 'xueUtilArray', function ($scope, xueUtilArray) {
         var ctrl = this, oldIndex, destroyed;
         ctrl.tabs = [];
+        $scope.index = 0,
         ctrl.select = function (index, evt) {
-            if (!destroyed) {
-                var previousIndex = xueUtilArray.findObjIndex(ctrl.tabs, 'value', oldIndex);
-                var previousSelected = ctrl.tabs[previousIndex];
-                if (previousSelected) {
-                    previousSelected.onDeselect({
-                        $event: evt,
-                        $selectedIndex: index
-                    });
-                    if (evt && evt.isDefaultPrevented()) {
-                        return;
-                    }
-                    previousSelected.active = false;
-                }
+            if (destroyed) {
+                return;
+            }
+            if (index == oldIndex) {
+                return;
+            }
+            var previousSelected = ctrl.tabs[oldIndex];
+            if (previousSelected) {
 
-                var selected = ctrl.tabs[index];
-                if (selected) {
-                    selected.tab.onSelect({
-                        $event: evt
-                    });
-                    selected.active = true;
-                    oldIndex = index;
-                } else if (!selected && angular.isDefined(oldIndex)) {
-                    oldIndex = null;
+                /* previousSelected.onDeselect({
+                    $event: evt,
+                    $selectedIndex: index
+                }); */
+                if (evt && evt.isDefaultPrevented()) {
+                    return;
                 }
+                previousSelected.active = false;
+            }
+
+            var selected = ctrl.tabs[index];
+            if (selected) {
+                /* selected.tab.onSelect({
+                    $event: evt
+                }); */
+                selected.active = true;
+                oldIndex = index;
+                $scope.index = index;
+            } else if (!selected && angular.isDefined(oldIndex)) {
+                oldIndex = null;
             }
         };
 
         ctrl.addTab = function (tab) {
             ctrl.tabs.push(tab);
+            if ($scope.ngModel) {
+                var index = xueUtilArray.findObjIndex(ctrl.tabs, 'value', $scope.ngModel);
+                ctrl.select(index);
+            }
         };
 
         ctrl.isTabHead = function (node) {
@@ -2763,7 +2775,7 @@ angular.module('xue.tabs', ['xue.util.array'])
         });
 
         $scope.$watch('ngModel', function (oldVal, newVal) {
-            if (newVal && newVal != oldVal) {
+            if (newVal) {
                 var index = xueUtilArray.findObjIndex(ctrl.tabs, 'value', newVal);
                 ctrl.select(index);
             }
@@ -2788,9 +2800,20 @@ angular.module('xue.tabs', ['xue.util.array'])
                 return attrs.templateUrl || 'xue/template/tabs/tab.html';
             },
             link: function (scope, ele, attrs, ctrl, transclude) {
+                scope.select = function (evt) {
+                    if (!scope.disabled) {
+                        var index;
+                        for (var i = 0; i < ctrl.tabs.length; i++) {
+                            if (ctrl.tabs[i] === scope) {
+                                index = i;
+                                break;
+                            }
+                        }
+                        ctrl.select(index, evt);
+                    }
+                };
                 scope.$transcludeFn = transclude;
                 ctrl.addTab(scope);
-
             }
         }
     }])
@@ -2812,7 +2835,7 @@ angular.module('xue.tabs', ['xue.util.array'])
             }
         }
     }])
-    .directive('xueTest', [function () {
+    .directive('xueTabHead', [function () {
         return {
             restrict: 'A',
             require: '^xueTabsWrap',
@@ -6215,8 +6238,8 @@ angular.module("xue/template/table/table.html", []).run(["$templateCache", funct
 
 angular.module("xue/template/tabs/tab.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/tabs/tab.html",
-    "<li ng-class=\"{'active':active,'disabed':disabed}\" class=\"nav-item\">\n" +
-    "    <a class=\"nav-link\" xue-test>{{label}}</a>\n" +
+    "<li ng-class=\"{'active':active,'disabled':disabled}\" class=\"nav-item\">\n" +
+    "    <a class=\"nav-link\" ng-click=\"select($event)\" xue-tab-head>{{label}}</a>\n" +
     "</li>");
 }]);
 
@@ -6226,7 +6249,7 @@ angular.module("xue/template/tabs/tabs_wrap.html", []).run(["$templateCache", fu
     "    <ul class=\"xui-nav-wrap\" ng-transclude></ul>\n" +
     "    <div class=\"xui-tabs-content\">\n" +
     "        <div class=\"tab-pane\" ng-repeat=\"tab in twCtrl.tabs\" \n" +
-    "            ng-show=\"ngModel == tab.value\"\n" +
+    "            ng-show=\"$index == index\"\n" +
     "            xue-tab-content=\"tab\">\n" +
     "        </div>\n" +
     "    </div>\n" +

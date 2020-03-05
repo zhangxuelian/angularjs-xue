@@ -234,6 +234,14 @@ body {
                             padding: 15px 8px;
                         }
                     }
+                    .page-content-code {
+                        pre{
+                            background: #333;
+                            border-radius: 3px;
+                            padding: 10px;
+                            color: #eee;
+                        }
+                    }
                 }
             }
         }
@@ -274,7 +282,6 @@ body {
                 background-color: #fafafa;
                 border: 1px solid #eaeefb;
                 border-radius: 5px;
-
                 code {
                     line-height: 25px;
                     font-family: Microsoft Yahei;

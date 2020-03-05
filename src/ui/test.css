@@ -3002,7 +3002,7 @@ i {
   .xui-tabs-wrap .xui-nav-wrap {
     padding-left: 0;
     list-style: none;
-    border-bottom: solid 1px #dee2e6; }
+    border-bottom: solid 2px #dee2e6; }
     .xui-tabs-wrap .xui-nav-wrap::after {
       display: block;
       clear: both;
@@ -3011,8 +3011,17 @@ i {
       float: left; }
       .xui-tabs-wrap .xui-nav-wrap .nav-item .nav-link {
         display: block;
-        color: #2180BA;
-        background-color: #fff; }
+        color: #343a40;
+        background-color: #fff;
+        margin-bottom: -2px;
+        border-bottom: solid 2px #dee2e6;
+        cursor: pointer; }
+      .xui-tabs-wrap .xui-nav-wrap .nav-item.active .nav-link {
+        border-bottom: solid 2px #2180BA;
+        color: #2180BA; }
+  .xui-tabs-wrap .xui-tabs-content {
+    padding: 10px;
+    box-sizing: border-box; }
   .xui-tabs-wrap .nav-link {
     padding: 0.25rem 0.85rem; }
 

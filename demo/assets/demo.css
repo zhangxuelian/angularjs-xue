@@ -177,6 +177,11 @@ body {
           width: 50%;
           box-sizing: border-box;
           padding: 15px 8px; }
+        .demo-wrap .main-container .main-wrap .main-content-container .module-wrap .page-content-code pre {
+          background: #333;
+          border-radius: 3px;
+          padding: 10px;
+          color: #eee; }
     .demo-wrap .main-container .markdown-wrap h1 {
       line-height: 60px;
       font-weight: 500; }

@@ -21,19 +21,28 @@ $tab-border-color: $gray-300 !default;
     .xui-nav-wrap{
         @include list-unstyled();
         @include clearfix();
-        border-bottom: solid 1px $tab-border-color;
+        border-bottom: solid 2px $tab-border-color;
         .nav-item{
             float: left;
             .nav-link{
                 display: block;
-                color: $pagination-color;
+                color: $dark;
                 background-color: $tab-bg;
-                //border: $tab-border-width solid $tab-border-color;
+                margin-bottom: -2px;
+                border-bottom: solid 2px $tab-border-color;
+                cursor: pointer;
+            }
+            &.active{
+                .nav-link{
+                    border-bottom: solid 2px $pagination-color;
+                    color: $pagination-color;
+                }
             }
         }
     }
     .xui-tabs-content{
-        
+        padding: 10px;
+        box-sizing: border-box;
     }
     @include tab-size($tab-padding-y,$tab-padding-x,null,$border-radius);
 }
