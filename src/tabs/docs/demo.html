@@ -1,19 +1,45 @@
 <div ng-controller="xueTabsDemoCtrl">
-    <xue-tabs-wrap type="card" ng-model="vm.activeValue1" tab-config="vm.tabConfig">
+
+    <xue-tabs-wrap ng-model="vm.activeValue1">
         <xue-tab label="'标签1'" value="1">
             <span slot="label"><i class="xui-icon xui-icon-ios-arrow-dropup"></i> 标签1</span>
             内容1
         </xue-tab>
-        <xue-tab label="'标签2'" value="2">
+        <xue-tab label="'标签2'" value="2" disabled="true">
             内容2
         </xue-tab>
+        <xue-tab label="'标签3'" value="3" closable="true">
+            内容3
+        </xue-tab>
+        <xue-tab label="'标签4'" value="4" 
+            select="vm.select($event,$selectedIndex,$selected)"
+            deselect="vm.deselect($event,$selectedIndex,$previousSelected)">
+            内容4
+        </xue-tab>
+        <xue-tab label="'标签5'" value="5" >
+            内容5
+        </xue-tab>
     </xue-tabs-wrap>
-    <xue-tabs-wrap type="card" ng-model="vm.activeValue2" tab-config="vm.tabConfig">
-        <xue-tab label="item.name" value="item.id" disabled="true" closable="true" 
+
+    <xue-tabs-wrap type="card" ng-model="vm.activeValue2">
+        <xue-tab label="item.name" value="item.id"
             ng-repeat="item in vm.tabItems">
             <div class="test">
                 {{item.content}}
             </div>
         </xue-tab>
     </xue-tabs-wrap>
+
+    <xue-tabs-wrap type="border-card">
+        <xue-tab label="'菜单一'" value="1">
+            菜单一内容
+        </xue-tab>
+        <xue-tab label="'菜单二'" value="2">
+            菜单二内容
+        </xue-tab>
+        <xue-tab label="'菜单三'" value="3" >
+            菜单三内容
+        </xue-tab>
+    </xue-tabs-wrap>
+
 </div>

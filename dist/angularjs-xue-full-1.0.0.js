@@ -2,7 +2,7 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-03-05
+ * Version: 1.0.0 - 2020-03-06
  * Require angularjs version: 1.2.32
  * License: ISC
  */
@@ -3145,8 +3145,7 @@ angular.module('xue.tabs', ['xue.util.array'])
             scope: {
                 type: "@", // card/border-card(default:null)
                 tabPosition: "=", // top/right/bottom/left(default:top)
-                ngModel: "=",
-                tabConfig: "="
+                ngModel: "="
             },
             controller: 'tabsWrapCtrl',
             controllerAs: 'twCtrl',
@@ -3173,11 +3172,11 @@ angular.module('xue.tabs', ['xue.util.array'])
             }
             var previousSelected = ctrl.tabs[oldIndex];
             if (previousSelected) {
-
-                /* previousSelected.onDeselect({
+                previousSelected.onDeselect({
                     $event: evt,
-                    $selectedIndex: index
-                }); */
+                    $selectedIndex: index,
+                    $previousSelected: previousSelected
+                });
                 if (evt && evt.isDefaultPrevented()) {
                     return;
                 }
@@ -3186,9 +3185,11 @@ angular.module('xue.tabs', ['xue.util.array'])
 
             var selected = ctrl.tabs[index];
             if (selected) {
-                /* selected.tab.onSelect({
-                    $event: evt
-                }); */
+                selected.onSelect({
+                    $event: evt,
+                    $selectedIndex: index,
+                    $selected: selected
+                });
                 selected.active = true;
                 oldIndex = index;
                 $scope.index = index;
@@ -6785,11 +6786,11 @@ angular.module("xue/template/tabs/tab.html", []).run(["$templateCache", function
 
 angular.module("xue/template/tabs/tabs_wrap.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/tabs/tabs_wrap.html",
-    "<div class=\"xui-tabs-wrap\">\n" +
+    "<div class=\"xui-tabs-wrap\" ng-class=\"type\">\n" +
     "    <ul class=\"xui-nav-wrap\" ng-transclude></ul>\n" +
     "    <div class=\"xui-tabs-content\">\n" +
     "        <div class=\"tab-pane\" ng-repeat=\"tab in twCtrl.tabs\" \n" +
-    "            ng-show=\"$index == index\"\n" +
+    "            ng-show=\"$index == index\" \n" +
     "            xue-tab-content=\"tab\">\n" +
     "        </div>\n" +
     "    </div>\n" +

@@ -2,8 +2,11 @@ angular.module('ui.xue.demo').controller('xueTabsDemoCtrl', ['$scope', function 
     $scope.vm = {
         activeValue1: 1,
         activeValue2: 2,
-        tabConfig: {
-            
+        select: function($event,$selectedIndex,$selected){
+            console.log($event,$selectedIndex,$selected);
+        },
+        deselect: function($event,$selectedIndex,$previousSelected){
+            console.log($event,$selectedIndex,$previousSelected);
         },
         tabItems: [{
             id: 1,

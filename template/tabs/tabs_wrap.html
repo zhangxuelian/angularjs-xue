@@ -1,8 +1,8 @@
-<div class="xui-tabs-wrap">
+<div class="xui-tabs-wrap" ng-class="type">
     <ul class="xui-nav-wrap" ng-transclude></ul>
     <div class="xui-tabs-content">
         <div class="tab-pane" ng-repeat="tab in twCtrl.tabs" 
-            ng-show="$index == index"
+            ng-show="$index == index" 
             xue-tab-content="tab">
         </div>
     </div>

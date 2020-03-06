@@ -15,6 +15,59 @@ $tab-border-color: $gray-300 !default;
         @include font-size($font-size);
     }
 }
+@mixin tab-type-card(){
+    .xui-nav-wrap{
+        border-bottom: none;
+        border-bottom: solid 1px $tab-border-color;
+        .nav-item{
+            margin-right: 5px;
+            .nav-link{
+                border: solid 1px $tab-border-color;
+                border-radius: 3px 3px 0 0;
+                border-bottom: none;
+                margin-bottom: -1px;
+                background-color: $gray-100;
+            }
+            &.active{
+                .nav-link{
+                    border-bottom: solid 1px $tab-bg!important;
+                    background-color: $tab-bg;
+                }
+            }
+        }
+    }
+}
+@mixin tab-type-border-card(){
+    border:solid 1px $tab-border-color;
+    border-radius: 3px;
+    box-shadow: 0 1px 5px 1px rgba(0,0,0,.1);
+    .xui-nav-wrap{
+        border-bottom: none;
+        border-bottom: solid 1px $tab-border-color;
+        background-color: $gray-100;
+        .nav-item{
+            .nav-link{
+                border-bottom: solid 1px $tab-border-color;
+                margin-bottom: -1px;
+                background-color: $gray-100;
+            }
+            &.active{
+                .nav-link{
+                    border: solid 1px $tab-border-color;
+                    border-bottom: solid 1px $tab-bg;
+                    border-top: none;
+                    background: $tab-bg;
+                }
+            }
+            &:first-child{
+                .nav-link{
+                    border-left: none;
+                }
+            }
+        }
+        
+    }
+}
 
 .xui-tabs-wrap{
     position: relative;
@@ -38,11 +91,23 @@ $tab-border-color: $gray-300 !default;
                     color: $pagination-color;
                 }
             }
+            &.disabled{
+                .nav-link{
+                    color: $btn-link-disabled-color;
+                    cursor: not-allowed;
+                }
+            }
         }
     }
     .xui-tabs-content{
         padding: 10px;
         box-sizing: border-box;
+    }
+    &.card{
+        @include tab-type-card();
+    }
+    &.border-card{
+        @include tab-type-border-card();
     }
     @include tab-size($tab-padding-y,$tab-padding-x,null,$border-radius);
 }

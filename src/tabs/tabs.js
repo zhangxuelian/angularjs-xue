@@ -7,8 +7,7 @@ angular.module('xue.tabs', ['xue.util.array'])
             scope: {
                 type: "@", // card/border-card(default:null)
                 tabPosition: "=", // top/right/bottom/left(default:top)
-                ngModel: "=",
-                tabConfig: "="
+                ngModel: "="
             },
             controller: 'tabsWrapCtrl',
             controllerAs: 'twCtrl',
@@ -35,11 +34,11 @@ angular.module('xue.tabs', ['xue.util.array'])
             }
             var previousSelected = ctrl.tabs[oldIndex];
             if (previousSelected) {
-
-                /* previousSelected.onDeselect({
+                previousSelected.onDeselect({
                     $event: evt,
-                    $selectedIndex: index
-                }); */
+                    $selectedIndex: index,
+                    $previousSelected: previousSelected
+                });
                 if (evt && evt.isDefaultPrevented()) {
                     return;
                 }
@@ -48,9 +47,11 @@ angular.module('xue.tabs', ['xue.util.array'])
 
             var selected = ctrl.tabs[index];
             if (selected) {
-                /* selected.tab.onSelect({
-                    $event: evt
-                }); */
+                selected.onSelect({
+                    $event: evt,
+                    $selectedIndex: index,
+                    $selected: selected
+                });
                 selected.active = true;
                 oldIndex = index;
                 $scope.index = index;

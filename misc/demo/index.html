@@ -82,12 +82,11 @@
                                     ng-click="edit('<%= ngversion%>', '<%= pkg.version%>', '<%= module.name %>')"><i
                                         class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                             </div> -->
-                            <xue-tabs-wrap type="card">
+                            <xue-tabs-wrap type="border-card">
                                 <xue-tab label="'html'" value="1">
                                     <div plunker-content="markup">
-                                        <pre ng-non-bindable>
-                                            <code data-language="html"><%- module.docs.html %></code>
-                                        </pre>
+                                        <pre
+                                            ng-non-bindable><code data-language="html"><%- module.docs.html %></code></pre>
                                     </div>
                                 </xue-tab>
                                 <xue-tab label="'javascript'" value="2">
