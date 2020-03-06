@@ -3162,7 +3162,7 @@ angular.module('xue.tabs', ['xue.util.array'])
     .controller('tabsWrapCtrl', ['$scope', 'xueUtilArray', function ($scope, xueUtilArray) {
         var ctrl = this, oldIndex, destroyed;
         ctrl.tabs = [];
-        $scope.index = 0,
+        $scope.index = 0;
         ctrl.select = function (index, evt) {
             if (destroyed) {
                 return;

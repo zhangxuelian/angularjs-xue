@@ -3007,13 +3007,11 @@ table {
     border-top-right-radius: 0.2rem;
     border-bottom-right-radius: 0.2rem; }
 
-.xui-table-wrap, .xui-table-wrap .xui-table-content {
-  width: 100%;
-  height: 100%; }
-
 .xui-table-wrap {
-  box-sizing: border-box;
-  position: relative; }
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box; }
   .xui-table-wrap.show-pagination {
     padding-bottom: 40px; }
   .xui-table-wrap.show-toolbar {
@@ -3094,6 +3092,8 @@ table {
         border-radius: 0 4px 4px 0;
         border-left: none; }
   .xui-table-wrap .xui-table-content {
+    width: 100%;
+    height: 100%;
     overflow: auto; }
     .xui-table-wrap .xui-table-content.th-border table th {
       border-left: dashed 1px #e0e0e0; }
@@ -3513,21 +3513,21 @@ table {
     border-radius: 0.25rem 0 0 0.25rem; }
   .xui-counter-wrap.large {
     font-size: 1.25rem; }
-    .xui-counter-wrap.large .input span {
-      padding: 0.75rem 1.5rem; }
     .xui-counter-wrap.large .text,
     .xui-counter-wrap.large .input,
     .xui-counter-wrap.large .add,
     .xui-counter-wrap.large .reduce {
       padding: 0.75rem 1.5rem; }
+    .xui-counter-wrap.large .input span {
+      padding: 0.75rem 1.5rem; }
   .xui-counter-wrap.small {
     font-size: 0.875rem; }
-    .xui-counter-wrap.small .input span {
-      padding: 0.2rem 0.5rem; }
     .xui-counter-wrap.small .text,
     .xui-counter-wrap.small .input,
     .xui-counter-wrap.small .add,
     .xui-counter-wrap.small .reduce {
+      padding: 0.2rem 0.5rem; }
+    .xui-counter-wrap.small .input span {
       padding: 0.2rem 0.5rem; }
 
 .xui-steps-wrap {

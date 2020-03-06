@@ -2,16 +2,41 @@ $table-border-color: #cee0f0 !default;
 $table-odd-color: $white !default;
 $table-even-color: #F7faff !default;
 $table-selected-color: #e9f3ff !default;
+$table-header-bg-color: #eff6ff !default;
 
-%public-hw {
-    width: 100%;
-    height: 100%;
+@mixin xui-btn {
+    display: inline-block;
+    padding: $btn-padding-y $btn-padding-x;
+    margin: 0;
+    font-size: $btn-font-size;
+    font-weight: normal;
+    line-height: $btn-line-height;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: $btn-border-width solid transparent;
+    border-radius: $btn-border-radius;
+    box-shadow: $btn-box-shadow;
+    box-sizing: border-box;
+
+    &:hover {
+        color: $btn-link-hover-color;
+    }
 }
 
 .xui-table-wrap {
-    @extend %public-hw;
-    box-sizing: border-box;
     position: relative;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
 
     &.show-pagination {
         padding-bottom: 40px;
@@ -58,7 +83,7 @@ $table-selected-color: #e9f3ff !default;
             }
 
             button {
-                @include xui-btn;
+                @include xui-btn();
                 height: 30px;
                 line-height: 20px;
                 padding: 5px 10px;
@@ -105,7 +130,8 @@ $table-selected-color: #e9f3ff !default;
     }
 
     .xui-table-content {
-        @extend %public-hw;
+        width: 100%;
+        height: 100%;
         overflow: auto;
 
         &.th-border {
@@ -161,12 +187,10 @@ $table-selected-color: #e9f3ff !default;
                     text-align: center;
                     height: 35px;
                     line-height: 35px;
-                    background: #eff6ff;
+                    background: $table-header-bg-color;
                     color: #2b3646;
                     border-bottom: 1px solid $table-border-color;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    overflow: hidden;
+                    @include text-overflow-ellipsis();
                     word-break: keep-all;
 
                     &.isActive {
@@ -193,9 +217,7 @@ $table-selected-color: #e9f3ff !default;
                     text-align: center;
                     font-size: 13px;
                     min-width: 40px;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    overflow: hidden;
+                    @include text-overflow-ellipsis();
                     word-break: keep-all;
                     padding: 0 5px;
                     color: #666;

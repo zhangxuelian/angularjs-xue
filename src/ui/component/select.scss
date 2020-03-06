@@ -24,7 +24,7 @@ $select-empty-text-color: $gray-600 !default;
         padding: 0 5px;
         padding-right: 18px !important;
         color: $select-text-color;
-        @include text-overflow-ellipsis;
+        @include text-overflow-ellipsis();
     }
 
     .select-arrow {

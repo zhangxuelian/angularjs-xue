@@ -115,7 +115,87 @@ $ npm run demo</code></pre>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
-                            <h1 id="autoselect-setting">autoselect setting</h1>
+                            <h3 id="组件说明">组件说明</h3>
+<p><strong>可更改内容的下拉选择框（仅限取明词，不适用取词选对象）</strong></p>
+<h3 id="attributes">Attributes</h3>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>selectConfig</td>
+<td>下拉框属性</td>
+<td>Object</td>
+</tr>
+<tr>
+<td>ngVal</td>
+<td>输入框双向绑定值</td>
+<td>String</td>
+</tr>
+<tr>
+<td>ngDisabled</td>
+<td>是否禁用</td>
+<td>Boolean</td>
+</tr>
+</tbody></table>
+<h4 id="selectconfig-对象属性">selectConfig 对象属性</h4>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th align="left">说明</th>
+<th align="center">类型</th>
+<th align="center">可选值</th>
+<th align="center">默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>data</td>
+<td align="left">下拉数据</td>
+<td align="center">Array</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>height</td>
+<td align="left">输入框高度</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">28px</td>
+</tr>
+<tr>
+<td>panelHeight</td>
+<td align="left">下拉面板高度</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">auto</td>
+</tr>
+<tr>
+<td>panelWidth</td>
+<td align="left">下拉面板宽度</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">180px</td>
+</tr>
+<tr>
+<td>showLimit</td>
+<td align="left">匹配前多少条</td>
+<td align="center">Number</td>
+<td align="center">—</td>
+<td align="center">50</td>
+</tr>
+<tr>
+<td>selectCallback</td>
+<td align="left">选择回调</td>
+<td align="center">Function（item）</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+</tbody></table>
 
                         </div>
                     </div>
@@ -393,13 +473,142 @@ $ npm run demo</code></pre>
                     <div class="page-content">
                         <div class="content-html">
                             <div ng-controller="xueCounterDemoCtrl">
-  <xue-counter counter-config="vm.counterConfigSm" ng-number="vm.number"></xue-counter>
-  <xue-counter counter-config="vm.counterConfig" ng-number="vm.number"></xue-counter>
-  <xue-counter counter-config="vm.counterConfigLg" ng-number="vm.number"></xue-counter>
+  <xue-counter counter-config="vm.counterConfigSm" ng-number="vm.number1"></xue-counter>
+  <xue-counter counter-config="vm.counterConfig" ng-number="vm.number2"></xue-counter>
+  <xue-counter counter-config="vm.counterConfigLg" ng-number="vm.number3"></xue-counter>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
-                            <h3 id="counter-settings">counter settings</h3>
+                            <h3 id="组件说明">组件说明</h3>
+<p>计数器组件</p>
+<h3 id="attributes">Attributes</h3>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>counterConfig</td>
+<td>计数器属性</td>
+<td>Object</td>
+</tr>
+<tr>
+<td>ngNumber</td>
+<td>计数器双向绑定值</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>params</td>
+<td>是否禁用</td>
+<td>Boolean</td>
+</tr>
+</tbody></table>
+<h4 id="counterconfig-对象属性">counterConfig 对象属性</h4>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th align="left">说明</th>
+<th align="left">类型</th>
+<th align="left">可选值</th>
+<th align="left">默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td align="left">输入框类型（文本，输入框）</td>
+<td align="left">Number</td>
+<td align="left">1:纯文本，2：input输入框</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td>max</td>
+<td align="left">最大值</td>
+<td align="left">Number</td>
+<td align="left">—</td>
+<td align="left">100</td>
+</tr>
+<tr>
+<td>min</td>
+<td align="left">最小值</td>
+<td align="left">Number</td>
+<td align="left">—</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td>step</td>
+<td align="left">步进值</td>
+<td align="left">Number</td>
+<td align="left">—</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td>disabled</td>
+<td align="left">是否禁用</td>
+<td align="left">Boolean</td>
+<td align="left">—</td>
+<td align="left">false</td>
+</tr>
+<tr>
+<td>required</td>
+<td align="left">是否必填</td>
+<td align="left">Boolean</td>
+<td align="left">—</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td>size</td>
+<td align="left">计数器大小</td>
+<td align="left">String</td>
+<td align="left">large,small</td>
+<td align="left">—</td>
+</tr>
+<tr>
+<td>suffix</td>
+<td align="left">数据单位</td>
+<td align="left">String</td>
+<td align="left">—</td>
+<td align="left">—</td>
+</tr>
+<tr>
+<td>trigger</td>
+<td align="left">输入框触发方式</td>
+<td align="left">String</td>
+<td align="left">blur,change(type为2生效)</td>
+<td align="left">change</td>
+</tr>
+<tr>
+<td>change</td>
+<td align="left">change事件</td>
+<td align="left">Funciton</td>
+<td align="left">—</td>
+<td align="left">—</td>
+</tr>
+<tr>
+<td>blur</td>
+<td align="left">blur事件</td>
+<td align="left">Funciton</td>
+<td align="left">—</td>
+<td align="left">—</td>
+</tr>
+<tr>
+<td>focus</td>
+<td align="left">focus事件</td>
+<td align="left">Funciton</td>
+<td align="left">—</td>
+<td align="left">—</td>
+</tr>
+<tr>
+<td>changeCallback</td>
+<td align="left">数据改变回调</td>
+<td align="left">Funciton</td>
+<td align="left">—</td>
+<td align="left">—</td>
+</tr>
+</tbody></table>
 
                         </div>
                     </div>
@@ -416,9 +625,9 @@ $ npm run demo</code></pre>
                                     <div plunker-content="markup">
                                         <pre
                                             ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueCounterDemoCtrl&quot;&gt;
-  &lt;xue-counter counter-config=&quot;vm.counterConfigSm&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
-  &lt;xue-counter counter-config=&quot;vm.counterConfig&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
-  &lt;xue-counter counter-config=&quot;vm.counterConfigLg&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
+  &lt;xue-counter counter-config=&quot;vm.counterConfigSm&quot; ng-number=&quot;vm.number1&quot;&gt;&lt;/xue-counter&gt;
+  &lt;xue-counter counter-config=&quot;vm.counterConfig&quot; ng-number=&quot;vm.number2&quot;&gt;&lt;/xue-counter&gt;
+  &lt;xue-counter counter-config=&quot;vm.counterConfigLg&quot; ng-number=&quot;vm.number3&quot;&gt;&lt;/xue-counter&gt;
 &lt;/div&gt;</code></pre>
                                     </div>
                                 </xue-tab>
@@ -430,13 +639,13 @@ $ npm run demo</code></pre>
         counterConfig:{
             suffix: &quot;℃&quot;,
             max: 300,
-            min: 20,
+            min: 0,
             type:2
         },
         counterConfigLg:{
             suffix: &quot;℃&quot;,
             max: 300,
-            min: 20,
+            min: 0,
             size:&#39;large&#39;
             // type:2
         },
@@ -447,7 +656,9 @@ $ npm run demo</code></pre>
             size:&#39;small&#39;
             // type:2
         },
-        number:20
+        number1:20,
+        number2:20,
+        number3:20
     }
 }]);</code></pre>
                                     </div>
@@ -461,13 +672,13 @@ $ npm run demo</code></pre>
         counterConfig:{
             suffix: "℃",
             max: 300,
-            min: 20,
+            min: 0,
             type:2
         },
         counterConfigLg:{
             suffix: "℃",
             max: 300,
-            min: 20,
+            min: 0,
             size:'large'
             // type:2
         },
@@ -478,7 +689,9 @@ $ npm run demo</code></pre>
             size:'small'
             // type:2
         },
-        number:20
+        number1:20,
+        number2:20,
+        number3:20
     }
 }]);</script>
                 

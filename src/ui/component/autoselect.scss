@@ -20,7 +20,7 @@ $autoselect-empty-text-color: $gray-600 !default;
         background-repeat: no-repeat;
         padding-right: 18px !important;
         color: $autoselect-text-color;
-        @include text-overflow-ellipsis;
+        @include text-overflow-ellipsis();
     }
 }
 
@@ -33,7 +33,7 @@ $autoselect-empty-text-color: $gray-600 !default;
     z-index: 9999;
     background: $autoselect-content-bg-color;
     overflow: auto;
-    border: $border-width solid $autoselect-content-border-color;
+    border: 1px solid $autoselect-content-border-color;
     box-shadow: 0px 3px 7px 0px rgba(85, 176, 255, 0.3);
     box-sizing: border-box;
 
@@ -48,7 +48,7 @@ $autoselect-empty-text-color: $gray-600 !default;
             width: 100% !important;
             min-height: 28px !important;
             line-height: 28px !important;
-            border-bottom: $border-width solid $autoselect-content-border-color;
+            border-bottom: 1px solid $autoselect-content-border-color;
             color: $autoselect-text-color;
             cursor: pointer;
             text-align: left !important;

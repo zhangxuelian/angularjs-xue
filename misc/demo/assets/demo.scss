@@ -216,10 +216,8 @@ body {
                         }
 
                         .content-html {
-                            float: left;
-                            width: 50%;
-                            float: left;
-                            width: 50%;
+                            // float: left;
+                            // width: 50%;
                             border: 1px solid #ebebeb;
                             box-sizing: border-box;
                             padding: 15px 8px;
@@ -228,10 +226,26 @@ body {
                         }
 
                         .content-md {
-                            float: left;
-                            width: 50%;
+                            // float: left;
+                            // width: 50%;
                             box-sizing: border-box;
                             padding: 15px 8px;
+                            table {
+                                border-collapse: collapse;
+                                width: 100%;
+                                background-color: #fff;
+                                font-size: 14px;
+                                margin-bottom: 15px;
+                                line-height: 1.5em;
+                                border: solid 1px #cee0f0;
+                                td,th{
+                                    border: 1px solid #cee0f0;
+                                    padding: 8px 10px;
+                                }
+                                tbody tr:nth-child(even) {
+                                        background: #fafafa;
+                                }
+                            }
                         }
                     }
                     .page-content-code {

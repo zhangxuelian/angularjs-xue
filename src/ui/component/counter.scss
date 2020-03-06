@@ -16,9 +16,24 @@ $counter-input-padding-x-sm: .5rem !default;
 $counter-input-padding-y-lg: .75rem !default;
 $counter-input-padding-x-lg: 1.5rem !default;
 
+@mixin counter-size($padding-y, $padding-x, $font-size) {
+    font-size: $font-size;
+
+    .text,
+    .input,
+    .add,
+    .reduce {
+        padding: $padding-y $padding-x;
+    }
+
+    .input span {
+        padding: $padding-y $padding-x;
+    }
+}
+
 .xui-counter-wrap {
     display: inline-block;
-    border: $border-width solid $counter-border-color;
+    border: 1px solid $counter-border-color;
     border-radius: $border-radius;
     box-sizing: border-box;
     font-size: $font-size-base;
@@ -43,8 +58,8 @@ $counter-input-padding-x-lg: 1.5rem !default;
     .input {
         padding: $counter-input-padding-y $counter-input-padding-x;
         box-sizing: border-box;
-        border-left: $border-width solid $counter-border-color;
-        border-right: $border-width solid $counter-border-color;
+        border-left: 1px solid $counter-border-color;
+        border-right: 1px solid $counter-border-color;
     }
 
     .input {
@@ -100,33 +115,10 @@ $counter-input-padding-x-lg: 1.5rem !default;
     }
 
     &.large {
-        font-size: $font-size-lg;
-
-        .input span {
-            padding: $counter-input-padding-y-lg $counter-input-padding-x-lg;
-        }
-
-        .text,
-        .input,
-        .add,
-        .reduce {
-            padding: $counter-input-padding-y-lg $counter-input-padding-x-lg;
-        }
+        @include counter-size($counter-input-padding-y-lg, $counter-input-padding-x-lg, $font-size-lg)
     }
 
     &.small {
-        font-size: $font-size-sm;
-
-        .input span {
-            padding: $counter-input-padding-y-sm $counter-input-padding-x-sm;
-        }
-
-        .text,
-        .input,
-        .add,
-        .reduce {
-            padding: $counter-input-padding-y-sm $counter-input-padding-x-sm;
-        }
-
+        @include counter-size($counter-input-padding-y-sm, $counter-input-padding-x-sm, $font-size-sm);
     }
 }
