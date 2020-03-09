@@ -71,7 +71,7 @@ angular.module('ui.xue.demo').controller('xueCascaderDemoCtrl',['$scope',functio
 
     $scope.areaValue = "";
     $scope.areaConfig = {
-        type: 'area',
+        dataUrl: 'assets/data/city.min.js',
         css: {
             inputStyle: {
                 width: '196px',
