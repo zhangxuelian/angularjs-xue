@@ -265,7 +265,94 @@ $ npm run demo</code></pre>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
-                            <h3 id="xue-cascader-settings">xue-cascader settings</h3>
+                            <h3 id="组件说明">组件说明</h3>
+<p><strong>级联选择器组件</strong></p>
+<h3 id="attributes">Attributes</h3>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cascaderConfig</td>
+<td>选择器属性</td>
+<td>Object</td>
+</tr>
+<tr>
+<td>ngVal</td>
+<td>输入框双向绑定值</td>
+<td>String</td>
+</tr>
+<tr>
+<td>ngDisabled</td>
+<td>是否禁用</td>
+<td>Boolean</td>
+</tr>
+</tbody></table>
+<h4 id="selectconfig-对象属性">selectConfig 对象属性</h4>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th align="left">说明</th>
+<th align="center">类型</th>
+<th align="center">可选值</th>
+<th align="center">默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>data</td>
+<td align="left">可选项数据源</td>
+<td align="center">Array</td>
+<td align="center">—</td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td>dataUrl</td>
+<td align="left">可选项数据源请求地址</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td>valueField</td>
+<td align="left">指定选项的值为选项对象的某个属性值</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">value</td>
+</tr>
+<tr>
+<td>textField</td>
+<td align="left">指定选项标签为选项对象的某个属性值</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">label</td>
+</tr>
+<tr>
+<td>childName</td>
+<td align="left">指定选项的子选项为选项对象的某个属性值</td>
+<td align="center">Number</td>
+<td align="center">—</td>
+<td align="center">50</td>
+</tr>
+<tr>
+<td>css</td>
+<td align="left">自定义样式</td>
+<td align="center">Object</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>onSelect</td>
+<td align="left">选择回调</td>
+<td align="center">Function（item）</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+</tbody></table>
 
                         </div>
                     </div>
@@ -365,7 +452,7 @@ $ npm run demo</code></pre>
 
     $scope.areaValue = &quot;&quot;;
     $scope.areaConfig = {
-        type: &#39;area&#39;,
+        dataUrl: &#39;assets/data/city.min.js&#39;,
         css: {
             inputStyle: {
                 width: &#39;196px&#39;,
@@ -453,7 +540,7 @@ $ npm run demo</code></pre>
 
     $scope.areaValue = "";
     $scope.areaConfig = {
-        type: 'area',
+        dataUrl: 'assets/data/city.min.js',
         css: {
             inputStyle: {
                 width: '196px',

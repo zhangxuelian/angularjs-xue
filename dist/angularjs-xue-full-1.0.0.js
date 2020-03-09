@@ -2,7 +2,7 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-03-06
+ * Version: 1.0.0 - 2020-03-09
  * Require angularjs version: 1.2.32
  * License: ISC
  */
@@ -150,11 +150,10 @@ angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
             },
             link: function (scope, ele, attrs) {
                 var cascaderCtrl = scope.cascaderCtrl = {
-                    areaUrl: 'assets/data/city.min.js',
+                    // areaUrl: 'assets/data/city.min.js',
                     defaultConfig: {
                         data: [],
-                        dataMap: {},
-                        type: '', // 级联框自定义类型 area: 地区选择框
+                        dataUrl: '', // 数据请求地址
                         valueField: 'value', // 对应选项value值
                         textField : 'label', // 显示在输入框中的字段名
                         childName: 'children', // 选择框子列表字段名
@@ -166,6 +165,8 @@ angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
                         },
                         onSelect: function(){} //选择回调
                     },
+                    // 数据索引
+                    dataMap: {},
                     // 选择框列数据数组
                     selectList: [],
                     // 自定义类型 数据加载 异步对象
@@ -175,11 +176,13 @@ angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
                         var self = this;
                         scope.cascaderConfig = angular.extend(self.defaultConfig, scope.cascaderConfig || {});
                         // 是否使用自定义类型
-                        if (scope.cascaderConfig.type) {
+                        if (scope.cascaderConfig.dataUrl) {
                             self.delay = $q.defer();
-                            $http.get(self[scope.cascaderConfig.type + 'Url']).success(function(data) {
+                            $http.get(scope.cascaderConfig.dataUrl).success(function(data) {
                                 self.initData(data, 0);
                                 return self.delay.resolve(data);
+                            }).error(function() {
+                                return self.delay.reject();
                             });
                         } else {
                             self.initData(scope.cascaderConfig.data, 0);
@@ -191,7 +194,7 @@ angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
                         self.selectList[depth] = [];
                         angular.forEach(data, function(item) {
                             item.depth = depth; // 层级
-                            scope.cascaderConfig.dataMap[item[scope.cascaderConfig.valueField]] = item;
+                            self.dataMap[item[scope.cascaderConfig.textField]] = item;
                             // 子列表递归处理
                             if (item[scope.cascaderConfig.childName] && item[scope.cascaderConfig.childName].length) {
                                 self.initData(item[scope.cascaderConfig.childName], depth + 1);    
@@ -241,22 +244,22 @@ angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
                     },
                     // 选择框选择项数组
                     selectValue: [],
+                    selectLabel: [],
                     // 单击项
                     clickItem: function (item) {
                         var self = this;
                         // 选择项数组赋值
                         self.selectValue[item.depth] = item[scope.cascaderConfig.valueField];
+                        self.selectLabel[item.depth] = item[scope.cascaderConfig.textField];
                         // 单击非叶子项
                         if (!item.isLeaf) {
                             self.selectList[item.depth + 1] = item[scope.cascaderConfig.childName];
                         } else {
                         // 单击叶子项
                             self.selectValue = self.selectValue.slice(0, item.depth + 1);
-                            var completeLabel = [];
-                            angular.forEach(self.selectValue, function (item) {
-                                completeLabel.push(scope.cascaderConfig.dataMap[item][scope.cascaderConfig.textField]);
-                            })
-                            scope.ngVal = completeLabel.join("/");
+                            self.selectLabel = self.selectLabel.slice(0, item.depth + 1);
+                            self.selectList = self.selectList.slice(0, item.depth + 1);
+                            scope.ngVal = self.selectLabel.join("/");
                             self.showSelect = false;
                             if (xueUtilLang.isFunction(scope.cascaderConfig.onSelect)){
                                 scope.cascaderConfig.onSelect(self.selectValue.join("/"));
@@ -267,12 +270,17 @@ angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
                     resumeValue: function () {
                         var self = this;
                         if (scope.ngVal) {
-                            if (self.selectValue.join("/") != scope.ngVal) {
-                                self.selectValue = scope.ngVal.split("/");
+                            if (self.selectLabel.join("/") != scope.ngVal) {
+                                self.selectLabel = scope.ngVal.split("/");
+                                angular.forEach(self.selectLabel, function (item, index) {
+                                    self.selectValue[index] = self.dataMap[item][scope.cascaderConfig.valueField];
+                                })
+                                self.selectList.length = self.selectValue.length;
                                 self.getData(scope.cascaderConfig.data, 0);
                             }
                         } else {
                             self.selectValue = [];
+                            self.selectLabel = [];
                             self.selectList.length = 1;
                         }
                     },
@@ -281,6 +289,7 @@ angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
                         var self = this;
                         scope.ngVal = "";
                         self.selectValue = [];
+                        self.selectLabel = [];
                         self.showSelect = false;
                         self.selectList.length = 1;
                         if (event) {
@@ -295,7 +304,8 @@ angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
                     if (scope.ngVal) {
                         var valueArr = newValue.split("/");
                         angular.forEach(valueArr, function(item, index) {
-                            cascaderCtrl.selectValue[index] = item;
+                            cascaderCtrl.selectLabel[index] = item;
+                            cascaderCtrl.selectValue[index] = cascaderCtrl.dataMap[item][scope.cascaderConfig.valueField];
                         })
                         if (cascaderCtrl.selectValue.length) {
                             if (scope.cascaderConfig.type) {
