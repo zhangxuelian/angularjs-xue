@@ -2,12 +2,6 @@ angular.module('ui.xue.demo').controller('xueDirectivesDemoCtrl', ['$scope', fun
     $scope.vm = {
         ischeck: true,
         approvalStatus: '',
-        toggleConfig: {
-            onSelect: function (flag) {
-                $scope.vm.isOpen=!flag;
-            }
-        },
-        isOpen:true,
-        inputValue:''
+        inputValue: ''
     }
 }])

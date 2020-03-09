@@ -152,58 +152,7 @@ angular.module('xue.directives', ['xue.util.lang'])
                 '<input type="checkbox" class="multi-checkbox-input" ng-disabled="ngDisabled"></label>'
         }
     })
-    //switch开关
-    .directive("xueToggle", function () {
-        return {
-            restrict: "E",
-            replace: true,
-            scope: {
-                ngDisabled: '=',
-                toggleConfig: '='
-            },
-            template: "<div class='xui-toggle-wrap' ng-class=\"{true:'active'}[toggleConfig.disabled]\"><div ng-click='switchToggle()'><div class='toggle-bar'></div><div class='toggle-button'></div></div></div>",
-            link: function (scope, ele, attrs) {
-                var toggleConfig = {
-                    disabled: false,
-                    onSelect: function () {}
-                };
-                scope.toggleConfig = angular.extend(toggleConfig, scope.toggleConfig);
-                if (scope.ngDisabled) {
-                    scope.toggleConfig.disabled = scope.ngDisabled;
-                }
-                scope.switchToggle = function () {
-                    /* scope.toggleConfig.disabled = !scope.toggleConfig.disabled;
-                    scope.ngDisabled = scope.toggleConfig.disabled; */
-                    scope.toggleConfig.onSelect(scope.toggleConfig.disabled);
-                }
-                scope.$watch("ngDisabled", function (newVal, oldVal) {
-                    scope.toggleConfig.disabled = newVal;
-                });
-            }
-        }
-    })
-    // toggle switch base on angularjs
-    .directive('xueToggleSwitch', ['xueUtilLang', function (xueUtilLang) {
-        return {
-            restrict: "E",
-            replace: true,
-            scope: {
-                ngChecked: "=",
-                toggleClick: "=",
-                clickParam: "="
-            },
-            template: '<label class="xui-toggle-switch-wrap">' +
-                '<input class="swith-checkbox" type="checkbox" ng-model="ngChecked" ng-click="clickEvent()"/>' +
-                '<div class="switch-bg"></div><div class="toggle-btn"></div></label>',
-            link: function (scope, element, attr) {
-                scope.clickEvent = function () {
-                    if (xueUtilLang.isFunction(scope.toggleClick)) {
-                        scope.toggleClick(scope.clickParam || "");
-                    }
-                }
-            }
-        }
-    }])
+
     // 单选指令组
     .directive('xueRadioGroup', ['xueUtilLang', function (xueUtilLang) {
         return {

@@ -2,11 +2,11 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-03-06
+ * Version: 1.0.0 - 2020-03-09
  * Require angularjs version: 1.2.32
  * License: ISC
  */
-angular.module("ui.xue", ["ui.xue.tpls", "xue.util.lang","xue.autoselect","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.loading","xue.menu","xue.notice","xue.pagination","xue.scroller","xue.select","xue.steps","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util","xue.validate"]);
+angular.module("ui.xue", ["ui.xue.tpls", "xue.util.lang","xue.autoselect","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.loading","xue.menu","xue.notice","xue.pagination","xue.scroller","xue.select","xue.steps","xue.switch","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util","xue.validate"]);
 angular.module("ui.xue.tpls", ["xue/template/autoselect/autoselect.html","xue/template/cascader/cascader.html","xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/scroller/scroller.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
 /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
 //@ sourceMappingURL=jquery-1.10.2.min.map
@@ -1370,58 +1370,7 @@ angular.module('xue.directives', ['xue.util.lang'])
                 '<input type="checkbox" class="multi-checkbox-input" ng-disabled="ngDisabled"></label>'
         }
     })
-    //switch开关
-    .directive("xueToggle", function () {
-        return {
-            restrict: "E",
-            replace: true,
-            scope: {
-                ngDisabled: '=',
-                toggleConfig: '='
-            },
-            template: "<div class='xui-toggle-wrap' ng-class=\"{true:'active'}[toggleConfig.disabled]\"><div ng-click='switchToggle()'><div class='toggle-bar'></div><div class='toggle-button'></div></div></div>",
-            link: function (scope, ele, attrs) {
-                var toggleConfig = {
-                    disabled: false,
-                    onSelect: function () {}
-                };
-                scope.toggleConfig = angular.extend(toggleConfig, scope.toggleConfig);
-                if (scope.ngDisabled) {
-                    scope.toggleConfig.disabled = scope.ngDisabled;
-                }
-                scope.switchToggle = function () {
-                    /* scope.toggleConfig.disabled = !scope.toggleConfig.disabled;
-                    scope.ngDisabled = scope.toggleConfig.disabled; */
-                    scope.toggleConfig.onSelect(scope.toggleConfig.disabled);
-                }
-                scope.$watch("ngDisabled", function (newVal, oldVal) {
-                    scope.toggleConfig.disabled = newVal;
-                });
-            }
-        }
-    })
-    // toggle switch base on angularjs
-    .directive('xueToggleSwitch', ['xueUtilLang', function (xueUtilLang) {
-        return {
-            restrict: "E",
-            replace: true,
-            scope: {
-                ngChecked: "=",
-                toggleClick: "=",
-                clickParam: "="
-            },
-            template: '<label class="xui-toggle-switch-wrap">' +
-                '<input class="swith-checkbox" type="checkbox" ng-model="ngChecked" ng-click="clickEvent()"/>' +
-                '<div class="switch-bg"></div><div class="toggle-btn"></div></label>',
-            link: function (scope, element, attr) {
-                scope.clickEvent = function () {
-                    if (xueUtilLang.isFunction(scope.toggleClick)) {
-                        scope.toggleClick(scope.clickParam || "");
-                    }
-                }
-            }
-        }
-    }])
+
     // 单选指令组
     .directive('xueRadioGroup', ['xueUtilLang', function (xueUtilLang) {
         return {
@@ -2681,6 +2630,59 @@ angular.module('xue.steps', ['xue.util.lang', 'xue.util.array'])
             }
         };
     }]);
+angular.module('xue.switch', ['xue.util.lang'])
+    // toggle switch base on angularjs
+    .directive('xueSwitch', ['xueUtilLang', function (xueUtilLang) {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                ngChecked: "=",
+                switchClick: "=",
+                clickParam: "="
+            },
+            template: '<label class="xui-switch-wrap">' +
+                '<input class="swith-checkbox" type="checkbox" ng-model="ngChecked" ng-click="clickEvent()"/>' +
+                '<div class="switch-bg"></div><div class="toggle-btn"></div></label>',
+            link: function (scope, element, attr) {
+                scope.clickEvent = function () {
+                    if (xueUtilLang.isFunction(scope.switchClick)) {
+                        scope.switchClick(scope.clickParam || "");
+                    }
+                }
+            }
+        }
+    }])
+    //switch开关
+    .directive("xueToggle", function () {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                ngDisabled: '=',
+                toggleConfig: '='
+            },
+            template: "<div class='xui-toggle-wrap' ng-class=\"{true:'active'}[toggleConfig.disabled]\"><div ng-click='switchToggle()'><div class='toggle-bar'></div><div class='toggle-button'></div></div></div>",
+            link: function (scope, ele, attrs) {
+                var toggleConfig = {
+                    disabled: false,
+                    onSelect: function () {}
+                };
+                scope.toggleConfig = angular.extend(toggleConfig, scope.toggleConfig);
+                if (scope.ngDisabled) {
+                    scope.toggleConfig.disabled = scope.ngDisabled;
+                }
+                scope.switchToggle = function () {
+                    /* scope.toggleConfig.disabled = !scope.toggleConfig.disabled;
+                    scope.ngDisabled = scope.toggleConfig.disabled; */
+                    scope.toggleConfig.onSelect(scope.toggleConfig.disabled);
+                }
+                scope.$watch("ngDisabled", function (newVal, oldVal) {
+                    scope.toggleConfig.disabled = newVal;
+                });
+            }
+        }
+    })
 angular.module('xue.table', ['xue.util.lang', 'xue.pagination', 'xue.util.array'])
     .directive('xueTable', ['xueUtilLang', 'xueUtilArray', '$timeout', function (xueUtilLang, xueUtilArray, $timeout) {
         return {
