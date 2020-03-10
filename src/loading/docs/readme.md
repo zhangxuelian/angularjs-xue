@@ -1,3 +1,6 @@
+### 组件说明
+ loading加载
+
 ### Attributes
 
 | 属性         | 说明             | 类型    |

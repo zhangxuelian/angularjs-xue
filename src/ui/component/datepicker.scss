@@ -1,0 +1,416 @@
+.xui-datepicker-wrap{
+    position: relative;
+    display: inline-block;
+    .input-wrap{
+        display: inline-block;
+        width: 180px;
+        height: 28px;
+        padding: 0 15px;
+        position: relative;
+        border: 1px solid #cee0f0;
+        transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+        border-radius: 5px;
+        vertical-align: middle;
+        background: #fff;
+        &:focus{
+            border-color: #409EFF;
+            outline: 0;
+            -webkit-boxl-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+        }
+        &:hover{
+            .sufix-input{
+                display: inline-block;
+                cursor: pointer; 
+            }
+        }
+        .type-ipt{
+            position: absolute;
+            display: inline-block;
+            vertical-align: middle;
+            height: 100%;
+            line-height: 28px;
+            -webkit-appearance: none;
+            background-color: #fff;
+            background-image: none;
+            box-sizing: border-box;
+            color: #606266;
+            font-size: 14px;
+            outline: none;
+            width: 150px;
+            font-weight: 400;
+            border: none;
+            padding: 3px;
+            left: 18px;
+        }
+        .prefix-input{
+            position: absolute;
+            font-size: 18px;
+            top: 5px;
+            left: 2px;
+        }
+        .sufix-input{
+            display: none;
+            font-size: 16px;
+            position: absolute;
+            right: 2px;
+            top: 5px;
+        }
+    }
+    .type-img{
+        display: inline-block;
+    }
+    .type-span{
+        display: inline-block;
+    }
+}
+
+@mixin select-time-content{
+    height: 150px;
+    display: flex;
+    width: 100%;
+    padding: 2px;
+    font-size: 12px;
+    position: relative;
+    &::after{
+        content: "";
+        display: block;
+        position: absolute;
+        border-top: solid 1px #ddd;
+        width: 118px;
+        height: 30px;
+        margin-left: 7px;
+        top: 63px;
+        border-bottom: solid 1px #ddd;
+    }
+    .time-scrollbar{
+        flex-grow: 1;
+        text-align: center;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+        ul{
+            list-style: none;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            transition: top 0.1s;
+            &::before{
+                content: "";
+                display: block;
+                width: 100%;
+                height: 60px;
+            }
+            &::after{
+                content: "";
+                display: block;
+                width: 100%;
+                height: 60px;
+            }
+            li{
+                line-height: 30px;
+                &.active{
+                    color: #333;
+                    font-weight: 700;
+                }
+                &:hover{
+                    background: #f0f5fb;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+.xl-datepicker-content{
+    ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        color:    #999;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+       color:    #999;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+       color:    #999;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+       color:    #999;
+    }
+    -moz-user-select:none; /*火狐*/
+    -webkit-user-select:none; /*webkit浏览器*/
+    -ms-user-select:none; /*IE10*/
+    -khtml-user-select:none; /*早期浏览器*/
+    user-select:none;
+
+    position: absolute;
+    min-width: 317px;
+    top: 181px;
+    left: 294px;
+    z-index: 9999;
+    background: #fff;
+    display: none;
+    box-shadow: 0 0 15px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    color: #606266;
+    border: solid 1px #DCDFE6;
+    .xl-popper-arrow{
+        top: -6px;
+        width: 0;
+        height: 0;
+        border-left: solid 6px transparent;
+        border-right: solid 6px transparent;
+        border-bottom: solid 6px #fff;
+        position: absolute;
+        left: 35px;
+        &.arrow-bottom{
+            top: auto;
+            border-bottom: solid 6px transparent;
+            border-top: solid 6px #fff;
+        }
+        &.arrow-right{
+            left: auto;
+            right: 35px;
+        }
+    }
+    .show-date-wrap{
+        padding: 5px;
+        border-bottom: solid 1px #DCDFE6;
+        .show-ipt-wrap{
+            position: relative;
+            display: inline-block;
+            padding: 5px;
+            padding-bottom: 0;
+            .show-ipt{
+                width: 140px;
+                height: 28px;
+                line-height: 28px;
+                border: 1px solid #ddd;
+                padding-left: 8px;
+                padding-right: 8px;
+                border-radius: 3px;
+                &:focus{
+                    border: solid 1px #409EFF;
+                }
+            }
+            .select-time-wrap{
+                position: absolute;
+                /* display: none; */
+                width: 140px;
+                height: 180px;
+                z-index: 9999;
+                border: solid 1px #ddd;
+                border-radius: 2px;
+                background: #fff;
+                top: 34px;
+                box-shadow: 0 2px 5px 0 rgba(0,0,0,0.1);
+                .select-time-content{
+                    @include select-time-content;
+                }
+                .select-time-footer{
+                    height: 30px;
+                    border-top: solid 1px #ddd;
+                    text-align: right;
+                    line-height: 26px;
+                    .confirm{
+                        color: #409eff;
+                        font-weight: 700;
+                        font-size: 12px;
+                        margin-right: 15px;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+    .xl-content-header{
+        text-align: center;
+        padding: 15px 10px;
+        padding-bottom: 0;
+        &>i{
+            height: 16px;
+            width: 16px;
+            display: inline-block;
+            cursor: pointer;
+            margin-top: 3px;
+            margin-left: 3px;
+            margin-right: 3px;
+        }
+        .last-year{
+            float: left;
+        }
+        .last-month{
+            float: left;
+        }
+        .current-year{
+            line-height: 22px;
+            padding: 0 5px;
+            cursor: pointer;
+            input{
+                border: none;
+                width: 45px;
+                height: 22px;
+                line-height: 22px;
+                background: #eaf6ff;
+                border-radius: 3px;
+                padding: 0 5px;
+                text-align: center;
+            }
+        }
+        .current-month{
+            line-height: 22px;
+            padding: 0 5px;
+            cursor: pointer;
+            input{
+                border: none;
+                width: 35px;
+                height: 22px;
+                line-height: 22px;
+                background: #eaf6ff;
+                border-radius: 3px;
+                padding: 0 5px;
+                text-align: center;
+            }
+        }
+        .next-month{
+            float: right;
+        }
+        .next-year{
+            float: right;
+        }
+    }
+    .xl-content-body{
+        padding: 10px;
+        .xl-datepicker-table{
+            width: 100%;
+            th{
+                padding: 10px;
+                text-align: center;
+                border-bottom: solid 1px #eee;
+            }
+            td{
+                text-align: center;
+                padding: 7px;
+                font-size: 13px;
+                &.disabled-select{
+                    background: #ececec;
+                    span{
+                        cursor: not-allowed;
+                        &hover{
+                            color: #C0C4CC;
+                        }
+                    }
+                }
+                span{
+                    width: 25px;
+                    height: 25px;
+                    line-height: 25px;
+                    display: block;
+                    cursor: pointer;
+                    &.active{
+                        background: #409EFF;
+                        border-radius: 50%;
+                        color: #fff!important;
+                        font-weight: 400!important;
+                        &:hover{
+                            color: #fff;
+                        }
+                    }
+                    &.not-current{
+                        color: #C0C4CC;
+                    }
+                    &:hover{
+                        color: #409EFF;
+                    }
+                    &.current{
+                        color: #409EFF;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+    }
+    .xl-content-footer{
+        border-top: 1px solid #e4e4e4;
+        padding: 4px;
+        text-align: right;
+        background-color: #fff;
+        position: relative;
+        font-size: 0;
+        button{
+            padding: 5px 15px;
+            font-size: 12px;
+            border-radius: 3px;
+            margin: 5px;
+            border: 1px solid #DCDFE6;
+            background: #fff;
+            cursor: pointer;
+        }
+        .select-now{
+            border-color: transparent;
+            color: #409EFF;
+            background: transparent;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .confirm-date{
+            color: #606266;
+        }
+    }
+}
+.xl-timepicker-content{
+    position: absolute;
+    min-width: 180px;
+    height: 200px;
+    top: 181px;
+    left: 294px;
+    z-index: 9999;
+    background: #fff;
+    display: none;
+    box-shadow: 0 0 15px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    color: #606266;
+    border: solid 1px #DCDFE6;
+    .xl-content-body{
+        padding: 10px 0;
+        .select-time-content{
+            @include select-time-content;
+            height: 180px;
+            &::after{
+                width: 140px;
+                margin-left: 16px;
+            }
+            .time-scrollbar{
+                &.disabled-select{
+                    cursor: not-allowed;
+                    ul{
+                        li{
+                            color: #ccc;
+                            &:hover{
+                                cursor: not-allowed;
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+    .xl-popper-arrow{
+        top: -6px;
+        width: 0;
+        height: 0;
+        border-left: solid 6px transparent;
+        border-right: solid 6px transparent;
+        border-bottom: solid 6px #fff;
+        position: absolute;
+        left: 35px;
+        &.arrow-bottom{
+            top: auto;
+            border-bottom: solid 6px transparent;
+            border-top: solid 6px #fff;
+        }
+        &.arrow-right{
+            left: auto;
+            right: 35px;
+        }
+    }
+}

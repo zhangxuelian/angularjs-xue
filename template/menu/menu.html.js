@@ -24,8 +24,8 @@ angular.module("xue/template/menu/menu.html", []).run(["$templateCache", functio
     "                    {{item[menuConfig.oneDimenName]}}\n" +
     "                </div>\n" +
     "                <div class=\"title-arrow\" ng-if=\"!!item[menuConfig.childrenName]\">\n" +
-    "                    <i ng-if=\"!item.open\" class=\"xui-icon xui-icon-md-arrow-forward\"></i>\n" +
-    "                    <i ng-if=\"!!item.open\" class=\"xui-icon xui-icon-md-arrow-down\"></i>\n" +
+    "                    <i ng-if=\"!item.open\" class=\"xui-icon xui-icon-ios-arrow-forward\"></i>\n" +
+    "                    <i ng-if=\"!!item.open\" class=\"xui-icon xui-icon-ios-arrow-down\"></i>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "            <div class=\"item-content\" ng-show=\"!!item.open && !!item[menuConfig.childrenName]\">\n" +

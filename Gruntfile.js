@@ -9,6 +9,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         version: '<%= pkg.version %>',
         ngversion: '1.2.32',
+        debug: false,
         modules: [],//to be filled in by build task
         pkg: grunt.file.readJSON('package.json'),
         dist: 'dist',
@@ -148,6 +149,14 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     src: ['*.min.*', 'fonts/*', 'data/*'],
+                    cwd: 'dist',
+                    dest: 'demo/assets/'
+                }]
+            },
+            demosrc: {
+                files: [{
+                    expand: true,
+                    src: ['*.js','*.css','fonts/*', 'data/*'],
                     cwd: 'dist',
                     dest: 'demo/assets/'
                 }]
@@ -421,6 +430,10 @@ module.exports = function (grunt) {
 
     });
     grunt.registerTask('demo', ['delFiles', 'sass', 'html2js', 'build', 'cssmin', 'copy:demohtml', 'copy:demoassets', 'copy:demodist']);
+    grunt.registerTask('test-demo', function () {
+        grunt.config('debug', true);
+        grunt.task.run(['delFiles', 'sass', 'html2js', 'build', 'cssmin', 'copy:demohtml', 'copy:demoassets', 'copy:demosrc']);
+    });
     grunt.registerTask('justDemo', ['copy:demohtml', 'copy:demoassets', 'copy:demodist']);
     grunt.registerTask('makeModuleMappingFile', function () {
         var moduleMappingJs = 'demo/assets/module-mapping.json';

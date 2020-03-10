@@ -1,4 +1,5 @@
-### switch开关
+### 组件说明
+ switch开关
 
 ### Attributes
 

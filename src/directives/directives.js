@@ -138,7 +138,7 @@ angular.module('xue.directives', ['xue.util.lang'])
             template: '<div class="xui-checkbox-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"><i class="xui-icon xui-icon-md-checkmark"></i></div>'
         }
     })
-    // toggle switch base on angularjs
+    // multi-checkbox base on angularjs
     .directive('xueMultiCheckbox', function () {
         return {
             restrict: "E",

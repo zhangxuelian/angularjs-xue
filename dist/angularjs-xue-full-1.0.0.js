@@ -6,8 +6,8 @@
  * Require angularjs version: 1.2.32
  * License: ISC
  */
-angular.module("ui.xue", ["ui.xue.tpls", "xue.util.lang","xue.autoselect","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.loading","xue.menu","xue.notice","xue.pagination","xue.scroller","xue.select","xue.steps","xue.switch","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util","xue.validate"]);
-angular.module("ui.xue.tpls", ["xue/template/autoselect/autoselect.html","xue/template/cascader/cascader.html","xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/scroller/scroller.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
+angular.module("ui.xue", ["ui.xue.tpls", "xue.util.lang","xue.autoselect","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.loading","xue.menu","xue.modal","xue.notice","xue.pagination","xue.scroller","xue.select","xue.steps","xue.switch","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util","xue.validate"]);
+angular.module("ui.xue.tpls", ["xue/template/autoselect/autoselect.html","xue/template/cascader/cascader.html","xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/modal/modal.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/scroller/scroller.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
 /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
 //@ sourceMappingURL=jquery-1.10.2.min.map
 */
@@ -1366,7 +1366,7 @@ angular.module('xue.directives', ['xue.util.lang'])
             template: '<div class="xui-checkbox-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"><i class="xui-icon xui-icon-md-checkmark"></i></div>'
         }
     })
-    // toggle switch base on angularjs
+    // multi-checkbox base on angularjs
     .directive('xueMultiCheckbox', function () {
         return {
             restrict: "E",
@@ -1830,6 +1830,506 @@ angular.module('xue.menu', ['xue.util.lang'])
             }
         }
     }])
+angular.module('xue.modal', [])
+    .factory('$$multiMap', function () {
+        return {
+            createNew: function () {
+                var map = {};
+
+                return {
+                    entries: function () {
+                        return Object.keys(map).map(function (key) {
+                            return {
+                                key: key,
+                                value: map[key]
+                            };
+                        });
+                    },
+                    get: function (key) {
+                        return map[key];
+                    },
+                    hasKey: function (key) {
+                        return !!map[key];
+                    },
+                    keys: function () {
+                        return Object.keys(map);
+                    },
+                    put: function (key, value) {
+                        if (!map[key]) {
+                            map[key] = [];
+                        }
+
+                        map[key].push(value);
+                    },
+                    remove: function (key, value) {
+                        var values = map[key];
+
+                        if (!values) {
+                            return;
+                        }
+
+                        var idx = values.indexOf(value);
+
+                        if (idx !== -1) {
+                            values.splice(idx, 1);
+                        }
+
+                        if (!values.length) {
+                            delete map[key];
+                        }
+                    }
+                };
+            }
+        };
+    })
+    .factory('$$stackedMap', function () {
+        return {
+            createNew: function () {
+                var stack = [];
+
+                return {
+                    add: function (key, value) {
+                        stack.push({
+                            key: key,
+                            value: value
+                        });
+                    },
+                    get: function (key) {
+                        for (var i = 0; i < stack.length; i++) {
+                            if (key === stack[i].key) {
+                                return stack[i];
+                            }
+                        }
+                    },
+                    keys: function () {
+                        var keys = [];
+                        for (var i = 0; i < stack.length; i++) {
+                            keys.push(stack[i].key);
+                        }
+                        return keys;
+                    },
+                    top: function () {
+                        return stack[stack.length - 1];
+                    },
+                    remove: function (key) {
+                        var idx = -1;
+                        for (var i = 0; i < stack.length; i++) {
+                            if (key === stack[i].key) {
+                                idx = i;
+                                break;
+                            }
+                        }
+                        return stack.splice(idx, 1)[0];
+                    },
+                    removeTop: function () {
+                        return stack.pop();
+                    },
+                    length: function () {
+                        return stack.length;
+                    }
+                };
+            }
+        };
+    })
+    .factory('$modalStack', ['$document', '$$stackedMap', '$$multiMap', '$animate', '$rootScope', '$compile',
+        function ($document, $$stackedMap, $$multiMap, $animate, $rootScope, $compile) {
+            var ARIA_HIDDEN_ATTRIBUTE_NAME = 'data-bootstrap-modal-aria-hidden-count';
+            var innerUtil = {
+                attribute: ['deferred', 'renderDeferred', 'closedDeferred', 'modalScope', 'backdrop', 'keyboard', 'openedClass', 'windowTopClass', 'animation', 'appendTo'],
+                openedWindows: $$stackedMap.createNew(),
+                openedClasses: $$multiMap.createNew(),
+                previousTopOpenedModal: null,
+                topModalIndex: 0,
+                backdropDomEl: null,
+                backdropScope: null,
+                toggleTopWindowClass: function (toggleSwitch) {
+                    var modalWindow, self = this;
+                    if (self.openedWindows.length() > 0) {
+                        modalWindow = self.openedWindows.top().value;
+                        modalWindow.modalDomEl.toggleClass(modalWindow.windowTopClass || '', toggleSwitch);
+                    }
+                },
+                backdropIndex: function () {
+                    var topBackdropIndex = -1, self = this;
+                    var opened = self.openedWindows.keys();
+                    for (var i = 0; i < opened.length; i++) {
+                        if (self.openedWindows.get(opened[i]).value.backdrop) {
+                            topBackdropIndex = i;
+                        }
+                    }
+
+                    // If any backdrop exist, ensure that it's index is always
+                    // right below the top modal
+                    if (topBackdropIndex > -1 && topBackdropIndex < innerUtil.topModalIndex) {
+                        topBackdropIndex = innerUtil.topModalIndex;
+                    }
+                    return topBackdropIndex;
+                },
+                getSiblings: function (el) {
+                    var children = el.parent() ? el.parent().children() : [];
+
+                    return Array.prototype.filter.call(children, function (child) {
+                        return child !== el[0];
+                    });
+                },
+                applyAriaHidden: function (el) {
+                    var self = this;
+                    if (!el || el[0].tagName === 'BODY') {
+                        return;
+                    }
+
+                    self.getSiblings(el).forEach(function (sibling) {
+                        var elemIsAlreadyHidden = sibling.getAttribute('aria-hidden') === 'true',
+                            ariaHiddenCount = parseInt(sibling.getAttribute(ARIA_HIDDEN_ATTRIBUTE_NAME), 10);
+
+                        if (!ariaHiddenCount) {
+                            ariaHiddenCount = elemIsAlreadyHidden ? 1 : 0;
+                        }
+
+                        sibling.setAttribute(ARIA_HIDDEN_ATTRIBUTE_NAME, ariaHiddenCount + 1);
+                        sibling.setAttribute('aria-hidden', 'true');
+                    });
+
+                    return self.applyAriaHidden(el.parent());
+                }
+            };
+            var $modalStack = {
+                open: function (modalInstance, modal) {
+                    var modalOpener = $document[0].activeElement,
+                        modalBodyClass = modal.openedClass;
+                    innerUtil.toggleTopWindowClass(false);
+                    innerUtil.previousTopOpenedModal = innerUtil.openedWindows.top();
+                    var winObj = {};
+                    angular.forEach(innerUtil.attribute, function (item, i) {
+                        winObj[item] = modal[item];
+                    });
+                    innerUtil.openedWindows.add(modalInstance, winObj);
+                    innerUtil.openedClasses.put(modalBodyClass, modalInstance);
+                    var appendToElement = modal.appendTo,
+                        currBackdropIndex = innerUtil.backdropIndex();
+                    if (currBackdropIndex >= 0 && !innerUtil.backdropDomEl) {
+                        // key code
+                        innerUtil.backdropScope = $rootScope.$new(true);
+                        innerUtil.backdropScope.modalOptions = modal;
+                        innerUtil.backdropScope.index = currBackdropIndex;
+                        innerUtil.backdropDomEl = angular.element('<div xue-modal-backdrop="xui-modal-backdrop"></div>');
+                        innerUtil.backdropDomEl.attr({
+                            'class': 'xui-modal-backdrop-wrap',
+                            'ng-style': '{\'z-index\': 1040 + (index && 1 || 0) + index*10}',
+                            'uib-modal-animation-class': 'fade',
+                            'modal-in-class': 'in'
+                        });
+                        if (modal.backdropClass) {
+                            innerUtil.backdropDomEl.addClass(modal.backdropClass);
+                        }
+
+                        if (modal.animation) {
+                            innerUtil.backdropDomEl.attr('modal-animation', 'true');
+                        }
+                        // key code
+                        $compile(innerUtil.backdropDomEl)(innerUtil.backdropScope);
+                        $animate.enter(innerUtil.backdropDomEl, appendToElement);
+                        // if ($uibPosition.isScrollable(appendToElement)) {
+                        //     scrollbarPadding = $uibPosition.scrollbarPadding(appendToElement);
+                        //     if (scrollbarPadding.heightOverflow && scrollbarPadding.scrollbarWidth) {
+                        //         appendToElement.css({ paddingRight: scrollbarPadding.right + 'px' });
+                        //     }
+                        // }
+                    }
+                    var content;
+                    if (modal.component) {
+                        // content = document.createElement(snake_case(modal.component.name));
+                        // content = angular.element(content);
+                        // content.attr({
+                        //     resolve: '$resolve',
+                        //     'modal-instance': '$modalInstance',
+                        //     close: '$close($value)',
+                        //     dismiss: '$dismiss($value)'
+                        // });
+                    } else {
+                        content = modal.content;
+                    }
+
+                    // Set the top modal index based on the index of the previous top modal
+                    innerUtil.topModalIndex = innerUtil.previousTopOpenedModal ? parseInt(innerUtil.previousTopOpenedModal.value.modalDomEl.attr('index'), 10) + 1 : 0;
+                    var angularDomEl = angular.element('<div uib-modal-window="modal-window"></div>');
+                    angularDomEl.attr({
+                        'class': 'modal',
+                        'template-url': modal.windowTemplateUrl,
+                        'window-top-class': modal.windowTopClass,
+                        'role': 'dialog',
+                        'aria-labelledby': modal.ariaLabelledBy,
+                        'aria-describedby': modal.ariaDescribedBy,
+                        'size': modal.size,
+                        'index': innerUtil.topModalIndex,
+                        'animate': 'animate',
+                        'ng-style': '{\'z-index\': 1050 + $$topModalIndex*10, display: \'block\'}',
+                        'tabindex': -1,
+                        'uib-modal-animation-class': 'fade',
+                        'modal-in-class': 'in'
+                    }).append(content);
+                    if (modal.windowClass) {
+                        angularDomEl.addClass(modal.windowClass);
+                    }
+
+                    if (modal.animation) {
+                        angularDomEl.attr('modal-animation', 'true');
+                    }
+
+                    appendToElement.addClass(modalBodyClass);
+                    if (modal.scope) {
+                        // we need to explicitly add the modal index to the modal scope
+                        // because it is needed by ngStyle to compute the zIndex property.
+                        modal.scope.$$topModalIndex = innerUtil.topModalIndex;
+                    }
+                    $animate.enter($compile(angularDomEl)(modal.scope), appendToElement);
+
+                    innerUtil.openedWindows.top().value.modalDomEl = angularDomEl;
+                    innerUtil.openedWindows.top().value.modalOpener = modalOpener;
+
+                    innerUtil.applyAriaHidden(angularDomEl);
+
+                },
+                close: function () {
+
+                },
+                dismiss: function () {
+
+                },
+                dismissAll: function () {
+
+                },
+                getTop: function () {
+
+                },
+                modalRendered: function () {
+
+                },
+                focusFirstFocusableElement: function () {
+
+                },
+                focusLastFocusableElement: function () {
+
+                },
+                isModalFocused: function () {
+
+                },
+                isFocusInFirstItem: function () {
+
+                },
+                isFocusInLastItem: function () {
+
+                },
+                loadFocusElementList: function () {
+
+                }
+            };
+            return $modalStack;
+        }])
+    .provider('$xueResolve', [function () {
+        var resolve = this;
+        this.resolver = null;
+
+        this.setResolver = function (resolver) {
+            this.resolver = resolver;
+        };
+
+        this.$get = ['$injector', '$q', function ($injector, $q) {
+            var resolver = resolve.resolver ? $injector.get(resolve.resolver) : null;
+            return {
+                resolve: function (invocables, locals, parent, self) {
+                    if (resolver) {
+                        return resolver.resolve(invocables, locals, parent, self);
+                    }
+
+                    var promises = [];
+
+                    angular.forEach(invocables, function (value) {
+                        if (angular.isFunction(value) || angular.isArray(value)) {
+                            promises.push($q.resolve($injector.invoke(value)));
+                        } else if (angular.isString(value)) {
+                            promises.push($q.resolve($injector.get(value)));
+                        } else {
+                            promises.push($q.resolve(value));
+                        }
+                    });
+
+                    return $q.all(promises).then(function (resolves) {
+                        var resolveObj = {};
+                        var resolveIter = 0;
+                        angular.forEach(invocables, function (value, key) {
+                            resolveObj[key] = resolves[resolveIter++];
+                        });
+
+                        return resolveObj;
+                    });
+                }
+            };
+        }];
+    }])
+    .provider('$xModal', [function () {
+        this.$get = ['$document', '$modalStack', '$xueResolve', '$rootScope', '$q', '$controller', '$http', '$templateCache',
+            function ($document, $modalStack, $xueResolve, $rootScope, $q, $controller, $http, $templateCache) {
+                var modalUtil = {
+                    options: {
+                        openedClass: '',
+                        backdropClass: '',
+                        windowTopClass: '',
+                        windowClass: '',
+                        animation: true,
+                        backdrop: true, //can also be false or 'static'
+                        keyboard: true,
+                        resolve: {},
+                        appendTo: $document.find('body').eq(0),
+                        component: '',
+                        template: '',
+                        templateUrl: '',
+                        windowTemplateUrl: '',
+                        ariaLabelledBy: '',
+                        ariaDescribedBy: '',
+                        size: '',
+                        controller: null
+                    },
+                    promiseChain: null,
+                    resolveWithTemplate: function () {
+                        if (modalUtil.modalOptions.component) {
+                            return $q.when($xueResolve.resolve(modalUtil.modalOptions.resolve, {}, null, null));
+                        } else {
+                            return $q.all([modalUtil.getTemplatePromise(modalUtil.modalOptions), $xueResolve.resolve(modalUtil.modalOptions.resolve, {}, null, null)]);
+                        }
+                    },
+                    getTemplatePromise: function (options) {
+                        return options.template ? $q.when(options.template) :
+                            $http.get(angular.isFunction(options.templateUrl) ? (options.templateUrl)() : options.templateUrl,
+                                { cache: $templateCache }).then(function (result) {
+                                    return result.data;
+                                });
+                    },
+                    constructLocals: function (obj, modalScope, tplAndVars, modalInstance, template, instanceOnScope, injectable) {
+                        obj.$scope = modalScope;
+                        obj.$scope.$resolve = {};
+                        if (instanceOnScope) {
+                            obj.$scope.$modalInstance = modalInstance;
+                        } else {
+                            obj.$modalInstance = modalInstance;
+                        }
+
+                        var resolves = template ? tplAndVars[1] : tplAndVars;
+                        angular.forEach(resolves, function (value, key) {
+                            if (injectable) {
+                                obj[key] = value;
+                            }
+
+                            obj.$scope.$resolve[key] = value;
+                        });
+                    }
+                };
+                var $modal = {
+                    getPromiseChain: function () {
+                        return modalUtil.promiseChain;
+                    },
+                    open: function (modalOptions) {
+                        modalUtil.modalOptions = modalOptions;
+                        var modalResultDeferred = $q.defer();
+                        var modalOpenedDeferred = $q.defer();
+                        var modalClosedDeferred = $q.defer();
+                        var modalRenderDeferred = $q.defer();
+
+                        var modalInstance = {
+                            result: modalResultDeferred.promise,
+                            opened: modalOpenedDeferred.promise,
+                            closed: modalClosedDeferred.promise,
+                            rendered: modalRenderDeferred.promise,
+                            close: function (result) {
+                                //return $modalStack.close(modalInstance, result);
+                            },
+                            dismiss: function (reason) {
+                                //return $modalStack.dismiss(modalInstance, reason);
+                            }
+                        };
+                        modalOptions = angular.extend({}, modalUtil.options, modalOptions);
+
+                        if (!modalOptions.appendTo.length) {
+                            throw new Error('appendTo element not found. Make sure that the element passed is in DOM.');
+                        }
+
+                        //verify options
+                        if (!modalOptions.component && !modalOptions.template && !modalOptions.templateUrl) {
+                            throw new Error('One of component or template or templateUrl options is required.');
+                        }
+                        var samePromise;
+                        samePromise = modalUtil.promiseChain = $q.all([modalUtil.promiseChain])
+                            .then(modalUtil.resolveWithTemplate, modalUtil.resolveWithTemplate)
+                            .then(function resolveSuccess(tplAndVars) {
+                                var providedScope = modalOptions.scope || $rootScope;
+
+                                var modalScope = providedScope.$new();
+                                modalScope.$close = modalInstance.close;
+                                modalScope.$dismiss = modalInstance.dismiss;
+
+                                modalScope.$on('$destroy', function () {
+                                    if (!modalScope.$$destructionScheduled) {
+                                        modalScope.$dismiss('$unscheduledDestruction');
+                                    }
+                                });
+
+                                var modal = {
+                                    scope: modalScope,
+                                    deferred: modalResultDeferred,
+                                    renderDeferred: modalRenderDeferred,
+                                    closedDeferred: modalClosedDeferred
+                                };
+                                var modalExtKey = ['animation', 'backdrop', 'keyboard', 'backdropClass',
+                                    'windowTopClass', 'windowClass', 'windowTemplateUrl', 'ariaLabelledBy',
+                                    'ariaDescribedBy', 'size', 'openedClass', 'appendTo'];
+                                angular.forEach(modalExtKey, function (item) {
+                                    modal[item] = modalOptions[item];
+                                });
+
+                                var component = {};
+                                var ctrlInstance, ctrlInstantiate, ctrlLocals = {};
+
+                                if (modalOptions.component) {
+                                    modalUtil.constructLocals(component, modalScope, tplAndVars, modalInstance, false, true, false);
+                                    component.name = modalOptions.component;
+                                    modal.component = component;
+                                } else if (modalOptions.controller) {
+                                    modalUtil.constructLocals(ctrlLocals, modalScope, tplAndVars, modalInstance, true, false, true);
+
+                                    // key code
+                                    // the third param will make the controller instantiate later,private api
+                                    // @see https://github.com/angular/angular.js/blob/master/src/ng/controller.js#L126
+                                    ctrlInstantiate = $controller(modalOptions.controller, ctrlLocals);
+
+                                    if (modalOptions.controllerAs) {
+                                        modalScope[modalOptions.controllerAs] = ctrlInstance;
+                                    }
+                                }
+
+                                if (!modalOptions.component) {
+                                    modal.content = tplAndVars[0];
+                                }
+
+                                $modalStack.open(modalInstance, modal);
+                                modalOpenedDeferred.resolve(true);
+
+
+                            }, function resolveError(reason) {
+                                modalOpenedDeferred.reject(reason);
+                                modalResultDeferred.reject(reason);
+                            })['finally'](function () {
+                                if (modalUtil.promiseChain === samePromise) {
+                                    modalUtil.promiseChain = null;
+                                }
+                            });
+
+                        return modalInstance;
+
+                    }
+                }
+                return $modal;
+            }]
+    }]);
 angular.module('xue.notice', ['xue.util.lang'])
     .directive('xueNotice', ["xueUtilLang", "$timeout", function (xueUtilLang, $timeout) {
         return {
@@ -6397,8 +6897,8 @@ angular.module("xue/template/menu/menu.html", []).run(["$templateCache", functio
     "                    {{item[menuConfig.oneDimenName]}}\n" +
     "                </div>\n" +
     "                <div class=\"title-arrow\" ng-if=\"!!item[menuConfig.childrenName]\">\n" +
-    "                    <i ng-if=\"!item.open\" class=\"xui-icon xui-icon-md-arrow-forward\"></i>\n" +
-    "                    <i ng-if=\"!!item.open\" class=\"xui-icon xui-icon-md-arrow-down\"></i>\n" +
+    "                    <i ng-if=\"!item.open\" class=\"xui-icon xui-icon-ios-arrow-forward\"></i>\n" +
+    "                    <i ng-if=\"!!item.open\" class=\"xui-icon xui-icon-ios-arrow-down\"></i>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "            <div class=\"item-content\" ng-show=\"!!item.open && !!item[menuConfig.childrenName]\">\n" +
@@ -6411,6 +6911,13 @@ angular.module("xue/template/menu/menu.html", []).run(["$templateCache", functio
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
+    "</div>");
+}]);
+
+angular.module("xue/template/modal/modal.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("xue/template/modal/modal.html",
+    "<div class=\"xui-modal-wrap\">\n" +
+    "    test modal\n" +
     "</div>");
 }]);
 
@@ -6859,6 +7366,5 @@ angular.module("xue/template/tree/tree.html", []).run(["$templateCache", functio
     "    </script>\n" +
     "</div>");
 }]);
-angular.module('xue.datepicker').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibDatepickerCss && angular.element(document).find('head').prepend('<style type="text/css">@charset "UTF-8";.xui-datepicker-wrap{position:relative;display:inline-block;}.xui-datepicker-wrap .input-wrap{display:inline-block;width:180px;height:28px;padding:0 15px;position:relative;border:1px solid #cee0f0;transition:border-color 0.2s cubic-bezier(0.645,0.045,0.355,1);border-radius:5px;vertical-align:middle;background:#fff;}.xui-datepicker-wrap .input-wrap:focus{border-color:#409EFF;outline:0;-webkit-boxl-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);}.xui-datepicker-wrap .input-wrap:hover .sufix-input{display:inline-block;cursor:pointer;}.xui-datepicker-wrap .input-wrap .type-ipt{position:absolute;display:inline-block;vertical-align:middle;height:100%;line-height:28px;-webkit-appearance:none;background-color:#fff;background-image:none;box-sizing:border-box;color:#606266;font-size:14px;outline:none;width:150px;font-weight:400;border:none;padding:3px;left:18px;}.xui-datepicker-wrap .input-wrap .prefix-input{position:absolute;font-size:18px;top:5px;left:2px;}.xui-datepicker-wrap .input-wrap .sufix-input{display:none;font-size:16px;position:absolute;right:2px;top:5px;}.xui-datepicker-wrap .type-img{display:inline-block;}.xui-datepicker-wrap .type-span{display:inline-block;}.xl-datepicker-content{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-khtml-user-select:none;user-select:none;position:absolute;min-width:317px;top:181px;left:294px;z-index:9999;background:#fff;display:none;box-shadow:0 0 15px 0px rgba(0,0,0,0.2);border-radius:5px;color:#606266;border:solid 1px #DCDFE6;}.xl-datepicker-content ::-webkit-input-placeholder{color:#999;}.xl-datepicker-content :-moz-placeholder{color:#999;}.xl-datepicker-content ::-moz-placeholder{color:#999;}.xl-datepicker-content :-ms-input-placeholder{color:#999;}.xl-datepicker-content .xl-popper-arrow{top:-6px;width:0;height:0;border-left:solid 6px transparent;border-right:solid 6px transparent;border-bottom:solid 6px #fff;position:absolute;left:35px;}.xl-datepicker-content .xl-popper-arrow.arrow-bottom{top:auto;border-bottom:solid 6px transparent;border-top:solid 6px #fff;}.xl-datepicker-content .xl-popper-arrow.arrow-right{left:auto;right:35px;}.xl-datepicker-content .show-date-wrap{padding:5px;border-bottom:solid 1px #DCDFE6;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap{position:relative;display:inline-block;padding:5px;padding-bottom:0;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .show-ipt{width:140px;height:28px;line-height:28px;border:1px solid #ddd;padding-left:8px;padding-right:8px;border-radius:3px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .show-ipt:focus{border:solid 1px #409EFF;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap{position:absolute;width:140px;height:180px;z-index:9999;border:solid 1px #ddd;border-radius:2px;background:#fff;top:34px;box-shadow:0 2px 5px 0 rgba(0,0,0,0.1);}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content{height:150px;display:flex;width:100%;padding:2px;font-size:12px;position:relative;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content::after{content:"";display:block;position:absolute;border-top:solid 1px #ddd;width:118px;height:30px;margin-left:7px;top:63px;border-bottom:solid 1px #ddd;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar{flex-grow:1;text-align:center;height:100%;overflow:hidden;position:relative;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul{list-style:none;position:absolute;width:100%;top:0;transition:top 0.1s;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul::before{content:"";display:block;width:100%;height:60px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul::after{content:"";display:block;width:100%;height:60px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul li{line-height:30px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul li.active{color:#333;font-weight:700;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-content .time-scrollbar ul li:hover{background:#f0f5fb;cursor:pointer;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-footer{height:30px;border-top:solid 1px #ddd;text-align:right;line-height:26px;}.xl-datepicker-content .show-date-wrap .show-ipt-wrap .select-time-wrap .select-time-footer .confirm{color:#409eff;font-weight:700;font-size:12px;margin-right:15px;cursor:pointer;}.xl-datepicker-content .xl-content-header{text-align:center;padding:15px 10px;padding-bottom:0;}.xl-datepicker-content .xl-content-header > i{height:16px;width:16px;display:inline-block;cursor:pointer;margin-top:3px;margin-left:3px;margin-right:3px;}.xl-datepicker-content .xl-content-header .last-year{float:left;}.xl-datepicker-content .xl-content-header .last-month{float:left;}.xl-datepicker-content .xl-content-header .current-year{line-height:22px;padding:0 5px;cursor:pointer;}.xl-datepicker-content .xl-content-header .current-year input{border:none;width:45px;height:22px;line-height:22px;background:#eaf6ff;border-radius:3px;padding:0 5px;text-align:center;}.xl-datepicker-content .xl-content-header .current-month{line-height:22px;padding:0 5px;cursor:pointer;}.xl-datepicker-content .xl-content-header .current-month input{border:none;width:35px;height:22px;line-height:22px;background:#eaf6ff;border-radius:3px;padding:0 5px;text-align:center;}.xl-datepicker-content .xl-content-header .next-month{float:right;}.xl-datepicker-content .xl-content-header .next-year{float:right;}.xl-datepicker-content .xl-content-body{padding:10px;}.xl-datepicker-content .xl-content-body .xl-datepicker-table{width:100%;}.xl-datepicker-content .xl-content-body .xl-datepicker-table th{padding:10px;text-align:center;border-bottom:solid 1px #eee;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td{text-align:center;padding:7px;font-size:13px;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td.disabled-select{background:#ececec;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td.disabled-select span{cursor:not-allowed;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td.disabled-select spanhover{color:#C0C4CC;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span{width:25px;height:25px;line-height:25px;display:block;cursor:pointer;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span.active{background:#409EFF;border-radius:50%;color:#fff !important;font-weight:400 !important;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span.active:hover{color:#fff;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span.not-current{color:#C0C4CC;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span:hover{color:#409EFF;}.xl-datepicker-content .xl-content-body .xl-datepicker-table td span.current{color:#409EFF;font-weight:700;}.xl-datepicker-content .xl-content-footer{border-top:1px solid #e4e4e4;padding:4px;text-align:right;background-color:#fff;position:relative;font-size:0;}.xl-datepicker-content .xl-content-footer button{padding:5px 15px;font-size:12px;border-radius:3px;margin:5px;border:1px solid #DCDFE6;background:#fff;cursor:pointer;}.xl-datepicker-content .xl-content-footer .select-now{border-color:transparent;color:#409EFF;background:transparent;padding-left:0;padding-right:0;}.xl-datepicker-content .xl-content-footer .confirm-date{color:#606266;}.xl-timepicker-content{position:absolute;min-width:180px;height:200px;top:181px;left:294px;z-index:9999;background:#fff;display:none;box-shadow:0 0 15px 0px rgba(0,0,0,0.2);border-radius:5px;color:#606266;border:solid 1px #DCDFE6;}.xl-timepicker-content .xl-content-body{padding:10px 0;}.xl-timepicker-content .xl-content-body .select-time-content{height:150px;display:flex;width:100%;padding:2px;font-size:12px;position:relative;height:180px;}.xl-timepicker-content .xl-content-body .select-time-content::after{content:"";display:block;position:absolute;border-top:solid 1px #ddd;width:118px;height:30px;margin-left:7px;top:63px;border-bottom:solid 1px #ddd;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar{flex-grow:1;text-align:center;height:100%;overflow:hidden;position:relative;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul{list-style:none;position:absolute;width:100%;top:0;transition:top 0.1s;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul::before{content:"";display:block;width:100%;height:60px;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul::after{content:"";display:block;width:100%;height:60px;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul li{line-height:30px;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul li.active{color:#333;font-weight:700;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar ul li:hover{background:#f0f5fb;cursor:pointer;}.xl-timepicker-content .xl-content-body .select-time-content::after{width:140px;margin-left:16px;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar.disabled-select{cursor:not-allowed;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar.disabled-select ul li{color:#ccc;}.xl-timepicker-content .xl-content-body .select-time-content .time-scrollbar.disabled-select ul li:hover{cursor:not-allowed;}.xl-timepicker-content .xl-popper-arrow{top:-6px;width:0;height:0;border-left:solid 6px transparent;border-right:solid 6px transparent;border-bottom:solid 6px #fff;position:absolute;left:35px;}.xl-timepicker-content .xl-popper-arrow.arrow-bottom{top:auto;border-bottom:solid 6px transparent;border-top:solid 6px #fff;}.xl-timepicker-content .xl-popper-arrow.arrow-right{left:auto;right:35px;}</style>'); angular.$$uibDatepickerCss = true; });
 angular.module('xue.table').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTableCss && angular.element(document).find('head').prepend('<style type="text/css">.xe-table-container{width:100%;height:100%;position:relative;}.xe-table-container .xe-table-header{height:40px;width:100%;position:absolute;top:0;background:blue;}.xe-table-container .xe-table-content{width:100%;height:100%;background:red;}.xe-table-container .xe-table-footer{height:40px;width:100%;position:absolute;bottom:0;background:pink;}</style>'); angular.$$uibTableCss = true; });
 angular.module('xue.tree').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTreeCss && angular.element(document).find('head').prepend('<style type="text/css">.xui-tree-wrap{position:relative;width:100%;height:100%;overflow:auto;padding-bottom:10px;}.xui-tree-wrap.support-search > .tree-list{height:calc(100% - 41px);overflow-y:scroll;}.xui-tree-wrap .tree-search{width:100%;padding:0 10px;text-align:center;border-bottom:1px solid #CEE0F0;}.xui-tree-wrap .tree-search .tree-ipt{height:30px;width:100%;border-radius:15px;margin:5px 0;color:#515a6e;background-image:url(../images/menu_search.png);background-repeat:no-repeat;background-position-x:5px;background-position-y:7px;padding-left:25px;border:1px solid #CEE0F0;}.xui-tree-wrap .tree-search .tree-ipt:focus{border-color:#66afe9;box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);}.xui-tree-wrap .tree-search .search-list{position:absolute;top:38px;width:90%;left:5%;z-index:9999;background:#ddd;border-radius:5px;}.xui-tree-wrap .tree-search .search-list li{height:28px;line-height:28px;text-align:left;cursor:pointer;padding:0 10px;color:#515a6e;}.xui-tree-wrap .tree-search .search-list li:hover{color:#0394F9;}.xui-tree-wrap > .tree-list{padding:0 10px;}.xui-tree-wrap .tree-list{overflow:hidden;}.xui-tree-wrap .tree-list .tree-item{position:relative;padding-left:20px;}.xui-tree-wrap .tree-list .tree-item.level1{padding-left:0px;}.xui-tree-wrap .tree-list .tree-item .tree-row{display:flex;align-items:center;transition:all 0.2s ease;line-height:28px;padding-right:10px;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-align{display:inline-block;vertical-align:middle;}.xui-tree-wrap .tree-list .tree-item .tree-row .expand-icon{position:relative;width:12px;text-align:center;transition:all 0.3s ease;cursor:pointer;z-index:10;}.xui-tree-wrap .tree-list .tree-item .tree-row .expand-icon.expanded{transform:rotate(90deg);}.xui-tree-wrap .tree-list .tree-item .tree-row .check-icon{margin:0 4px;line-height:1;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-icon{display:flex;align-items:center;margin:0 4px;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-title{flex:1;margin:0;border-radius:3px;padding:0 4px;line-height:24px;cursor:pointer;color:#515a6e;transition:all .2s ease-in-out;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-title:hover{background:#eaf4fe;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-title.active{background:#d5e8fc;}.xui-tree-wrap .tree-list .tree-item .tree-row .loading-icon{font-size:16px;}.xui-tree-wrap .tree-list .tree-item .tree-list.ng-hide{display:block !important;}.xui-tree-wrap .tree-list .tree-item .tree-list.ng-hide .tree-row{height:0;}.xui-tree-wrap .tree-list .tree-item.show-line::before{content:"";position:absolute;width:12px;height:16px;top:6px;background:#fff;z-index:1;left:20px;}.xui-tree-wrap .tree-list .tree-item.show-line::after{content:"";position:absolute;height:100%;top:0;left:25px;border-left:1px dashed #ccc;}.xui-tree-wrap .tree-list .tree-item.show-line:last-child::after{height:8px;}.xui-tree-wrap .tree-list .tree-item.show-line.leaf::before{content:"";position:absolute;width:10px;height:0;top:50%;left:26px;border-top:1px dashed #ccc;}.xui-tree-wrap .tree-list .tree-item.show-line.leaf:last-child::after{height:50%;}.xui-tree-wrap .tree-list .tree-item.show-line.level1{padding-left:0px;}.xui-tree-wrap .tree-list .tree-item.show-line.level1::before{left:0;}.xui-tree-wrap .tree-list .tree-item.show-line.level1::after{left:6px;}.xui-tree-wrap .tree-list .tree-item.show-line.level1:only-of-type::after{border:0 none;}.xui-multi-checkbox-wrap{position:relative;display:inline-block;vertical-align:middle;margin:0;cursor:pointer;}.xui-multi-checkbox-wrap .multi-checkbox{position:relative;display:inline-block;vertical-align:middle;width:16px;height:16px;border:1px solid #dcdee2;border-radius:2px;background-color:#fff;transition:border-color .2s ease-in-out,background-color .2s ease-in-out,box-shadow .2s ease-in-out;}.xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-checked{border-color:#2d8cf0;background-color:#2d8cf0;}.xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-checked:after{width:4px;height:8px;top:2px;left:5px;border:2px solid #fff;border-top:0;border-left:0;transform:rotate(45deg) scale(1);}.xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-indeterminate{border-color:#2d8cf0;background-color:#2d8cf0;}.xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-indeterminate:after{width:10px;height:1px;left:2px;top:6px;border:1px solid #fff;}.xui-multi-checkbox-wrap .multi-checkbox:after{content:"";position:absolute;}.xui-multi-checkbox-wrap .multi-checkbox-input{position:absolute;width:100%;height:100%;top:0;bottom:0;left:0;right:0;z-index:1;opacity:0;cursor:pointer;}</style>'); angular.$$uibTreeCss = true; });

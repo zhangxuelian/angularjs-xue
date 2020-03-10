@@ -50,6 +50,7 @@
                                 href="#directives">Directives</a></div><div class="child-menu"><a
                                 href="#loading">Loading</a></div><div class="child-menu"><a
                                 href="#menu">Menu</a></div><div class="child-menu"><a
+                                href="#modal">Modal</a></div><div class="child-menu"><a
                                 href="#notice">Notice</a></div><div class="child-menu"><a
                                 href="#pagination">Pagination</a></div><div class="child-menu"><a
                                 href="#scroller">Scroller</a></div><div class="child-menu"><a
@@ -98,7 +99,7 @@ $ npm install karma-cli@2.0.0 -g  </code></pre><h3 id="git-clone-project-to-loca
 <pre><code>$ cd angularjs-xue  
 $ npm install  
 $ npm run test
-$ npm run demo</code></pre>
+$ npm run demo or npm run test-demo</code></pre>
                     </div>
                 </section>
                 
@@ -293,7 +294,7 @@ $ npm run demo</code></pre>
 <td>Boolean</td>
 </tr>
 </tbody></table>
-<h4 id="select-config-attributes">select-config Attributes</h4>
+<h4 id="cascader-config-attributes">cascader-config Attributes</h4>
 <table>
 <thead>
 <tr>
@@ -797,7 +798,160 @@ $ npm run demo</code></pre>
 
                         </div>
                         <div class="content-md markdown-wrap">
-                            <h2 id="xue-datepicker-settings">xue-datepicker settings</h2>
+                            <h3 id="组件说明">组件说明</h3>
+<p><strong>日期组件</strong></p>
+<h3 id="attributes">Attributes</h3>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>date-config</td>
+<td>选择器属性</td>
+<td>Object</td>
+</tr>
+<tr>
+<td>ng-val</td>
+<td>输入框双向绑定值</td>
+<td>String</td>
+</tr>
+<tr>
+<td>min-date</td>
+<td>日期可选最小值</td>
+<td>String</td>
+</tr>
+<tr>
+<td>max-date</td>
+<td>日期可选最大值</td>
+<td>String</td>
+</tr>
+<tr>
+<td>ng-disabled</td>
+<td>是否禁用</td>
+<td>Boolean</td>
+</tr>
+</tbody></table>
+<h4 id="date-config-对象属性">date-config 对象属性</h4>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th align="left">说明</th>
+<th align="center">类型</th>
+<th align="center">可选值</th>
+<th align="center">默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>theme</td>
+<td align="left">主题</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">deep-blue</td>
+</tr>
+<tr>
+<td>element</td>
+<td align="left">自定义样式对象</td>
+<td align="center">Object</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>format</td>
+<td align="left">日期格式</td>
+<td align="center">String</td>
+<td align="center">YYYY-MM-DD、YYYY-MM-DD hh:mm:ss、hh:mm:ss、hh:mm</td>
+<td align="center">YYYY-MM-DD</td>
+</tr>
+<tr>
+<td>timeSelectMode</td>
+<td align="left">时间选择方式</td>
+<td align="center">Number</td>
+<td align="center">0：自由选择 1：快速选择</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td>minDate</td>
+<td align="left">日期最小值</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>maxDate</td>
+<td align="left">日期最大值</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>fixedMinDate</td>
+<td align="left">固定最小值</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>fixedMaxDate</td>
+<td align="left">固定最大值</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>language</td>
+<td align="left">语言</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>showTime</td>
+<td align="left">是否展示时间选择器</td>
+<td align="center">Boolean</td>
+<td align="center">—</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td>showClear</td>
+<td align="left">是否展示清除按钮</td>
+<td align="center">Boolean</td>
+<td align="center">—</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td>nowCallback</td>
+<td align="left">选择当前时间回调</td>
+<td align="center">Function（item）</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>confirmCallback</td>
+<td align="left">确认选择回调</td>
+<td align="center">Function（item）</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>clearCallback</td>
+<td align="left">清除时间回调</td>
+<td align="center">Function（item）</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>closeCallback</td>
+<td align="left">关闭日期选择器回调</td>
+<td align="center">Function（item）</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+</tbody></table>
 
                         </div>
                     </div>
@@ -897,7 +1051,8 @@ $ npm run demo</code></pre>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
-                            <h4 id="xue-radio-attributes">xue-radio Attributes</h4>
+                            <h4 id="单选">单选</h4>
+<h5 id="xue-radio-attributes">xue-radio Attributes</h5>
 <table>
 <thead>
 <tr>
@@ -912,7 +1067,8 @@ $ npm run demo</code></pre>
 <td>Boolean</td>
 </tr>
 </tbody></table>
-<h4 id="xue-checkbox-attributes">xue-checkbox Attributes</h4>
+<h4 id="多选">多选</h4>
+<h5 id="xue-checkbox-attributes">xue-checkbox Attributes</h5>
 <table>
 <thead>
 <tr>
@@ -927,7 +1083,8 @@ $ npm run demo</code></pre>
 <td>Boolean</td>
 </tr>
 </tbody></table>
-<h4 id="xue-multi-checkbox-attributes">xue-multi-checkbox Attributes</h4>
+<h4 id="多选-1">多选</h4>
+<h5 id="xue-multi-checkbox-attributes">xue-multi-checkbox Attributes</h5>
 <table>
 <thead>
 <tr>
@@ -947,7 +1104,8 @@ $ npm run demo</code></pre>
 <td>Boolean</td>
 </tr>
 </tbody></table>
-<h4 id="xue-radio-group-attributes">xue-radio-group Attributes</h4>
+<h4 id="单选组">单选组</h4>
+<h5 id="xue-radio-group-attributes">xue-radio-group Attributes</h5>
 <table>
 <thead>
 <tr>
@@ -982,7 +1140,8 @@ $ npm run demo</code></pre>
 <td>Funciton</td>
 </tr>
 </tbody></table>
-<h4 id="no-permission-page-attributes">no-permission-page Attributes</h4>
+<h4 id="无权限页面">无权限页面</h4>
+<h5 id="no-permission-page-attributes">no-permission-page Attributes</h5>
 <table>
 <thead>
 <tr>
@@ -1080,7 +1239,9 @@ $ npm run demo</code></pre>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
-                            <h3 id="attributes">Attributes</h3>
+                            <h3 id="组件说明">组件说明</h3>
+<p> loading加载</p>
+<h3 id="attributes">Attributes</h3>
 <table>
 <thead>
 <tr>
@@ -1216,7 +1377,140 @@ $ npm run demo</code></pre>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
-                            <h3 id="xue-menu-settings">xue-menu settings</h3>
+                            <h3 id="组件说明">组件说明</h3>
+<p><strong>菜单组件</strong></p>
+<h3 id="attributes">Attributes</h3>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>menu-config</td>
+<td>选择器属性</td>
+<td>Object</td>
+</tr>
+</tbody></table>
+<h4 id="menu-config-对象属性">menu-config 对象属性</h4>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th align="left">说明</th>
+<th align="center">类型</th>
+<th align="center">可选值</th>
+<th align="center">默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>data</td>
+<td align="left">可选项数据源</td>
+<td align="center">Array</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>search</td>
+<td align="left">是否支持搜索</td>
+<td align="center">Boolean</td>
+<td align="center">—</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td>autoShrink</td>
+<td align="left">是否自动搜索</td>
+<td align="center">Boolean</td>
+<td align="center">—</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td>setFirst</td>
+<td align="left">是否默认选中第一项</td>
+<td align="center">Boolean</td>
+<td align="center">—</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td>showOneDimenIcon</td>
+<td align="left">是否展示一级菜单图标</td>
+<td align="center">Boolean</td>
+<td align="center">—</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td>oneDimenName</td>
+<td align="left">一级菜单标题字段名</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>oneDimenIcon</td>
+<td align="left">一级菜单图标字段名</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>childrenName</td>
+<td align="left">二维数组对象名</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>twoDimenName</td>
+<td align="left">二级菜单标题字段名</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>twoDimenIcon</td>
+<td align="left">二级菜单图标字段名</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>routerId</td>
+<td align="left">导航菜单 ID 字段名</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">id</td>
+</tr>
+<tr>
+<td>selectId</td>
+<td align="left">选中导航菜单 ID</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">null</td>
+</tr>
+<tr>
+<td>imagePrefix</td>
+<td align="left">图片前缀</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">imagestore/</td>
+</tr>
+<tr>
+<td>imageSuffix</td>
+<td align="left">图片后缀</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">.jpg</td>
+</tr>
+<tr>
+<td>clickRouter</td>
+<td align="left">导航菜单点击回调</td>
+<td align="center">Function（item）</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+</tbody></table>
 
                         </div>
                     </div>
@@ -1336,6 +1630,101 @@ $ npm run demo</code></pre>
     }
 }]);
 </script>
+                
+                <section class="module-wrap" id="modal">
+                    <div class="page-header">
+                        <h1>Modal<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/modal">xue.modal</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueModalDemoCtrl">
+    <script type="text/ng-template" id="modal.test.html">
+        <div>
+            test modal~
+        </div>
+    </script>
+    <button ng-click="open()">打开</button>
+</div>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="test">test</h3>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'modal')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueModalDemoCtrl&quot;&gt;
+    &lt;script type=&quot;text/ng-template&quot; id=&quot;modal.test.html&quot;&gt;
+        &lt;div&gt;
+            test modal~
+        &lt;/div&gt;
+    &lt;/script&gt;
+    &lt;button ng-click=&quot;open()&quot;&gt;打开&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueModalDemoCtrl&#39;, 
+    [&#39;$scope&#39;, &#39;$xModal&#39;,function ($scope, $xModal) {
+    console.log($xModal);
+    $scope.open = function(){
+        $xModal.open({
+            templateUrl: &#39;modal.test.html&#39;,
+            controller: &#39;modalTestCtrl&#39;
+        });
+    }
+    /* $xModal.open({
+        templateUrl: &#39;app/case_center/case_work/case_work_process/case_record/burner_confirm.tpl.html&#39;,
+        controller: &#39;burnerConfirmCtrl&#39;,
+        resolve: {
+            dummy:$couchPotato.resolveDependencies([&#39;app/case_center/case_work/case_work_process/case_record/burner_confirm.ctrl.js&#39;])
+        }
+    }) */
+}]);
+angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[function(){
+    console.log(&#39;xxx&#39;);
+}]);</code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
+                        </div>
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueModalDemoCtrl', 
+    ['$scope', '$xModal',function ($scope, $xModal) {
+    console.log($xModal);
+    $scope.open = function(){
+        $xModal.open({
+            templateUrl: 'modal.test.html',
+            controller: 'modalTestCtrl'
+        });
+    }
+    /* $xModal.open({
+        templateUrl: 'app/case_center/case_work/case_work_process/case_record/burner_confirm.tpl.html',
+        controller: 'burnerConfirmCtrl',
+        resolve: {
+            dummy:$couchPotato.resolveDependencies(['app/case_center/case_work/case_work_process/case_record/burner_confirm.ctrl.js'])
+        }
+    }) */
+}]);
+angular.module('ui.xue.demo').controller('modalTestCtrl',[function(){
+    console.log('xxx');
+}]);</script>
                 
                 <section class="module-wrap" id="notice">
                     <div class="page-header">
@@ -2446,7 +2835,8 @@ $ npm run demo</code></pre>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
-                            <h3 id="switch开关">switch开关</h3>
+                            <h3 id="组件说明">组件说明</h3>
+<p> switch开关</p>
 <h3 id="attributes">Attributes</h3>
 <table>
 <thead>
@@ -3290,7 +3680,196 @@ $ npm run demo</code></pre>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
-                            <h3 id="xue-tree-settings">xue-tree settings</h3>
+                            <h3 id="组件说明">组件说明</h3>
+<p><strong>树组件</strong></p>
+<h3 id="attributes">Attributes</h3>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>tree-config</td>
+<td>选择器属性</td>
+<td>Object</td>
+</tr>
+</tbody></table>
+<h4 id="tree-config-attributes">tree-config Attributes</h4>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th align="left">说明</th>
+<th align="center">类型</th>
+<th align="center">可选值</th>
+<th align="center">默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>search</td>
+<td align="left">是否支持搜索</td>
+<td align="center">Boolean</td>
+<td align="center">—</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td>data</td>
+<td align="left">可选项数据源</td>
+<td align="center">Array</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>dataMap</td>
+<td align="left">可选项数据索引</td>
+<td align="center">Object</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>uniqueId</td>
+<td align="left">节点唯一标识字段名</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">id</td>
+</tr>
+<tr>
+<td>childName</td>
+<td align="left">子节点列表字段名</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">children</td>
+</tr>
+<tr>
+<td>showIcon</td>
+<td align="left">是否展示图标</td>
+<td align="center">Boolean</td>
+<td align="center">—</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td>icon</td>
+<td align="left">节点图标配置</td>
+<td align="center">Object</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>showCheckbox</td>
+<td align="left">是否展示复选框</td>
+<td align="center">Boolean</td>
+<td align="center">—</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td>checkOnClick</td>
+<td align="left">是否在点击节点时同时(取消)勾选节点，仅当 showCheckbox 为 true 生效</td>
+<td align="center">Boolean</td>
+<td align="center">—</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td>expandOnClick</td>
+<td align="left">是否在选中树节点时展开子列表</td>
+<td align="center">Boolean</td>
+<td align="center">—</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td>accordion</td>
+<td align="left">是否手风琴模式</td>
+<td align="center">Boolean</td>
+<td align="center">—</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td>expandAll</td>
+<td align="left">是否展开所有节点</td>
+<td align="center">Boolean</td>
+<td align="center">—</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td>showLine</td>
+<td align="left">是否展示连接线</td>
+<td align="center">Boolean</td>
+<td align="center">—</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td>nodeName</td>
+<td align="left">节点标题字段名</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">name</td>
+</tr>
+<tr>
+<td>checkNodes</td>
+<td align="left">定位选中指定节点</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>currentNode</td>
+<td align="left">勾选的节点数组</td>
+<td align="center">Array</td>
+<td align="center">—</td>
+<td align="center">name</td>
+</tr>
+<tr>
+<td>lazy</td>
+<td align="left">是否懒加载子节点数据</td>
+<td align="center">Boolean</td>
+<td align="center">—</td>
+<td align="center">fasle</td>
+</tr>
+<tr>
+<td>clickNode</td>
+<td align="left">单击树节点时回调</td>
+<td align="center">Function（item）</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>checkNode</td>
+<td align="left">取消勾选的事件回调</td>
+<td align="center">Function（item）</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>beforeClick</td>
+<td align="left">单击树节点之前的事件回调</td>
+<td align="center">Function（item）</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>beforeCheck</td>
+<td align="left">勾选、取消勾选树节点之前的事件回调</td>
+<td align="center">Function（item）</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>loadData</td>
+<td align="left">加载子节点数据的方法，仅当 lazy 属性为 true 时生效</td>
+<td align="center">Function（item）</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>completeTree</td>
+<td align="left">树节点构建完成时回调</td>
+<td align="center">Function（item）</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+</tbody></table>
 
                         </div>
                     </div>
