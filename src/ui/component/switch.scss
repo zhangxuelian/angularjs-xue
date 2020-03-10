@@ -53,6 +53,10 @@
     position: relative;
     cursor: pointer;
 
+    &.disabled {
+        cursor: not-allowed;
+    }
+
     .swith-checkbox {
         position: absolute;
         opacity: 0;

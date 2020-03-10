@@ -4075,17 +4075,24 @@ table {
     opacity: 0;
     cursor: pointer; }
 
-.menu-service-container {
+.no-perssion-wrap {
   width: 100%;
-  position: absolute;
-  margin-top: 15%;
-  background: url(../images/tip_warning.png) no-repeat center top;
-  text-align: center; }
-  .menu-service-container > p {
-    margin-top: 60px;
+  height: 100%;
+  position: relative;
+  text-align: center;
+  background: #fff; }
+  .no-perssion-wrap > span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     font-size: 16px;
     font-weight: 700;
     color: #FA9823; }
+    .no-perssion-wrap > span > .xui-icon {
+      font-size: 60px;
+      display: block; }
 
 .xui-radio-group-wrap {
   display: inline-block;
@@ -4093,8 +4100,8 @@ table {
   line-height: 20px;
   vertical-align: middle;
   position: relative;
-  margin-right: 10px;
-  margin-left: 1px; }
+  cursor: pointer;
+  margin-right: 10px; }
   .xui-radio-group-wrap input.checkbox-input {
     opacity: 0;
     outline: none;
@@ -4124,15 +4131,17 @@ table {
       box-shadow: 0 0 0 1px #80cbff; }
     .xui-radio-group-wrap .radio-item.disabled {
       cursor: not-allowed;
-      background-color: #eee; }
+      opacity: 0.5;
+      filter: alpha(opacity=50); }
   .xui-radio-group-wrap .radio-name {
     cursor: pointer;
     padding-left: 5px;
     vertical-align: middle; }
     .xui-radio-group-wrap .radio-name.disabled {
+      color: #999;
       cursor: not-allowed; }
 
-#common-title-tip {
+.common-title-tip {
   position: absolute;
   background-color: #fff;
   color: #333;
@@ -4142,7 +4151,8 @@ table {
   font-size: 12px;
   line-height: 18px;
   white-space: nowrap;
-  z-index: 10000; }
+  z-index: 10000;
+  display: none; }
 
 .xui-menu-wrap {
   position: relative;
@@ -5243,6 +5253,8 @@ table {
   vertical-align: middle;
   position: relative;
   cursor: pointer; }
+  .xui-switch-wrap.disabled {
+    cursor: not-allowed; }
   .xui-switch-wrap .swith-checkbox {
     position: absolute;
     opacity: 0; }
