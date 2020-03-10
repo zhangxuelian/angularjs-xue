@@ -6,7 +6,7 @@
  * Require angularjs version: 1.2.32
  * License: ISC
  */
-angular.module("ui.xue", ["ui.xue.tpls", "xue.util.lang","xue.autoselect","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.loading","xue.menu","xue.modal","xue.notice","xue.pagination","xue.scroller","xue.select","xue.steps","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util","xue.validate"]);
+angular.module("ui.xue", ["ui.xue.tpls", "xue.util.lang","xue.autoselect","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.loading","xue.menu","xue.modal","xue.notice","xue.pagination","xue.scroller","xue.select","xue.steps","xue.switch","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util","xue.validate"]);
 angular.module("ui.xue.tpls", ["xue/template/autoselect/autoselect.html","xue/template/cascader/cascader.html","xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/modal/modal.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/scroller/scroller.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
 /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
 //@ sourceMappingURL=jquery-1.10.2.min.map
@@ -150,11 +150,10 @@ angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
             },
             link: function (scope, ele, attrs) {
                 var cascaderCtrl = scope.cascaderCtrl = {
-                    areaUrl: 'assets/data/city.min.js',
+                    // areaUrl: 'assets/data/city.min.js',
                     defaultConfig: {
                         data: [],
-                        dataMap: {},
-                        type: '', // 级联框自定义类型 area: 地区选择框
+                        dataUrl: '', // 数据请求地址
                         valueField: 'value', // 对应选项value值
                         textField : 'label', // 显示在输入框中的字段名
                         childName: 'children', // 选择框子列表字段名
@@ -166,6 +165,8 @@ angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
                         },
                         onSelect: function(){} //选择回调
                     },
+                    // 数据索引
+                    dataMap: {},
                     // 选择框列数据数组
                     selectList: [],
                     // 自定义类型 数据加载 异步对象
@@ -175,11 +176,13 @@ angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
                         var self = this;
                         scope.cascaderConfig = angular.extend(self.defaultConfig, scope.cascaderConfig || {});
                         // 是否使用自定义类型
-                        if (scope.cascaderConfig.type) {
+                        if (scope.cascaderConfig.dataUrl) {
                             self.delay = $q.defer();
-                            $http.get(self[scope.cascaderConfig.type + 'Url']).success(function(data) {
+                            $http.get(scope.cascaderConfig.dataUrl).success(function(data) {
                                 self.initData(data, 0);
                                 return self.delay.resolve(data);
+                            }).error(function() {
+                                return self.delay.reject();
                             });
                         } else {
                             self.initData(scope.cascaderConfig.data, 0);
@@ -191,7 +194,7 @@ angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
                         self.selectList[depth] = [];
                         angular.forEach(data, function(item) {
                             item.depth = depth; // 层级
-                            scope.cascaderConfig.dataMap[item[scope.cascaderConfig.valueField]] = item;
+                            self.dataMap[item[scope.cascaderConfig.textField]] = item;
                             // 子列表递归处理
                             if (item[scope.cascaderConfig.childName] && item[scope.cascaderConfig.childName].length) {
                                 self.initData(item[scope.cascaderConfig.childName], depth + 1);    
@@ -241,22 +244,22 @@ angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
                     },
                     // 选择框选择项数组
                     selectValue: [],
+                    selectLabel: [],
                     // 单击项
                     clickItem: function (item) {
                         var self = this;
                         // 选择项数组赋值
                         self.selectValue[item.depth] = item[scope.cascaderConfig.valueField];
+                        self.selectLabel[item.depth] = item[scope.cascaderConfig.textField];
                         // 单击非叶子项
                         if (!item.isLeaf) {
                             self.selectList[item.depth + 1] = item[scope.cascaderConfig.childName];
                         } else {
                         // 单击叶子项
                             self.selectValue = self.selectValue.slice(0, item.depth + 1);
-                            var completeLabel = [];
-                            angular.forEach(self.selectValue, function (item) {
-                                completeLabel.push(scope.cascaderConfig.dataMap[item][scope.cascaderConfig.textField]);
-                            })
-                            scope.ngVal = completeLabel.join("/");
+                            self.selectLabel = self.selectLabel.slice(0, item.depth + 1);
+                            self.selectList = self.selectList.slice(0, item.depth + 1);
+                            scope.ngVal = self.selectLabel.join("/");
                             self.showSelect = false;
                             if (xueUtilLang.isFunction(scope.cascaderConfig.onSelect)){
                                 scope.cascaderConfig.onSelect(self.selectValue.join("/"));
@@ -267,12 +270,17 @@ angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
                     resumeValue: function () {
                         var self = this;
                         if (scope.ngVal) {
-                            if (self.selectValue.join("/") != scope.ngVal) {
-                                self.selectValue = scope.ngVal.split("/");
+                            if (self.selectLabel.join("/") != scope.ngVal) {
+                                self.selectLabel = scope.ngVal.split("/");
+                                angular.forEach(self.selectLabel, function (item, index) {
+                                    self.selectValue[index] = self.dataMap[item][scope.cascaderConfig.valueField];
+                                })
+                                self.selectList.length = self.selectValue.length;
                                 self.getData(scope.cascaderConfig.data, 0);
                             }
                         } else {
                             self.selectValue = [];
+                            self.selectLabel = [];
                             self.selectList.length = 1;
                         }
                     },
@@ -281,6 +289,7 @@ angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
                         var self = this;
                         scope.ngVal = "";
                         self.selectValue = [];
+                        self.selectLabel = [];
                         self.showSelect = false;
                         self.selectList.length = 1;
                         if (event) {
@@ -295,7 +304,8 @@ angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
                     if (scope.ngVal) {
                         var valueArr = newValue.split("/");
                         angular.forEach(valueArr, function(item, index) {
-                            cascaderCtrl.selectValue[index] = item;
+                            cascaderCtrl.selectLabel[index] = item;
+                            cascaderCtrl.selectValue[index] = cascaderCtrl.dataMap[item][scope.cascaderConfig.valueField];
                         })
                         if (cascaderCtrl.selectValue.length) {
                             if (scope.cascaderConfig.type) {
@@ -1370,58 +1380,7 @@ angular.module('xue.directives', ['xue.util.lang'])
                 '<input type="checkbox" class="multi-checkbox-input" ng-disabled="ngDisabled"></label>'
         }
     })
-    //switch开关
-    .directive("xueToggle", function () {
-        return {
-            restrict: "E",
-            replace: true,
-            scope: {
-                ngDisabled: '=',
-                toggleConfig: '='
-            },
-            template: "<div class='xui-toggle-wrap' ng-class=\"{true:'active'}[toggleConfig.disabled]\"><div ng-click='switchToggle()'><div class='toggle-bar'></div><div class='toggle-button'></div></div></div>",
-            link: function (scope, ele, attrs) {
-                var toggleConfig = {
-                    disabled: false,
-                    onSelect: function () {}
-                };
-                scope.toggleConfig = angular.extend(toggleConfig, scope.toggleConfig);
-                if (scope.ngDisabled) {
-                    scope.toggleConfig.disabled = scope.ngDisabled;
-                }
-                scope.switchToggle = function () {
-                    /* scope.toggleConfig.disabled = !scope.toggleConfig.disabled;
-                    scope.ngDisabled = scope.toggleConfig.disabled; */
-                    scope.toggleConfig.onSelect(scope.toggleConfig.disabled);
-                }
-                scope.$watch("ngDisabled", function (newVal, oldVal) {
-                    scope.toggleConfig.disabled = newVal;
-                });
-            }
-        }
-    })
-    // toggle switch base on angularjs
-    .directive('xueToggleSwitch', ['xueUtilLang', function (xueUtilLang) {
-        return {
-            restrict: "E",
-            replace: true,
-            scope: {
-                ngChecked: "=",
-                toggleClick: "=",
-                clickParam: "="
-            },
-            template: '<label class="xui-toggle-switch-wrap">' +
-                '<input class="swith-checkbox" type="checkbox" ng-model="ngChecked" ng-click="clickEvent()"/>' +
-                '<div class="switch-bg"></div><div class="toggle-btn"></div></label>',
-            link: function (scope, element, attr) {
-                scope.clickEvent = function () {
-                    if (xueUtilLang.isFunction(scope.toggleClick)) {
-                        scope.toggleClick(scope.clickParam || "");
-                    }
-                }
-            }
-        }
-    }])
+
     // 单选指令组
     .directive('xueRadioGroup', ['xueUtilLang', function (xueUtilLang) {
         return {
@@ -3181,6 +3140,59 @@ angular.module('xue.steps', ['xue.util.lang', 'xue.util.array'])
             }
         };
     }]);
+angular.module('xue.switch', ['xue.util.lang'])
+    // toggle switch base on angularjs
+    .directive('xueSwitch', ['xueUtilLang', function (xueUtilLang) {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                ngChecked: "=",
+                switchClick: "=",
+                clickParam: "="
+            },
+            template: '<label class="xui-switch-wrap">' +
+                '<input class="swith-checkbox" type="checkbox" ng-model="ngChecked" ng-click="clickEvent()"/>' +
+                '<div class="switch-bg"></div><div class="toggle-btn"></div></label>',
+            link: function (scope, element, attr) {
+                scope.clickEvent = function () {
+                    if (xueUtilLang.isFunction(scope.switchClick)) {
+                        scope.switchClick(scope.clickParam || "");
+                    }
+                }
+            }
+        }
+    }])
+    //switch开关
+    .directive("xueToggle", function () {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                ngDisabled: '=',
+                toggleConfig: '='
+            },
+            template: "<div class='xui-toggle-wrap' ng-class=\"{true:'active'}[toggleConfig.disabled]\"><div ng-click='switchToggle()'><div class='toggle-bar'></div><div class='toggle-button'></div></div></div>",
+            link: function (scope, ele, attrs) {
+                var toggleConfig = {
+                    disabled: false,
+                    onSelect: function () {}
+                };
+                scope.toggleConfig = angular.extend(toggleConfig, scope.toggleConfig);
+                if (scope.ngDisabled) {
+                    scope.toggleConfig.disabled = scope.ngDisabled;
+                }
+                scope.switchToggle = function () {
+                    /* scope.toggleConfig.disabled = !scope.toggleConfig.disabled;
+                    scope.ngDisabled = scope.toggleConfig.disabled; */
+                    scope.toggleConfig.onSelect(scope.toggleConfig.disabled);
+                }
+                scope.$watch("ngDisabled", function (newVal, oldVal) {
+                    scope.toggleConfig.disabled = newVal;
+                });
+            }
+        }
+    })
 angular.module('xue.table', ['xue.util.lang', 'xue.pagination', 'xue.util.array'])
     .directive('xueTable', ['xueUtilLang', 'xueUtilArray', '$timeout', function (xueUtilLang, xueUtilArray, $timeout) {
         return {
