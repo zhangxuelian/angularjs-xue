@@ -1366,7 +1366,7 @@ angular.module('xue.directives', ['xue.util.lang'])
             template: '<div class="xui-checkbox-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"><i class="xui-icon xui-icon-md-checkmark"></i></div>'
         }
     })
-    // toggle switch base on angularjs
+    // multi-checkbox base on angularjs
     .directive('xueMultiCheckbox', function () {
         return {
             restrict: "E",
@@ -1388,21 +1388,21 @@ angular.module('xue.directives', ['xue.util.lang'])
             replace: true,
             scope: {
                 value: '=', // Radio 的 value
-                label: '=',
-                disabled: '=',
+                ngModel: '=',
+                ngDisabled: '=',
                 radioClick: "&", // 绑定父元素事件
                 name: '=' // 选项值
             },
-            template: '<div class="xui-radio-group-wrap">' +
-                '<label ng-class="{\'active\':value==label,\'disabled\':disabled}" class="radio-item">' +
-                '<input  class="checkbox-input" type="radio" name="common-radio" ng-disabled="disabled"  value="{{value}}" ng-model="value" ng-click="onChecked(value)"/>' +
+            template: '<div class="xui-radio-group-wrap" ng-click="onChecked(value)">' +
+                '<label ng-class="{\'active\':value==ngModel,\'disabled\':ngDisabled}" class="radio-item">' +
+                '<input  class="checkbox-input" type="radio"  ng-disabled="ngDisabled"  value="{{value}}" ng-model="ngModel"/>' +
                 '</label>' +
-                '<span class="radio-name" ng-click="onChecked(value)" ng-class={\'disabled\':disabled}>{{name}}</span>' +
+                '<span class="radio-name" ng-class={\'disabled\':ngDisabled}>{{name}}</span>' +
                 '</div>',
             link: function (scope, elem, attr) {
                 scope.onChecked = function (value) {
-                    if (scope.label != value && !scope.disabled) {
-                        scope.label = value;
+                    if (scope.ngModel != value && !scope.ngDisabled) {
+                        scope.ngModel = value;
                     }
                     if (xueUtilLang.isFunction(scope.radioClick)) {
                         scope.radioClick();
@@ -1412,17 +1412,16 @@ angular.module('xue.directives', ['xue.util.lang'])
         }
     }])
     /**
-     * 无菜单权限页面显示
+     * 无权限页面显示
      */
-    .directive('menuService', function () {
+    .directive('noPermissionPage', function () {
         return {
-            restrict: 'A',
+            restrict: 'E',
+            replace: true,
             scope: {
-                menuService: "="
+                text: "="
             },
-            template: '<div class="menu-service-container">' +
-                '<p>{{menuService.text}}</p>' +
-                '</div>'
+            template: '<div class="no-perssion-wrap"><span><i class="xui-icon xui-icon-ios-alert"></i>{{text}}</span></div>'
         }
     })
     //鼠标右键事件指令
@@ -1569,47 +1568,40 @@ angular.module('xue.directives', ['xue.util.lang'])
         return {
             restrict: "A",
             link: function (scope, ele, attrs) {
-                scope.oldTitle = null;
-                ele.bind("mouseenter mouseleave click mousewheel", function (e) {
-                    var type = e.type,
-                        self = this;
-                    if (type == 'mouseenter') {
-                        $('body').find("#common-title-tip").remove();
-                        var title = scope.oldTitle = self.title;
-                        self.title = '';
-                        if (title && title.length > 0) {
-                            // 校验table data-ng-bind-html生成的title
-                            if (self.children.length && self.children[0].title && self.parentNode.nodeName == 'TR') {
-                                title = scope.oldTitle = self.children[0].title;
-                                self.children[0].title = '';
-                            }
-                            var showEle = $('<div></div>', {
-                                text: title,
-                                id: 'common-title-tip'
-                            });
-                            showEle.hide();
-                            showEle.appendTo('body');
-                            $timeout(function () {
-                                showEle.show();
-                                chekPosition(e);
-                            }, 500)
-                        }
-                    }
-                    if (type == 'mouseleave') {
-                        $('body').find("#common-title-tip").remove();
-                        if (scope.oldTitle) {
-                            self.title = scope.oldTitle;
-                            scope.oldTitle = null;
-                        }
-                    }
-                    if (type == 'click' || type == 'mousewheel') {
-                        $('body').find("#common-title-tip").remove();
+                scope.id = new Date().getTime();
+                ele.bind("mouseenter", function (e) {
+                    var self = this;
+                    removeEle();
+                    var title = scope.oldTitle = self.title;
+                    self.title = '';
+                    if (title && title.length > 0) {
+                        var showEle = $('<div></div>', {
+                            text: title,
+                            class: 'common-title-tip',
+                            id: scope.id
+                        });
+                        $('body').append(showEle);
+                        $timeout(function () {
+                            showEle.show();
+                            chekPosition(e);
+                        }, 500)
                     }
                 })
+                ele.bind('mouseleave', function (e) {
+                    var self = this;
+                    self.title = scope.oldTitle;
+                    removeEle();
+                })
+                ele.bind('mousewheel click', function () {
+                    removeEle();
+                })
 
+                function removeEle() {
+                    $('body').find("#" + scope.id).remove();
+                }
                 // 判断title位置
                 function chekPosition(e) {
-                    var panelEle = $('#common-title-tip');
+                    var panelEle = $('#' + scope.id);
                     var panelWidth = panelEle.outerWidth(), //提示内容宽度
                         panelHeight = panelEle.outerHeight(), //提示内容高度
                         targetHeight = $(ele).outerHeight(), //  hover元素高度
@@ -1631,7 +1623,7 @@ angular.module('xue.directives', ['xue.util.lang'])
                 }
             }
         }
-    }]);
+    }])
 angular.module('xue.loading', [])
     .directive('xueLoading', ['$compile', function ($compile) {
         return {
@@ -3271,10 +3263,11 @@ angular.module('xue.switch', ['xue.util.lang'])
             scope: {
                 ngChecked: "=",
                 switchClick: "=",
-                clickParam: "="
+                clickParam: "=",
+                ngDisabled: "="
             },
-            template: '<label class="xui-switch-wrap">' +
-                '<input class="swith-checkbox" type="checkbox" ng-model="ngChecked" ng-click="clickEvent()"/>' +
+            template: '<label class="xui-switch-wrap" ng-class="{disabled: ngDisabled}">' +
+                '<input class="swith-checkbox" type="checkbox" ng-model="ngChecked" ng-disabled="ngDisabled" ng-click="clickEvent()"/>' +
                 '<div class="switch-bg"></div><div class="toggle-btn"></div></label>',
             link: function (scope, element, attr) {
                 scope.clickEvent = function () {
@@ -7229,7 +7222,7 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "    </div>\n" +
     "    <!-- 多选-->\n" +
     "    <div ng-if=\"selectConfig.checkbox && selectConfig.filter\">\n" +
-    "        <input ng-click=\"focus()\" type=\"button\" class=\"xui-input select-show\" ng-disabled=\"selectConfig.disabled\"\n" +
+    "        <input ng-click=\"focus()\" type=\"button\" class=\"xui-input select-show\" ng-disabled=\"selectConfig.disabled\" \n" +
     "            title=\"{{selectConfig.inputLabel}}\" ng-class=\"selectClass\" ng-style=\"showStyle\" />\n" +
     "        <i class=\"select-arrow\"></i>\n" +
     "        <div class=\"select-content select-content-checkbox  select-separate\" ng-style=\"contentStyle\">\n" +
@@ -7256,7 +7249,7 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "    </div>\n" +
     "    <!-- 多选不可过滤-->\n" +
     "    <div ng-if=\"selectConfig.checkbox && !selectConfig.filter\">\n" +
-    "        <input ng-click=\"focus()\" type=\"button\" class=\"xui-input select-show\" ng-disabled=\"selectConfig.disabled\"\n" +
+    "        <input ng-click=\"focus()\" type=\"button\" class=\"xui-input select-show\" ng-disabled=\"selectConfig.disabled\" title=\"{{selectConfig.inputLabel}}\"\n" +
     "            ng-class=\"selectClass\" ng-style=\"showStyle\" />\n" +
     "        <i class=\"select-arrow\"></i>\n" +
     "        <div class=\"select-content  select-separate\" ng-style=\"contentStyle\">\n" +

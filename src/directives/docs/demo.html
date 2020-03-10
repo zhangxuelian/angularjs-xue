@@ -4,13 +4,19 @@
     复选框：<xue-checkbox ng-checked="vm.ischeck" ng-click="vm.ischeck=!vm.ischeck"></xue-checkbox>
 
     <div>单选组:</div>
-    <xue-radio-group name="'通过'" label="vm.approvalStatus" value="'Y'" radio-click="vm.approvalStatus='Y'">
+    <xue-radio-group name="'香蕉'" ng-model="vm.fruit" value="'1'" ng-disabled="true">
     </xue-radio-group>
-    <xue-radio-group name="'不通过'" label="vm.approvalStatus" value="'N'" radio-click="vm.approvalStatus='N'">
+    <xue-radio-group name="'橘子'" ng-model="vm.fruit" value="'2'">
+    </xue-radio-group>
+    <xue-radio-group name="'橙子'" ng-model="vm.fruit" value="'3'">
+    </xue-radio-group>
+    <xue-radio-group name="'哈密瓜'" ng-model="vm.fruit" value="'4'" radio-click="vm.click('4')">
     </xue-radio-group>
     </br>
     </br>
     <div>
         <input class="xui-input" type="text" placeholder="校验输入数字" filter-number="vm.inputValue" ng-model="vm.inputValue">
     </div>
+    <!-- <no-permission-page text="'您暂未开通权限！'" style="height:100px;"></no-permission-page> -->
+    <span title="title测试">title测试</span>
 </div>

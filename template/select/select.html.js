@@ -68,7 +68,7 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "    </div>\n" +
     "    <!-- 多选-->\n" +
     "    <div ng-if=\"selectConfig.checkbox && selectConfig.filter\">\n" +
-    "        <input ng-click=\"focus()\" type=\"button\" class=\"xui-input select-show\" ng-disabled=\"selectConfig.disabled\"\n" +
+    "        <input ng-click=\"focus()\" type=\"button\" class=\"xui-input select-show\" ng-disabled=\"selectConfig.disabled\" \n" +
     "            title=\"{{selectConfig.inputLabel}}\" ng-class=\"selectClass\" ng-style=\"showStyle\" />\n" +
     "        <i class=\"select-arrow\"></i>\n" +
     "        <div class=\"select-content select-content-checkbox  select-separate\" ng-style=\"contentStyle\">\n" +
@@ -95,7 +95,7 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "    </div>\n" +
     "    <!-- 多选不可过滤-->\n" +
     "    <div ng-if=\"selectConfig.checkbox && !selectConfig.filter\">\n" +
-    "        <input ng-click=\"focus()\" type=\"button\" class=\"xui-input select-show\" ng-disabled=\"selectConfig.disabled\"\n" +
+    "        <input ng-click=\"focus()\" type=\"button\" class=\"xui-input select-show\" ng-disabled=\"selectConfig.disabled\" title=\"{{selectConfig.inputLabel}}\"\n" +
     "            ng-class=\"selectClass\" ng-style=\"showStyle\" />\n" +
     "        <i class=\"select-arrow\"></i>\n" +
     "        <div class=\"select-content  select-separate\" ng-style=\"contentStyle\">\n" +

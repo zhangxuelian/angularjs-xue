@@ -7,10 +7,11 @@ angular.module('xue.switch', ['xue.util.lang'])
             scope: {
                 ngChecked: "=",
                 switchClick: "=",
-                clickParam: "="
+                clickParam: "=",
+                ngDisabled: "="
             },
-            template: '<label class="xui-switch-wrap">' +
-                '<input class="swith-checkbox" type="checkbox" ng-model="ngChecked" ng-click="clickEvent()"/>' +
+            template: '<label class="xui-switch-wrap" ng-class="{disabled: ngDisabled}">' +
+                '<input class="swith-checkbox" type="checkbox" ng-model="ngChecked" ng-disabled="ngDisabled" ng-click="clickEvent()"/>' +
                 '<div class="switch-bg"></div><div class="toggle-btn"></div></label>',
             link: function (scope, element, attr) {
                 scope.clickEvent = function () {

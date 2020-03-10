@@ -10,10 +10,10 @@
     <link rel="author" href="https://github.com/zhangxuelian/angularjs-xue/graphs/contributors">
 
     <script src="assets/angular.min.js"></script>
-    <script src="assets/angularjs-xue-full-1.0.0.js"></script>
+    <script src="assets/angularjs-xue-full-1.0.0.min.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
-    <link rel="stylesheet" href="assets/angularjs-xue-ui-1.0.0.css">
+    <link rel="stylesheet" href="assets/angularjs-xue-ui-1.0.0.min.css">
     <link rel="stylesheet" href="assets/demo.css" />
 </head>
 
@@ -118,7 +118,7 @@ $ npm run demo or npm run test-demo</code></pre>
                         </div>
                         <div class="content-md markdown-wrap">
                             <h3 id="组件说明">组件说明</h3>
-<p><strong>可更改内容的下拉选择框（仅限取明词，不适用取词选对象）</strong></p>
+<p>可更改内容的下拉选择框（仅限取明词，不适用取词选对象）</p>
 <h3 id="attributes">Attributes</h3>
 <table>
 <thead>
@@ -1033,19 +1033,26 @@ $ npm run demo or npm run test-demo</code></pre>
     复选框：<xue-checkbox ng-checked="vm.ischeck" ng-click="vm.ischeck=!vm.ischeck"></xue-checkbox>
 
     <div>单选组:</div>
-    <xue-radio-group name="'通过'" label="vm.approvalStatus" value="'Y'" radio-click="vm.approvalStatus='Y'">
+    <xue-radio-group name="'香蕉'" ng-model="vm.fruit" value="'1'" ng-disabled="true">
     </xue-radio-group>
-    <xue-radio-group name="'不通过'" label="vm.approvalStatus" value="'N'" radio-click="vm.approvalStatus='N'">
+    <xue-radio-group name="'橘子'" ng-model="vm.fruit" value="'2'">
+    </xue-radio-group>
+    <xue-radio-group name="'橙子'" ng-model="vm.fruit" value="'3'">
+    </xue-radio-group>
+    <xue-radio-group name="'哈密瓜'" ng-model="vm.fruit" value="'4'" radio-click="vm.click('4')">
     </xue-radio-group>
     </br>
     </br>
     <div>
         <input class="xui-input" type="text" placeholder="校验输入数字" filter-number="vm.inputValue" ng-model="vm.inputValue">
     </div>
+    <!-- <no-permission-page text="'您暂未开通权限！'" style="height:100px;"></no-permission-page> -->
+    <span title="title测试">title测试</span>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
-                            <h3 id="xue-radio-attributes">xue-radio Attributes</h3>
+                            <h4 id="单选">单选</h4>
+<h5 id="xue-radio-attributes">xue-radio Attributes</h5>
 <table>
 <thead>
 <tr>
@@ -1060,7 +1067,8 @@ $ npm run demo or npm run test-demo</code></pre>
 <td>Boolean</td>
 </tr>
 </tbody></table>
-<h3 id="xue-checkbox-attributes">xue-checkbox Attributes</h3>
+<h4 id="多选">多选</h4>
+<h5 id="xue-checkbox-attributes">xue-checkbox Attributes</h5>
 <table>
 <thead>
 <tr>
@@ -1075,7 +1083,8 @@ $ npm run demo or npm run test-demo</code></pre>
 <td>Boolean</td>
 </tr>
 </tbody></table>
-<h3 id="xue-multi-checkbox-attributes">xue-multi-checkbox Attributes</h3>
+<h4 id="多选-1">多选</h4>
+<h5 id="xue-multi-checkbox-attributes">xue-multi-checkbox Attributes</h5>
 <table>
 <thead>
 <tr>
@@ -1095,7 +1104,8 @@ $ npm run demo or npm run test-demo</code></pre>
 <td>Boolean</td>
 </tr>
 </tbody></table>
-<h3 id="xue-radio-group-attributes">xue-radio-group Attributes</h3>
+<h4 id="单选组">单选组</h4>
+<h5 id="xue-radio-group-attributes">xue-radio-group Attributes</h5>
 <table>
 <thead>
 <tr>
@@ -1110,23 +1120,39 @@ $ npm run demo or npm run test-demo</code></pre>
 <td>String</td>
 </tr>
 <tr>
-<td>label</td>
-<td>radio字段名</td>
+<td>name</td>
+<td>选项文本</td>
 <td>String</td>
 </tr>
 <tr>
-<td>disabled</td>
+<td>ng-model</td>
+<td>双向绑定值</td>
+<td>String</td>
+</tr>
+<tr>
+<td>ng-disabled</td>
 <td>是否禁用</td>
 <td>Boolean</td>
 </tr>
 <tr>
-<td>radioClick</td>
+<td>radio-click</td>
 <td>点击回调</td>
 <td>Funciton</td>
 </tr>
+</tbody></table>
+<h4 id="无权限页面">无权限页面</h4>
+<h5 id="no-permission-page-attributes">no-permission-page Attributes</h5>
+<table>
+<thead>
 <tr>
-<td>name</td>
-<td>选项文本</td>
+<th>属性</th>
+<th>说明</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>text</td>
+<td>展示文案</td>
 <td>String</td>
 </tr>
 </tbody></table>
@@ -1151,15 +1177,21 @@ $ npm run demo or npm run test-demo</code></pre>
     复选框：&lt;xue-checkbox ng-checked=&quot;vm.ischeck&quot; ng-click=&quot;vm.ischeck=!vm.ischeck&quot;&gt;&lt;/xue-checkbox&gt;
 
     &lt;div&gt;单选组:&lt;/div&gt;
-    &lt;xue-radio-group name=&quot;&#39;通过&#39;&quot; label=&quot;vm.approvalStatus&quot; value=&quot;&#39;Y&#39;&quot; radio-click=&quot;vm.approvalStatus=&#39;Y&#39;&quot;&gt;
+    &lt;xue-radio-group name=&quot;&#39;香蕉&#39;&quot; ng-model=&quot;vm.fruit&quot; value=&quot;&#39;1&#39;&quot; ng-disabled=&quot;true&quot;&gt;
     &lt;/xue-radio-group&gt;
-    &lt;xue-radio-group name=&quot;&#39;不通过&#39;&quot; label=&quot;vm.approvalStatus&quot; value=&quot;&#39;N&#39;&quot; radio-click=&quot;vm.approvalStatus=&#39;N&#39;&quot;&gt;
+    &lt;xue-radio-group name=&quot;&#39;橘子&#39;&quot; ng-model=&quot;vm.fruit&quot; value=&quot;&#39;2&#39;&quot;&gt;
+    &lt;/xue-radio-group&gt;
+    &lt;xue-radio-group name=&quot;&#39;橙子&#39;&quot; ng-model=&quot;vm.fruit&quot; value=&quot;&#39;3&#39;&quot;&gt;
+    &lt;/xue-radio-group&gt;
+    &lt;xue-radio-group name=&quot;&#39;哈密瓜&#39;&quot; ng-model=&quot;vm.fruit&quot; value=&quot;&#39;4&#39;&quot; radio-click=&quot;vm.click(&#39;4&#39;)&quot;&gt;
     &lt;/xue-radio-group&gt;
     &lt;/br&gt;
     &lt;/br&gt;
     &lt;div&gt;
         &lt;input class=&quot;xui-input&quot; type=&quot;text&quot; placeholder=&quot;校验输入数字&quot; filter-number=&quot;vm.inputValue&quot; ng-model=&quot;vm.inputValue&quot;&gt;
     &lt;/div&gt;
+    &lt;!-- &lt;no-permission-page text=&quot;&#39;您暂未开通权限！&#39;&quot; style=&quot;height:100px;&quot;&gt;&lt;/no-permission-page&gt; --&gt;
+    &lt;span title=&quot;title测试&quot;&gt;title测试&lt;/span&gt;
 &lt;/div&gt;</code></pre>
                                     </div>
                                 </xue-tab>
@@ -1169,8 +1201,11 @@ $ npm run demo or npm run test-demo</code></pre>
                                             ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueDirectivesDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     $scope.vm = {
         ischeck: true,
-        approvalStatus: &#39;&#39;,
-        inputValue: &#39;&#39;
+        fruit: &#39;1&#39;,
+        inputValue: &#39;&#39;,
+        click: function (value) {
+            console.log(value);
+        }
     }
 }])</code></pre>
                                     </div>
@@ -1182,8 +1217,11 @@ $ npm run demo or npm run test-demo</code></pre>
                 <script>angular.module('ui.xue.demo').controller('xueDirectivesDemoCtrl', ['$scope', function ($scope) {
     $scope.vm = {
         ischeck: true,
-        approvalStatus: '',
-        inputValue: ''
+        fruit: '1',
+        inputValue: '',
+        click: function (value) {
+            console.log(value);
+        }
     }
 }])</script>
                 
@@ -1201,7 +1239,9 @@ $ npm run demo or npm run test-demo</code></pre>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
-                            <h3 id="attributes">Attributes</h3>
+                            <h3 id="组件说明">组件说明</h3>
+<p> loading加载</p>
+<h3 id="attributes">Attributes</h3>
 <table>
 <thead>
 <tr>
@@ -2676,7 +2716,7 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope',function($sco
 <td align="left">步骤条大小</td>
 <td align="left">String</td>
 <td align="left">small,large</td>
-<td align="left"></td>
+<td align="left">-</td>
 </tr>
 <tr>
 <td>direction</td>
@@ -2689,7 +2729,7 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope',function($sco
 <td>alignCenter</td>
 <td align="left">是否居中展示</td>
 <td align="left">Boolean</td>
-<td align="left"></td>
+<td align="left">-</td>
 <td align="left">false</td>
 </tr>
 <tr>
@@ -2703,36 +2743,36 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope',function($sco
 <td>idField</td>
 <td align="left">键值字段名</td>
 <td align="left">String</td>
-<td align="left"></td>
+<td align="left">-</td>
 <td align="left">code</td>
 </tr>
 <tr>
 <td>nameField</td>
 <td align="left">展示文字字段名</td>
 <td align="left">String</td>
-<td align="left"></td>
+<td align="left">-</td>
 <td align="left">title</td>
 </tr>
 <tr>
 <td>descField</td>
 <td align="left">描述文字字段名</td>
 <td align="left">String</td>
-<td align="left"></td>
+<td align="left">-</td>
 <td align="left">description</td>
 </tr>
 <tr>
 <td>options</td>
 <td align="left">步骤条项</td>
 <td align="left">Array</td>
-<td align="left"></td>
+<td align="left">-</td>
 <td align="left"></td>
 </tr>
 <tr>
 <td>changeCallback</td>
 <td align="left">改变回调</td>
 <td align="left">Function</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">-</td>
+<td align="left">-</td>
 </tr>
 </tbody></table>
 
@@ -2810,11 +2850,13 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope',function($sco
                         <div class="content-html">
                             <div ng-controller="xueSwitchDemoCtrl">
     <xue-switch   ng-checked="vm.isOpen" switch-click="vm.toggleConfig.onselect(vm.isOpen)"></xue-switch>
+    <xue-switch   ng-checked="false"  ng-disabled="true"></xue-switch>
     <!-- <xue-toggle toggle-config="vm.toggleConfig" ng-disabled="vm.isOpen"></xue-toggle> -->
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
-                            <h2 id="switch开关">switch开关</h2>
+                            <h3 id="组件说明">组件说明</h3>
+<p> switch开关</p>
 <h3 id="attributes">Attributes</h3>
 <table>
 <thead>
@@ -2828,6 +2870,11 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope',function($sco
 <td>ng-checked</td>
 <td>消息属性对象</td>
 <td>Object</td>
+</tr>
+<tr>
+<td>ng-disabled</td>
+<td>是否禁用</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>switch-click</td>
@@ -2857,6 +2904,7 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope',function($sco
                                         <pre
                                             ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueSwitchDemoCtrl&quot;&gt;
     &lt;xue-switch   ng-checked=&quot;vm.isOpen&quot; switch-click=&quot;vm.toggleConfig.onselect(vm.isOpen)&quot;&gt;&lt;/xue-switch&gt;
+    &lt;xue-switch   ng-checked=&quot;false&quot;  ng-disabled=&quot;true&quot;&gt;&lt;/xue-switch&gt;
     &lt;!-- &lt;xue-toggle toggle-config=&quot;vm.toggleConfig&quot; ng-disabled=&quot;vm.isOpen&quot;&gt;&lt;/xue-toggle&gt; --&gt;
 &lt;/div&gt;</code></pre>
                                     </div>
