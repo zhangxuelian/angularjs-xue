@@ -37,5 +37,5 @@ git clone https://github.com/zhangxuelian/angularjs-xue.git
 $ cd angularjs-xue  
 $ npm install  
 $ npm run test
-$ npm run demo
+$ npm run demo or npm run test-demo
 ```
