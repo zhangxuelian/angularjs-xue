@@ -99,7 +99,7 @@ $ npm install karma-cli@2.0.0 -g  </code></pre><h3 id="git-clone-project-to-loca
 <pre><code>$ cd angularjs-xue  
 $ npm install  
 $ npm run test
-$ npm run demo</code></pre>
+$ npm run demo or npm run test-demo</code></pre>
                     </div>
                 </section>
                 
@@ -294,7 +294,7 @@ $ npm run demo</code></pre>
 <td>Boolean</td>
 </tr>
 </tbody></table>
-<h4 id="select-config-attributes">select-config Attributes</h4>
+<h4 id="cascader-config-attributes">cascader-config Attributes</h4>
 <table>
 <thead>
 <tr>
@@ -798,7 +798,160 @@ $ npm run demo</code></pre>
 
                         </div>
                         <div class="content-md markdown-wrap">
-                            <h2 id="xue-datepicker-settings">xue-datepicker settings</h2>
+                            <h3 id="组件说明">组件说明</h3>
+<p><strong>日期组件</strong></p>
+<h3 id="attributes">Attributes</h3>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>date-config</td>
+<td>选择器属性</td>
+<td>Object</td>
+</tr>
+<tr>
+<td>ng-val</td>
+<td>输入框双向绑定值</td>
+<td>String</td>
+</tr>
+<tr>
+<td>min-date</td>
+<td>日期可选最小值</td>
+<td>String</td>
+</tr>
+<tr>
+<td>max-date</td>
+<td>日期可选最大值</td>
+<td>String</td>
+</tr>
+<tr>
+<td>ng-disabled</td>
+<td>是否禁用</td>
+<td>Boolean</td>
+</tr>
+</tbody></table>
+<h4 id="date-config-对象属性">date-config 对象属性</h4>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th align="left">说明</th>
+<th align="center">类型</th>
+<th align="center">可选值</th>
+<th align="center">默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>theme</td>
+<td align="left">主题</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">deep-blue</td>
+</tr>
+<tr>
+<td>element</td>
+<td align="left">自定义样式对象</td>
+<td align="center">Object</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>format</td>
+<td align="left">日期格式</td>
+<td align="center">String</td>
+<td align="center">YYYY-MM-DD、YYYY-MM-DD hh:mm:ss、hh:mm:ss、hh:mm</td>
+<td align="center">YYYY-MM-DD</td>
+</tr>
+<tr>
+<td>timeSelectMode</td>
+<td align="left">时间选择方式</td>
+<td align="center">Number</td>
+<td align="center">0：自由选择 1：快速选择</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td>minDate</td>
+<td align="left">日期最小值</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>maxDate</td>
+<td align="left">日期最大值</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>fixedMinDate</td>
+<td align="left">固定最小值</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>fixedMaxDate</td>
+<td align="left">固定最大值</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>language</td>
+<td align="left">语言</td>
+<td align="center">String</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>showTime</td>
+<td align="left">是否展示时间选择器</td>
+<td align="center">Boolean</td>
+<td align="center">—</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td>showClear</td>
+<td align="left">是否展示清除按钮</td>
+<td align="center">Boolean</td>
+<td align="center">—</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td>nowCallback</td>
+<td align="left">选择当前时间回调</td>
+<td align="center">Function（item）</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>confirmCallback</td>
+<td align="left">确认选择回调</td>
+<td align="center">Function（item）</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>clearCallback</td>
+<td align="left">清除时间回调</td>
+<td align="center">Function（item）</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td>closeCallback</td>
+<td align="left">关闭日期选择器回调</td>
+<td align="center">Function（item）</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+</tbody></table>
 
                         </div>
                     </div>

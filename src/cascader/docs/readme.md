@@ -10,7 +10,7 @@
 | ng-val          | 输入框双向绑定值 | String  |
 | ng-disabled     | 是否禁用         | Boolean |
 
-#### select-config Attributes
+#### cascader-config Attributes
 
 | 属性       | 说明                                   |       类型       | 可选值 | 默认值 |
 | ---------- | :------------------------------------- | :--------------: | :----: | :----: |
