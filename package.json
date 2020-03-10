@@ -11,7 +11,7 @@
   "scripts": {
     "test": "grunt",
     "demo": "grunt demo && grunt serve",
-    "test-demo": "grunt test-demo && grunt serve",
+    "test-demo": "grunt test-demo && grunt test-serve",
     "test-build": "grunt build",
     "test-sass": "grunt sass"
   },

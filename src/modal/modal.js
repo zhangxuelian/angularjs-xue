@@ -101,7 +101,11 @@ angular.module('xue.modal', [])
     })
     .factory('$modalStack', ['$document', '$$stackedMap', '$$multiMap', '$animate', '$rootScope', '$compile',
         function ($document, $$stackedMap, $$multiMap, $animate, $rootScope, $compile) {
-            var ARIA_HIDDEN_ATTRIBUTE_NAME = 'data-bootstrap-modal-aria-hidden-count';
+            var ARIA_HIDDEN_ATTRIBUTE_NAME = 'xue-modal-aria-hidden-count';
+            var OPENED_MODAL_CLASS = 'modal-open';
+            var $modalStack = {
+                NOW_CLOSING_EVENT: 'modal.stack.now-closing'
+            };
             var innerUtil = {
                 attribute: ['deferred', 'renderDeferred', 'closedDeferred', 'modalScope', 'backdrop', 'keyboard', 'openedClass', 'windowTopClass', 'animation', 'appendTo'],
                 openedWindows: $$stackedMap.createNew(),
@@ -110,6 +114,7 @@ angular.module('xue.modal', [])
                 topModalIndex: 0,
                 backdropDomEl: null,
                 backdropScope: null,
+                scrollbarPadding: null,
                 toggleTopWindowClass: function (toggleSwitch) {
                     var modalWindow, self = this;
                     if (self.openedWindows.length() > 0) {
@@ -159,6 +164,107 @@ angular.module('xue.modal', [])
                     });
 
                     return self.applyAriaHidden(el.parent());
+                },
+                unhideBackgroundElements: function () {
+                    Array.prototype.forEach.call(
+                        document.querySelectorAll('[' + ARIA_HIDDEN_ATTRIBUTE_NAME + ']'),
+                        function (hiddenEl) {
+                            var ariaHiddenCount = parseInt(hiddenEl.getAttribute(ARIA_HIDDEN_ATTRIBUTE_NAME), 10),
+                                newHiddenCount = ariaHiddenCount - 1;
+                            hiddenEl.setAttribute(ARIA_HIDDEN_ATTRIBUTE_NAME, newHiddenCount);
+
+                            if (!newHiddenCount) {
+                                hiddenEl.removeAttribute(ARIA_HIDDEN_ATTRIBUTE_NAME);
+                                hiddenEl.removeAttribute('aria-hidden');
+                            }
+                        }
+                    );
+                },
+                removeAfterAnimate: function (domEl, scope, done, closedDeferred) {
+                    var asyncDeferred;
+                    var asyncPromise = null;
+                    scope.$broadcast($modalStack.NOW_CLOSING_EVENT, function () {
+                        if (!asyncDeferred) {
+                            asyncDeferred = $q.defer();
+                            asyncPromise = asyncDeferred.promise;
+                        }
+
+                        return function asyncDone() {
+                            asyncDeferred.resolve();
+                        };
+                    });
+
+                    // Note that it's intentional that asyncPromise might be null.
+                    // That's when setIsAsync has not been called during the
+                    // NOW_CLOSING_EVENT broadcast.
+                    return $q.when(asyncPromise).then(function () {
+                        if (afterAnimating.done) {
+                            return;
+                        }
+                        afterAnimating.done = true;
+
+                        $animate.leave(domEl).then(function () {
+                            if (done) {
+                                done();
+                            }
+
+                            domEl.remove();
+                            if (closedDeferred) {
+                                closedDeferred.resolve();
+                            }
+                        });
+
+                        scope.$destroy();
+                    });
+                },
+                checkRemoveBackdrop: function () {
+                    //remove backdrop if no longer needed
+                    if (innerUtil.backdropDomEl && innerUtil.backdropIndex() === -1) {
+                        var backdropScopeRef = innerUtil.backdropScope;
+                        innerUtil.removeAfterAnimate(innerUtil.backdropDomEl, innerUtil.backdropScope, function () {
+                            backdropScopeRef = null;
+                        });
+                        innerUtil.backdropDomEl = undefined;
+                        innerUtil.backdropScope = undefined;
+                    }
+                },
+                removeModalWindow: function (modalInstance, elementToReceiveFocus) {
+                    var modalWindow = innerUtil.openedWindows.get(modalInstance).value;
+                    var appendToElement = modalWindow.appendTo;
+
+                    //clean up the stack
+                    innerUtil.openedWindows.remove(modalInstance);
+                    innerUtil.previousTopOpenedModal = innerUtil.openedWindows.top();
+                    if (innerUtil.previousTopOpenedModal) {
+                        innerUtil.topModalIndex = parseInt(innerUtil.previousTopOpenedModal.value.modalDomEl.attr('index'), 10);
+                    }
+
+                    innerUtil.removeAfterAnimate(modalWindow.modalDomEl, modalWindow.modalScope, function () {
+                        var modalBodyClass = modalWindow.openedClass || OPENED_MODAL_CLASS;
+                        innerUtil.openedClasses.remove(modalBodyClass, modalInstance);
+                        var areAnyOpen = innerUtil.openedClasses.hasKey(modalBodyClass);
+                        appendToElement.toggleClass(modalBodyClass, areAnyOpen);
+                        if (!areAnyOpen && innerUtil.scrollbarPadding && innerUtil.scrollbarPadding.heightOverflow && innerUtil.scrollbarPadding.scrollbarWidth) {
+                            if (innerUtil.scrollbarPadding.originalRight) {
+                                appendToElement.css({ paddingRight: innerUtil.scrollbarPadding.originalRight + 'px' });
+                            } else {
+                                appendToElement.css({ paddingRight: '' });
+                            }
+                            innerUtil.scrollbarPadding = null;
+                        }
+                        innerUtil.toggleTopWindowClass(true);
+                    }, modalWindow.closedDeferred);
+                    innerUtil.checkRemoveBackdrop();
+
+                    //move focus to specified element if available, or else to body
+                    if (elementToReceiveFocus && elementToReceiveFocus.focus) {
+                        elementToReceiveFocus.focus();
+                    } else if (appendToElement.focus) {
+                        appendToElement.focus();
+                    }
+                },
+                broadcastClosing: function (modalWindow, resultOrReason, closing) {
+                    return !modalWindow.value.modalScope.$broadcast('modal.closing', resultOrReason, closing).defaultPrevented;
                 }
             };
             var $modalStack = {
@@ -198,9 +304,9 @@ angular.module('xue.modal', [])
                         $compile(innerUtil.backdropDomEl)(innerUtil.backdropScope);
                         $animate.enter(innerUtil.backdropDomEl, appendToElement);
                         // if ($uibPosition.isScrollable(appendToElement)) {
-                        //     scrollbarPadding = $uibPosition.scrollbarPadding(appendToElement);
-                        //     if (scrollbarPadding.heightOverflow && scrollbarPadding.scrollbarWidth) {
-                        //         appendToElement.css({ paddingRight: scrollbarPadding.right + 'px' });
+                        //     innerUtil.scrollbarPadding = $uibPosition.innerUtil.scrollbarPadding(appendToElement);
+                        //     if (innerUtil.scrollbarPadding.heightOverflow && innerUtil.scrollbarPadding.scrollbarWidth) {
+                        //         appendToElement.css({ paddingRight: innerUtil.scrollbarPadding.right + 'px' });
                         //     }
                         // }
                     }
@@ -258,11 +364,27 @@ angular.module('xue.modal', [])
                     innerUtil.applyAriaHidden(angularDomEl);
 
                 },
-                close: function () {
-
+                close: function (modalInstance, result) {
+                    var modalWindow = innerUtil.openedWindows.get(modalInstance);
+                    innerUtil.unhideBackgroundElements();
+                    if (modalWindow && innerUtil.broadcastClosing(modalWindow, result, true)) {
+                        modalWindow.value.modalScope.$$destructionScheduled = true;
+                        modalWindow.value.deferred.resolve(result);
+                        innerUtil.removeModalWindow(modalInstance, modalWindow.value.modalOpener);
+                        return true;
+                    }
+                    return !modalWindow;
                 },
-                dismiss: function () {
-
+                dismiss: function (modalInstance, reason) {
+                    var modalWindow = innerUtil.openedWindows.get(modalInstance);
+                    innerUtil.unhideBackgroundElements();
+                    if (modalWindow && innerUtil.broadcastClosing(modalWindow, reason, false)) {
+                        modalWindow.value.modalScope.$$destructionScheduled = true;
+                        modalWindow.value.deferred.reject(reason);
+                        innerUtil.removeModalWindow(modalInstance, modalWindow.value.modalOpener);
+                        return true;
+                    }
+                    return !modalWindow;
                 },
                 dismissAll: function () {
 
@@ -409,10 +531,10 @@ angular.module('xue.modal', [])
                             closed: modalClosedDeferred.promise,
                             rendered: modalRenderDeferred.promise,
                             close: function (result) {
-                                //return $modalStack.close(modalInstance, result);
+                                return $modalStack.close(modalInstance, result);
                             },
                             dismiss: function (reason) {
-                                //return $modalStack.dismiss(modalInstance, reason);
+                                return $modalStack.dismiss(modalInstance, reason);
                             }
                         };
                         modalOptions = angular.extend({}, modalUtil.options, modalOptions);

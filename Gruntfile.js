@@ -196,12 +196,23 @@ module.exports = function (grunt) {
             ]
         },
         connect: {
-            options: {
-                port: 8081,
-                livereload: 35729  //声明给 watch 监听的端口
-            },
-            server: {
+            server1: {
                 options: {
+                    port: 8081,
+                    livereload: 35729,
+                    open: true,
+                    base: {
+                        path: 'demo',
+                        options: {
+                            index: 'index.html'
+                        }
+                    },
+                }
+            },
+            server2: {
+                options: {
+                    port: 8082,
+                    livereload: 35730,
                     open: true,
                     base: {
                         path: 'demo',
@@ -213,12 +224,19 @@ module.exports = function (grunt) {
             }
         },
         watch: {
-            livereload: {
+            livereload1: {
                 options: {
-                    livereload: '<%=connect.options.livereload%>'  //监听前面声明的端口  35729
+                    livereload: 35729
                 },
                 files: ['template/**/*.html', 'src/**/*.*', 'misc/demo/**/*.*'],
                 tasks: ['demo']
+            },
+            livereload2: {
+                options: {
+                    livereload: 35730
+                },
+                files: ['template/**/*.html', 'src/**/*.*', 'misc/demo/**/*.*'],
+                tasks: ['test-demo']
             }
         }
     });
@@ -496,5 +514,6 @@ module.exports = function (grunt) {
             }
         });
     });
-    grunt.registerTask('serve', ['connect:server', 'watch']);
+    grunt.registerTask('serve', ['connect:server1', 'watch:livereload1']);
+    grunt.registerTask('test-serve', ['connect:server2', 'watch:livereload2']);
 }

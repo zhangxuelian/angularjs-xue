@@ -1,8 +1,9 @@
 <div ng-controller="xueModalDemoCtrl">
     <script type="text/ng-template" id="modal.test.html">
         <div>
-            test modal~
+            {{test}}
         </div>
+        <button ng-click="close()">关闭</button>
     </script>
     <button ng-click="open()">打开</button>
 </div>

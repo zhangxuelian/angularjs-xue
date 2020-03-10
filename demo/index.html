@@ -10,10 +10,10 @@
     <link rel="author" href="https://github.com/zhangxuelian/angularjs-xue/graphs/contributors">
 
     <script src="assets/angular.min.js"></script>
-    <script src="assets/angularjs-xue-full-1.0.0.min.js"></script>
+    <script src="assets/angularjs-xue-full-1.0.0.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
-    <link rel="stylesheet" href="assets/angularjs-xue-ui-1.0.0.min.css">
+    <link rel="stylesheet" href="assets/angularjs-xue-ui-1.0.0.css">
     <link rel="stylesheet" href="assets/demo.css" />
 </head>
 
@@ -1603,8 +1603,9 @@ $ npm run demo or npm run test-demo</code></pre>
                             <div ng-controller="xueModalDemoCtrl">
     <script type="text/ng-template" id="modal.test.html">
         <div>
-            test modal~
+            {{test}}
         </div>
+        <button ng-click="close()">关闭</button>
     </script>
     <button ng-click="open()">打开</button>
 </div>
@@ -1629,8 +1630,9 @@ $ npm run demo or npm run test-demo</code></pre>
                                             ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueModalDemoCtrl&quot;&gt;
     &lt;script type=&quot;text/ng-template&quot; id=&quot;modal.test.html&quot;&gt;
         &lt;div&gt;
-            test modal~
+            {{test}}
         &lt;/div&gt;
+        &lt;button ng-click=&quot;close()&quot;&gt;关闭&lt;/button&gt;
     &lt;/script&gt;
     &lt;button ng-click=&quot;open()&quot;&gt;打开&lt;/button&gt;
 &lt;/div&gt;</code></pre>
@@ -1643,9 +1645,12 @@ $ npm run demo or npm run test-demo</code></pre>
     [&#39;$scope&#39;, &#39;$xModal&#39;,function ($scope, $xModal) {
     console.log($xModal);
     $scope.open = function(){
-        $xModal.open({
+        var test = $xModal.open({
             templateUrl: &#39;modal.test.html&#39;,
             controller: &#39;modalTestCtrl&#39;
+        });
+        test.close(function(ret){
+            console.log(ret);
         });
     }
     /* $xModal.open({
@@ -1656,8 +1661,14 @@ $ npm run demo or npm run test-demo</code></pre>
         }
     }) */
 }]);
-angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[function(){
+angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$scope&#39;,function($scope){
     console.log(&#39;xxx&#39;);
+    $scope.test = &quot;zxl&quot;;
+    $scope.close = function(){
+        $scope.$close({
+            a: &#39;test zxl&#39;
+        });
+    }
 }]);</code></pre>
                                     </div>
                                 </xue-tab>
@@ -1669,9 +1680,12 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[functi
     ['$scope', '$xModal',function ($scope, $xModal) {
     console.log($xModal);
     $scope.open = function(){
-        $xModal.open({
+        var test = $xModal.open({
             templateUrl: 'modal.test.html',
             controller: 'modalTestCtrl'
+        });
+        test.close(function(ret){
+            console.log(ret);
         });
     }
     /* $xModal.open({
@@ -1682,8 +1696,14 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[functi
         }
     }) */
 }]);
-angular.module('ui.xue.demo').controller('modalTestCtrl',[function(){
+angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope',function($scope){
     console.log('xxx');
+    $scope.test = "zxl";
+    $scope.close = function(){
+        $scope.$close({
+            a: 'test zxl'
+        });
+    }
 }]);</script>
                 
                 <section class="module-wrap" id="notice">
