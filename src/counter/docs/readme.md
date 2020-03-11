@@ -24,8 +24,8 @@
 | size | 计数器大小 | String | large,small |   -   |
 | suffix | 数据单位 | String | - | - |
 | trigger | 输入框触发方式 | String | blur,change(type为2生效) | change |
-| change | change事件 | Funciton | - | - |
-| blur | blur事件 | Funciton | - | - |
-| focus | focus事件 | Funciton | - | - |
-| changeCallback | 数据改变回调 | Funciton | - | - |
+| change | change事件 | Funciton（number,params） | - | - |
+| blur | blur事件 | Funciton（number,params） | - | - |
+| focus | focus事件 | Funciton（number,params） | - | - |
+| changeCallback | 数据改变回调 | Funciton（number,params） | - | - |
 

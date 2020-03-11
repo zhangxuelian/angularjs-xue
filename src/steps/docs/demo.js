@@ -3,6 +3,7 @@ angular.module('ui.xue.demo').controller('xueStepsDemoCtrl', ['$scope', function
     $scope.stepsConfig = {
         theme:'green-theme',
         alignCenter: true,
+        iconStyle:'statusNum',
         options: [{
             title: 'Finished',
             code: 0

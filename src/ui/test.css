@@ -3252,18 +3252,24 @@ table {
       .xui-table-wrap .option-dialog .option-top .select-all label {
         cursor: pointer; }
     .xui-table-wrap .option-dialog .arrow {
+      border: solid 7px transparent;
+      border-bottom: solid 7px #cee0f0;
+      width: 0;
+      height: 0;
       position: absolute;
-      top: -9px;
-      right: 10px;
-      width: 10px;
-      height: 10px;
-      border-bottom: 6px solid #fff;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      box-sizing: border-box; }
-      .xui-table-wrap .option-dialog .arrow:first-child {
-        top: -11px;
-        border-bottom: 6px solid #cbd5df; }
+      top: -14px;
+      left: -7px;
+      margin-left: 95%; }
+      .xui-table-wrap .option-dialog .arrow::before {
+        content: "";
+        display: block;
+        width: 0;
+        height: 0;
+        border: solid 8px transparent;
+        border-bottom: solid 8px #fff;
+        position: absolute;
+        left: -8px;
+        top: -7px; }
 
 .xui-tabs-wrap {
   position: relative; }
@@ -3728,16 +3734,25 @@ table {
       font-size: 20px; }
     .xui-notice-container .xui-notice-icon .notice-count {
       position: absolute;
+      display: block;
+      font-weight: 400;
+      background: #D92B2F;
+      color: #fff;
+      padding: 1px 2px;
+      font-size: 12px;
       top: -10px;
       right: -10px;
       height: 18px;
-      border-radius: 9px;
-      background: #D92B2F;
-      color: #fff;
-      font-size: 12px;
-      padding: 1px 2px;
+      line-height: 18px;
       min-width: 18px;
-      display: block; }
+      border-radius: 9px; }
+      .xui-notice-container .xui-notice-icon .notice-count.circle {
+        width: 8px;
+        height: 8px;
+        padding: 0;
+        min-width: 8px;
+        right: -5px;
+        top: -5px; }
 
 .xui-notice-content-wrap {
   display: none;
@@ -3747,11 +3762,7 @@ table {
   border: solid 1px #cee0f0;
   border-radius: 4px;
   box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, 0.1);
-  font-size: 13px;
-  color: #666; }
-  .xui-notice-content-wrap div {
-    margin: 0;
-    padding: 0; }
+  font-size: 13px; }
   .xui-notice-content-wrap .xui-notice-content {
     display: flex;
     flex-direction: column;
@@ -3761,7 +3772,8 @@ table {
       display: flex;
       text-align: center;
       border-bottom: solid 1px #cee0f0;
-      font-weight: 700; }
+      font-weight: 700;
+      margin: 0; }
       .xui-notice-content-wrap .xui-notice-content .notice-tab .tab-item {
         flex-grow: 1;
         cursor: pointer;
@@ -3773,18 +3785,19 @@ table {
           text-align: center;
           position: relative; }
           .xui-notice-content-wrap .xui-notice-content .notice-tab .tab-item .item-name .item-count {
-            font-size: 12px;
-            display: block;
-            background: #D92B2F;
-            padding: 0 2px;
-            color: #fff;
             position: absolute;
-            line-height: 15px;
-            min-width: 15px;
-            border-radius: 8px;
-            right: -15px;
+            display: block;
+            font-weight: 400;
+            background: #D92B2F;
+            color: #fff;
+            padding: 1px 2px;
+            font-size: 12px;
             top: -5px;
-            font-weight: 400; }
+            right: -15px;
+            height: 16px;
+            line-height: 16px;
+            min-width: 16px;
+            border-radius: 8px; }
             .xui-notice-content-wrap .xui-notice-content .notice-tab .tab-item .item-name .item-count.circle {
               width: 8px;
               height: 8px;
@@ -3801,41 +3814,42 @@ table {
       background: #F0F5FB;
       min-height: 100px;
       padding-bottom: 10px;
-      max-height: 350px; }
+      max-height: 350px;
+      margin: 0; }
       .xui-notice-content-wrap .xui-notice-content .notice-content .no-data-tip {
         color: #999;
         text-align: center;
         line-height: 100px; }
       .xui-notice-content-wrap .xui-notice-content .notice-content > ul {
         padding: 8px;
-        cursor: pointer; }
+        cursor: pointer;
+        color: #333; }
         .xui-notice-content-wrap .xui-notice-content .notice-content > ul .content-type-wrap {
           display: flex; }
           .xui-notice-content-wrap .xui-notice-content .notice-content > ul .content-type-wrap:hover {
-            background: #b1daf8; }
+            background: #B1DAF8; }
           .xui-notice-content-wrap .xui-notice-content .notice-content > ul .content-type-wrap .content-type {
             flex-grow: 1;
-            overflow: hidden;
             line-height: 30px;
             height: 30px;
-            text-overflow: ellipsis;
-            white-space: nowrap;
             max-width: 350px;
             padding: 0 5px;
             font-size: 13px;
-            color: #333; }
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden; }
           .xui-notice-content-wrap .xui-notice-content .notice-content > ul .content-type-wrap .count {
             width: 35px; }
             .xui-notice-content-wrap .xui-notice-content .notice-content > ul .content-type-wrap .count i {
               border-radius: 7px;
               display: inline-block;
               height: 15px;
+              line-height: 15px;
               width: 30px;
               text-align: center;
               color: #fff;
               background: #0394F9;
-              font-style: normal;
-              line-height: 15px; }
+              font-style: normal; }
         .xui-notice-content-wrap .xui-notice-content .notice-content > ul .content-wrap {
           display: flex;
           flex-direction: column;
@@ -3844,17 +3858,16 @@ table {
           max-width: 350px;
           padding: 0 5px; }
           .xui-notice-content-wrap .xui-notice-content .notice-content > ul .content-wrap:hover {
-            background: #b1daf8; }
+            background: #B1DAF8; }
           .xui-notice-content-wrap .xui-notice-content .notice-content > ul .content-wrap .content {
             width: 100%;
             font-size: 13px;
-            color: #333;
             line-height: 30px; }
             .xui-notice-content-wrap .xui-notice-content .notice-content > ul .content-wrap .content .content-title {
               display: inline-block;
-              overflow: hidden;
               text-overflow: ellipsis;
               white-space: nowrap;
+              overflow: hidden;
               vertical-align: bottom;
               max-width: 92px; }
           .xui-notice-content-wrap .xui-notice-content .notice-content > ul .content-wrap .time {
@@ -3877,11 +3890,10 @@ table {
         cursor: pointer;
         padding: 0 15px;
         line-height: 40px;
-        text-align: center; }
+        text-align: center;
+        color: #666; }
   .xui-notice-content-wrap .triangle {
-    border-left: solid 7px transparent;
-    border-right: solid 7px transparent;
-    border-top: solid 7px transparent;
+    border: solid 7px transparent;
     border-bottom: solid 7px #cee0f0;
     width: 0;
     height: 0;
@@ -3894,9 +3906,7 @@ table {
       display: block;
       width: 0;
       height: 0;
-      border-left: solid 8px transparent;
-      border-right: solid 8px transparent;
-      border-top: solid 8px transparent;
+      border: solid 8px transparent;
       border-bottom: solid 8px #fff;
       position: absolute;
       left: -8px;
@@ -5617,7 +5627,7 @@ table {
     -moz-transition: All 0.3s ease;
     -o-transition: All 0.3s ease;
     width: 100%;
-    height: 20px;
+    height: 18px;
     background: #CAE7FC;
     border-radius: 9px; }
   .xui-toggle-wrap .toggle-button {
@@ -5633,12 +5643,13 @@ table {
     top: 0;
     left: 0;
     border: 1px solid #CEE0F0;
-    box-shadow: 0px 1px 2px 0px rgba(86, 120, 159, 0.15); }
+    box-shadow: 0px 1px 2px 0px rgba(86, 120, 159, 0.15);
+    box-sizing: border-box; }
 
 .xui-switch-wrap {
   display: inline-block;
   width: 30px;
-  height: 20px;
+  height: 18px;
   vertical-align: middle;
   position: relative;
   cursor: pointer; }
@@ -5673,8 +5684,9 @@ table {
     background: #fff;
     top: 0;
     left: 0;
-    border: 1px solid #CEE0F0;
-    box-shadow: 0px 1px 2px 0px rgba(86, 120, 159, 0.15); }
+    border: 1px solid #CAE7FC;
+    box-shadow: 0px 1px 2px 0px rgba(86, 120, 159, 0.15);
+    box-sizing: border-box; }
 
 .test .test-blue {
   color: #5BABE6; }

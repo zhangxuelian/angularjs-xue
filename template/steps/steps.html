@@ -8,7 +8,7 @@
                 <span class="bar-icon-inner" ng-if="stepsConfig.iconStyle=='num'">{{$index+1}}</span>
                 <span class="bar-icon-inner"
                     ng-if="stepsConfig.iconStyle=='statusNum' && !option.passed">{{$index+1}}</span>
-                <i class="bar-icon-inner fa fa-check"
+                <i class="bar-icon-inner xui-icon xui-icon-md-checkmark"
                     ng-if="(stepsConfig.iconStyle=='statusNum'||stepsConfig.iconStyle=='strokeStatus'||stepsConfig.iconStyle=='fillStatus') && option.passed && option[stepsConfig.idField]!=ngValue"></i>
             </div>
             <div class="bar-line"></div>

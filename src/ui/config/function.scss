@@ -144,3 +144,28 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
+// 三角箭头样式(默认居中)
+
+@mixin triangle($border-width,$border-color,$margin-left:50%) {
+  border: solid $border-width transparent;
+  border-bottom: solid $border-width $border-color;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -(2*$border-width);
+  left: -$border-width;
+  margin-left: $margin-left;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border: solid ($border-width+1) transparent;
+    border-bottom: solid ($border-width+1) #fff;
+    position: absolute;
+    left: -($border-width+1);
+    top: -$border-width;
+  }
+}

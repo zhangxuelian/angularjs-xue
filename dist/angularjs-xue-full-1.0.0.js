@@ -398,6 +398,29 @@ angular.module('xue.counter', ['xue.util.lang'])
                     },
                     inputChange: function () {
                         //支持负值、空值、0及非0开头数字
+                        // var reg = /^-?(0|[1-9][0-9]*)*$/;
+                        // if (reg.test(gxCounterCtrl.number)) {
+                        //     if (scope.counterConfig.required && !gxCounterCtrl.number) {
+                        //         gxCounterCtrl.number = gxCounterCtrl.lastNumber == "-" ? scope.counterConfig.min : gxCounterCtrl.lastNumber;
+                        //     } else if (gxCounterCtrl.number > scope.counterConfig.max) {
+                        //         gxCounterCtrl.number = scope.counterConfig.max;
+                        //     } else if (gxCounterCtrl.number < scope.counterConfig.min) {
+                        //         gxCounterCtrl.number = scope.counterConfig.min;
+                        //     }
+                        // } else {
+                        //     //不符合规则的值重置为上一次更改的值
+                        //     gxCounterCtrl.number = gxCounterCtrl.lastNumber;
+                        // }
+                        // gxCounterCtrl.lastNumber = gxCounterCtrl.number;
+                        if (xueUtilLang.isFunction(scope.counterConfig.change)) {
+                            scope.counterConfig.change(gxCounterCtrl.number, scope.params);
+                        }
+                        if (scope.counterConfig.trigger == "change" && xueUtilLang.isFunction(scope.counterConfig.changeCallback)) {
+                            scope.counterConfig.changeCallback(gxCounterCtrl.number, scope.params);
+                        }
+                    },
+                    inputBlur: function () {
+                        //支持负值、空值、0及非0开头数字
                         var reg = /^-?(0|[1-9][0-9]*)*$/;
                         if (reg.test(gxCounterCtrl.number)) {
                             if (scope.counterConfig.required && !gxCounterCtrl.number) {
@@ -412,14 +435,6 @@ angular.module('xue.counter', ['xue.util.lang'])
                             gxCounterCtrl.number = gxCounterCtrl.lastNumber;
                         }
                         gxCounterCtrl.lastNumber = gxCounterCtrl.number;
-                        if (xueUtilLang.isFunction(scope.counterConfig.change)) {
-                            scope.counterConfig.change(gxCounterCtrl.number, scope.params);
-                        }
-                        if (scope.counterConfig.trigger == "change" && xueUtilLang.isFunction(scope.counterConfig.changeCallback)) {
-                            scope.counterConfig.changeCallback(gxCounterCtrl.number, scope.params);
-                        }
-                    },
-                    inputBlur: function () {
                         if (xueUtilLang.isFunction(scope.counterConfig.blur)) {
                             scope.counterConfig.blur(gxCounterCtrl.number, scope.params);
                         }
@@ -1597,7 +1612,8 @@ angular.module('xue.directives', ['xue.util.lang'])
                 })
 
                 function removeEle() {
-                    $('body').find("#" + scope.id).remove();
+                    // $('body').find("#" + scope.id).remove();
+                    $('body').find(".common-title-tip").remove();
                 }
                 // 判断title位置
                 function chekPosition(e) {
@@ -2675,7 +2691,7 @@ angular.module('xue.notice', ['xue.util.lang'])
                     defaultConfig: {
                         modalId: null,
                         title: '', // 滑过显示标题
-                        // iconUrl: 'common/directives/images/gx_notice/warn.png', // 图标
+                        iconClassName: 'xui-icon-md-notifications-outline',// 图标
                         width: '366px', // 提示容器宽
                         height: '266px', // 提示容器高
                         count: 0, // 总提示记录数，为0时不显示
@@ -2690,7 +2706,7 @@ angular.module('xue.notice', ['xue.util.lang'])
                             count: 3
                         }],
                         tabMark: 'number', //number 数字 circle 圆点
-                        showNotice: true, // 显示提示内容
+                        // showNotice: true, // 显示提示内容
                         formatField: { // 字段名格式化
                             contentTitle: '',
                             content: 'content',
@@ -3252,8 +3268,6 @@ angular.module('xue.select', ['xue.util.array', 'xue.util.lang'])
                         if ((!scope.selectConfig.checkbox && scope.selectConfig.filter && scope.selectConfig.separate) || scope.selectConfig.checkbox) {
                             ele.find(".select-content>input[type='text']").focus();
                         }
-                    } else {
-                        //ele.find(".select-content").hide();
                     }
                 }
 
@@ -3581,7 +3595,7 @@ angular.module('xue.table', ['xue.util.lang', 'xue.pagination', 'xue.util.array'
                         title: '列表',
                         tools: [{
                                 text: '刷新',
-                                icon: 'fa fa-refresh',
+                                icon: 'xui-icon xui-icon-ios-refresh',
                                 permissionCode: '',
                                 noPermission: true,
                                 callback: function () {
@@ -3590,25 +3604,25 @@ angular.module('xue.table', ['xue.util.lang', 'xue.pagination', 'xue.util.array'
                             },
                             {
                                 text: '上传',
-                                icon: 'fa fa-upload',
+                                icon: 'xui-icon xui-icon-ios-cloud-upload',
                                 permissionCode: '',
                                 callback: function () {}
                             },
                             {
                                 text: '下载',
-                                icon: 'fa fa-download',
+                                icon: 'xui-icon xui-icon-ios-cloud-download',
                                 permissionCode: '',
                                 callback: function () {}
                             },
                             {
                                 text: '导入',
-                                icon: 'fa fa-sign-in',
+                                icon: 'xui-icon xui-icon-ios-cloud-download',
                                 permissionCode: '',
                                 callback: function () {}
                             },
                             {
                                 text: '导出',
-                                icon: 'fa fa-sign-out',
+                                icon: 'xui-icon xui-icon-ios-cloud-upload',
                                 permissionCode: '',
                                 callback: function () {}
                             }
@@ -7253,8 +7267,8 @@ angular.module("xue/template/notice/notice.html", []).run(["$templateCache", fun
   $templateCache.put("xue/template/notice/notice.html",
     "<div class=\"xui-notice-container\" ng-mouseenter=\"gxNoticeCtrl.mouseenter()\" ng-mouseleave=\"gxNoticeCtrl.mouseleave()\"> \n" +
     "    <div class=\"xui-notice-icon\" title=\"{{noticeConfig.title || '消息提醒'}}\">\n" +
-    "        <i class=\"xui-icon xui-icon-md-notifications-outline notice-icon\"></i>\n" +
-    "        <!-- <img class=\"notice-icon\" src=\"\" alt=\"\" onerror=\"javascript:this.src='common/directives/images/gx_notice/warn.png'\"> -->\n" +
+    "        <!-- <i class=\"xui-icon xui-icon-md-notifications-outline notice-icon\"></i> -->\n" +
+    "        <i class=\"xui-icon notice-icon\" ng-class=\"noticeConfig.iconClassName\"></i>\n" +
     "        <span class=\"notice-count\" title=\"{{noticeConfig.count}}\" ng-show=\"noticeConfig.count>0\">{{noticeConfig.count>99?'99+':noticeConfig.count}}</span>\n" +
     "    </div>\n" +
     "    <div class=\"xui-notice-content-wrap\" id=\"{{noticeConfig.modalId}}\" ng-mouseenter=\"gxNoticeCtrl.mouseenter()\" ng-mouseleave=\"gxNoticeCtrl.mouseleave()\">\n" +
@@ -7271,7 +7285,7 @@ angular.module("xue/template/notice/notice.html", []).run(["$templateCache", fun
     "            </div>\n" +
     "            <div class=\"notice-content\" scroll-bottom=\"noticeConfig.loadNextPage()\">\n" +
     "                <ul>\n" +
-    "                    <li class=\"content-wrap\" ng-if=\"noticeConfig.noticeList.length\" ng-click=\"noticeConfig.itemClick(item)\"\n" +
+    "                    <li class=\"content-wrap\" ng-if=\"!noticeConfig.showNoticeType\" ng-click=\"noticeConfig.itemClick(item)\"\n" +
     "                        ng-repeat=\"item in noticeConfig.noticeList | limitTo : noticeConfig.listMaxLen\">\n" +
     "                        <span class=\"content\" title=\"{{item[noticeConfig.formatField.completeContent] || item.completeContent || item[noticeConfig.formatField.content] || item.content}}\">\n" +
     "                            【<b ng-if=\"noticeConfig.formatField.contentTitle\" class=\"content-title\" title=\"{{item[noticeConfig.formatField.contentTitle] || item.formatField.contentTitle}}\">\n" +
@@ -7280,7 +7294,7 @@ angular.module("xue/template/notice/notice.html", []).run(["$templateCache", fun
     "                        </span>\n" +
     "                        <span class=\"time\">{{item[noticeConfig.formatField.time] || item.time}}</span>\n" +
     "                    </li>\n" +
-    "                    <li class=\"content-type-wrap\" ng-if=\"noticeConfig.noticeTypeList.length\" ng-click=\"noticeConfig.itemClick(item)\"\n" +
+    "                    <li class=\" content-type-wrap\" ng-if=\"noticeConfig.showNoticeType\" ng-click=\"noticeConfig.itemClick(item)\"\n" +
     "                        ng-repeat=\"item in noticeConfig.noticeTypeList | limitTo : noticeConfig.listMaxLen\">\n" +
     "                        <span class=\"content-type\" title=\"{{item[noticeConfig.formatField.contentType] || item.contentType}}\">\n" +
     "                            <!-- <b ng-if=\"noticeConfig.formatField.contentTitle\">【{{item[noticeConfig.formatField.contentTitle] || item.formatField.contentTitle}}】</b> -->\n" +
@@ -7391,7 +7405,6 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "                <div class=\"select-filter-wrap\">\n" +
     "                    <input type=\"text\" ng-model=\"selectConfig.myLabel\" class=\"xui-input select-filter\" />\n" +
     "                </div>\n" +
-    "                <!-- <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\">x</i> -->\n" +
     "                <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\" class=\"xui-icon xui-icon-ios-trash\"></i>\n" +
     "            </div>\n" +
     "            <ul class=\"select-list\">\n" +
@@ -7436,7 +7449,6 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "                <div class=\"select-filter-wrap\">\n" +
     "                    <input type=\"text\" ng-model=\"selectConfig.myLabel\" class=\"xui-input select-filter\" />\n" +
     "                </div>\n" +
-    "                <!-- <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\">x</i> -->\n" +
     "                <i ng-click=\"clear()\" ng-if=\"selectConfig.enableEmpty\" title=\"清空\" class=\"xui-icon xui-icon-ios-trash\"></i>\n" +
     "            </div>\n" +
     "            <ul ng-style=\"showContent\" class=\"select-list\">\n" +
@@ -7488,7 +7500,7 @@ angular.module("xue/template/steps/steps.html", []).run(["$templateCache", funct
     "                <span class=\"bar-icon-inner\" ng-if=\"stepsConfig.iconStyle=='num'\">{{$index+1}}</span>\n" +
     "                <span class=\"bar-icon-inner\"\n" +
     "                    ng-if=\"stepsConfig.iconStyle=='statusNum' && !option.passed\">{{$index+1}}</span>\n" +
-    "                <i class=\"bar-icon-inner fa fa-check\"\n" +
+    "                <i class=\"bar-icon-inner xui-icon xui-icon-md-checkmark\"\n" +
     "                    ng-if=\"(stepsConfig.iconStyle=='statusNum'||stepsConfig.iconStyle=='strokeStatus'||stepsConfig.iconStyle=='fillStatus') && option.passed && option[stepsConfig.idField]!=ngValue\"></i>\n" +
     "            </div>\n" +
     "            <div class=\"bar-line\"></div>\n" +
@@ -7523,7 +7535,6 @@ angular.module("xue/template/table/table.html", []).run(["$templateCache", funct
     "                    <i class=\"xui-icon xui-icon-ios-eye-outline\"></i>显示选项\n" +
     "                </button>\n" +
     "                <div class=\"option-dialog\" ng-if=\"tableConfig.toolbar.show\" id=\"showTableCol2\">\n" +
-    "                    <i class=\"arrow\"></i>\n" +
     "                    <i class=\"arrow\"></i>\n" +
     "                    <div class=\"option-top\">\n" +
     "                        <span class=\"select-all\" ng-click=\"popup.selectAll()\">\n" +

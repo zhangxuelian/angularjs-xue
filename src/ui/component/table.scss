@@ -377,20 +377,7 @@ $table-header-bg-color: #eff6ff !default;
         }
 
         .arrow {
-            position: absolute;
-            top: -9px;
-            right: 10px;
-            width: 10px;
-            height: 10px;
-            border-bottom: 6px solid #fff;
-            border-left: 6px solid transparent;
-            border-right: 6px solid transparent;
-            box-sizing: border-box;
-
-            &:first-child {
-                top: -11px;
-                border-bottom: 6px solid #cbd5df;
-            }
+            @include triangle(7px,$table-border-color,$margin-left:95%);
         }
     }
 }

@@ -562,9 +562,9 @@ $ npm run demo or npm run test-demo</code></pre>
                     <div class="page-content">
                         <div class="content-html">
                             <div ng-controller="xueCounterDemoCtrl">
-  <xue-counter counter-config="vm.counterConfigSm" ng-number="vm.number1"></xue-counter>
-  <xue-counter counter-config="vm.counterConfig" ng-number="vm.number2"></xue-counter>
-  <xue-counter counter-config="vm.counterConfigLg" ng-number="vm.number3"></xue-counter>
+  <xue-counter counter-config="vm.counterConfigSm" ng-number="vm.number"></xue-counter>
+  <xue-counter counter-config="vm.counterConfig" ng-number="vm.number"></xue-counter>
+  <xue-counter counter-config="vm.counterConfigLg" ng-number="vm.number"></xue-counter>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
@@ -672,28 +672,28 @@ $ npm run demo or npm run test-demo</code></pre>
 <tr>
 <td>change</td>
 <td align="left">change事件</td>
-<td align="left">Funciton</td>
+<td align="left">Funciton（number,params）</td>
 <td align="left">-</td>
 <td align="left">-</td>
 </tr>
 <tr>
 <td>blur</td>
 <td align="left">blur事件</td>
-<td align="left">Funciton</td>
+<td align="left">Funciton（number,params）</td>
 <td align="left">-</td>
 <td align="left">-</td>
 </tr>
 <tr>
 <td>focus</td>
 <td align="left">focus事件</td>
-<td align="left">Funciton</td>
+<td align="left">Funciton（number,params）</td>
 <td align="left">-</td>
 <td align="left">-</td>
 </tr>
 <tr>
 <td>changeCallback</td>
 <td align="left">数据改变回调</td>
-<td align="left">Funciton</td>
+<td align="left">Funciton（number,params）</td>
 <td align="left">-</td>
 <td align="left">-</td>
 </tr>
@@ -714,9 +714,9 @@ $ npm run demo or npm run test-demo</code></pre>
                                     <div plunker-content="markup">
                                         <pre
                                             ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueCounterDemoCtrl&quot;&gt;
-  &lt;xue-counter counter-config=&quot;vm.counterConfigSm&quot; ng-number=&quot;vm.number1&quot;&gt;&lt;/xue-counter&gt;
-  &lt;xue-counter counter-config=&quot;vm.counterConfig&quot; ng-number=&quot;vm.number2&quot;&gt;&lt;/xue-counter&gt;
-  &lt;xue-counter counter-config=&quot;vm.counterConfigLg&quot; ng-number=&quot;vm.number3&quot;&gt;&lt;/xue-counter&gt;
+  &lt;xue-counter counter-config=&quot;vm.counterConfigSm&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
+  &lt;xue-counter counter-config=&quot;vm.counterConfig&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
+  &lt;xue-counter counter-config=&quot;vm.counterConfigLg&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
 &lt;/div&gt;</code></pre>
                                     </div>
                                 </xue-tab>
@@ -725,27 +725,28 @@ $ npm run demo or npm run test-demo</code></pre>
                                         <pre
                                             ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueCounterDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     $scope.vm = {
-        counterConfig:{
+        counterConfig: {
             suffix: &quot;℃&quot;,
             max: 300,
             min: 0,
-            type:2
+            type: 2,
+            changeCallback: function (value) {
+                console.log(value);
+            }
         },
-        counterConfigLg:{
+        counterConfigLg: {
             suffix: &quot;℃&quot;,
             max: 300,
             min: 0,
-            size:&#39;large&#39;
+            size: &#39;large&#39;
         },
-        counterConfigSm:{
+        counterConfigSm: {
             suffix: &quot;℃&quot;,
             max: 300,
             min: 20,
-            size:&#39;small&#39;
+            size: &#39;small&#39;
         },
-        number1:20,
-        number2:20,
-        number3:20
+        number: 20
     }
 }]);</code></pre>
                                     </div>
@@ -756,27 +757,28 @@ $ npm run demo or npm run test-demo</code></pre>
                 </section>
                 <script>angular.module('ui.xue.demo').controller('xueCounterDemoCtrl', ['$scope', function ($scope) {
     $scope.vm = {
-        counterConfig:{
+        counterConfig: {
             suffix: "℃",
             max: 300,
             min: 0,
-            type:2
+            type: 2,
+            changeCallback: function (value) {
+                console.log(value);
+            }
         },
-        counterConfigLg:{
+        counterConfigLg: {
             suffix: "℃",
             max: 300,
             min: 0,
-            size:'large'
+            size: 'large'
         },
-        counterConfigSm:{
+        counterConfigSm: {
             suffix: "℃",
             max: 300,
             min: 20,
-            size:'small'
+            size: 'small'
         },
-        number1:20,
-        number2:20,
-        number3:20
+        number: 20
     }
 }]);</script>
                 
@@ -1235,7 +1237,10 @@ $ npm run demo or npm run test-demo</code></pre>
                     <div class="page-content">
                         <div class="content-html">
                             <div ng-controller="xueLoadingDemoCtrl">
-    <div style="position:relative;width:300px;height:100px;" xue-loading="vm.loadingConfig"></div>
+    <div style="position:relative;width:300px;height:100px;display:inline-block;" xue-loading="vm.loadingConfig"></div>
+    <div style="position:relative;width:300px;height:100px;display:inline-block;" xue-loading="vm.loadingConfig2"></div>
+    <div style="position:relative;width:300px;height:100px;display:inline-block;" xue-loading="vm.loadingConfig3"></div>
+    <button ng-click="vm.stop()">停止</button>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
@@ -1269,7 +1274,7 @@ $ npm run demo or npm run test-demo</code></pre>
 </thead>
 <tbody><tr>
 <td>isShowLoading</td>
-<td align="left">是否显示加载窗</td>
+<td align="left">是否显示加载</td>
 <td align="left">Boolean</td>
 <td align="left">-</td>
 <td align="left">false</td>
@@ -1292,15 +1297,15 @@ $ npm run demo or npm run test-demo</code></pre>
 <td>className</td>
 <td align="left">自定义样式名</td>
 <td align="left">String</td>
-<td align="left">ball-circus,square-jelly-box,ball-pulse-sync,ball-spin-clockwise,line-spin-clockwise,ball-clip-rotate</td>
-<td align="left">ball-circus</td>
+<td align="left">-</td>
+<td align="left">-</td>
 </tr>
 <tr>
 <td>loadingTypeClass</td>
 <td align="left">加载样式名</td>
 <td align="left">Number</td>
-<td align="left">-</td>
-<td align="left">-</td>
+<td align="left">ball-circus,square-jelly-box,ball-pulse-sync,ball-spin-clockwise,line-spin-clockwise,ball-clip-rotate</td>
+<td align="left">ball-circus</td>
 </tr>
 <tr>
 <td>itemArr</td>
@@ -1333,7 +1338,10 @@ $ npm run demo or npm run test-demo</code></pre>
                                     <div plunker-content="markup">
                                         <pre
                                             ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueLoadingDemoCtrl&quot;&gt;
-    &lt;div style=&quot;position:relative;width:300px;height:100px;&quot; xue-loading=&quot;vm.loadingConfig&quot;&gt;&lt;/div&gt;
+    &lt;div style=&quot;position:relative;width:300px;height:100px;display:inline-block;&quot; xue-loading=&quot;vm.loadingConfig&quot;&gt;&lt;/div&gt;
+    &lt;div style=&quot;position:relative;width:300px;height:100px;display:inline-block;&quot; xue-loading=&quot;vm.loadingConfig2&quot;&gt;&lt;/div&gt;
+    &lt;div style=&quot;position:relative;width:300px;height:100px;display:inline-block;&quot; xue-loading=&quot;vm.loadingConfig3&quot;&gt;&lt;/div&gt;
+    &lt;button ng-click=&quot;vm.stop()&quot;&gt;停止&lt;/button&gt;
 &lt;/div&gt;</code></pre>
                                     </div>
                                 </xue-tab>
@@ -1345,6 +1353,23 @@ $ npm run demo or npm run test-demo</code></pre>
         loadingConfig: {
             isShowLoading: true,
             msg: &quot;加载中,请稍候...&quot;
+        },
+        loadingConfig2: {
+            isShowLoading: true,
+            theme: &#39;dark-theme&#39;,
+            loadingTypeClass: &#39;square-jelly-box&#39;,
+            msg: &quot;加载中,请稍候...&quot;
+        },
+        loadingConfig3: {
+            isShowLoading: true,
+            theme: &#39;dark-theme&#39;,
+            loadingTypeClass: &#39;line-spin-clockwise&#39;,
+            msg: &quot;加载中,请稍候...&quot;
+        },
+        stop: function () {
+            vm.loadingConfig.isShowLoading = false;
+            vm.loadingConfig2.isShowLoading = false;
+            vm.loadingConfig3.isShowLoading = false;
         }
     }
 }])</code></pre>
@@ -1359,6 +1384,23 @@ $ npm run demo or npm run test-demo</code></pre>
         loadingConfig: {
             isShowLoading: true,
             msg: "加载中,请稍候..."
+        },
+        loadingConfig2: {
+            isShowLoading: true,
+            theme: 'dark-theme',
+            loadingTypeClass: 'square-jelly-box',
+            msg: "加载中,请稍候..."
+        },
+        loadingConfig3: {
+            isShowLoading: true,
+            theme: 'dark-theme',
+            loadingTypeClass: 'line-spin-clockwise',
+            msg: "加载中,请稍候..."
+        },
+        stop: function () {
+            vm.loadingConfig.isShowLoading = false;
+            vm.loadingConfig2.isShowLoading = false;
+            vm.loadingConfig3.isShowLoading = false;
         }
     }
 }])</script>
@@ -1800,20 +1842,27 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
 <td align="left">滑过显示标题</td>
 <td align="left">String</td>
 <td align="left">-</td>
+<td align="left">消息提醒</td>
+</tr>
+<tr>
+<td>iconClassName</td>
+<td align="left">组件图标(字体图标样式名)</td>
+<td align="left">String</td>
 <td align="left">-</td>
+<td align="left">xui-icon-md-notifications-outline</td>
 </tr>
 <tr>
 <td>width</td>
-<td align="left">最大值</td>
-<td align="left">String</td>
 <td align="left">提示容器宽</td>
+<td align="left">String</td>
+<td align="left">-</td>
 <td align="left">366px</td>
 </tr>
 <tr>
 <td>height</td>
-<td align="left">最小值</td>
-<td align="left">String</td>
 <td align="left">提示容器高</td>
+<td align="left">String</td>
+<td align="left">-</td>
 <td align="left">266px</td>
 </tr>
 <tr>
@@ -1825,7 +1874,7 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
 </tr>
 <tr>
 <td>selectTabId</td>
-<td align="left">id</td>
+<td align="left">选中tab项id</td>
 <td align="left">String</td>
 <td align="left">-</td>
 <td align="left">-</td>
@@ -1839,17 +1888,10 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
 </tr>
 <tr>
 <td>tabMark</td>
-<td align="left">消息展示形式</td>
+<td align="left">消息展示样式</td>
 <td align="left">String</td>
-<td align="left">number,cricle</td>
+<td align="left">数字:number,原点:cricle</td>
 <td align="left">number</td>
-</tr>
-<tr>
-<td>showNotice</td>
-<td align="left">是否显示提示内容</td>
-<td align="left">Boolean</td>
-<td align="left">-</td>
-<td align="left">true</td>
 </tr>
 <tr>
 <td>formatField</td>
@@ -1860,35 +1902,35 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
 </tr>
 <tr>
 <td>listMaxLen</td>
-<td align="left">消息展示数</td>
+<td align="left">消息每页条数</td>
 <td align="left">Number</td>
 <td align="left">-</td>
 <td align="left">10</td>
 </tr>
 <tr>
 <td>noticeList</td>
-<td align="left">提示内容列表</td>
+<td align="left">消息内容列表</td>
 <td align="left">Array</td>
 <td align="left">-</td>
 <td align="left">-</td>
 </tr>
 <tr>
 <td>showNoticeType</td>
-<td align="left">是否显示提示分类(与提示内容列表互斥)</td>
+<td align="left">是否显示消息分类列表(与消息内容列表互斥)</td>
 <td align="left">Boolean</td>
 <td align="left">-</td>
 <td align="left">false</td>
 </tr>
 <tr>
 <td>noticeTypeList</td>
-<td align="left">提示分类列表</td>
+<td align="left">消息分类列表</td>
 <td align="left">Array</td>
 <td align="left">-</td>
 <td align="left">-</td>
 </tr>
 <tr>
 <td>emptyNoticeTip</td>
-<td align="left">自定义无消息提示语</td>
+<td align="left">无消息提示文案</td>
 <td align="left">String</td>
 <td align="left">-</td>
 <td align="left">暂没有新消息</td>
@@ -1898,26 +1940,26 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
 <td align="left">是否显示底部操作</td>
 <td align="left">Boolean</td>
 <td align="left">-</td>
-<td align="left">-</td>
+<td align="left">true</td>
 </tr>
 <tr>
 <td>footerContent</td>
-<td align="left">底部操作内容数组</td>
+<td align="left">底部操作项数组</td>
 <td align="left">Array</td>
 <td align="left">-</td>
-<td align="left">-</td>
+<td align="left">[{name:&#39;&#39;,<br />click:funciton(){}}]</td>
 </tr>
 <tr>
 <td>tabItemClick</td>
 <td align="left">tab项点击回调</td>
-<td align="left">Funciton</td>
+<td align="left">Funciton(item)</td>
 <td align="left">-</td>
 <td align="left">-</td>
 </tr>
 <tr>
 <td>itemClick</td>
 <td align="left">列表项点击回调</td>
-<td align="left">Funciton</td>
+<td align="left">Funciton(item)</td>
 <td align="left">-</td>
 <td align="left">-</td>
 </tr>
@@ -1969,27 +2011,40 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
                                             ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueNoticeDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     $scope.vm = {
         config: {
-            count: 0,
+            count: 15,
             selectTabId: 1,
             listMaxLen: 10,
-            noticeTypeList: [],
-            noticeList: [],
+            noticeTypeList: [{contentType: &#39;提示分类内容&#39;, count: 0},{contentType: &#39;提示分类内容2&#39;, count: 101}],
+            noticeList: [{
+                content: &#39;提示内容1&#39;,
+                contentType:&#39;审批1&#39;,
+                time: &#39;2019-08-20 17:13:55&#39;
+            }, {
+                content: &#39;提示内容2&#39;,
+                contentType:&#39;审批2&#39;,
+                time: &#39;2019-08-20 17:13:55&#39;
+            }],
+            formatField: {
+                contentTitle:&#39;contentType&#39;
+            },
             tabMark: &#39;number&#39;,
             tabItem: [{
                 id: 0,
                 name: &#39;通知提醒&#39;,
-                count: 3
+                count: 99
             }, {
                 id: 1,
                 name: &#39;待办事项&#39;,
-                count: 5
+                count: 105
             }, {
                 id: 2,
                 name: &#39;系统公告&#39;,
-                count: 7
+                count: 24
             }],
+            showNoticeType: false,
             tabItemClick: function (item) {
-                console.log(item)
+                console.log(item);
+                $scope.vm.config.showNoticeType =true;
             }
         }
     }
@@ -2003,27 +2058,40 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
                 <script>angular.module('ui.xue.demo').controller('xueNoticeDemoCtrl', ['$scope', function ($scope) {
     $scope.vm = {
         config: {
-            count: 0,
+            count: 15,
             selectTabId: 1,
             listMaxLen: 10,
-            noticeTypeList: [],
-            noticeList: [],
+            noticeTypeList: [{contentType: '提示分类内容', count: 0},{contentType: '提示分类内容2', count: 101}],
+            noticeList: [{
+                content: '提示内容1',
+                contentType:'审批1',
+                time: '2019-08-20 17:13:55'
+            }, {
+                content: '提示内容2',
+                contentType:'审批2',
+                time: '2019-08-20 17:13:55'
+            }],
+            formatField: {
+                contentTitle:'contentType'
+            },
             tabMark: 'number',
             tabItem: [{
                 id: 0,
                 name: '通知提醒',
-                count: 3
+                count: 99
             }, {
                 id: 1,
                 name: '待办事项',
-                count: 5
+                count: 105
             }, {
                 id: 2,
                 name: '系统公告',
-                count: 7
+                count: 24
             }],
+            showNoticeType: false,
             tabItemClick: function (item) {
-                console.log(item)
+                console.log(item);
+                $scope.vm.config.showNoticeType =true;
             }
         }
     }
@@ -2255,8 +2323,8 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
 </tr>
 <tr>
 <td>ng-item</td>
-<td>选中项</td>
-<td>Object</td>
+<td>选择回调第二个参数</td>
+<td>-</td>
 </tr>
 </tbody></table>
 <h4 id="select-config-attributes">select-config Attributes</h4>
@@ -2420,21 +2488,21 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
 <tr>
 <td>onBeforeSelect</td>
 <td align="left">选择前回调</td>
-<td align="left">Funciton</td>
+<td align="left">Funciton(item)</td>
 <td align="left">-</td>
 <td align="left">-</td>
 </tr>
 <tr>
 <td>onSelect</td>
 <td align="left">选择回调</td>
-<td align="left">Funciton</td>
+<td align="left">Funciton(item)</td>
 <td align="left">-</td>
 <td align="left">-</td>
 </tr>
 <tr>
 <td>assign</td>
 <td align="left">赋值回调</td>
-<td align="left">Funciton</td>
+<td align="left">Funciton(Array)</td>
 <td align="left">-</td>
 <td align="left">-</td>
 </tr>
@@ -2689,7 +2757,7 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
 </tr>
 <tr>
 <td>ng-value</td>
-<td>步骤条值</td>
+<td>步骤条绑定值</td>
 <td>String</td>
 </tr>
 </tbody></table>
@@ -2762,7 +2830,7 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
 </tr>
 <tr>
 <td>options</td>
-<td align="left">步骤条项</td>
+<td align="left">步骤项</td>
 <td align="left">Array</td>
 <td align="left">-</td>
 <td align="left"></td>
@@ -2770,7 +2838,7 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
 <tr>
 <td>changeCallback</td>
 <td align="left">改变回调</td>
-<td align="left">Function</td>
+<td align="left">Function(item)</td>
 <td align="left">-</td>
 <td align="left">-</td>
 </tr>
@@ -2803,6 +2871,7 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
     $scope.stepsConfig = {
         theme:&#39;green-theme&#39;,
         alignCenter: true,
+        iconStyle:&#39;statusNum&#39;,
         options: [{
             title: &#39;Finished&#39;,
             code: 0
@@ -2826,6 +2895,7 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
     $scope.stepsConfig = {
         theme:'green-theme',
         alignCenter: true,
+        iconStyle:'statusNum',
         options: [{
             title: 'Finished',
             code: 0
@@ -3276,7 +3346,7 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
 <td align="left">是否权限控制</td>
 <td align="left">Boolean</td>
 <td align="left">-</td>
-<td align="left">-</td>
+<td align="left">false</td>
 </tr>
 <tr>
 <td>permissionCode</td>

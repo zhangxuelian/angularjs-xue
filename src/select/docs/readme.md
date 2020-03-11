@@ -11,7 +11,7 @@
 | set-val | 设置值 | String |
 | get-val | 获取值 | String |
 | ng-disabled | 是否禁用 | Boolean |
-| ng-item | 选中项 | Object |
+| ng-item | 选择回调第二个参数 | - |
 
 #### select-config Attributes
 
@@ -38,9 +38,9 @@
 | checkRows       | 选中数组             | Array    | - | - |
 | checkLimit      | 选中条数限制         | Number   | - | null   |
 | checkRowsMap    | 选中记录map          | Object   | - | - |
-| onBeforeSelect  | 选择前回调           | Funciton | - | - |
-| onSelect        | 选择回调             | Funciton | - | - |
-| assign          | 赋值回调             | Funciton | - | - |
+| onBeforeSelect  | 选择前回调           | Funciton(item) | - | - |
+| onSelect        | 选择回调             | Funciton(item) | - | - |
+| assign          | 赋值回调             | Funciton(Array) | - | - |
 | clearAll        | 清空回调             | Funciton | - | - |
 | disabled        | 是否禁用             | Boolean  | - | - |
 | cancelWatch     | 取消监听             | Funciton | - | - |

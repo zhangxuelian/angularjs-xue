@@ -21,7 +21,6 @@ angular.module("xue/template/table/table.html", []).run(["$templateCache", funct
     "                </button>\n" +
     "                <div class=\"option-dialog\" ng-if=\"tableConfig.toolbar.show\" id=\"showTableCol2\">\n" +
     "                    <i class=\"arrow\"></i>\n" +
-    "                    <i class=\"arrow\"></i>\n" +
     "                    <div class=\"option-top\">\n" +
     "                        <span class=\"select-all\" ng-click=\"popup.selectAll()\">\n" +
     "                            <xue-checkbox ng-checked=\"tableConfig.selectAllColumn\"></xue-checkbox>\n" +

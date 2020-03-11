@@ -170,8 +170,6 @@ angular.module('xue.select', ['xue.util.array', 'xue.util.lang'])
                         if ((!scope.selectConfig.checkbox && scope.selectConfig.filter && scope.selectConfig.separate) || scope.selectConfig.checkbox) {
                             ele.find(".select-content>input[type='text']").focus();
                         }
-                    } else {
-                        //ele.find(".select-content").hide();
                     }
                 }
 

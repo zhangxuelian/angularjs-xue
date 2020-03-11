@@ -61,6 +61,6 @@
 | -------------- | :----------- | :------- | :----- | :----- |
 | text           | 操作文本     | String   | -      | false  |
 | icon           | 图标样式     | String   | -      | 列表   |
-| noPermission   | 是否权限控制 | Boolean  | -      | -      |
+| noPermission   | 是否权限控制 | Boolean  | -      | false      |
 | permissionCode | 权限控制名称 | String   | -      | -      |
 | callback       | 操作回调     | Function | -      | -      |

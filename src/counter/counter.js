@@ -68,6 +68,29 @@ angular.module('xue.counter', ['xue.util.lang'])
                     },
                     inputChange: function () {
                         //支持负值、空值、0及非0开头数字
+                        // var reg = /^-?(0|[1-9][0-9]*)*$/;
+                        // if (reg.test(gxCounterCtrl.number)) {
+                        //     if (scope.counterConfig.required && !gxCounterCtrl.number) {
+                        //         gxCounterCtrl.number = gxCounterCtrl.lastNumber == "-" ? scope.counterConfig.min : gxCounterCtrl.lastNumber;
+                        //     } else if (gxCounterCtrl.number > scope.counterConfig.max) {
+                        //         gxCounterCtrl.number = scope.counterConfig.max;
+                        //     } else if (gxCounterCtrl.number < scope.counterConfig.min) {
+                        //         gxCounterCtrl.number = scope.counterConfig.min;
+                        //     }
+                        // } else {
+                        //     //不符合规则的值重置为上一次更改的值
+                        //     gxCounterCtrl.number = gxCounterCtrl.lastNumber;
+                        // }
+                        // gxCounterCtrl.lastNumber = gxCounterCtrl.number;
+                        if (xueUtilLang.isFunction(scope.counterConfig.change)) {
+                            scope.counterConfig.change(gxCounterCtrl.number, scope.params);
+                        }
+                        if (scope.counterConfig.trigger == "change" && xueUtilLang.isFunction(scope.counterConfig.changeCallback)) {
+                            scope.counterConfig.changeCallback(gxCounterCtrl.number, scope.params);
+                        }
+                    },
+                    inputBlur: function () {
+                        //支持负值、空值、0及非0开头数字
                         var reg = /^-?(0|[1-9][0-9]*)*$/;
                         if (reg.test(gxCounterCtrl.number)) {
                             if (scope.counterConfig.required && !gxCounterCtrl.number) {
@@ -82,14 +105,6 @@ angular.module('xue.counter', ['xue.util.lang'])
                             gxCounterCtrl.number = gxCounterCtrl.lastNumber;
                         }
                         gxCounterCtrl.lastNumber = gxCounterCtrl.number;
-                        if (xueUtilLang.isFunction(scope.counterConfig.change)) {
-                            scope.counterConfig.change(gxCounterCtrl.number, scope.params);
-                        }
-                        if (scope.counterConfig.trigger == "change" && xueUtilLang.isFunction(scope.counterConfig.changeCallback)) {
-                            scope.counterConfig.changeCallback(gxCounterCtrl.number, scope.params);
-                        }
-                    },
-                    inputBlur: function () {
                         if (xueUtilLang.isFunction(scope.counterConfig.blur)) {
                             scope.counterConfig.blur(gxCounterCtrl.number, scope.params);
                         }
