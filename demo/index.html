@@ -1701,11 +1701,11 @@ $ npm run demo or npm run test-demo</code></pre>
         }
     }) */
 }]);
-angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$scope&#39;,function($scope){
+angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$scope&#39;,&#39;$modalInstance&#39;,function($scope,$modalInstance){
     console.log(&#39;xxx&#39;);
     $scope.test = &quot;zxl&quot;;
     $scope.close = function(){
-        $scope.$close({
+        $modalInstance.close({
             a: &#39;test zxl&#39;
         });
     }
@@ -1736,11 +1736,11 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
         }
     }) */
 }]);
-angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope',function($scope){
+angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstance',function($scope,$modalInstance){
     console.log('xxx');
     $scope.test = "zxl";
     $scope.close = function(){
-        $scope.$close({
+        $modalInstance.close({
             a: 'test zxl'
         });
     }

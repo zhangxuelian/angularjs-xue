@@ -18,11 +18,11 @@ angular.module('ui.xue.demo').controller('xueModalDemoCtrl',
         }
     }) */
 }]);
-angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope',function($scope){
+angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstance',function($scope,$modalInstance){
     console.log('xxx');
     $scope.test = "zxl";
     $scope.close = function(){
-        $scope.$close({
+        $modalInstance.close({
             a: 'test zxl'
         });
     }

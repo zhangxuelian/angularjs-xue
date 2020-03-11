@@ -99,15 +99,13 @@ angular.module('xue.modal', [])
             }
         };
     })
-    .factory('$modalStack', ['$document', '$$stackedMap', '$$multiMap', '$animate', '$rootScope', '$compile',
-        function ($document, $$stackedMap, $$multiMap, $animate, $rootScope, $compile) {
+    .factory('$modalStack', ['$document', '$q', '$$stackedMap', '$$multiMap', '$animate', '$rootScope', '$compile',
+        function ($document, $q, $$stackedMap, $$multiMap, $animate, $rootScope, $compile) {
             var ARIA_HIDDEN_ATTRIBUTE_NAME = 'xue-modal-aria-hidden-count';
             var OPENED_MODAL_CLASS = 'modal-open';
-            var $modalStack = {
-                NOW_CLOSING_EVENT: 'modal.stack.now-closing'
-            };
+            var SNAKE_CASE_REGEXP = /[A-Z]/g;
             var innerUtil = {
-                attribute: ['deferred', 'renderDeferred', 'closedDeferred', 'modalScope', 'backdrop', 'keyboard', 'openedClass', 'windowTopClass', 'animation', 'appendTo'],
+                attribute: ['deferred', 'renderDeferred', 'closedDeferred', 'backdrop', 'keyboard', 'openedClass', 'windowTopClass', 'animation', 'appendTo'],
                 openedWindows: $$stackedMap.createNew(),
                 openedClasses: $$multiMap.createNew(),
                 previousTopOpenedModal: null,
@@ -123,7 +121,7 @@ angular.module('xue.modal', [])
                     }
                 },
                 backdropIndex: function () {
-                    var topBackdropIndex = -1, self = this;
+                    var topBackdropIndex = -1, self = innerUtil;
                     var opened = self.openedWindows.keys();
                     for (var i = 0; i < opened.length; i++) {
                         if (self.openedWindows.get(opened[i]).value.backdrop) {
@@ -197,13 +195,15 @@ angular.module('xue.modal', [])
                     // Note that it's intentional that asyncPromise might be null.
                     // That's when setIsAsync has not been called during the
                     // NOW_CLOSING_EVENT broadcast.
-                    return $q.when(asyncPromise).then(function () {
+                    return $q.when(asyncPromise).then(afterAnimating);
+
+                    function afterAnimating() {
                         if (afterAnimating.done) {
                             return;
                         }
                         afterAnimating.done = true;
 
-                        $animate.leave(domEl).then(function () {
+                        $animate.leave(domEl,function(){
                             if (done) {
                                 done();
                             }
@@ -215,7 +215,7 @@ angular.module('xue.modal', [])
                         });
 
                         scope.$destroy();
-                    });
+                    }
                 },
                 checkRemoveBackdrop: function () {
                     //remove backdrop if no longer needed
@@ -265,9 +265,61 @@ angular.module('xue.modal', [])
                 },
                 broadcastClosing: function (modalWindow, resultOrReason, closing) {
                     return !modalWindow.value.modalScope.$broadcast('modal.closing', resultOrReason, closing).defaultPrevented;
+                },
+                keydownListener: function (evt) {
+                    if (evt.isDefaultPrevented()) {
+                        return evt;
+                    }
+
+                    var modal = innerUtil.openedWindows.top();
+                    if (modal) {
+                        switch (evt.which) {
+                            case 27: {
+                                if (modal.value.keyboard) {
+                                    evt.preventDefault();
+                                    $rootScope.$apply(function () {
+                                        $modalStack.dismiss(modal.key, 'escape key press');
+                                    });
+                                }
+                                break;
+                            }
+                            case 9: {
+                                var list = $modalStack.loadFocusElementList(modal);
+                                var focusChanged = false;
+                                if (evt.shiftKey) {
+                                    if ($modalStack.isFocusInFirstItem(evt, list) || $modalStack.isModalFocused(evt, modal)) {
+                                        focusChanged = $modalStack.focusLastFocusableElement(list);
+                                    }
+                                } else {
+                                    if ($modalStack.isFocusInLastItem(evt, list)) {
+                                        focusChanged = $modalStack.focusFirstFocusableElement(list);
+                                    }
+                                }
+
+                                if (focusChanged) {
+                                    evt.preventDefault();
+                                    evt.stopPropagation();
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+                },
+                isVisible: function (element) {
+                    return !!(element.offsetWidth ||
+                        element.offsetHeight ||
+                        element.getClientRects().length);
+                },
+                snake_case: function (name) {
+                    var separator = '-';
+                    return name.replace(SNAKE_CASE_REGEXP, function (letter, pos) {
+                        return (pos ? separator : '') + letter.toLowerCase();
+                    });
                 }
             };
             var $modalStack = {
+                NOW_CLOSING_EVENT: 'modal.stack.now-closing',
                 open: function (modalInstance, modal) {
                     var modalOpener = $document[0].activeElement,
                         modalBodyClass = modal.openedClass;
@@ -277,6 +329,7 @@ angular.module('xue.modal', [])
                     angular.forEach(innerUtil.attribute, function (item, i) {
                         winObj[item] = modal[item];
                     });
+                    winObj.modalScope = modal.scope;
                     innerUtil.openedWindows.add(modalInstance, winObj);
                     innerUtil.openedClasses.put(modalBodyClass, modalInstance);
                     var appendToElement = modal.appendTo,
@@ -290,8 +343,7 @@ angular.module('xue.modal', [])
                         innerUtil.backdropDomEl.attr({
                             'class': 'xui-modal-backdrop-wrap',
                             'ng-style': '{\'z-index\': 1040 + (index && 1 || 0) + index*10}',
-                            'uib-modal-animation-class': 'fade',
-                            'modal-in-class': 'in'
+                            'xue-modal-animation-class': 'fade'
                         });
                         if (modal.backdropClass) {
                             innerUtil.backdropDomEl.addClass(modal.backdropClass);
@@ -312,21 +364,21 @@ angular.module('xue.modal', [])
                     }
                     var content;
                     if (modal.component) {
-                        // content = document.createElement(snake_case(modal.component.name));
-                        // content = angular.element(content);
-                        // content.attr({
-                        //     resolve: '$resolve',
-                        //     'modal-instance': '$modalInstance',
-                        //     close: '$close($value)',
-                        //     dismiss: '$dismiss($value)'
-                        // });
+                        content = document.createElement(innerUtil.snake_case(modal.component.name));
+                        content = angular.element(content);
+                        content.attr({
+                            resolve: '$resolve',
+                            'modal-instance': '$modalInstance',
+                            close: '$close($value)',
+                            dismiss: '$dismiss($value)'
+                        });
                     } else {
                         content = modal.content;
                     }
 
                     // Set the top modal index based on the index of the previous top modal
                     innerUtil.topModalIndex = innerUtil.previousTopOpenedModal ? parseInt(innerUtil.previousTopOpenedModal.value.modalDomEl.attr('index'), 10) + 1 : 0;
-                    var angularDomEl = angular.element('<div uib-modal-window="modal-window"></div>');
+                    var angularDomEl = angular.element('<div xue-modal-window="modal-window"></div>');
                     angularDomEl.attr({
                         'class': 'modal',
                         'template-url': modal.windowTemplateUrl,
@@ -339,8 +391,7 @@ angular.module('xue.modal', [])
                         'animate': 'animate',
                         'ng-style': '{\'z-index\': 1050 + $$topModalIndex*10, display: \'block\'}',
                         'tabindex': -1,
-                        'uib-modal-animation-class': 'fade',
-                        'modal-in-class': 'in'
+                        'xue-modal-animation-class': 'fade'
                     }).append(content);
                     if (modal.windowClass) {
                         angularDomEl.addClass(modal.windowClass);
@@ -386,34 +437,85 @@ angular.module('xue.modal', [])
                     }
                     return !modalWindow;
                 },
-                dismissAll: function () {
-
+                dismissAll: function (reason) {
+                    var topModal = $modalStack.getTop();
+                    while (topModal && $modalStack.dismiss(topModal.key, reason)) {
+                        topModal = $modalStack.getTop();
+                    }
                 },
                 getTop: function () {
-
+                    return innerUtil.openedWindows.top();
                 },
-                modalRendered: function () {
-
+                modalRendered: function (modalInstance) {
+                    var modalWindow = innerUtil.openedWindows.get(modalInstance);
+                    if (modalWindow) {
+                        modalWindow.value.renderDeferred.resolve();
+                    }
                 },
-                focusFirstFocusableElement: function () {
-
+                focusFirstFocusableElement: function (list) {
+                    if (list.length > 0) {
+                        list[0].focus();
+                        return true;
+                    }
+                    return false;
                 },
-                focusLastFocusableElement: function () {
-
+                focusLastFocusableElement: function (list) {
+                    if (list.length > 0) {
+                        list[list.length - 1].focus();
+                        return true;
+                    }
+                    return false;
                 },
-                isModalFocused: function () {
-
+                isModalFocused: function (evt, modalWindow) {
+                    if (evt && modalWindow) {
+                        var modalDomEl = modalWindow.value.modalDomEl;
+                        if (modalDomEl && modalDomEl.length) {
+                            return (evt.target || evt.srcElement) === modalDomEl[0];
+                        }
+                    }
+                    return false;
                 },
-                isFocusInFirstItem: function () {
-
+                isFocusInFirstItem: function (evt, list) {
+                    if (list.length > 0) {
+                        return (evt.target || evt.srcElement) === list[0];
+                    }
+                    return false;
                 },
-                isFocusInLastItem: function () {
-
+                isFocusInLastItem: function (evt, list) {
+                    if (list.length > 0) {
+                        return (evt.target || evt.srcElement) === list[list.length - 1];
+                    }
+                    return false;
                 },
-                loadFocusElementList: function () {
-
+                loadFocusElementList: function (modalWindow) {
+                    if (modalWindow) {
+                        var tabbableSelector = 'a[href], area[href], input:not([disabled]):not([tabindex=\'-1\']), ' +
+                            'button:not([disabled]):not([tabindex=\'-1\']),select:not([disabled]):not([tabindex=\'-1\']), textarea:not([disabled]):not([tabindex=\'-1\']), ' +
+                            'iframe, object, embed, *[tabindex]:not([tabindex=\'-1\']), *[contenteditable=true]';
+                        var modalDomE1 = modalWindow.value.modalDomEl;
+                        if (modalDomE1 && modalDomE1.length) {
+                            var elements = modalDomE1[0].querySelectorAll(tabbableSelector);
+                            return elements ?
+                                Array.prototype.filter.call(elements, function (element) {
+                                    return innerUtil.isVisible(element);
+                                }) : elements;
+                        }
+                    }
                 }
             };
+
+            $rootScope.$watch(innerUtil.backdropIndex, function (newBackdropIndex) {
+                if (innerUtil.backdropScope) {
+                    innerUtil.backdropScope.index = newBackdropIndex;
+                }
+            });
+
+            $document.on('keydown', innerUtil.keydownListener);
+
+            $rootScope.$on('$destroy', function () {
+                $document.off('keydown', innerUtil.keydownListener);
+            });
+
             return $modalStack;
         }])
     .provider('$xueResolve', [function () {
@@ -619,4 +721,108 @@ angular.module('xue.modal', [])
                 }
                 return $modal;
             }]
-    }]);
+    }])
+    .directive('xueModalBackdrop', function () {
+        return {
+            restrict: 'A',
+            compile: function (tElement, tAttrs) {
+                tElement.addClass(tAttrs.backdropClass);
+            }
+        };
+    })
+    .directive('xueModalWindow', ['$q', '$document', '$modalStack',
+        function ($q, $document, $modalStack) {
+            return {
+                scope: {
+                    index: '@'
+                },
+                restrict: 'A',
+                transclude: true,
+                templateUrl: function (tElement, tAttrs) {
+                    return tAttrs.templateUrl || 'xue/template/modal/modal.html';
+                },
+                link: function (scope, element, attrs) {
+                    element.addClass(attrs.windowTopClass || '');
+                    scope.size = attrs.size;
+
+                    scope.close = function (evt) {
+                        var modal = $modalStack.getTop();
+                        if (modal && modal.value.backdrop &&
+                            modal.value.backdrop !== 'static' &&
+                            evt.target === evt.currentTarget) {
+                            evt.preventDefault();
+                            evt.stopPropagation();
+                            $modalStack.dismiss(modal.key, 'backdrop click');
+                        }
+                    };
+
+                    // moved from template to fix issue #2280
+                    element.on('click', scope.close);
+
+                    // This property is only added to the scope for the purpose of detecting when this directive is rendered.
+                    // We can detect that by using this property in the template associated with this directive and then use
+                    // {@link Attribute#$observe} on it. For more details please see {@link TableColumnResize}.
+                    scope.$isRendered = true;
+
+                    // Deferred object that will be resolved when this modal is rendered.
+                    var modalRenderDeferObj = $q.defer();
+                    // Resolve render promise post-digest
+                    scope.$$postDigest(function () {
+                        modalRenderDeferObj.resolve();
+                    });
+
+                    modalRenderDeferObj.promise.then(function () {
+                        var animationPromise = null;
+
+                        $q.when(animationPromise).then(function () {
+                            // Notify {@link $modalStack} that modal is rendered.
+                            var modal = $modalStack.getTop();
+                            if (modal) {
+                                $modalStack.modalRendered(modal.key);
+                            }
+
+                            /**
+                             * If something within the freshly-opened modal already has focus (perhaps via a
+                             * directive that causes focus) then there's no need to try to focus anything.
+                             */
+                            if (!($document[0].activeElement && element[0].contains($document[0].activeElement))) {
+                                var inputWithAutofocus = element[0].querySelector('[autofocus]');
+                                /**
+                                 * Auto-focusing of a freshly-opened modal element causes any child elements
+                                 * with the autofocus attribute to lose focus. This is an issue on touch
+                                 * based devices which will show and then hide the onscreen keyboard.
+                                 * Attempts to refocus the autofocus element via JavaScript will not reopen
+                                 * the onscreen keyboard. Fixed by updated the focusing logic to only autofocus
+                                 * the modal element if the modal does not contain an autofocus element.
+                                 */
+                                if (inputWithAutofocus) {
+                                    inputWithAutofocus.focus();
+                                } else {
+                                    element[0].focus();
+                                }
+                            }
+                        });
+                    });
+                }
+            };
+        }])
+    .directive('xueModalAnimationClass', function () {
+        return {
+            compile: function (tElement, tAttrs) {
+                if (tAttrs.modalAnimation) {
+                    tElement.addClass(tAttrs.xueModalAnimationClass);
+                }
+            }
+        };
+    })
+    .directive('xueModalTransclude', ['$animate', function ($animate) {
+        return {
+            link: function (scope, element, attrs, controller, transclude) {
+                transclude(scope.$parent, function (clone) {
+                    element.empty();
+                    $animate.enter(clone, element);
+                });
+            }
+        };
+    }])
+    ;
