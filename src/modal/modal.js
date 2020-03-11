@@ -378,9 +378,9 @@ angular.module('xue.modal', [])
 
                     // Set the top modal index based on the index of the previous top modal
                     innerUtil.topModalIndex = innerUtil.previousTopOpenedModal ? parseInt(innerUtil.previousTopOpenedModal.value.modalDomEl.attr('index'), 10) + 1 : 0;
-                    var angularDomEl = angular.element('<div xue-modal-window="modal-window"></div>');
+                    var angularDomEl = angular.element('<div xue-modal-window="xui-modal-window"></div>');
                     angularDomEl.attr({
-                        'class': 'modal',
+                        'class': 'xui-modal-window',
                         'template-url': modal.windowTemplateUrl,
                         'window-top-class': modal.windowTopClass,
                         'role': 'dialog',
