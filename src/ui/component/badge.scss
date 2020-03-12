@@ -1,0 +1,38 @@
+$badge-height:18px;
+
+.xui-badge-wrap {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #fff;
+    background: #d92b2f;
+    padding: 0 5px;
+    height: $badge-height;
+    line-height: $badge-height;
+    border-radius: $badge-height/2;
+    text-align: center;
+    box-sizing: border-box;
+    transform: translateY(-50%) translateX(50%);
+    font-size: 12px;
+    vertical-align: middle;
+    min-width: 18px;
+    display:inline-block;
+
+    &.dot {
+        height: 8px;
+        width: 8px;
+        border-radius: 50%;
+        padding: 0;
+        min-width: 8px;
+    }
+    &.alone{
+        position:static;
+        transform: inherit;
+    }
+
+    &>span {
+        display: inline-block;
+        height: 100%;
+        line-height: 100%;
+    }
+}

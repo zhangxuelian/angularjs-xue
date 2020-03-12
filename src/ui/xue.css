@@ -5725,3 +5725,34 @@ table {
     text-align: left;
     overflow: hidden;
     backface-visibility: hidden; }
+
+.xui-badge-wrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #fff;
+  background: #d92b2f;
+  padding: 0 5px;
+  height: 18px;
+  line-height: 18px;
+  border-radius: 9px;
+  text-align: center;
+  box-sizing: border-box;
+  transform: translateY(-50%) translateX(50%);
+  font-size: 12px;
+  vertical-align: middle;
+  min-width: 18px;
+  display: inline-block; }
+  .xui-badge-wrap.dot {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    padding: 0;
+    min-width: 8px; }
+  .xui-badge-wrap.alone {
+    position: static;
+    transform: inherit; }
+  .xui-badge-wrap > span {
+    display: inline-block;
+    height: 100%;
+    line-height: 100%; }

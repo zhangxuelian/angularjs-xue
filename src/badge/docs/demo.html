@@ -1,0 +1,24 @@
+<style>
+    .demo-badge>span {
+        position: relative;
+        display: inline-block;
+        margin: 0 5px;
+    }
+</style>
+<div ng-controller="xueBadgeDemoCtrl" class="demo-badge">
+    <span>
+        <button>消息</button>
+        <xue-badge badge-config="vm.config"> </xue-badge>
+    </span>
+    <span>
+        <button>消息2</button>
+        <xue-badge badge-config="vm.config2"> </xue-badge>
+    </span>
+    <span>
+        <span>消息3</span>
+        <xue-badge badge-config="vm.config3"> </xue-badge>
+    </span>
+    <span>
+        <xue-badge badge-config="vm.config4"> </xue-badge>
+    </span>
+</div>

@@ -2,11 +2,11 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-03-11
+ * Version: 1.0.0 - 2020-03-12
  * Require angularjs version: 1.2.32
  * License: ISC
  */
-angular.module("ui.xue", ["ui.xue.tpls", "xue.util.lang","xue.autoselect","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.loading","xue.menu","xue.modal","xue.notice","xue.pagination","xue.scroller","xue.select","xue.steps","xue.switch","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util","xue.validate"]);
+angular.module("ui.xue", ["ui.xue.tpls", "xue.util.lang","xue.autoselect","xue.badge","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.loading","xue.menu","xue.modal","xue.notice","xue.pagination","xue.scroller","xue.select","xue.steps","xue.switch","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util","xue.validate"]);
 angular.module("ui.xue.tpls", ["xue/template/autoselect/autoselect.html","xue/template/cascader/cascader.html","xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/modal/modal.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/scroller/scroller.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
 /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
 //@ sourceMappingURL=jquery-1.10.2.min.map
@@ -132,6 +132,29 @@ angular.module('xue.autoselect', ['xue.util.lang'])
                     self.watch.destroy();
                     $('#' + scope.selectConfig.id).remove();
                 });
+            }
+        }
+    }])
+angular.module('xue.badge', [])
+    .directive('xueBadge', [function () {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                badgeConfig: '='
+            },
+            template: "<div ng-show=\"badgeConfig.count\" class=\"xui-badge-wrap\" ng-class=\"{'dot':badgeConfig.isDot,'alone':badgeConfig.isAlone}\" ng-style=\"{'background-color':badgeConfig.bgColor}\">\n" +
+                "   <span>{{badgeConfig.isDot?'':(badgeConfig.count>badgeConfig.max?badgeConfig.max+'+':badgeConfig.count)}}</span>\n" +
+                "</div>",
+            link: function (scope, ele, attrs) {
+                var defaultConfig = {
+                    bgColor: '#d92b2f', // 背景颜色，默认红色
+                    max: 99, //超出显示 99+
+                    isDot: false, //是否展示小圆点
+                    count: 0, // 显示值
+                    isAlone: false //是否单独使用
+                }
+                scope.badgeConfig = angular.extend(defaultConfig, scope.badgeConfig || {});
             }
         }
     }])
