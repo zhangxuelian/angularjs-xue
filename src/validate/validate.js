@@ -3,7 +3,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
         return {
             restrict: "A",
             scope: {
-                xueValidate: "="
+                validateConfig: "="
             },
             link: function (scope, ele, attrs) {
                 var xueValidateCtrl = scope.xueValidateCtrl = {
@@ -41,7 +41,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                         },
                         execShowPanel: function () { // 主要是用于显示下拉组件还有日历组件的列表
                             $timeout(function () {
-                                switch (scope.xueValidate.validType) {
+                                switch (scope.ValidateConfig.validType) {
                                     case "select":
                                         ele[0].previousElementSibling.children[0].children[1].style.display = "block";
                                         break;
@@ -88,7 +88,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                                         // 单选组件
                                         if (target.validType == "radio") {
                                             if (target.className.indexOf("active") != -1) {
-                                                scope.xueValidate.execSuccess();
+                                                scope.ValidateConfig.execSuccess();
                                             }
                                             continue;
                                         }
@@ -99,11 +99,11 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                                                 break;
                                             }
                                             if (target.src.indexOf("no_sign") != -1 || target.src.indexOf("refuse_seal") != -1) {
-                                                if (scope.xueValidate.required) {
-                                                    scope.xueValidate.execError(scope.xueValidate.requiredTip);
+                                                if (scope.ValidateConfig.required) {
+                                                    scope.ValidateConfig.execError(scope.ValidateConfig.requiredTip);
                                                 }
                                             } else {
-                                                scope.xueValidate.execSuccess();
+                                                scope.ValidateConfig.execSuccess();
                                             }
                                             break;
                                         }
@@ -115,7 +115,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                                             } else if (target.validType == "datepicker") {
                                                 ipt = target.ipt;
                                             }
-                                            scope.xueValidate.execBlur(ipt.value);
+                                            scope.ValidateConfig.execBlur(ipt.value);
                                         } else {
                                             target.oldDisplay = target.style.display;
                                         }
@@ -186,16 +186,16 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                      */
                     handleValidateSuccess: function (isAddSuccess) {
                         var self = this;
-                        if (scope.xueValidate.validType == "select" || 
-                            scope.xueValidate.validType == "datepicker") {
+                        if (scope.ValidateConfig.validType == "select" || 
+                            scope.ValidateConfig.validType == "datepicker") {
                             self.changeEleStyle(true);
                         }
                         isAddSuccess = isAddSuccess || false;
-                        var nextNode = $("#" + scope.xueValidate.gxMsgId)[0];
+                        var nextNode = $("#" + scope.ValidateConfig.gxMsgId)[0];
                         var nextNodeI = nextNode.children[0];
                         nextNode.classList.add("hide");
                         ele[0].classList.remove('gx-error-tip');
-                        if (isAddSuccess && scope.xueValidate.errorTipPos != "bottom") {
+                        if (isAddSuccess && scope.ValidateConfig.errorTipPos != "bottom") {
                             nextNodeI.classList.remove('xui-icon-ios-close-circle');
                             nextNodeI.classList.add("xui-icon-ios-checkmark-circle");
                             return;
@@ -209,11 +209,11 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                      */
                     handleValidateError: function (tip) {
                         var self = this;
-                        if (scope.xueValidate.validType == "select" || 
-                            scope.xueValidate.validType == "datepicker") {
+                        if (scope.ValidateConfig.validType == "select" || 
+                            scope.ValidateConfig.validType == "datepicker") {
                             self.changeEleStyle(false);
                         }
-                        var nextNode = $("#" + scope.xueValidate.gxMsgId)[0];
+                        var nextNode = $("#" + scope.ValidateConfig.gxMsgId)[0];
                         var nextNodeI = nextNode.children[0];
                         var nextNodeLabel = nextNode.children[1];
                         nextNode.classList.remove("hide");
@@ -229,38 +229,38 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                     triggerBlur: function (val) {
                         // 如果没有传值进来，则val会是一个对象
                         var newVal = (typeof val == "string" && val && val !== "NaN") ? $.trim(val) : $.trim(ele[0].value);
-                        if (scope.xueValidate.required) {
+                        if (scope.ValidateConfig.required) {
                             if (!newVal) {
-                                xueValidateCtrl.handleValidateError(scope.xueValidate.requiredTip);
+                                xueValidateCtrl.handleValidateError(scope.ValidateConfig.requiredTip);
                                 return false;
                             } else {
                                 xueValidateCtrl.handleValidateSuccess();
                             }
                         }
-                        if (scope.xueValidate.equalTo && newVal != $(scope.xueValidate.equalTo).val()){
-                            xueValidateCtrl.handleValidateError(scope.xueValidate.equalToTip);
+                        if (scope.ValidateConfig.equalTo && newVal != $(scope.ValidateConfig.equalTo).val()){
+                            xueValidateCtrl.handleValidateError(scope.ValidateConfig.equalToTip);
                             return false;
                         } 
-                        if (scope.xueValidate.unequalTo && newVal == $(scope.xueValidate.unequalTo).val()){
-                            xueValidateCtrl.handleValidateError(scope.xueValidate.unequalToTip);
+                        if (scope.ValidateConfig.unequalTo && newVal == $(scope.ValidateConfig.unequalTo).val()){
+                            xueValidateCtrl.handleValidateError(scope.ValidateConfig.unequalToTip);
                             return false;
                         } 
-                        if (scope.xueValidate.maxlen && newVal.length > scope.xueValidate.maxlen){
-                            xueValidateCtrl.handleValidateError(scope.xueValidate.maxlenTip);
+                        if (scope.ValidateConfig.maxlen && newVal.length > scope.ValidateConfig.maxlen){
+                            xueValidateCtrl.handleValidateError(scope.ValidateConfig.maxlenTip);
                             return false;
                         } 
-                        if (scope.xueValidate.minlen && newVal.length < scope.xueValidate.minlen){
-                            xueValidateCtrl.handleValidateError(scope.xueValidate.minlenTip);
+                        if (scope.ValidateConfig.minlen && newVal.length < scope.ValidateConfig.minlen){
+                            xueValidateCtrl.handleValidateError(scope.ValidateConfig.minlenTip);
                             return false;
                         } 
-                        var regex = scope.xueValidate.regex;
-                        var errorTip = scope.xueValidate.errorTip;
+                        var regex = scope.ValidateConfig.regex;
+                        var errorTip = scope.ValidateConfig.errorTip;
                         var retFlag = false;
                         //有特殊的判断要求
-                        if (scope.xueValidate.judge) {
-                            switch (scope.xueValidate.judge) {
+                        if (scope.ValidateConfig.judge) {
+                            switch (scope.ValidateConfig.judge) {
                                 case 'idCard':
-                                    if (!newVal && !scope.xueValidate.required) {
+                                    if (!newVal && !scope.ValidateConfig.required) {
                                         xueValidateCtrl.handleValidateSuccess();
                                         return true;
                                     }
@@ -269,11 +269,11 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                                         xueValidateCtrl.handleValidateSuccess();
                                         retFlag = true;
                                     } else {
-                                        xueValidateCtrl.handleValidateError(scope.xueValidate.errorTip || ret.message);
+                                        xueValidateCtrl.handleValidateError(scope.ValidateConfig.errorTip || ret.message);
                                     }
                                     return retFlag;
                                 case 'dutyRule':
-                                    if (!newVal && !scope.xueValidate.required) {
+                                    if (!newVal && !scope.ValidateConfig.required) {
                                         xueValidateCtrl.handleValidateSuccess();
                                         return true;
                                     }
@@ -282,7 +282,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                                         xueValidateCtrl.handleValidateSuccess();
                                         retFlag = true;
                                     } else {
-                                        xueValidateCtrl.handleValidateError(scope.xueValidate.errorTip);
+                                        xueValidateCtrl.handleValidateError(scope.ValidateConfig.errorTip);
                                     }
                                     return retFlag;
                                 default:
@@ -294,8 +294,8 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                             regex = xueUtilMethods.getPattern()[regex];
                         }
                         //regex与errorTip为空,则errorTip与requiredTip相等
-                        if (!regex && !scope.xueValidate.errorTip) {
-                            scope.xueValidate.errorTip = scope.xueValidate.requiredTip;
+                        if (!regex && !scope.ValidateConfig.errorTip) {
+                            scope.ValidateConfig.errorTip = scope.ValidateConfig.requiredTip;
                         }
                         return xueValidateCtrl.getBlur(regex, errorTip, newVal);
                     },
@@ -313,7 +313,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                                 if (!isAdd) {
                                     return children[i];
                                 }
-                                if (children[i].innerText == scope.xueValidate.requiredTip) {
+                                if (children[i].innerText == scope.ValidateConfig.requiredTip) {
                                     return children[i];
                                 } 
                             }
@@ -332,27 +332,27 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                         }
                         var oDiv = document.createElement("div");
                         oDiv.id = xueUtilMethods.guid();
-                        scope.xueValidate.gxMsgId = oDiv.id;
+                        scope.ValidateConfig.gxMsgId = oDiv.id;
                         oDiv.classList.add("gx-msg");
-                        var msgCssText = self.getCssText(scope.xueValidate.msgStyle),
-                            iconCssText = self.getCssText(scope.xueValidate.iconStyle),
-                            lblCssText = self.getCssText(scope.xueValidate.lblStyle),
-                            parentCssText = self.getCssText(scope.xueValidate.parentStyle);
+                        var msgCssText = self.getCssText(scope.ValidateConfig.msgStyle),
+                            iconCssText = self.getCssText(scope.ValidateConfig.iconStyle),
+                            lblCssText = self.getCssText(scope.ValidateConfig.lblStyle),
+                            parentCssText = self.getCssText(scope.ValidateConfig.parentStyle);
                         if (msgCssText) {
                             oDiv.style.cssText = msgCssText;
                         }
-                        if (!scope.xueValidate.hasErrorTip) {
+                        if (!scope.ValidateConfig.hasErrorTip) {
                             oDiv.style.display = 'none';
                         }
                         var errorMsg = "<i class='xui-icon' style='" + iconCssText + "'></i>" +
-                                "<label class='gx-error' title='" + scope.xueValidate.requiredTip + 
-                                "' style='" + lblCssText + "'>" + scope.xueValidate.requiredTip + 
+                                "<label class='gx-error' title='" + scope.ValidateConfig.requiredTip + 
+                                "' style='" + lblCssText + "'>" + scope.ValidateConfig.requiredTip + 
                                 "</label>";
                         oDiv.innerHTML = errorMsg;
                         if (parentCssText) {
                             parentNode.style.cssText = parentCssText;
                         }
-                        switch (scope.xueValidate.errorTipPos) {
+                        switch (scope.ValidateConfig.errorTipPos) {
                             case "right":
                                 oDiv.classList.add("gx-show-tip");
                                 break;
@@ -382,9 +382,9 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                      */
                     changeEleStyle: function (validResult) {
                         var element = null;
-                        if (scope.xueValidate.validType == "select") {
+                        if (scope.ValidateConfig.validType == "select") {
                             element = ele[0].previousElementSibling.children[0].children[0];
-                        } else if (scope.xueValidate.validType == "datepicker") {
+                        } else if (scope.ValidateConfig.validType == "datepicker") {
                             element = ele[0].previousElementSibling.children[0];
                         }
                         if (!validResult) {
@@ -445,7 +445,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                                 target.validType = "datepicker";
                                 // 清除按钮点击触发校验
                                 ele[0].previousElementSibling.children[0].children[2].onclick = function () {
-                                    scope.xueValidate.execBlur(target.ipt.value);
+                                    scope.ValidateConfig.execBlur(target.ipt.value);
                                 }
                                 deferred.resolve(target);
                             }
@@ -481,7 +481,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                         $timeout(function () {
                             var target = ele[0].previousElementSibling;
                             target.validType = "sign";
-                            target.isFirst = scope.xueValidate.hasFirstValid;
+                            target.isFirst = scope.ValidateConfig.hasFirstValid;
                             deferred.resolve(target);
                         });
                         return deferred.promise();
@@ -491,11 +491,11 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                      */
                     init: function () {
                         var self = this;
-                        scope.xueValidate = angular.extend(self.defaultConfig, scope.xueValidate);
+                        scope.ValidateConfig = angular.extend(self.defaultConfig, scope.ValidateConfig);
                         self.addDivMsg();
                         ele.bind('blur', self.triggerBlur);
                         self.destroy();
-                        switch(scope.xueValidate.validType) {
+                        switch(scope.ValidateConfig.validType) {
                             // 下拉组件的实时校验
                             case "select":
                                 self.getSelectEle().then(function (target) {
@@ -531,7 +531,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                         var self = this;
                         scope.$on('$destroy', function () {
                             self.removeDivMsg();
-                            scope.xueValidate = null;
+                            scope.ValidateConfig = null;
                             ele.unbind("blur");
                             self.observe.stopObserve();
                         });
