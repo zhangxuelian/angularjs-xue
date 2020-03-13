@@ -289,27 +289,6 @@ table {
   clear: both;
   content: ""; }
 
-.xui-input {
-  display: inline-block;
-  height: 28px;
-  line-height: 28px;
-  padding: 0 5px;
-  vertical-align: middle;
-  border-radius: 0.25rem;
-  background-color: #fff;
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
-  box-sizing: border-box;
-  border: 1px solid #cee0f0;
-  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-  -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
-  .xui-input:focus {
-    border-color: #66afe9;
-    outline: 0;
-    -webkit-box-shadow: 0 0 0.5rem #66afe9;
-    box-shadow: 0 0 0.5rem #66afe9; }
-
 @font-face {
   font-family: "Ionicons";
   src: url("./fonts/ionicons.woff2?v=1.0.0") format("woff2"), url("./fonts/ionicons.woff?v=1.0.0") format("woff"), url("./fonts/ionicons.ttf?v=1.0.0") format("truetype"), url("./fonts/ionicons.svg?v=1.0.0#Ionicons") format("svg");
@@ -2943,6 +2922,830 @@ table {
 .xui-icon-angle-double-right:before {
   content: "\e600"; }
 
+.xui-input {
+  display: inline-block;
+  padding: 0.125rem 0.375rem;
+  vertical-align: middle;
+  border-radius: 0.25rem;
+  background-color: #fff;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+  box-sizing: border-box;
+  border: 1px solid #cee0f0;
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+  .xui-input:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: 0 0 0.5rem #66afe9;
+    box-shadow: 0 0 0.5rem #66afe9; }
+  .xui-input[disabled] {
+    cursor: not-allowed;
+    background-color: #e9ecef;
+    border-color: #e9ecef; }
+
+.xui-input-sm {
+  display: inline-block;
+  padding: 0 0.25rem;
+  vertical-align: middle;
+  font-size: 0.875rem;
+  border-radius: 0.2rem;
+  background-color: #fff;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+  box-sizing: border-box;
+  border: 1px solid #cee0f0;
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+  .xui-input-sm:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: 0 0 0.5rem #66afe9;
+    box-shadow: 0 0 0.5rem #66afe9; }
+  .xui-input-sm[disabled] {
+    cursor: not-allowed;
+    background-color: #e9ecef;
+    border-color: #e9ecef; }
+
+.xui-input-lg {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  vertical-align: middle;
+  font-size: 1.25rem;
+  border-radius: 0.3rem;
+  background-color: #fff;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+  box-sizing: border-box;
+  border: 1px solid #cee0f0;
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+  .xui-input-lg:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: 0 0 0.5rem #66afe9;
+    box-shadow: 0 0 0.5rem #66afe9; }
+  .xui-input-lg[disabled] {
+    cursor: not-allowed;
+    background-color: #e9ecef;
+    border-color: #e9ecef; }
+
+.xui-btn {
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid #dee2e6;
+  background: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+  .xui-btn:hover {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+    background-color: #eff6ff;
+    color: #2088d4;
+    border-color: #cee0f0; }
+  .xui-btn:focus {
+    outline: none; }
+  .xui-btn.disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+    color: #6c757d; }
+    .xui-btn.disabled:hover {
+      background-color: #fff;
+      box-shadow: none; }
+  .xui-btn[disabled] {
+    cursor: not-allowed;
+    opacity: 0.65;
+    color: #6c757d; }
+    .xui-btn[disabled]:hover {
+      background-color: #fff;
+      box-shadow: none; }
+  .xui-btn.xui-btn-dark-blue {
+    color: #fff;
+    border: none;
+    background-image: linear-gradient(0deg, #1c3f6e 0%, #235ead 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-color, endColorstr=$start-color, GradientType=0); }
+    .xui-btn.xui-btn-dark-blue:hover {
+      background-image: linear-gradient(0deg, #255290 0%, #3677cc 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-hover-color, endColorstr=$start-hover-color, GradientType=0); }
+    .xui-btn.xui-btn-dark-blue:active {
+      background-image: linear-gradient(0deg, #235ead 0%, #1c3f6e 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$start-color, endColorstr=$end-color, GradientType=0); }
+  .xui-btn.xui-btn-sky-blue {
+    color: #fff;
+    border: none;
+    background-image: linear-gradient(0deg, #0083de 0%, #43b2ff 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-color, endColorstr=$start-color, GradientType=0); }
+    .xui-btn.xui-btn-sky-blue:hover {
+      background-image: linear-gradient(0deg, #0071bf 0%, #43b2ff 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-hover-color, endColorstr=$start-hover-color, GradientType=0); }
+    .xui-btn.xui-btn-sky-blue:active {
+      background-image: linear-gradient(0deg, #43b2ff 0%, #0083de 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$start-color, endColorstr=$end-color, GradientType=0); }
+  .xui-btn.xui-btn-green {
+    color: #fff;
+    border: none;
+    background-image: linear-gradient(0deg, #267d47 0%, #26c030 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-color, endColorstr=$start-color, GradientType=0); }
+    .xui-btn.xui-btn-green:hover {
+      background-image: linear-gradient(0deg, #349e48 0%, #54c95c 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-hover-color, endColorstr=$start-hover-color, GradientType=0); }
+    .xui-btn.xui-btn-green:active {
+      background-image: linear-gradient(0deg, #26c030 0%, #267d47 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$start-color, endColorstr=$end-color, GradientType=0); }
+  .xui-btn.xui-btn-gray {
+    color: #fff;
+    border: none;
+    background-image: linear-gradient(0deg, #66768d 0%, #9ea9b8 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-color, endColorstr=$start-color, GradientType=0); }
+    .xui-btn.xui-btn-gray:hover {
+      background-image: linear-gradient(0deg, #7f90a8 0%, #b3becc 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-hover-color, endColorstr=$start-hover-color, GradientType=0); }
+    .xui-btn.xui-btn-gray:active {
+      background-image: linear-gradient(0deg, #9ea9b8 0%, #66768d 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$start-color, endColorstr=$end-color, GradientType=0); }
+  .xui-btn.xui-btn-red {
+    color: #fff;
+    border: none;
+    background-image: linear-gradient(0deg, #9c2107 0%, #f95129 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-color, endColorstr=$start-color, GradientType=0); }
+    .xui-btn.xui-btn-red:hover {
+      background-image: linear-gradient(0deg, #a33a25 0%, #f76844 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-hover-color, endColorstr=$start-hover-color, GradientType=0); }
+    .xui-btn.xui-btn-red:active {
+      background-image: linear-gradient(0deg, #f95129 0%, #9c2107 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$start-color, endColorstr=$end-color, GradientType=0); }
+  .xui-btn.xui-btn-tab-blue {
+    border-color: #80cbff;
+    color: #0394f9;
+    background: #fff; }
+    .xui-btn.xui-btn-tab-blue.active {
+      background: #0394F9;
+      color: #fff;
+      border-color: #0394F9; }
+    .xui-btn.xui-btn-tab-blue:hover {
+      color: #0394F9;
+      border-color: #80cbff;
+      background: #dff2ff; }
+      .xui-btn.xui-btn-tab-blue:hover.active {
+        background: #0394F9;
+        color: #fff; }
+    .xui-btn.xui-btn-tab-blue.disabled {
+      border-color: #80cbff;
+      background: #fff;
+      color: #0394f9; }
+    .xui-btn.xui-btn-tab-blue[disabled] {
+      border-color: #80cbff;
+      background: #fff;
+      color: #0394f9; }
+      .xui-btn.xui-btn-tab-blue[disabled]:hover {
+        border-color: #80cbff;
+        background: #fff;
+        color: #0394f9; }
+  .xui-btn.xui-btn-warning {
+    border-color: #F39D16;
+    color: #fff;
+    background: #F39D16; }
+    .xui-btn.xui-btn-warning.active {
+      background: #fff;
+      color: #fff;
+      border-color: #fff; }
+    .xui-btn.xui-btn-warning:hover {
+      color: #fff;
+      border-color: #F39D16;
+      background: #F2C311; }
+      .xui-btn.xui-btn-warning:hover.active {
+        background: #fff;
+        color: #fff; }
+    .xui-btn.xui-btn-warning.disabled {
+      border-color: #F39D16;
+      background: #F39D16;
+      color: #fff; }
+    .xui-btn.xui-btn-warning[disabled] {
+      border-color: #F39D16;
+      background: #F39D16;
+      color: #fff; }
+      .xui-btn.xui-btn-warning[disabled]:hover {
+        border-color: #F39D16;
+        background: #F39D16;
+        color: #fff; }
+  .xui-btn.xui-btn-success {
+    border-color: #28AC60;
+    color: #fff;
+    background: #28AC60; }
+    .xui-btn.xui-btn-success.active {
+      background: #fff;
+      color: #fff;
+      border-color: #fff; }
+    .xui-btn.xui-btn-success:hover {
+      color: #fff;
+      border-color: #28AC60;
+      background: #2ECE6E; }
+      .xui-btn.xui-btn-success:hover.active {
+        background: #fff;
+        color: #fff; }
+    .xui-btn.xui-btn-success.disabled {
+      border-color: #28AC60;
+      background: #28AC60;
+      color: #fff; }
+    .xui-btn.xui-btn-success[disabled] {
+      border-color: #28AC60;
+      background: #28AC60;
+      color: #fff; }
+      .xui-btn.xui-btn-success[disabled]:hover {
+        border-color: #28AC60;
+        background: #28AC60;
+        color: #fff; }
+  .xui-btn.xui-btn-danger {
+    border-color: #C5392A;
+    color: #fff;
+    background: #C5392A; }
+    .xui-btn.xui-btn-danger.active {
+      background: #fff;
+      color: #fff;
+      border-color: #fff; }
+    .xui-btn.xui-btn-danger:hover {
+      color: #fff;
+      border-color: #C5392A;
+      background: #E94B40; }
+      .xui-btn.xui-btn-danger:hover.active {
+        background: #fff;
+        color: #fff; }
+    .xui-btn.xui-btn-danger.disabled {
+      border-color: #C5392A;
+      background: #C5392A;
+      color: #fff; }
+    .xui-btn.xui-btn-danger[disabled] {
+      border-color: #C5392A;
+      background: #C5392A;
+      color: #fff; }
+      .xui-btn.xui-btn-danger[disabled]:hover {
+        border-color: #C5392A;
+        background: #C5392A;
+        color: #fff; }
+  .xui-btn.xui-btn-info {
+    border-color: #343a40;
+    color: #fff;
+    background: #343a40; }
+    .xui-btn.xui-btn-info.active {
+      background: #fff;
+      color: #fff;
+      border-color: #fff; }
+    .xui-btn.xui-btn-info:hover {
+      color: #fff;
+      border-color: #343a40;
+      background: #6c757d; }
+      .xui-btn.xui-btn-info:hover.active {
+        background: #fff;
+        color: #fff; }
+    .xui-btn.xui-btn-info.disabled {
+      border-color: #343a40;
+      background: #343a40;
+      color: #fff; }
+    .xui-btn.xui-btn-info[disabled] {
+      border-color: #343a40;
+      background: #343a40;
+      color: #fff; }
+      .xui-btn.xui-btn-info[disabled]:hover {
+        border-color: #343a40;
+        background: #343a40;
+        color: #fff; }
+  .xui-btn.xui-btn-primary {
+    border-color: #2180BA;
+    color: #fff;
+    background: #2180BA; }
+    .xui-btn.xui-btn-primary.active {
+      background: #fff;
+      color: #fff;
+      border-color: #fff; }
+    .xui-btn.xui-btn-primary:hover {
+      color: #fff;
+      border-color: #2180BA;
+      background: #5BABE6; }
+      .xui-btn.xui-btn-primary:hover.active {
+        background: #fff;
+        color: #fff; }
+    .xui-btn.xui-btn-primary.disabled {
+      border-color: #2180BA;
+      background: #2180BA;
+      color: #fff; }
+    .xui-btn.xui-btn-primary[disabled] {
+      border-color: #2180BA;
+      background: #2180BA;
+      color: #fff; }
+      .xui-btn.xui-btn-primary[disabled]:hover {
+        border-color: #2180BA;
+        background: #2180BA;
+        color: #fff; }
+
+.xui-btn-sm {
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 0.2rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #dee2e6;
+  background: #fff;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+  .xui-btn-sm:hover {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+    background-color: #eff6ff;
+    color: #2088d4;
+    border-color: #cee0f0; }
+  .xui-btn-sm:focus {
+    outline: none; }
+  .xui-btn-sm.disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+    color: #6c757d; }
+    .xui-btn-sm.disabled:hover {
+      background-color: #fff;
+      box-shadow: none; }
+  .xui-btn-sm[disabled] {
+    cursor: not-allowed;
+    opacity: 0.65;
+    color: #6c757d; }
+    .xui-btn-sm[disabled]:hover {
+      background-color: #fff;
+      box-shadow: none; }
+  .xui-btn-sm.xui-btn-dark-blue {
+    color: #fff;
+    border: none;
+    background-image: linear-gradient(0deg, #1c3f6e 0%, #235ead 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-color, endColorstr=$start-color, GradientType=0); }
+    .xui-btn-sm.xui-btn-dark-blue:hover {
+      background-image: linear-gradient(0deg, #255290 0%, #3677cc 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-hover-color, endColorstr=$start-hover-color, GradientType=0); }
+    .xui-btn-sm.xui-btn-dark-blue:active {
+      background-image: linear-gradient(0deg, #235ead 0%, #1c3f6e 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$start-color, endColorstr=$end-color, GradientType=0); }
+  .xui-btn-sm.xui-btn-sky-blue {
+    color: #fff;
+    border: none;
+    background-image: linear-gradient(0deg, #0083de 0%, #43b2ff 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-color, endColorstr=$start-color, GradientType=0); }
+    .xui-btn-sm.xui-btn-sky-blue:hover {
+      background-image: linear-gradient(0deg, #0071bf 0%, #43b2ff 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-hover-color, endColorstr=$start-hover-color, GradientType=0); }
+    .xui-btn-sm.xui-btn-sky-blue:active {
+      background-image: linear-gradient(0deg, #43b2ff 0%, #0083de 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$start-color, endColorstr=$end-color, GradientType=0); }
+  .xui-btn-sm.xui-btn-green {
+    color: #fff;
+    border: none;
+    background-image: linear-gradient(0deg, #267d47 0%, #26c030 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-color, endColorstr=$start-color, GradientType=0); }
+    .xui-btn-sm.xui-btn-green:hover {
+      background-image: linear-gradient(0deg, #349e48 0%, #54c95c 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-hover-color, endColorstr=$start-hover-color, GradientType=0); }
+    .xui-btn-sm.xui-btn-green:active {
+      background-image: linear-gradient(0deg, #26c030 0%, #267d47 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$start-color, endColorstr=$end-color, GradientType=0); }
+  .xui-btn-sm.xui-btn-gray {
+    color: #fff;
+    border: none;
+    background-image: linear-gradient(0deg, #66768d 0%, #9ea9b8 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-color, endColorstr=$start-color, GradientType=0); }
+    .xui-btn-sm.xui-btn-gray:hover {
+      background-image: linear-gradient(0deg, #7f90a8 0%, #b3becc 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-hover-color, endColorstr=$start-hover-color, GradientType=0); }
+    .xui-btn-sm.xui-btn-gray:active {
+      background-image: linear-gradient(0deg, #9ea9b8 0%, #66768d 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$start-color, endColorstr=$end-color, GradientType=0); }
+  .xui-btn-sm.xui-btn-red {
+    color: #fff;
+    border: none;
+    background-image: linear-gradient(0deg, #9c2107 0%, #f95129 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-color, endColorstr=$start-color, GradientType=0); }
+    .xui-btn-sm.xui-btn-red:hover {
+      background-image: linear-gradient(0deg, #a33a25 0%, #f76844 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-hover-color, endColorstr=$start-hover-color, GradientType=0); }
+    .xui-btn-sm.xui-btn-red:active {
+      background-image: linear-gradient(0deg, #f95129 0%, #9c2107 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$start-color, endColorstr=$end-color, GradientType=0); }
+  .xui-btn-sm.xui-btn-tab-blue {
+    border-color: #80cbff;
+    color: #0394f9;
+    background: #fff; }
+    .xui-btn-sm.xui-btn-tab-blue.active {
+      background: #0394F9;
+      color: #fff;
+      border-color: #0394F9; }
+    .xui-btn-sm.xui-btn-tab-blue:hover {
+      color: #0394F9;
+      border-color: #80cbff;
+      background: #dff2ff; }
+      .xui-btn-sm.xui-btn-tab-blue:hover.active {
+        background: #0394F9;
+        color: #fff; }
+    .xui-btn-sm.xui-btn-tab-blue.disabled {
+      border-color: #80cbff;
+      background: #fff;
+      color: #0394f9; }
+    .xui-btn-sm.xui-btn-tab-blue[disabled] {
+      border-color: #80cbff;
+      background: #fff;
+      color: #0394f9; }
+      .xui-btn-sm.xui-btn-tab-blue[disabled]:hover {
+        border-color: #80cbff;
+        background: #fff;
+        color: #0394f9; }
+  .xui-btn-sm.xui-btn-warning {
+    border-color: #F39D16;
+    color: #fff;
+    background: #F39D16; }
+    .xui-btn-sm.xui-btn-warning.active {
+      background: #fff;
+      color: #fff;
+      border-color: #fff; }
+    .xui-btn-sm.xui-btn-warning:hover {
+      color: #fff;
+      border-color: #F39D16;
+      background: #F2C311; }
+      .xui-btn-sm.xui-btn-warning:hover.active {
+        background: #fff;
+        color: #fff; }
+    .xui-btn-sm.xui-btn-warning.disabled {
+      border-color: #F39D16;
+      background: #F39D16;
+      color: #fff; }
+    .xui-btn-sm.xui-btn-warning[disabled] {
+      border-color: #F39D16;
+      background: #F39D16;
+      color: #fff; }
+      .xui-btn-sm.xui-btn-warning[disabled]:hover {
+        border-color: #F39D16;
+        background: #F39D16;
+        color: #fff; }
+  .xui-btn-sm.xui-btn-success {
+    border-color: #28AC60;
+    color: #fff;
+    background: #28AC60; }
+    .xui-btn-sm.xui-btn-success.active {
+      background: #fff;
+      color: #fff;
+      border-color: #fff; }
+    .xui-btn-sm.xui-btn-success:hover {
+      color: #fff;
+      border-color: #28AC60;
+      background: #2ECE6E; }
+      .xui-btn-sm.xui-btn-success:hover.active {
+        background: #fff;
+        color: #fff; }
+    .xui-btn-sm.xui-btn-success.disabled {
+      border-color: #28AC60;
+      background: #28AC60;
+      color: #fff; }
+    .xui-btn-sm.xui-btn-success[disabled] {
+      border-color: #28AC60;
+      background: #28AC60;
+      color: #fff; }
+      .xui-btn-sm.xui-btn-success[disabled]:hover {
+        border-color: #28AC60;
+        background: #28AC60;
+        color: #fff; }
+  .xui-btn-sm.xui-btn-danger {
+    border-color: #C5392A;
+    color: #fff;
+    background: #C5392A; }
+    .xui-btn-sm.xui-btn-danger.active {
+      background: #fff;
+      color: #fff;
+      border-color: #fff; }
+    .xui-btn-sm.xui-btn-danger:hover {
+      color: #fff;
+      border-color: #C5392A;
+      background: #E94B40; }
+      .xui-btn-sm.xui-btn-danger:hover.active {
+        background: #fff;
+        color: #fff; }
+    .xui-btn-sm.xui-btn-danger.disabled {
+      border-color: #C5392A;
+      background: #C5392A;
+      color: #fff; }
+    .xui-btn-sm.xui-btn-danger[disabled] {
+      border-color: #C5392A;
+      background: #C5392A;
+      color: #fff; }
+      .xui-btn-sm.xui-btn-danger[disabled]:hover {
+        border-color: #C5392A;
+        background: #C5392A;
+        color: #fff; }
+  .xui-btn-sm.xui-btn-info {
+    border-color: #343a40;
+    color: #fff;
+    background: #343a40; }
+    .xui-btn-sm.xui-btn-info.active {
+      background: #fff;
+      color: #fff;
+      border-color: #fff; }
+    .xui-btn-sm.xui-btn-info:hover {
+      color: #fff;
+      border-color: #343a40;
+      background: #6c757d; }
+      .xui-btn-sm.xui-btn-info:hover.active {
+        background: #fff;
+        color: #fff; }
+    .xui-btn-sm.xui-btn-info.disabled {
+      border-color: #343a40;
+      background: #343a40;
+      color: #fff; }
+    .xui-btn-sm.xui-btn-info[disabled] {
+      border-color: #343a40;
+      background: #343a40;
+      color: #fff; }
+      .xui-btn-sm.xui-btn-info[disabled]:hover {
+        border-color: #343a40;
+        background: #343a40;
+        color: #fff; }
+  .xui-btn-sm.xui-btn-primary {
+    border-color: #2180BA;
+    color: #fff;
+    background: #2180BA; }
+    .xui-btn-sm.xui-btn-primary.active {
+      background: #fff;
+      color: #fff;
+      border-color: #fff; }
+    .xui-btn-sm.xui-btn-primary:hover {
+      color: #fff;
+      border-color: #2180BA;
+      background: #5BABE6; }
+      .xui-btn-sm.xui-btn-primary:hover.active {
+        background: #fff;
+        color: #fff; }
+    .xui-btn-sm.xui-btn-primary.disabled {
+      border-color: #2180BA;
+      background: #2180BA;
+      color: #fff; }
+    .xui-btn-sm.xui-btn-primary[disabled] {
+      border-color: #2180BA;
+      background: #2180BA;
+      color: #fff; }
+      .xui-btn-sm.xui-btn-primary[disabled]:hover {
+        border-color: #2180BA;
+        background: #2180BA;
+        color: #fff; }
+
+.xui-btn-lg {
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 0.3rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #dee2e6;
+  background: #fff;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.5;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+  .xui-btn-lg:hover {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+    background-color: #eff6ff;
+    color: #2088d4;
+    border-color: #cee0f0; }
+  .xui-btn-lg:focus {
+    outline: none; }
+  .xui-btn-lg.disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+    color: #6c757d; }
+    .xui-btn-lg.disabled:hover {
+      background-color: #fff;
+      box-shadow: none; }
+  .xui-btn-lg[disabled] {
+    cursor: not-allowed;
+    opacity: 0.65;
+    color: #6c757d; }
+    .xui-btn-lg[disabled]:hover {
+      background-color: #fff;
+      box-shadow: none; }
+  .xui-btn-lg.xui-btn-dark-blue {
+    color: #fff;
+    border: none;
+    background-image: linear-gradient(0deg, #1c3f6e 0%, #235ead 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-color, endColorstr=$start-color, GradientType=0); }
+    .xui-btn-lg.xui-btn-dark-blue:hover {
+      background-image: linear-gradient(0deg, #255290 0%, #3677cc 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-hover-color, endColorstr=$start-hover-color, GradientType=0); }
+    .xui-btn-lg.xui-btn-dark-blue:active {
+      background-image: linear-gradient(0deg, #235ead 0%, #1c3f6e 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$start-color, endColorstr=$end-color, GradientType=0); }
+  .xui-btn-lg.xui-btn-sky-blue {
+    color: #fff;
+    border: none;
+    background-image: linear-gradient(0deg, #0083de 0%, #43b2ff 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-color, endColorstr=$start-color, GradientType=0); }
+    .xui-btn-lg.xui-btn-sky-blue:hover {
+      background-image: linear-gradient(0deg, #0071bf 0%, #43b2ff 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-hover-color, endColorstr=$start-hover-color, GradientType=0); }
+    .xui-btn-lg.xui-btn-sky-blue:active {
+      background-image: linear-gradient(0deg, #43b2ff 0%, #0083de 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$start-color, endColorstr=$end-color, GradientType=0); }
+  .xui-btn-lg.xui-btn-green {
+    color: #fff;
+    border: none;
+    background-image: linear-gradient(0deg, #267d47 0%, #26c030 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-color, endColorstr=$start-color, GradientType=0); }
+    .xui-btn-lg.xui-btn-green:hover {
+      background-image: linear-gradient(0deg, #349e48 0%, #54c95c 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-hover-color, endColorstr=$start-hover-color, GradientType=0); }
+    .xui-btn-lg.xui-btn-green:active {
+      background-image: linear-gradient(0deg, #26c030 0%, #267d47 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$start-color, endColorstr=$end-color, GradientType=0); }
+  .xui-btn-lg.xui-btn-gray {
+    color: #fff;
+    border: none;
+    background-image: linear-gradient(0deg, #66768d 0%, #9ea9b8 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-color, endColorstr=$start-color, GradientType=0); }
+    .xui-btn-lg.xui-btn-gray:hover {
+      background-image: linear-gradient(0deg, #7f90a8 0%, #b3becc 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-hover-color, endColorstr=$start-hover-color, GradientType=0); }
+    .xui-btn-lg.xui-btn-gray:active {
+      background-image: linear-gradient(0deg, #9ea9b8 0%, #66768d 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$start-color, endColorstr=$end-color, GradientType=0); }
+  .xui-btn-lg.xui-btn-red {
+    color: #fff;
+    border: none;
+    background-image: linear-gradient(0deg, #9c2107 0%, #f95129 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-color, endColorstr=$start-color, GradientType=0); }
+    .xui-btn-lg.xui-btn-red:hover {
+      background-image: linear-gradient(0deg, #a33a25 0%, #f76844 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-hover-color, endColorstr=$start-hover-color, GradientType=0); }
+    .xui-btn-lg.xui-btn-red:active {
+      background-image: linear-gradient(0deg, #f95129 0%, #9c2107 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$start-color, endColorstr=$end-color, GradientType=0); }
+  .xui-btn-lg.xui-btn-tab-blue {
+    border-color: #80cbff;
+    color: #0394f9;
+    background: #fff; }
+    .xui-btn-lg.xui-btn-tab-blue.active {
+      background: #0394F9;
+      color: #fff;
+      border-color: #0394F9; }
+    .xui-btn-lg.xui-btn-tab-blue:hover {
+      color: #0394F9;
+      border-color: #80cbff;
+      background: #dff2ff; }
+      .xui-btn-lg.xui-btn-tab-blue:hover.active {
+        background: #0394F9;
+        color: #fff; }
+    .xui-btn-lg.xui-btn-tab-blue.disabled {
+      border-color: #80cbff;
+      background: #fff;
+      color: #0394f9; }
+    .xui-btn-lg.xui-btn-tab-blue[disabled] {
+      border-color: #80cbff;
+      background: #fff;
+      color: #0394f9; }
+      .xui-btn-lg.xui-btn-tab-blue[disabled]:hover {
+        border-color: #80cbff;
+        background: #fff;
+        color: #0394f9; }
+  .xui-btn-lg.xui-btn-warning {
+    border-color: #F39D16;
+    color: #fff;
+    background: #F39D16; }
+    .xui-btn-lg.xui-btn-warning.active {
+      background: #fff;
+      color: #fff;
+      border-color: #fff; }
+    .xui-btn-lg.xui-btn-warning:hover {
+      color: #fff;
+      border-color: #F39D16;
+      background: #F2C311; }
+      .xui-btn-lg.xui-btn-warning:hover.active {
+        background: #fff;
+        color: #fff; }
+    .xui-btn-lg.xui-btn-warning.disabled {
+      border-color: #F39D16;
+      background: #F39D16;
+      color: #fff; }
+    .xui-btn-lg.xui-btn-warning[disabled] {
+      border-color: #F39D16;
+      background: #F39D16;
+      color: #fff; }
+      .xui-btn-lg.xui-btn-warning[disabled]:hover {
+        border-color: #F39D16;
+        background: #F39D16;
+        color: #fff; }
+  .xui-btn-lg.xui-btn-success {
+    border-color: #28AC60;
+    color: #fff;
+    background: #28AC60; }
+    .xui-btn-lg.xui-btn-success.active {
+      background: #fff;
+      color: #fff;
+      border-color: #fff; }
+    .xui-btn-lg.xui-btn-success:hover {
+      color: #fff;
+      border-color: #28AC60;
+      background: #2ECE6E; }
+      .xui-btn-lg.xui-btn-success:hover.active {
+        background: #fff;
+        color: #fff; }
+    .xui-btn-lg.xui-btn-success.disabled {
+      border-color: #28AC60;
+      background: #28AC60;
+      color: #fff; }
+    .xui-btn-lg.xui-btn-success[disabled] {
+      border-color: #28AC60;
+      background: #28AC60;
+      color: #fff; }
+      .xui-btn-lg.xui-btn-success[disabled]:hover {
+        border-color: #28AC60;
+        background: #28AC60;
+        color: #fff; }
+  .xui-btn-lg.xui-btn-danger {
+    border-color: #C5392A;
+    color: #fff;
+    background: #C5392A; }
+    .xui-btn-lg.xui-btn-danger.active {
+      background: #fff;
+      color: #fff;
+      border-color: #fff; }
+    .xui-btn-lg.xui-btn-danger:hover {
+      color: #fff;
+      border-color: #C5392A;
+      background: #E94B40; }
+      .xui-btn-lg.xui-btn-danger:hover.active {
+        background: #fff;
+        color: #fff; }
+    .xui-btn-lg.xui-btn-danger.disabled {
+      border-color: #C5392A;
+      background: #C5392A;
+      color: #fff; }
+    .xui-btn-lg.xui-btn-danger[disabled] {
+      border-color: #C5392A;
+      background: #C5392A;
+      color: #fff; }
+      .xui-btn-lg.xui-btn-danger[disabled]:hover {
+        border-color: #C5392A;
+        background: #C5392A;
+        color: #fff; }
+  .xui-btn-lg.xui-btn-info {
+    border-color: #343a40;
+    color: #fff;
+    background: #343a40; }
+    .xui-btn-lg.xui-btn-info.active {
+      background: #fff;
+      color: #fff;
+      border-color: #fff; }
+    .xui-btn-lg.xui-btn-info:hover {
+      color: #fff;
+      border-color: #343a40;
+      background: #6c757d; }
+      .xui-btn-lg.xui-btn-info:hover.active {
+        background: #fff;
+        color: #fff; }
+    .xui-btn-lg.xui-btn-info.disabled {
+      border-color: #343a40;
+      background: #343a40;
+      color: #fff; }
+    .xui-btn-lg.xui-btn-info[disabled] {
+      border-color: #343a40;
+      background: #343a40;
+      color: #fff; }
+      .xui-btn-lg.xui-btn-info[disabled]:hover {
+        border-color: #343a40;
+        background: #343a40;
+        color: #fff; }
+  .xui-btn-lg.xui-btn-primary {
+    border-color: #2180BA;
+    color: #fff;
+    background: #2180BA; }
+    .xui-btn-lg.xui-btn-primary.active {
+      background: #fff;
+      color: #fff;
+      border-color: #fff; }
+    .xui-btn-lg.xui-btn-primary:hover {
+      color: #fff;
+      border-color: #2180BA;
+      background: #5BABE6; }
+      .xui-btn-lg.xui-btn-primary:hover.active {
+        background: #fff;
+        color: #fff; }
+    .xui-btn-lg.xui-btn-primary.disabled {
+      border-color: #2180BA;
+      background: #2180BA;
+      color: #fff; }
+    .xui-btn-lg.xui-btn-primary[disabled] {
+      border-color: #2180BA;
+      background: #2180BA;
+      color: #fff; }
+      .xui-btn-lg.xui-btn-primary[disabled]:hover {
+        border-color: #2180BA;
+        background: #2180BA;
+        color: #fff; }
+
 .xui-pagination-wrap {
   padding-left: 0;
   list-style: none;
@@ -3921,9 +4724,9 @@ table {
   .xui-autoselect-wrap .select-show {
     text-align: left;
     width: 180px;
+    padding: 0 5px;
     background-position: center right;
     background-repeat: no-repeat;
-    padding-right: 18px !important;
     color: #2b3646;
     text-overflow: ellipsis;
     white-space: nowrap;
