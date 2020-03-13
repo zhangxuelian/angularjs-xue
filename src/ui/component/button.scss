@@ -58,21 +58,25 @@ $btn-link-color: $link-color !default;
 $btn-link-hover-color: $link-hover-color !default;
 $btn-link-disabled-color: $gray-600 !default;
 
+$btn-color: $gray-900;
+$btn-bg-color: $white !default;
+$btn-hover-bg-color: #eff6ff !default;
+
 $btn-block-spacing-y: .5rem !default;
 
 // Allows for customizing button radius independently from global border radius
 $btn-border-radius: $border-radius !default;
 $btn-border-radius-lg: $border-radius-lg !default;
 $btn-border-radius-sm: $border-radius-sm !default;
+$btn-circle-border-radius: 20px !default;
+$btn-circle-icon-only-width: 32px !default;
 
 $btn-transition: color .15s ease-in-out,
 background-color .15s ease-in-out,
 border-color .15s ease-in-out,
 box-shadow .15s ease-in-out !default;
 
-
-$btn-bg-color: $white !default;
-$btn-hover-bg-color: #eff6ff !default;
+$btn-group-merge-border-color: $btn-border-color;
 
 @mixin btn-gradient($start-color, $end-color, $start-hover-color, $end-hover-color) {
     color: #fff;
@@ -96,33 +100,24 @@ $btn-hover-bg-color: #eff6ff !default;
     color: $color;
     background: $bg-color;
 
-    &.active {
-        background: $hover-color;
-        color: $active-color;
-        border-color: $hover-color;
-    }
-
     &:hover {
         color: $hover-color;
-        border-color: $border-color;
+        border-color: $hover-bg-color;
         background: $hover-bg-color;
-
-        &.active {
-            background: $hover-color;
-            color: $active-color;
-        }
     }
 
-    &.disabled {
+    &:active {
+        border-color: $border-color;
+        color: $color;
+        background: $bg-color;
+    }
+
+    &[disabled] {
         border-color: $border-color;
         background: $bg-color;
         color: $color;
-    }
-    &[disabled]{
-        border-color: $border-color;
-        background: $bg-color;
-        color: $color;
-        &:hover{
+
+        &:hover {
             border-color: $border-color;
             background: $bg-color;
             color: $color;
@@ -142,7 +137,8 @@ $btn-hover-bg-color: #eff6ff !default;
     font-size: $font-size;
     font-weight: $btn-font-weight;
     line-height: $btn-line-height;
-    // color: $btn-link-color;
+    color: $btn-color;
+    -webkit-transition: $btn-transition;
     transition: $btn-transition;
 
     &:hover {
@@ -156,7 +152,7 @@ $btn-hover-bg-color: #eff6ff !default;
         outline: none;
     }
 
-    &.disabled {
+    &[disabled] {
         cursor: not-allowed;
         opacity: $btn-disabled-opacity;
         color: $btn-link-disabled-color;
@@ -167,15 +163,8 @@ $btn-hover-bg-color: #eff6ff !default;
         }
     }
 
-    &[disabled] {
-        cursor: not-allowed;
-        opacity: $btn-disabled-opacity;
-        color: $btn-link-disabled-color;
-
-        &:hover {
-            background-color: $btn-bg-color;
-            box-shadow: none;
-        }
+    &:active {
+        background: $btn-bg-color;
     }
 
     &.xui-btn-dark-blue {
@@ -225,6 +214,74 @@ $btn-hover-bg-color: #eff6ff !default;
     &.xui-btn-primary {
         @include btn-theme($border-color:$blue-deep, $bg-color:$blue-deep,
             $hover-bg-color:$blue, $color:#fff, $hover-color:#fff, $active-color:#fff);
+    }
+
+    &.xui-btn-circle {
+        border-radius: $btn-circle-border-radius;
+
+        &.icon-only {
+            border-radius: 50%;
+            width: $btn-circle-icon-only-width;
+            height: $btn-circle-icon-only-width;
+            padding: 0;
+        }
+    }
+}
+
+.xui-btn-group {
+    display: inline-flex;
+
+    &>.xui-btn:not(:last-child) {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    &>.xui-btn:not(:first-child) {
+        border-left: none;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+    &>.xui-btn-primary:not(:last-child),
+    &>.xui-btn-danger:not(:last-child),
+    &>.xui-btn-warning:not(:last-child),
+    &>.xui-btn-success:not(:last-child) {
+        border-right-color: $btn-group-merge-border-color;
+
+        &:hover,
+        &:active {
+            border-right-color: $btn-group-merge-border-color;
+        }
+    }
+
+    &.group-vertical {
+        flex-direction: column;
+        &>.xui-btn{
+            border-radius: $btn-border-radius;
+            border: $btn-border-width solid $btn-border-color;
+        }
+
+        &>.xui-btn:not(:last-child) {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        &>.xui-btn:not(:first-child) {
+            border-top: none;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+        &>.xui-btn-primary:not(:last-child),
+        &>.xui-btn-danger:not(:last-child),
+        &>.xui-btn-warning:not(:last-child),
+        &>.xui-btn-success:not(:last-child) {
+            border-bottom-color: $btn-group-merge-border-color;
+    
+            &:hover,
+            &:active {
+                border-bottom-color: $btn-group-merge-border-color;
+            }
+        }
     }
 }
 

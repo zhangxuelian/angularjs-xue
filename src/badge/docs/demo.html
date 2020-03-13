@@ -4,6 +4,9 @@
         display: inline-block;
         margin: 0 5px;
     }
+    .demo-badge>div{
+        margin:10px 0;
+    }
 </style>
 <div ng-controller="xueBadgeDemoCtrl" class="demo-badge">
     <span>
@@ -23,42 +26,54 @@
     </span>
     </br>
     <div>button 按钮：</div>
-    <button class="xui-btn">普通按钮</button>
-    <button class="xui-btn disabled">禁用按钮</button>
-    <div>渐变按钮:
-        <button class="xui-btn xui-btn-green">绿色按钮</button>
-        <input type="button" value="红色按钮" class="xui-btn xui-btn-red">
-        <button class="xui-btn xui-btn-dark-blue">深蓝按钮</button>
-        <button class="xui-btn xui-btn-sky-blue">浅蓝按钮</button>
-        <button class="xui-btn xui-btn-gray">灰色按钮</button>
+    <div>
+        <button class="xui-btn">默认按钮</button>
+        <button class="xui-btn xui-btn-warning">警告按钮</button>
+        <button class="xui-btn xui-btn-success">成功按钮</button>
+        <button class="xui-btn xui-btn-danger">危险按钮</button>
+        <button class="xui-btn xui-btn-info">信息按钮</button>
+        <button class="xui-btn xui-btn-primary">主要按钮</button>
+       
     </div>
+    <div>
+        禁用按钮:
+        <button class="xui-btn" disabled>默认按钮</button>
+        <button class="xui-btn xui-btn-warning" disabled>警告按钮</button>
+        <button class="xui-btn xui-btn-success" disabled>成功按钮</button>
+        <button class="xui-btn xui-btn-danger" disabled>危险按钮</button>
+        <button class="xui-btn xui-btn-info" disabled>信息按钮</button>
+        <button class="xui-btn xui-btn-primary" disabled>主要按钮</button>
+    </div> 
     <div>
         按钮大小:
         <button class="xui-btn-sm">小按钮</button>
         <button class="xui-btn">按钮</button>
         <button class="xui-btn-lg">大按钮</button>
     </div>
-    <div> tab按钮:
-        <button class="xui-btn xui-btn-tab-blue">按钮1</button>
-        <button class="xui-btn xui-btn-tab-blue active">按钮2</button>
-        <button class="xui-btn xui-btn-tab-blue">按钮3</button>
-    </div>
     <div> 带图标按钮:
-        <button class="xui-btn"><i class="xui-icon xui-icon-md-search"></i>搜索</button>
-        <button class="xui-btn xui-btn-dark-blue"><i class="xui-icon xui-icon-md-search"></i>搜索</button>
-        <button class="xui-btn xui-btn-sky-blue"><i class="xui-icon xui-icon-md-search"></i>搜索</button>
+        <button class="xui-btn"><i class="xui-icon xui-icon-ios-add-circle-outline"></i></button>
+        <button class="xui-btn xui-btn-primary"><i class="xui-icon xui-icon-md-search"></i>搜索</button>
+        <button class="xui-btn xui-btn-info"><i class="xui-icon xui-icon-md-search"></i>搜索</button>
     </div>
-    <div>主题按钮:
-        <button class="xui-btn xui-btn-warning">警告</button>
-        <button class="xui-btn xui-btn-success">成功</button>
-        <button class="xui-btn xui-btn-danger">危险</button>
-        <button class="xui-btn xui-btn-info">信息</button>
-        <button class="xui-btn xui-btn-primary">主要</button>
-        <button class="xui-btn xui-btn-primary disabled">禁用</button>
-        <button class="xui-btn xui-btn-primary" disabled>禁用</button>
+    <div>
+        圆角按钮：
+        <button class="xui-btn xui-btn-primary xui-btn-circle icon-only"><i class="xui-icon xui-icon-md-search"></i></button>
+        <button class="xui-btn xui-btn-circle">默认按钮</button>
+        <button class="xui-btn xui-btn-warning xui-btn-circle">警告按钮</button>
     </div>
-    </br>
-    <div>input 样式</div>
+    <div>按钮组：
+        <div class="xui-btn-group group-vertical">
+            <button class="xui-btn">添加</button>
+            <button class="xui-btn">编辑</button>
+            <button class="xui-btn">删除</button>
+        </div>
+        <div class="xui-btn-group">
+            <button class="xui-btn xui-btn-primary">添加</button>
+            <button class="xui-btn xui-btn-primary">编辑</button>
+            <button class="xui-btn xui-btn-primary">删除</button>
+        </div>
+    </div>
+    <div class="clearfix">input 样式</div>
     <input type="text" class="xui-input-sm">
     <input type="text" class="xui-input">
     <input type="text" class="xui-input-lg">
