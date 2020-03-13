@@ -6512,7 +6512,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
         return {
             restrict: "A",
             scope: {
-                xueValidate: "="
+                validateConfig: "="
             },
             link: function (scope, ele, attrs) {
                 var xueValidateCtrl = scope.xueValidateCtrl = {
@@ -6550,7 +6550,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                         },
                         execShowPanel: function () { // 主要是用于显示下拉组件还有日历组件的列表
                             $timeout(function () {
-                                switch (scope.xueValidate.validType) {
+                                switch (scope.ValidateConfig.validType) {
                                     case "select":
                                         ele[0].previousElementSibling.children[0].children[1].style.display = "block";
                                         break;
@@ -6597,7 +6597,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                                         // 单选组件
                                         if (target.validType == "radio") {
                                             if (target.className.indexOf("active") != -1) {
-                                                scope.xueValidate.execSuccess();
+                                                scope.ValidateConfig.execSuccess();
                                             }
                                             continue;
                                         }
@@ -6608,11 +6608,11 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                                                 break;
                                             }
                                             if (target.src.indexOf("no_sign") != -1 || target.src.indexOf("refuse_seal") != -1) {
-                                                if (scope.xueValidate.required) {
-                                                    scope.xueValidate.execError(scope.xueValidate.requiredTip);
+                                                if (scope.ValidateConfig.required) {
+                                                    scope.ValidateConfig.execError(scope.ValidateConfig.requiredTip);
                                                 }
                                             } else {
-                                                scope.xueValidate.execSuccess();
+                                                scope.ValidateConfig.execSuccess();
                                             }
                                             break;
                                         }
@@ -6624,7 +6624,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                                             } else if (target.validType == "datepicker") {
                                                 ipt = target.ipt;
                                             }
-                                            scope.xueValidate.execBlur(ipt.value);
+                                            scope.ValidateConfig.execBlur(ipt.value);
                                         } else {
                                             target.oldDisplay = target.style.display;
                                         }
@@ -6695,16 +6695,16 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                      */
                     handleValidateSuccess: function (isAddSuccess) {
                         var self = this;
-                        if (scope.xueValidate.validType == "select" || 
-                            scope.xueValidate.validType == "datepicker") {
+                        if (scope.ValidateConfig.validType == "select" || 
+                            scope.ValidateConfig.validType == "datepicker") {
                             self.changeEleStyle(true);
                         }
                         isAddSuccess = isAddSuccess || false;
-                        var nextNode = $("#" + scope.xueValidate.gxMsgId)[0];
+                        var nextNode = $("#" + scope.ValidateConfig.gxMsgId)[0];
                         var nextNodeI = nextNode.children[0];
                         nextNode.classList.add("hide");
                         ele[0].classList.remove('gx-error-tip');
-                        if (isAddSuccess && scope.xueValidate.errorTipPos != "bottom") {
+                        if (isAddSuccess && scope.ValidateConfig.errorTipPos != "bottom") {
                             nextNodeI.classList.remove('xui-icon-ios-close-circle');
                             nextNodeI.classList.add("xui-icon-ios-checkmark-circle");
                             return;
@@ -6718,11 +6718,11 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                      */
                     handleValidateError: function (tip) {
                         var self = this;
-                        if (scope.xueValidate.validType == "select" || 
-                            scope.xueValidate.validType == "datepicker") {
+                        if (scope.ValidateConfig.validType == "select" || 
+                            scope.ValidateConfig.validType == "datepicker") {
                             self.changeEleStyle(false);
                         }
-                        var nextNode = $("#" + scope.xueValidate.gxMsgId)[0];
+                        var nextNode = $("#" + scope.ValidateConfig.gxMsgId)[0];
                         var nextNodeI = nextNode.children[0];
                         var nextNodeLabel = nextNode.children[1];
                         nextNode.classList.remove("hide");
@@ -6738,38 +6738,38 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                     triggerBlur: function (val) {
                         // 如果没有传值进来，则val会是一个对象
                         var newVal = (typeof val == "string" && val && val !== "NaN") ? $.trim(val) : $.trim(ele[0].value);
-                        if (scope.xueValidate.required) {
+                        if (scope.ValidateConfig.required) {
                             if (!newVal) {
-                                xueValidateCtrl.handleValidateError(scope.xueValidate.requiredTip);
+                                xueValidateCtrl.handleValidateError(scope.ValidateConfig.requiredTip);
                                 return false;
                             } else {
                                 xueValidateCtrl.handleValidateSuccess();
                             }
                         }
-                        if (scope.xueValidate.equalTo && newVal != $(scope.xueValidate.equalTo).val()){
-                            xueValidateCtrl.handleValidateError(scope.xueValidate.equalToTip);
+                        if (scope.ValidateConfig.equalTo && newVal != $(scope.ValidateConfig.equalTo).val()){
+                            xueValidateCtrl.handleValidateError(scope.ValidateConfig.equalToTip);
                             return false;
                         } 
-                        if (scope.xueValidate.unequalTo && newVal == $(scope.xueValidate.unequalTo).val()){
-                            xueValidateCtrl.handleValidateError(scope.xueValidate.unequalToTip);
+                        if (scope.ValidateConfig.unequalTo && newVal == $(scope.ValidateConfig.unequalTo).val()){
+                            xueValidateCtrl.handleValidateError(scope.ValidateConfig.unequalToTip);
                             return false;
                         } 
-                        if (scope.xueValidate.maxlen && newVal.length > scope.xueValidate.maxlen){
-                            xueValidateCtrl.handleValidateError(scope.xueValidate.maxlenTip);
+                        if (scope.ValidateConfig.maxlen && newVal.length > scope.ValidateConfig.maxlen){
+                            xueValidateCtrl.handleValidateError(scope.ValidateConfig.maxlenTip);
                             return false;
                         } 
-                        if (scope.xueValidate.minlen && newVal.length < scope.xueValidate.minlen){
-                            xueValidateCtrl.handleValidateError(scope.xueValidate.minlenTip);
+                        if (scope.ValidateConfig.minlen && newVal.length < scope.ValidateConfig.minlen){
+                            xueValidateCtrl.handleValidateError(scope.ValidateConfig.minlenTip);
                             return false;
                         } 
-                        var regex = scope.xueValidate.regex;
-                        var errorTip = scope.xueValidate.errorTip;
+                        var regex = scope.ValidateConfig.regex;
+                        var errorTip = scope.ValidateConfig.errorTip;
                         var retFlag = false;
                         //有特殊的判断要求
-                        if (scope.xueValidate.judge) {
-                            switch (scope.xueValidate.judge) {
+                        if (scope.ValidateConfig.judge) {
+                            switch (scope.ValidateConfig.judge) {
                                 case 'idCard':
-                                    if (!newVal && !scope.xueValidate.required) {
+                                    if (!newVal && !scope.ValidateConfig.required) {
                                         xueValidateCtrl.handleValidateSuccess();
                                         return true;
                                     }
@@ -6778,11 +6778,11 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                                         xueValidateCtrl.handleValidateSuccess();
                                         retFlag = true;
                                     } else {
-                                        xueValidateCtrl.handleValidateError(scope.xueValidate.errorTip || ret.message);
+                                        xueValidateCtrl.handleValidateError(scope.ValidateConfig.errorTip || ret.message);
                                     }
                                     return retFlag;
                                 case 'dutyRule':
-                                    if (!newVal && !scope.xueValidate.required) {
+                                    if (!newVal && !scope.ValidateConfig.required) {
                                         xueValidateCtrl.handleValidateSuccess();
                                         return true;
                                     }
@@ -6791,7 +6791,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                                         xueValidateCtrl.handleValidateSuccess();
                                         retFlag = true;
                                     } else {
-                                        xueValidateCtrl.handleValidateError(scope.xueValidate.errorTip);
+                                        xueValidateCtrl.handleValidateError(scope.ValidateConfig.errorTip);
                                     }
                                     return retFlag;
                                 default:
@@ -6803,8 +6803,8 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                             regex = xueUtilMethods.getPattern()[regex];
                         }
                         //regex与errorTip为空,则errorTip与requiredTip相等
-                        if (!regex && !scope.xueValidate.errorTip) {
-                            scope.xueValidate.errorTip = scope.xueValidate.requiredTip;
+                        if (!regex && !scope.ValidateConfig.errorTip) {
+                            scope.ValidateConfig.errorTip = scope.ValidateConfig.requiredTip;
                         }
                         return xueValidateCtrl.getBlur(regex, errorTip, newVal);
                     },
@@ -6822,7 +6822,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                                 if (!isAdd) {
                                     return children[i];
                                 }
-                                if (children[i].innerText == scope.xueValidate.requiredTip) {
+                                if (children[i].innerText == scope.ValidateConfig.requiredTip) {
                                     return children[i];
                                 } 
                             }
@@ -6841,27 +6841,27 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                         }
                         var oDiv = document.createElement("div");
                         oDiv.id = xueUtilMethods.guid();
-                        scope.xueValidate.gxMsgId = oDiv.id;
+                        scope.ValidateConfig.gxMsgId = oDiv.id;
                         oDiv.classList.add("gx-msg");
-                        var msgCssText = self.getCssText(scope.xueValidate.msgStyle),
-                            iconCssText = self.getCssText(scope.xueValidate.iconStyle),
-                            lblCssText = self.getCssText(scope.xueValidate.lblStyle),
-                            parentCssText = self.getCssText(scope.xueValidate.parentStyle);
+                        var msgCssText = self.getCssText(scope.ValidateConfig.msgStyle),
+                            iconCssText = self.getCssText(scope.ValidateConfig.iconStyle),
+                            lblCssText = self.getCssText(scope.ValidateConfig.lblStyle),
+                            parentCssText = self.getCssText(scope.ValidateConfig.parentStyle);
                         if (msgCssText) {
                             oDiv.style.cssText = msgCssText;
                         }
-                        if (!scope.xueValidate.hasErrorTip) {
+                        if (!scope.ValidateConfig.hasErrorTip) {
                             oDiv.style.display = 'none';
                         }
                         var errorMsg = "<i class='xui-icon' style='" + iconCssText + "'></i>" +
-                                "<label class='gx-error' title='" + scope.xueValidate.requiredTip + 
-                                "' style='" + lblCssText + "'>" + scope.xueValidate.requiredTip + 
+                                "<label class='gx-error' title='" + scope.ValidateConfig.requiredTip + 
+                                "' style='" + lblCssText + "'>" + scope.ValidateConfig.requiredTip + 
                                 "</label>";
                         oDiv.innerHTML = errorMsg;
                         if (parentCssText) {
                             parentNode.style.cssText = parentCssText;
                         }
-                        switch (scope.xueValidate.errorTipPos) {
+                        switch (scope.ValidateConfig.errorTipPos) {
                             case "right":
                                 oDiv.classList.add("gx-show-tip");
                                 break;
@@ -6891,9 +6891,9 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                      */
                     changeEleStyle: function (validResult) {
                         var element = null;
-                        if (scope.xueValidate.validType == "select") {
+                        if (scope.ValidateConfig.validType == "select") {
                             element = ele[0].previousElementSibling.children[0].children[0];
-                        } else if (scope.xueValidate.validType == "datepicker") {
+                        } else if (scope.ValidateConfig.validType == "datepicker") {
                             element = ele[0].previousElementSibling.children[0];
                         }
                         if (!validResult) {
@@ -6954,7 +6954,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                                 target.validType = "datepicker";
                                 // 清除按钮点击触发校验
                                 ele[0].previousElementSibling.children[0].children[2].onclick = function () {
-                                    scope.xueValidate.execBlur(target.ipt.value);
+                                    scope.ValidateConfig.execBlur(target.ipt.value);
                                 }
                                 deferred.resolve(target);
                             }
@@ -6990,7 +6990,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                         $timeout(function () {
                             var target = ele[0].previousElementSibling;
                             target.validType = "sign";
-                            target.isFirst = scope.xueValidate.hasFirstValid;
+                            target.isFirst = scope.ValidateConfig.hasFirstValid;
                             deferred.resolve(target);
                         });
                         return deferred.promise();
@@ -7000,11 +7000,11 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                      */
                     init: function () {
                         var self = this;
-                        scope.xueValidate = angular.extend(self.defaultConfig, scope.xueValidate);
+                        scope.ValidateConfig = angular.extend(self.defaultConfig, scope.ValidateConfig);
                         self.addDivMsg();
                         ele.bind('blur', self.triggerBlur);
                         self.destroy();
-                        switch(scope.xueValidate.validType) {
+                        switch(scope.ValidateConfig.validType) {
                             // 下拉组件的实时校验
                             case "select":
                                 self.getSelectEle().then(function (target) {
@@ -7040,7 +7040,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                         var self = this;
                         scope.$on('$destroy', function () {
                             self.removeDivMsg();
-                            scope.xueValidate = null;
+                            scope.ValidateConfig = null;
                             ele.unbind("blur");
                             self.observe.stopObserve();
                         });
@@ -7728,4 +7728,3 @@ angular.module("xue/template/tree/tree.html", []).run(["$templateCache", functio
     "</div>");
 }]);
 angular.module('xue.table').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTableCss && angular.element(document).find('head').prepend('<style type="text/css">.xe-table-container{width:100%;height:100%;position:relative;}.xe-table-container .xe-table-header{height:40px;width:100%;position:absolute;top:0;background:blue;}.xe-table-container .xe-table-content{width:100%;height:100%;background:red;}.xe-table-container .xe-table-footer{height:40px;width:100%;position:absolute;bottom:0;background:pink;}</style>'); angular.$$uibTableCss = true; });
-angular.module('xue.tree').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTreeCss && angular.element(document).find('head').prepend('<style type="text/css">.xui-tree-wrap{position:relative;width:100%;height:100%;overflow:auto;padding-bottom:10px;}.xui-tree-wrap.support-search > .tree-list{height:calc(100% - 41px);overflow-y:scroll;}.xui-tree-wrap .tree-search{width:100%;padding:0 10px;text-align:center;border-bottom:1px solid #CEE0F0;}.xui-tree-wrap .tree-search .tree-ipt{height:30px;width:100%;border-radius:15px;margin:5px 0;color:#515a6e;background-image:url(../images/menu_search.png);background-repeat:no-repeat;background-position-x:5px;background-position-y:7px;padding-left:25px;border:1px solid #CEE0F0;}.xui-tree-wrap .tree-search .tree-ipt:focus{border-color:#66afe9;box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);}.xui-tree-wrap .tree-search .search-list{position:absolute;top:38px;width:90%;left:5%;z-index:9999;background:#ddd;border-radius:5px;}.xui-tree-wrap .tree-search .search-list li{height:28px;line-height:28px;text-align:left;cursor:pointer;padding:0 10px;color:#515a6e;}.xui-tree-wrap .tree-search .search-list li:hover{color:#0394F9;}.xui-tree-wrap > .tree-list{padding:0 10px;}.xui-tree-wrap .tree-list{overflow:hidden;}.xui-tree-wrap .tree-list .tree-item{position:relative;padding-left:20px;}.xui-tree-wrap .tree-list .tree-item.level1{padding-left:0px;}.xui-tree-wrap .tree-list .tree-item .tree-row{display:flex;align-items:center;transition:all 0.2s ease;line-height:28px;padding-right:10px;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-align{display:inline-block;vertical-align:middle;}.xui-tree-wrap .tree-list .tree-item .tree-row .expand-icon{position:relative;width:12px;text-align:center;transition:all 0.3s ease;cursor:pointer;z-index:10;}.xui-tree-wrap .tree-list .tree-item .tree-row .expand-icon.expanded{transform:rotate(90deg);}.xui-tree-wrap .tree-list .tree-item .tree-row .check-icon{margin:0 4px;line-height:1;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-icon{display:flex;align-items:center;margin:0 4px;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-title{flex:1;margin:0;border-radius:3px;padding:0 4px;line-height:24px;cursor:pointer;color:#515a6e;transition:all .2s ease-in-out;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-title:hover{background:#eaf4fe;}.xui-tree-wrap .tree-list .tree-item .tree-row .node-title.active{background:#d5e8fc;}.xui-tree-wrap .tree-list .tree-item .tree-row .loading-icon{font-size:16px;}.xui-tree-wrap .tree-list .tree-item .tree-list.ng-hide{display:block !important;}.xui-tree-wrap .tree-list .tree-item .tree-list.ng-hide .tree-row{height:0;}.xui-tree-wrap .tree-list .tree-item.show-line::before{content:"";position:absolute;width:12px;height:16px;top:6px;background:#fff;z-index:1;left:20px;}.xui-tree-wrap .tree-list .tree-item.show-line::after{content:"";position:absolute;height:100%;top:0;left:25px;border-left:1px dashed #ccc;}.xui-tree-wrap .tree-list .tree-item.show-line:last-child::after{height:8px;}.xui-tree-wrap .tree-list .tree-item.show-line.leaf::before{content:"";position:absolute;width:10px;height:0;top:50%;left:26px;border-top:1px dashed #ccc;}.xui-tree-wrap .tree-list .tree-item.show-line.leaf:last-child::after{height:50%;}.xui-tree-wrap .tree-list .tree-item.show-line.level1{padding-left:0px;}.xui-tree-wrap .tree-list .tree-item.show-line.level1::before{left:0;}.xui-tree-wrap .tree-list .tree-item.show-line.level1::after{left:6px;}.xui-tree-wrap .tree-list .tree-item.show-line.level1:only-of-type::after{border:0 none;}.xui-multi-checkbox-wrap{position:relative;display:inline-block;vertical-align:middle;margin:0;cursor:pointer;}.xui-multi-checkbox-wrap .multi-checkbox{position:relative;display:inline-block;vertical-align:middle;width:16px;height:16px;border:1px solid #dcdee2;border-radius:2px;background-color:#fff;transition:border-color .2s ease-in-out,background-color .2s ease-in-out,box-shadow .2s ease-in-out;}.xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-checked{border-color:#2d8cf0;background-color:#2d8cf0;}.xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-checked:after{width:4px;height:8px;top:2px;left:5px;border:2px solid #fff;border-top:0;border-left:0;transform:rotate(45deg) scale(1);}.xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-indeterminate{border-color:#2d8cf0;background-color:#2d8cf0;}.xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-indeterminate:after{width:10px;height:1px;left:2px;top:6px;border:1px solid #fff;}.xui-multi-checkbox-wrap .multi-checkbox:after{content:"";position:absolute;}.xui-multi-checkbox-wrap .multi-checkbox-input{position:absolute;width:100%;height:100%;top:0;bottom:0;left:0;right:0;z-index:1;opacity:0;cursor:pointer;}</style>'); angular.$$uibTreeCss = true; });
