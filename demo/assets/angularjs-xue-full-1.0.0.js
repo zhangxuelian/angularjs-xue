@@ -2402,6 +2402,7 @@ angular.module('xue.modal', [])
                         windowClass: '',
                         animation: true,
                         backdrop: true, //can also be false or 'static'
+                        autoClose: false,
                         keyboard: true,
                         resolve: {},
                         appendTo: $document.find('body').eq(0),
@@ -2579,8 +2580,7 @@ angular.module('xue.modal', [])
 
                     scope.close = function (evt) {
                         var modal = $modalStack.getTop();
-                        if (modal && modal.value.backdrop &&
-                            modal.value.backdrop !== 'static' &&
+                        if (modal && modal.value.autoClose &&
                             evt.target === evt.currentTarget) {
                             evt.preventDefault();
                             evt.stopPropagation();
