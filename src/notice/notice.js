@@ -15,7 +15,7 @@ angular.module('xue.notice', ['xue.util.lang'])
                     defaultConfig: {
                         modalId: null,
                         title: '', // 滑过显示标题
-                        // iconUrl: 'common/directives/images/gx_notice/warn.png', // 图标
+                        iconClassName: 'xui-icon-md-notifications-outline',// 图标
                         width: '366px', // 提示容器宽
                         height: '266px', // 提示容器高
                         count: 0, // 总提示记录数，为0时不显示
@@ -30,7 +30,7 @@ angular.module('xue.notice', ['xue.util.lang'])
                             count: 3
                         }],
                         tabMark: 'number', //number 数字 circle 圆点
-                        showNotice: true, // 显示提示内容
+                        // showNotice: true, // 显示提示内容
                         formatField: { // 字段名格式化
                             contentTitle: '',
                             content: 'content',

@@ -10,7 +10,7 @@ angular.module("xue/template/steps/steps.html", []).run(["$templateCache", funct
     "                <span class=\"bar-icon-inner\" ng-if=\"stepsConfig.iconStyle=='num'\">{{$index+1}}</span>\n" +
     "                <span class=\"bar-icon-inner\"\n" +
     "                    ng-if=\"stepsConfig.iconStyle=='statusNum' && !option.passed\">{{$index+1}}</span>\n" +
-    "                <i class=\"bar-icon-inner fa fa-check\"\n" +
+    "                <i class=\"bar-icon-inner xui-icon xui-icon-md-checkmark\"\n" +
     "                    ng-if=\"(stepsConfig.iconStyle=='statusNum'||stepsConfig.iconStyle=='strokeStatus'||stepsConfig.iconStyle=='fillStatus') && option.passed && option[stepsConfig.idField]!=ngValue\"></i>\n" +
     "            </div>\n" +
     "            <div class=\"bar-line\"></div>\n" +

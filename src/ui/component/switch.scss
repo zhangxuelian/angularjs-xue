@@ -23,7 +23,7 @@
         -moz-transition: All 0.3s ease;
         -o-transition: All 0.3s ease;
         width: 100%;
-        height: 20px;
+        height: 18px;
         background: #CAE7FC;
         border-radius: 9px;
     }
@@ -42,13 +42,16 @@
         left: 0;
         border: 1px solid #CEE0F0;
         box-shadow: 0px 1px 2px 0px rgba(86, 120, 159, 0.15);
+        box-sizing: border-box;
     }
 }
 
+$switch-check-color:#13BA5A !default;
+$switch-discheck-color:#CAE7FC !default;
 .xui-switch-wrap {
     display: inline-block;
     width: 30px;
-    height: 20px;
+    height: 18px;
     vertical-align: middle;
     position: relative;
     cursor: pointer;
@@ -63,11 +66,11 @@
 
         &:checked~.toggle-btn {
             left: 12px;
-            border: 1px solid #13BA5A;
+            border: 1px solid $switch-check-color;
         }
 
         &:checked~.switch-bg {
-            background: #13BA5A;
+            background: $switch-check-color;
         }
     }
 
@@ -78,7 +81,7 @@
         -o-transition: All 0.3s ease;
         width: 100%;
         height: 100%;
-        background: #CAE7FC;
+        background: $switch-discheck-color;
         border-radius: 9px;
     }
 
@@ -94,7 +97,8 @@
         background: #fff;
         top: 0;
         left: 0;
-        border: 1px solid #CEE0F0;
+        border: 1px solid $switch-discheck-color;
         box-shadow: 0px 1px 2px 0px rgba(86, 120, 159, 0.15);
+        box-sizing: border-box;
     }
 }

@@ -1,31 +1,3 @@
 .clearfix {
     @include clearfix();
 }
-
-@mixin xui-input {
-    display: inline-block;
-    height: 28px;
-    line-height: 28px;
-    padding: 0 5px;
-    vertical-align: middle;
-    border-radius: $input-border-radius;
-    background-color: $input-bg-color;
-    -webkit-box-shadow: $input-box-shadow;
-    box-shadow: $input-box-shadow;
-    box-sizing: border-box;
-    border: $border-width solid $input-border-color;
-    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-    -o-transition: $input-transition;
-    transition: $input-transition;
-
-    &:focus {
-        border-color: $input-focus-border-color;
-        outline: 0;
-        -webkit-box-shadow: $input-focus-box-shadow;
-        box-shadow: $input-focus-box-shadow;
-    }
-}
-
-.xui-input {
-    @include xui-input();
-}

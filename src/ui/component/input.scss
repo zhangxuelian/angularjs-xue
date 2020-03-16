@@ -1,0 +1,68 @@
+// input
+$input-font-size: $font-size-base !default;
+$input-border-color: #cee0f0 !default;
+$input-bg-color: $white;
+
+$input-border-radius: $border-radius !default;
+$input-border-radius-lg: $border-radius-lg !default;
+$input-border-radius-sm: $border-radius-sm !default;
+
+$input-padding-y: .25rem !default;
+$input-padding-x: .5rem !default;
+$input-padding-y-sm: .125rem !default;
+$input-padding-x-sm: .375rem !default;
+$input-padding-y-lg: .5rem !default;
+$input-padding-x-lg: 1rem !default;
+
+
+$input-disabled-bg-color: $gray-200 !default;
+$input-disabled-border-color: $gray-200 !default;
+
+
+$input-focus-border-color: #66afe9 !default;
+$input-focus-width: .5rem !default;
+$input-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .075);
+$input-focus-box-shadow: 0 0 $input-focus-width $input-focus-border-color !default;
+$input-transition: border-color .15s ease-in-out,
+box-shadow .15s ease-in-out !default;
+
+
+@mixin xui-input($border-radius, $padding-y, $padding-x, $font-size) {
+    display: inline-block;
+    padding: $padding-y $padding-x;
+    vertical-align: middle;
+    @include font-size($font-size);
+    border-radius: $border-radius;
+    background-color: $input-bg-color;
+    -webkit-box-shadow: $input-box-shadow;
+    box-sizing: border-box;
+    border: $border-width solid $input-border-color;
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: $input-transition;
+    transition: $input-transition;
+
+    &:focus {
+        border-color: $input-focus-border-color;
+        outline: 0;
+        -webkit-box-shadow: $input-focus-box-shadow;
+        box-shadow: $input-focus-box-shadow;
+    }
+
+    &[disabled] {
+        cursor: not-allowed;
+        background-color: $input-disabled-bg-color;
+        border-color: $input-disabled-border-color;
+    }
+}
+
+.xui-input {
+    @include xui-input($input-border-radius, $input-padding-y, $input-padding-x, null);
+}
+
+.xui-input-sm {
+    @include xui-input($input-border-radius-sm, $input-padding-y-sm, $input-padding-x-sm, $font-size-sm);
+}
+
+.xui-input-lg {
+    @include xui-input($input-border-radius-lg, $input-padding-y-lg, $input-padding-x-lg, $font-size-lg);
+}

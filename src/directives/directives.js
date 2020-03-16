@@ -369,7 +369,8 @@ angular.module('xue.directives', ['xue.util.lang'])
                 })
 
                 function removeEle() {
-                    $('body').find("#" + scope.id).remove();
+                    // $('body').find("#" + scope.id).remove();
+                    $('body').find(".common-title-tip").remove();
                 }
                 // 判断title位置
                 function chekPosition(e) {

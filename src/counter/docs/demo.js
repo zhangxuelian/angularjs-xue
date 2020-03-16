@@ -1,25 +1,26 @@
 angular.module('ui.xue.demo').controller('xueCounterDemoCtrl', ['$scope', function ($scope) {
     $scope.vm = {
-        counterConfig:{
+        counterConfig: {
             suffix: "℃",
             max: 300,
             min: 0,
-            type:2
+            type: 2,
+            changeCallback: function (value) {
+                console.log(value);
+            }
         },
-        counterConfigLg:{
+        counterConfigLg: {
             suffix: "℃",
             max: 300,
             min: 0,
-            size:'large'
+            size: 'large'
         },
-        counterConfigSm:{
+        counterConfigSm: {
             suffix: "℃",
             max: 300,
             min: 20,
-            size:'small'
+            size: 'small'
         },
-        number1:20,
-        number2:20,
-        number3:20
+        number: 20
     }
 }]);

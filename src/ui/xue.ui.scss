@@ -7,6 +7,8 @@
 @import "config/reset.scss";
 @import "config/common.scss";
 @import "icon_font/index.scss";
+@import "component/input.scss";
+@import "component/button.scss";
 @import "component/pagination.scss";
 @import "component/table.scss";
 @import "component/tabs.scss";
@@ -18,9 +20,11 @@
 @import "component/directives.scss";
 @import "component/menu.scss";
 @import "component/datepicker.scss";
+@import "component/tree.scss";
 @import "component/cascader.scss";
 @import "component/scroller.scss";
 @import "component/loading.scss";
 @import "component/validate.scss";
 @import "component/switch.scss";
 @import "component/modal.scss";
+@import "component/badge.scss";

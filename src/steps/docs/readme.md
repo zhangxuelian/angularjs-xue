@@ -9,7 +9,7 @@
 | ------------ | ---------------- | ------- |
 | steps-config | 步骤条属性对象 | Object  |
 | params | 步骤条参数 |  |
-| ng-value | 步骤条值 | String |
+| ng-value | 步骤条绑定值 | String |
 
 #### steps-config Attributes
 
@@ -23,5 +23,5 @@
 | idField        | 键值字段名 | String | - | code |
 | nameField      | 展示文字字段名 | String | - | title |
 | descField      | 描述文字字段名 | String | - | description |
-| options        | 步骤条项 | Array | - |            |
-| changeCallback | 改变回调 | Function | - | - |
+| options        | 步骤项 | Array | - |            |
+| changeCallback | 改变回调 | Function(item) | - | - |

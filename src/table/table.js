@@ -65,7 +65,7 @@ angular.module('xue.table', ['xue.util.lang', 'xue.pagination', 'xue.util.array'
                         title: '列表',
                         tools: [{
                                 text: '刷新',
-                                icon: 'fa fa-refresh',
+                                icon: 'xui-icon xui-icon-ios-refresh',
                                 permissionCode: '',
                                 noPermission: true,
                                 callback: function () {
@@ -74,25 +74,25 @@ angular.module('xue.table', ['xue.util.lang', 'xue.pagination', 'xue.util.array'
                             },
                             {
                                 text: '上传',
-                                icon: 'fa fa-upload',
+                                icon: 'xui-icon xui-icon-ios-cloud-upload',
                                 permissionCode: '',
                                 callback: function () {}
                             },
                             {
                                 text: '下载',
-                                icon: 'fa fa-download',
+                                icon: 'xui-icon xui-icon-ios-cloud-download',
                                 permissionCode: '',
                                 callback: function () {}
                             },
                             {
                                 text: '导入',
-                                icon: 'fa fa-sign-in',
+                                icon: 'xui-icon xui-icon-ios-cloud-download',
                                 permissionCode: '',
                                 callback: function () {}
                             },
                             {
                                 text: '导出',
-                                icon: 'fa fa-sign-out',
+                                icon: 'xui-icon xui-icon-ios-cloud-upload',
                                 permissionCode: '',
                                 callback: function () {}
                             }
