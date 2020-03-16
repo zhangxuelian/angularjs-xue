@@ -4,34 +4,6 @@ $table-even-color: #F7faff !default;
 $table-selected-color: #e9f3ff !default;
 $table-header-bg-color: #eff6ff !default;
 
-@mixin xui-btn {
-    display: inline-block;
-    padding: $btn-padding-y $btn-padding-x;
-    margin: 0;
-    font-size: $btn-font-size;
-    font-weight: normal;
-    line-height: $btn-line-height;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: $btn-border-width solid transparent;
-    border-radius: $btn-border-radius;
-    box-shadow: $btn-box-shadow;
-    box-sizing: border-box;
-
-    &:hover {
-        color: $btn-link-hover-color;
-    }
-}
-
 .xui-table-wrap {
     position: relative;
     width: 100%;
@@ -83,7 +55,7 @@ $table-header-bg-color: #eff6ff !default;
             }
 
             button {
-                @include xui-btn();
+                @include xui-btn($btn-border-radius, $btn-padding-y, $btn-padding-x, $btn-font-size);
                 height: 30px;
                 line-height: 20px;
                 padding: 5px 10px;
