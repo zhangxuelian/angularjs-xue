@@ -420,6 +420,16 @@ module.exports = function (grunt) {
                 return 0;
             })
         );
+        var demoSimpleModules = [];
+        grunt.config('demoModules').forEach(function(item){
+            demoSimpleModules.push({
+                name: item.name,
+                moduleName: item.moduleName,
+                dependencies: item.dependencies,
+                displayName: item.displayName
+            });
+        });
+        grunt.config('demoSimpleModules',demoSimpleModules);
         var cssStrings = _.flatten(_.compact(util.pluck(modules, 'css')));
         var cssJsStrings = _.flatten(_.compact(util.pluck(modules, 'cssJs')));
         if (cssStrings.length) {

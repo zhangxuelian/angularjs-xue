@@ -16,15 +16,15 @@ var MAX_LENGTH = 70;
 var PATTERN = /^(?:fixup!\s*)?(\w*)(\((\w+)\))?\: (.*)$/;
 var IGNORED = /^WIP\:/;
 var TYPES = {
-  chore: true,
-  demo: true,
-  docs: true,
-  feat: true,
-  fix: true,
-  refactor: true,
-  revert: true,
-  style: true,
-  test: true
+  chore: true,//日常事务
+  demo: true,//演示例子
+  docs: true,//文档
+  feat: true,//新特性
+  fix: true,//修复
+  refactor: true,//重构
+  revert: true,//回滚
+  style: true,//样式
+  test: true//测试
 };
 
 

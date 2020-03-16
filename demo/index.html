@@ -10,14 +10,17 @@
     <link rel="author" href="https://github.com/zhangxuelian/angularjs-xue/graphs/contributors">
 
     <script src="assets/angular.min.js"></script>
-    <script src="assets/angularjs-xue-full-1.0.0.min.js"></script>
+    <script src="assets/angular-ui-router.min.js"></script>
+    <script src="assets/angularjs-xue-full-1.0.0.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
-    <link rel="stylesheet" href="assets/angularjs-xue-ui-1.0.0.min.css">
+    <link rel="stylesheet" href="assets/angularjs-xue-ui-1.0.0.css">
     <link rel="stylesheet" href="assets/demo.css" />
 </head>
 
-<body class="demo-wrap" ng-controller="xueDemoCtrl">
+<body class="demo-wrap" id="demoWrap" ng-controller="xueDemoCtrl as demoCtrl"
+    data-demoModules='[{"name":"autoselect","moduleName":"\"xue.autoselect\"","dependencies":["util.lang"],"displayName":"Autoselect"},{"name":"badge","moduleName":"\"xue.badge\"","dependencies":[],"displayName":"Badge"},{"name":"cascader","moduleName":"\"xue.cascader\"","dependencies":["util.lang","util.array"],"displayName":"Cascader"},{"name":"counter","moduleName":"\"xue.counter\"","dependencies":["util.lang"],"displayName":"Counter"},{"name":"datepicker","moduleName":"\"xue.datepicker\"","dependencies":["util.date","util.lang","util.string"],"displayName":"Datepicker"},{"name":"directives","moduleName":"\"xue.directives\"","dependencies":["util.lang"],"displayName":"Directives"},{"name":"loading","moduleName":"\"xue.loading\"","dependencies":[],"displayName":"Loading"},{"name":"menu","moduleName":"\"xue.menu\"","dependencies":["util.lang"],"displayName":"Menu"},{"name":"modal","moduleName":"\"xue.modal\"","dependencies":[],"displayName":"Modal"},{"name":"notice","moduleName":"\"xue.notice\"","dependencies":["util.lang"],"displayName":"Notice"},{"name":"pagination","moduleName":"\"xue.pagination\"","dependencies":[],"displayName":"Pagination"},{"name":"scroller","moduleName":"\"xue.scroller\"","dependencies":["util.lang","util.array"],"displayName":"Scroller"},{"name":"select","moduleName":"\"xue.select\"","dependencies":["util.array","util.lang"],"displayName":"Select"},{"name":"steps","moduleName":"\"xue.steps\"","dependencies":["util.lang","util.array"],"displayName":"Steps"},{"name":"switch","moduleName":"\"xue.switch\"","dependencies":["util.lang"],"displayName":"Switch"},{"name":"table","moduleName":"\"xue.table\"","dependencies":["util.lang","pagination","util.array"],"displayName":"Table"},{"name":"tabs","moduleName":"\"xue.tabs\"","dependencies":["util.array"],"displayName":"Tabs"},{"name":"tree","moduleName":"\"xue.tree\"","dependencies":["util.lang","util.array"],"displayName":"Tree"},{"name":"validate","moduleName":"\"xue.validate\"","dependencies":["util.lang","util.methods"],"displayName":"Validate"}]' data-version='1.0.0'
+    data-ng-init="demoCtrl.loadData()">
     <div class="header-container">
         <div class="header-wrap">
             <h1>
@@ -25,9 +28,9 @@
                 <b>angularjs-xue</b>
             </h1>
             <ul>
-                <li><a href="#getting_started">入门指南</a></li>
-                <li><a href="#autoselect">组件文档</a></li>
-                <li>1.0.0</li>
+                <li ng-repeat="item in demoCtrl.menuData">
+                    <a href="{{'#'+item.id}}">{{item.name}}</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -36,7 +39,7 @@
             <div class="main-menu-container">
                 <ul class="node-menu">
                     <li>
-                        <a href="#getting_started">入门指南</a>
+                        <a href="#gettingStarted">入门指南</a>
                     </li>
                 </ul>
                 <ul class="node-menu">

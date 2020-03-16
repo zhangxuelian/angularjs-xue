@@ -10,6 +10,7 @@
     <link rel="author" href="<%= pkg.author%>">
 
     <script src="assets/angular.min.js"></script>
+    <script src="assets/angular-ui-router.min.js"></script>
     <script src="assets/angularjs-xue-full-<%= pkg.version %><%= debug?'':'.min' %>.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
@@ -17,7 +18,9 @@
     <link rel="stylesheet" href="assets/demo.css" />
 </head>
 
-<body class="demo-wrap" ng-controller="xueDemoCtrl">
+<body class="demo-wrap" id="demoWrap" ng-controller="xueDemoCtrl as demoCtrl"
+    data-demoModules='<%= JSON.stringify(demoSimpleModules) %>' data-version='<%= version %>'
+    data-ng-init="demoCtrl.loadData()">
     <div class="header-container">
         <div class="header-wrap">
             <h1>
@@ -25,9 +28,9 @@
                 <b>angularjs-xue</b>
             </h1>
             <ul>
-                <li><a href="#getting_started">入门指南</a></li>
-                <li><a href="#<%= demoModules[0].name %>">组件文档</a></li>
-                <li><%= version %></li>
+                <li ng-repeat="item in demoCtrl.menuData">
+                    <a href="{{'#'+item.id}}">{{item.name}}</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -36,7 +39,7 @@
             <div class="main-menu-container">
                 <ul class="node-menu">
                     <li>
-                        <a href="#getting_started">入门指南</a>
+                        <a href="#gettingStarted">入门指南</a>
                     </li>
                 </ul>
                 <ul class="node-menu">
