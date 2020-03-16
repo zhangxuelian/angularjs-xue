@@ -1,65 +1,36 @@
-// Input buttons
-
-$input-btn-padding-y: .375rem !default;
-$input-btn-padding-x: .75rem !default;
-$input-btn-font-family: null !default;
-$input-btn-font-size: $font-size-base !default;
-$input-btn-line-height: $line-height-base !default;
-
-$input-btn-focus-width: .2rem !default;
-$input-btn-focus-color: rgba($component-active-bg, .25) !default;
-$input-btn-focus-box-shadow: 0 0 0 $input-btn-focus-width $input-btn-focus-color !default;
-
-$input-btn-padding-y-sm: .25rem !default;
-$input-btn-padding-x-sm: .5rem !default;
-$input-btn-font-size-sm: $font-size-sm !default;
-
-$input-btn-padding-y-lg: .5rem !default;
-$input-btn-padding-x-lg: 1rem !default;
-$input-btn-font-size-lg: $font-size-lg !default;
-
-$input-btn-border-width: $border-width !default;
-$input-btn-border-color: $border-color !default;
-$input-btn-hover-border-color: #cee0f0 !default;
-
-
 // Buttons
-//
-// For each of Bootstrap's buttons, define text, background, and border color.
 
-$btn-padding-y: $input-btn-padding-y !default;
-$btn-padding-x: $input-btn-padding-x !default;
-$btn-font-family: $input-btn-font-family !default;
-$btn-font-size: $input-btn-font-size !default;
-$btn-line-height: $input-btn-line-height !default;
-$btn-white-space: null !default; // Set to `nowrap` to prevent text wrapping
+$btn-padding-y: .375rem !default;
+$btn-padding-x: .75rem !default;
+$btn-font-size:  $font-size-base !default;
+$btn-line-height: $line-height-base !default;
 
-$btn-padding-y-sm: $input-btn-padding-y-sm !default;
-$btn-padding-x-sm: $input-btn-padding-x-sm !default;
-$btn-font-size-sm: $input-btn-font-size-sm !default;
+$btn-padding-y-sm: .25rem !default;
+$btn-padding-x-sm: .5rem !default;
+$btn-font-size-sm: $font-size-sm !default;
 
-$btn-padding-y-lg: $input-btn-padding-y-lg !default;
-$btn-padding-x-lg: $input-btn-padding-x-lg !default;
-$btn-font-size-lg: $input-btn-font-size-lg !default;
+$btn-padding-y-lg: .5rem !default;
+$btn-padding-x-lg:  1rem !default;
+$btn-font-size-lg: $font-size-lg !default;
 
-$btn-border-width: $input-btn-border-width !default;
-$btn-border-color: $input-btn-border-color !default;
-$btn-hover-border-color: $input-btn-hover-border-color !default;
+$btn-border-width: $border-width !default;
+$btn-border-color: $border-color !default;
+$btn-hover-border-color: #cee0f0 !default;
 
 $btn-font-weight: $font-weight-normal !default;
-$btn-box-shadow: inset 0 1px 0 rgba($white, .15),
-0 1px 1px rgba($black, .075) !default;
-$btn-focus-width: $input-btn-focus-width !default;
-$btn-focus-box-shadow: $input-btn-focus-box-shadow !default;
-$btn-disabled-opacity: .65 !default;
-$btn-active-box-shadow: inset 0 3px 5px rgba($black, .125) !default;
+// $btn-box-shadow: inset 0 1px 0 rgba($white, .15),
+// 0 1px 1px rgba($black, .075) !default;
+// $btn-focus-width:  .2rem !default;
+// $btn-focus-box-shadow:  0 0 0 $input-btn-focus-width $input-btn-focus-color !default;
+// $btn-disabled-opacity: .65 !default;
+// $btn-active-box-shadow: inset 0 3px 5px rgba($black, .125) !default;
 
 $btn-link-color: $link-color !default;
 $btn-link-hover-color: $link-hover-color !default;
 $btn-link-disabled-color: $gray-600 !default;
 
-$btn-color: $gray-900;
-$btn-bg-color: $white !default;
+$btn-font-color: $gray-900 !default;
+$btn-background-color: $white !default;
 $btn-hover-bg-color: #eff6ff !default;
 
 $btn-block-spacing-y: .5rem !default;
@@ -68,6 +39,7 @@ $btn-block-spacing-y: .5rem !default;
 $btn-border-radius: $border-radius !default;
 $btn-border-radius-lg: $border-radius-lg !default;
 $btn-border-radius-sm: $border-radius-sm !default;
+
 $btn-circle-border-radius: 20px !default;
 $btn-circle-icon-only-width: 32px !default;
 
@@ -77,50 +49,36 @@ border-color .15s ease-in-out,
 box-shadow .15s ease-in-out !default;
 
 $btn-group-merge-border-color: $btn-border-color;
+$button-active-shade-percent: 10% !default;
+$button-hover-tint-percent:20% !default;
 
-@mixin btn-gradient($start-color, $end-color, $start-hover-color, $end-hover-color) {
-    color: #fff;
-    border: none;
-    background-image: linear-gradient(0deg, $start-color 0%, $end-color 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-color, endColorstr=$start-color, GradientType=0);
-
-    &:hover {
-        background-image: linear-gradient(0deg, $start-hover-color 0%, $end-hover-color 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$end-hover-color, endColorstr=$start-hover-color, GradientType=0);
-    }
-
-    &:active {
-        background-image: linear-gradient(0deg, $end-color 0%, $start-color 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$start-color, endColorstr=$end-color, GradientType=0);
-    }
-}
-
-@mixin btn-theme($border-color, $bg-color, $hover-bg-color, $color, $hover-color, $active-color) {
+@mixin button-variant($color, $background-color, $border-color) {
     border-color: $border-color;
     color: $color;
-    background: $bg-color;
+    background: $background-color;
 
-    &:hover {
-        color: $hover-color;
-        border-color: $hover-bg-color;
-        background: $hover-bg-color;
+    &:hover,
+    &:focus {
+        background: mix($white, $background-color, $button-hover-tint-percent);
+        border-color: mix($white, $border-color, $button-hover-tint-percent);
+        color: $color;
     }
 
     &:active {
-        border-color: $border-color;
+        background: mix($black, $background-color, $button-active-shade-percent);
+        border-color: mix($black, $border-color, $button-active-shade-percent);
         color: $color;
-        background: $bg-color;
+        outline: none;
     }
 
     &[disabled] {
-        border-color: $border-color;
-        background: $bg-color;
-        color: $color;
-
-        &:hover {
-            border-color: $border-color;
-            background: $bg-color;
-            color: $color;
+        &,
+        &:hover,
+        &:focus,
+        &:active {
+            color: $white;
+            background-color: mix($background-color, $white);
+            border-color: mix($border-color, $white);
         }
     }
 }
@@ -128,92 +86,74 @@ $btn-group-merge-border-color: $btn-border-color;
 @mixin xui-btn($border-radius, $padding-y, $padding-x, $font-size) {
     display: inline-block;
     cursor: pointer;
+    white-space: nowrap;
     text-align: center;
     vertical-align: middle;
+    outline: none;
+    margin: 0;
     border-radius: $border-radius;
     padding: $padding-y $padding-x;
     border: $btn-border-width solid $btn-border-color;
-    background: $btn-bg-color;
+    background: $btn-background-color;
     font-size: $font-size;
     font-weight: $btn-font-weight;
     line-height: $btn-line-height;
-    color: $btn-color;
+    color: $btn-font-color;
     -webkit-transition: $btn-transition;
     transition: $btn-transition;
 
-    &:hover {
-        box-shadow: $btn-box-shadow;
+    &+& {
+        margin-left: 5px;
+    }
+
+    &:hover,
+    &:focus {
         background-color: $btn-hover-bg-color;
         color: $btn-link-hover-color;
         border-color: $btn-hover-border-color;
-    }
-
-    &:focus {
         outline: none;
     }
 
     &[disabled] {
-        cursor: not-allowed;
-        opacity: $btn-disabled-opacity;
-        color: $btn-link-disabled-color;
-
-        &:hover {
-            background-color: $btn-bg-color;
-            box-shadow: none;
+        &,
+        &:hover,
+        &:focus,
+        &:active {
+            cursor: not-allowed;
+            color: $btn-link-disabled-color;
+            background-color: mix($btn-background-color, $white);
+            border-color: mix($btn-border-color, $white);
         }
     }
 
     &:active {
-        background: $btn-bg-color;
+        color: mix($black, $primary, $button-active-shade-percent);
+        border-color: mix($black, $primary, $button-active-shade-percent);
+        outline: none;
     }
 
-    &.xui-btn-dark-blue {
-        @include btn-gradient(#1c3f6e, #235ead, #255290, #3677cc);
-    }
-
-    &.xui-btn-sky-blue {
-        @include btn-gradient(#0083de, #43b2ff, #0071bf, #43b2ff);
-    }
-
-    &.xui-btn-green {
-        @include btn-gradient(#267d47, #26c030, #349e48, #54c95c);
-    }
-
-    &.xui-btn-gray {
-        @include btn-gradient(#66768d, #9ea9b8, #7f90a8, #b3becc);
-    }
-
-    &.xui-btn-red {
-        @include btn-gradient(#9c2107, #f95129, #a33a25, #f76844);
-    }
-
-    &.xui-btn-tab-blue {
-        @include btn-theme(#80cbff, #fff, #dff2ff, #0394f9, #0394F9, #fff);
-    }
+    // &.xui-btn-tab-blue {
+    //     @include button-variant($color:#fff, $border-color:#0394f9, $background-color:#0394f9);
+    // }
 
     &.xui-btn-warning {
-        @include btn-theme($border-color:$yellow-deep, $bg-color:$yellow-deep,
-            $hover-bg-color:$yellow, $color:#fff, $hover-color:#fff, $active-color:#fff);
+        @include button-variant($color:#fff, $border-color:$warning, $background-color:$warning);
     }
 
     &.xui-btn-success {
-        @include btn-theme($border-color:$green-deep, $bg-color:$green-deep,
-            $hover-bg-color:$green, $color:#fff, $hover-color:#fff, $active-color:#fff);
+        @include button-variant($color:#fff, $border-color:$success, $background-color:$success);
     }
 
     &.xui-btn-danger {
-        @include btn-theme($border-color:$red-deep, $bg-color:$red-deep,
-            $hover-bg-color:$red, $color:#fff, $hover-color:#fff, $active-color:#fff);
+        @include button-variant($color:#fff, $border-color:$danger, $background-color:$danger);
     }
 
     &.xui-btn-info {
-        @include btn-theme($border-color:$gray-800, $bg-color:$gray-800,
-            $hover-bg-color:$gray-600, $color:#fff, $hover-color:#fff, $active-color:#fff);
+        @include button-variant($color:#fff, $border-color:$info, $background-color:$info);
     }
 
     &.xui-btn-primary {
-        @include btn-theme($border-color:$blue-deep, $bg-color:$blue-deep,
-            $hover-bg-color:$blue, $color:#fff, $hover-color:#fff, $active-color:#fff);
+        @include button-variant($color:#fff, $border-color: $primary, $background-color: $primary);
     }
 
     &.xui-btn-circle {
@@ -230,6 +170,12 @@ $btn-group-merge-border-color: $btn-border-color;
 
 .xui-btn-group {
     display: inline-flex;
+
+    &>.xui-btn {
+        &+.xui-btn {
+            margin-left: 0;
+        }
+    }
 
     &>.xui-btn:not(:last-child) {
         border-bottom-right-radius: 0;
@@ -254,9 +200,10 @@ $btn-group-merge-border-color: $btn-border-color;
         }
     }
 
-    &.group-vertical {
+    &.btn-group-vertical {
         flex-direction: column;
-        &>.xui-btn{
+
+        &>.xui-btn {
             border-radius: $btn-border-radius;
             border: $btn-border-width solid $btn-border-color;
         }
@@ -271,12 +218,13 @@ $btn-group-merge-border-color: $btn-border-color;
             border-top-left-radius: 0;
             border-top-right-radius: 0;
         }
+
         &>.xui-btn-primary:not(:last-child),
         &>.xui-btn-danger:not(:last-child),
         &>.xui-btn-warning:not(:last-child),
         &>.xui-btn-success:not(:last-child) {
             border-bottom-color: $btn-group-merge-border-color;
-    
+
             &:hover,
             &:active {
                 border-bottom-color: $btn-group-merge-border-color;

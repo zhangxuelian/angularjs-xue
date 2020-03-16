@@ -63,7 +63,7 @@ $colors: map-merge(("blue": $blue,
 $primary: $blue !default;
 $secondary: $gray-600 !default;
 $success: $green !default;
-$info: $teal !default;
+$info: $gray-600 !default;
 $warning: $yellow !default;
 $danger: $red !default;
 $light: $gray-100 !default;
@@ -429,3 +429,4 @@ $kbd-color: $white !default;
 $kbd-bg: $gray-900 !default;
 
 $pre-color: null !default;
+
