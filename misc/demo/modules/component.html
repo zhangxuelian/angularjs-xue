@@ -1,0 +1,46 @@
+<div class="main-menu-container" id="componentLeftWrap" data-first-module-name="<%= demoModules[0].name %>" data-ng-init="component.load()">
+    <ul class="node-menu">
+        <li>
+            <% demoModules.forEach(function(module) {  %><div class="child-menu">
+                <a data-module-name="<%= module.name %>"
+                ng-click="component.selectMenu($event)"><%= module.displayName %></a></div><% }); %>
+        </li>
+    </ul>
+</div>
+<div class="main-content-container" id="componentRightWrap">
+    <% demoModules.forEach(function(module) { %>
+    <section class="module-wrap" id="<%= module.name %>">
+        <div class="page-header">
+            <h1><%= module.displayName %><small>
+                    (<a target="_blank"
+                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/<%= module.name %>">xue.<%= module.name %></a>)
+                </small></h1>
+        </div>
+        <div class="page-content">
+            <div class="content-html">
+                <%= module.docs.html %>
+            </div>
+            <div class="content-md markdown-wrap">
+                <%= module.docs.md %>
+            </div>
+        </div>
+        <hr>
+        <div class="page-content-code">
+            <div class="col-md-12">
+                <xue-tabs-wrap type="border-card">
+                    <xue-tab label="'html'" value="1">
+                        <div class="code-wrap">
+                            <pre ng-non-bindable><code data-language="html"><%- module.docs.html %></code></pre>
+                        </div>
+                    </xue-tab>
+                    <xue-tab label="'javascript'" value="2">
+                        <div class="code-wrap">
+                            <pre ng-non-bindable><code data-language="javascript"><%- module.docs.js %></code></pre>
+                        </div>
+                    </xue-tab>
+                </xue-tabs-wrap>
+            </div>
+        </div>
+    </section>
+    <% }); %>
+</div>

@@ -2,7 +2,7 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-03-16
+ * Version: 1.0.0 - 2020-03-17
  * Require angularjs version: 1.2.32
  * License: ISC
  */

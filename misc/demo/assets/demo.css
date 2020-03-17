@@ -96,9 +96,11 @@ body {
           float: left;
           cursor: pointer; }
           .demo-wrap .header-container .header-wrap ul li:hover {
-            font-weight: 700; }
+            color: #333; }
           .demo-wrap .header-container .header-wrap ul li a {
             text-decoration: none;
+            color: #2a859f; }
+          .demo-wrap .header-container .header-wrap ul li .active {
             color: #333; }
   .demo-wrap .main-container {
     height: 100%;
@@ -132,7 +134,8 @@ body {
             .demo-wrap .main-container .main-wrap .main-menu-container > ul > li .child-menu {
               padding-left: 5px;
               line-height: 30px;
-              color: #333; }
+              color: #333;
+              cursor: pointer; }
             .demo-wrap .main-container .main-wrap .main-menu-container > ul > li a {
               text-decoration: none;
               color: #333; }

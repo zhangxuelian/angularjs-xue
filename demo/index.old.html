@@ -1,65 +1,127 @@
-<div class="main-menu-container" id="componentLeftWrap" data-first-module-name="autoselect" data-ng-init="component.load()">
-    <ul class="node-menu">
-        <li>
-            <div class="child-menu">
-                <a data-module-name="autoselect"
-                ng-click="component.selectMenu($event)">Autoselect</a></div><div class="child-menu">
-                <a data-module-name="badge"
-                ng-click="component.selectMenu($event)">Badge</a></div><div class="child-menu">
-                <a data-module-name="cascader"
-                ng-click="component.selectMenu($event)">Cascader</a></div><div class="child-menu">
-                <a data-module-name="counter"
-                ng-click="component.selectMenu($event)">Counter</a></div><div class="child-menu">
-                <a data-module-name="datepicker"
-                ng-click="component.selectMenu($event)">Datepicker</a></div><div class="child-menu">
-                <a data-module-name="directives"
-                ng-click="component.selectMenu($event)">Directives</a></div><div class="child-menu">
-                <a data-module-name="loading"
-                ng-click="component.selectMenu($event)">Loading</a></div><div class="child-menu">
-                <a data-module-name="menu"
-                ng-click="component.selectMenu($event)">Menu</a></div><div class="child-menu">
-                <a data-module-name="modal"
-                ng-click="component.selectMenu($event)">Modal</a></div><div class="child-menu">
-                <a data-module-name="notice"
-                ng-click="component.selectMenu($event)">Notice</a></div><div class="child-menu">
-                <a data-module-name="pagination"
-                ng-click="component.selectMenu($event)">Pagination</a></div><div class="child-menu">
-                <a data-module-name="scroller"
-                ng-click="component.selectMenu($event)">Scroller</a></div><div class="child-menu">
-                <a data-module-name="select"
-                ng-click="component.selectMenu($event)">Select</a></div><div class="child-menu">
-                <a data-module-name="steps"
-                ng-click="component.selectMenu($event)">Steps</a></div><div class="child-menu">
-                <a data-module-name="switch"
-                ng-click="component.selectMenu($event)">Switch</a></div><div class="child-menu">
-                <a data-module-name="table"
-                ng-click="component.selectMenu($event)">Table</a></div><div class="child-menu">
-                <a data-module-name="tabs"
-                ng-click="component.selectMenu($event)">Tabs</a></div><div class="child-menu">
-                <a data-module-name="tree"
-                ng-click="component.selectMenu($event)">Tree</a></div><div class="child-menu">
-                <a data-module-name="validate"
-                ng-click="component.selectMenu($event)">Validate</a></div>
-        </li>
-    </ul>
-</div>
-<div class="main-content-container" id="componentRightWrap">
-    
-    <section class="module-wrap" id="autoselect">
-        <div class="page-header">
-            <h1>Autoselect<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/autoselect">xue.autoselect</a>)
-                </small></h1>
+<!DOCTYPE html>
+<html ng-app="ui.xue.demo">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="icon" href="assets/favicon.ico" />
+    <title>angularjs-xue</title>
+    <link rel="author" href="https://github.com/zhangxuelian/angularjs-xue/graphs/contributors">
+
+    <script src="assets/angular.min.js"></script>
+    <script src="assets/angular-ui-router.min.js"></script>
+    <script src="assets/angularjs-xue-full-1.0.0.min.js"></script>
+    <script src="assets/plunker.js"></script>
+    <script src="assets/app.js"></script>
+    <link rel="stylesheet" href="assets/angularjs-xue-ui-1.0.0.min.css">
+    <link rel="stylesheet" href="assets/demo.css" />
+</head>
+
+<body class="demo-wrap" id="demoWrap" ng-controller="xueDemoCtrl as demoCtrl"
+    data-demoModules='[{"name":"autoselect","moduleName":"\"xue.autoselect\"","dependencies":["util.lang"],"displayName":"Autoselect"},{"name":"badge","moduleName":"\"xue.badge\"","dependencies":[],"displayName":"Badge"},{"name":"cascader","moduleName":"\"xue.cascader\"","dependencies":["util.lang","util.array"],"displayName":"Cascader"},{"name":"counter","moduleName":"\"xue.counter\"","dependencies":["util.lang"],"displayName":"Counter"},{"name":"datepicker","moduleName":"\"xue.datepicker\"","dependencies":["util.date","util.lang","util.string"],"displayName":"Datepicker"},{"name":"directives","moduleName":"\"xue.directives\"","dependencies":["util.lang"],"displayName":"Directives"},{"name":"loading","moduleName":"\"xue.loading\"","dependencies":[],"displayName":"Loading"},{"name":"menu","moduleName":"\"xue.menu\"","dependencies":["util.lang"],"displayName":"Menu"},{"name":"modal","moduleName":"\"xue.modal\"","dependencies":[],"displayName":"Modal"},{"name":"notice","moduleName":"\"xue.notice\"","dependencies":["util.lang"],"displayName":"Notice"},{"name":"pagination","moduleName":"\"xue.pagination\"","dependencies":[],"displayName":"Pagination"},{"name":"scroller","moduleName":"\"xue.scroller\"","dependencies":["util.lang","util.array"],"displayName":"Scroller"},{"name":"select","moduleName":"\"xue.select\"","dependencies":["util.array","util.lang"],"displayName":"Select"},{"name":"steps","moduleName":"\"xue.steps\"","dependencies":["util.lang","util.array"],"displayName":"Steps"},{"name":"switch","moduleName":"\"xue.switch\"","dependencies":["util.lang"],"displayName":"Switch"},{"name":"table","moduleName":"\"xue.table\"","dependencies":["util.lang","pagination","util.array"],"displayName":"Table"},{"name":"tabs","moduleName":"\"xue.tabs\"","dependencies":["util.array"],"displayName":"Tabs"},{"name":"tree","moduleName":"\"xue.tree\"","dependencies":["util.lang","util.array"],"displayName":"Tree"},{"name":"validate","moduleName":"\"xue.validate\"","dependencies":["util.lang","util.methods"],"displayName":"Validate"}]' data-version='1.0.0'
+    data-ng-init="demoCtrl.loadData()">
+    <div class="header-container">
+        <div class="header-wrap">
+            <h1>
+                <img src="./assets/favicon.ico" alt="">
+                <b>angularjs-xue</b>
+            </h1>
+            <ul>
+                <li ng-repeat="item in demoCtrl.menuData">
+                    <a href="{{'#'+item.id}}">{{item.name}}</a>
+                </li>
+            </ul>
         </div>
-        <div class="page-content">
-            <div class="content-html">
-                <div ng-controller="xueAutoSelectDemoCtrl">
+    </div>
+    <div class="main-container">
+        <div class="main-wrap">
+            <div class="main-menu-container">
+                <ul class="node-menu">
+                    <li>
+                        <a href="#gettingStarted">入门指南</a>
+                    </li>
+                </ul>
+                <ul class="node-menu">
+                    <li>
+                        <a href="#autoselect">组件文档</a>
+                        <div class="child-menu"><a
+                                href="#autoselect">Autoselect</a></div><div class="child-menu"><a
+                                href="#badge">Badge</a></div><div class="child-menu"><a
+                                href="#cascader">Cascader</a></div><div class="child-menu"><a
+                                href="#counter">Counter</a></div><div class="child-menu"><a
+                                href="#datepicker">Datepicker</a></div><div class="child-menu"><a
+                                href="#directives">Directives</a></div><div class="child-menu"><a
+                                href="#loading">Loading</a></div><div class="child-menu"><a
+                                href="#menu">Menu</a></div><div class="child-menu"><a
+                                href="#modal">Modal</a></div><div class="child-menu"><a
+                                href="#notice">Notice</a></div><div class="child-menu"><a
+                                href="#pagination">Pagination</a></div><div class="child-menu"><a
+                                href="#scroller">Scroller</a></div><div class="child-menu"><a
+                                href="#select">Select</a></div><div class="child-menu"><a
+                                href="#steps">Steps</a></div><div class="child-menu"><a
+                                href="#switch">Switch</a></div><div class="child-menu"><a
+                                href="#table">Table</a></div><div class="child-menu"><a
+                                href="#tabs">Tabs</a></div><div class="child-menu"><a
+                                href="#tree">Tree</a></div><div class="child-menu"><a
+                                href="#validate">Validate</a></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="main-content-container">
+                <section class="module-wrap" id="getting_started">
+                    <div class="page-header">
+                        <h1>
+                            入门指南
+                        </h1>
+                    </div>
+                    <div class="page-content markdown-wrap">
+                        <h1 id="angularjs-xue">angularjs-xue</h1>
+<p>Components for angularjs by Gosuncn FE team,support IE8+.</p>
+<h2 id="for-user">For user</h2>
+<h3 id="requirements">Requirements</h3>
+<p>angularjs 1.2.32 </p>
+<h3 id="manual-download">Manual download</h3>
+<p>After downloading dependencies you need to download build version of this project: <a href="https://github.com/zhangxuelian/angularjs-xue/tree/master/dist">https://github.com/zhangxuelian/angularjs-xue/tree/master/dist</a><br>You could import the components by require or script tag.  </p>
+<h4 id="adding-dependency-to-your-project">Adding dependency to your project</h4>
+<p>When you are done downloading all the dependencies and project files the only remaining part is to add dependencies on the ui.xue AngularJS module:</p>
+<pre><code class="language-javascript">angular.module(&#39;myModule&#39;, [&#39;ui.xue&#39;]);</code></pre>
+<h3 id="webpack--jspm">Webpack / JSPM</h3>
+<h4 id="install-with-npm">Install with NPM</h4>
+<pre><code>$ npm install angularjs-xue --save-dev</code></pre><h4 id="usage">Usage</h4>
+<p>To use this project with webpack, follow the NPM instructions. Now, if you want to use pagination and table, you can do:</p>
+<pre><code class="language-javascript">import pagination from &#39;angularjs-xue/src/pagination&#39;;
+import table from &#39;angularjs-xue/src/table/index-nocss.js&#39;;
+
+angular.module(&#39;myModule&#39;, [pagination,table]);</code></pre>
+<h2 id="for-developer">For developer</h2>
+<h3 id="install-global-dependencies-not-required">Install global dependencies (Not required)</h3>
+<pre><code>$ npm install grunt-cli@1.3.2 -g  
+$ npm install karma-cli@2.0.0 -g  </code></pre><h3 id="git-clone-project-to-local">Git clone project to local</h3>
+<p>git clone <a href="https://github.com/zhangxuelian/angularjs-xue.git">https://github.com/zhangxuelian/angularjs-xue.git</a></p>
+<h3 id="bundle">Bundle</h3>
+<pre><code>$ cd angularjs-xue  
+$ npm install  
+$ npm run test
+$ npm run demo or npm run test-demo</code></pre>
+                    </div>
+                </section>
+                
+                <section class="module-wrap" id="autoselect">
+                    <div class="page-header">
+                        <h1>Autoselect<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/autoselect">xue.autoselect</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueAutoSelectDemoCtrl">
     <xue-autoselect select-config="vm.config" ng-val="vm.value"></xue-autoselect>
 </div>
-            </div>
-            <div class="content-md markdown-wrap">
-                <h3 id="组件说明">组件说明</h3>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="组件说明">组件说明</h3>
 <p>可更改内容的下拉选择框（仅限取明词，不适用取词选对象）</p>
 <h3 id="attributes">Attributes</h3>
 <table>
@@ -141,22 +203,29 @@
 </tr>
 </tbody></table>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueAutoSelectDemoCtrl&quot;&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'autoselect')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueAutoSelectDemoCtrl&quot;&gt;
     &lt;xue-autoselect select-config=&quot;vm.config&quot; ng-val=&quot;vm.value&quot;&gt;&lt;/xue-autoselect&gt;
 &lt;/div&gt;</code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueAutoSelectDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueAutoSelectDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     $scope.vm = {
         value: &#39;&#39;,
         config: {
@@ -167,23 +236,34 @@
         }
     }
 }])</code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
-    </section>
-    
-    <section class="module-wrap" id="badge">
-        <div class="page-header">
-            <h1>Badge<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/badge">xue.badge</a>)
-                </small></h1>
-        </div>
-        <div class="page-content">
-            <div class="content-html">
-                <style>
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueAutoSelectDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        value: '',
+        config: {
+            data: ["身份证", "护照", "居住证", "驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证", '往来通行证', '港澳通行证'],
+            selectCallback: function (item) {
+                console.log(item);
+            }
+        }
+    }
+}])</script>
+                
+                <section class="module-wrap" id="badge">
+                    <div class="page-header">
+                        <h1>Badge<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/badge">xue.badge</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <style>
     .demo-badge>span {
         position: relative;
         display: inline-block;
@@ -264,9 +344,9 @@
     <input type="text" class="xui-input-lg">
     <input type="text" class="xui-input" disabled>
 </div>
-            </div>
-            <div class="content-md markdown-wrap">
-                <h4 id="组件说明">组件说明</h4>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h4 id="组件说明">组件说明</h4>
 <p>  徽章标记</p>
 <h3 id="attributes">Attributes</h3>
 <table>
@@ -331,15 +411,21 @@
 </tr>
 </tbody></table>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;style&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'badge')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;style&gt;
     .demo-badge&gt;span {
         position: relative;
         display: inline-block;
@@ -420,11 +506,12 @@
     &lt;input type=&quot;text&quot; class=&quot;xui-input-lg&quot;&gt;
     &lt;input type=&quot;text&quot; class=&quot;xui-input&quot; disabled&gt;
 &lt;/div&gt;</code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueBadgeDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueBadgeDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     var vm = $scope.vm = {
         config: {
             count: 101,
@@ -445,31 +532,52 @@
         }
     }
 }])</code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
-    </section>
-    
-    <section class="module-wrap" id="cascader">
-        <div class="page-header">
-            <h1>Cascader<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/cascader">xue.cascader</a>)
-                </small></h1>
-        </div>
-        <div class="page-content">
-            <div class="content-html">
-                <div ng-controller="xueCascaderDemoCtrl">
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueBadgeDemoCtrl', ['$scope', function ($scope) {
+    var vm = $scope.vm = {
+        config: {
+            count: 101,
+            isDot: true
+        },
+        config2: {
+            count: 103,
+            bgColor: '#0394F9'
+        },
+        config3: {
+            count: 12,
+            max: 10,
+            bgColor: '#ff492a'
+        },
+        config4: {
+            count: 14,
+            isAlone: true
+        }
+    }
+}])</script>
+                
+                <section class="module-wrap" id="cascader">
+                    <div class="page-header">
+                        <h1>Cascader<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/cascader">xue.cascader</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueCascaderDemoCtrl">
     <xue-cascader cascader-config="testConfig" ng-val="testValue"></xue-cascader>
     </br>
     </br>
     <xue-cascader cascader-config="areaConfig" ng-val="areaValue"></xue-cascader>
 </div>
-            </div>
-            <div class="content-md markdown-wrap">
-                <h3 id="组件说明">组件说明</h3>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="组件说明">组件说明</h3>
 <p><strong>级联选择器组件</strong></p>
 <h3 id="attributes">Attributes</h3>
 <table>
@@ -558,25 +666,32 @@
 </tr>
 </tbody></table>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueCascaderDemoCtrl&quot;&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'cascader')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueCascaderDemoCtrl&quot;&gt;
     &lt;xue-cascader cascader-config=&quot;testConfig&quot; ng-val=&quot;testValue&quot;&gt;&lt;/xue-cascader&gt;
     &lt;/br&gt;
     &lt;/br&gt;
     &lt;xue-cascader cascader-config=&quot;areaConfig&quot; ng-val=&quot;areaValue&quot;&gt;&lt;/xue-cascader&gt;
 &lt;/div&gt;</code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueCascaderDemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueCascaderDemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
     $scope.testValue = &quot;&quot;;
     $scope.testConfig = {
         data: [
@@ -658,30 +773,112 @@
         }
     }
 }]);</code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
-    </section>
-    
-    <section class="module-wrap" id="counter">
-        <div class="page-header">
-            <h1>Counter<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/counter">xue.counter</a>)
-                </small></h1>
-        </div>
-        <div class="page-content">
-            <div class="content-html">
-                <div ng-controller="xueCounterDemoCtrl">
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueCascaderDemoCtrl',['$scope',function($scope){
+    $scope.testValue = "";
+    $scope.testConfig = {
+        data: [
+            {
+                label: '节点1',
+                value: 1,
+                children: [{
+                    label: '节点1-1',
+                    value: 11,
+                    children: [{
+                        label: '节点1-1-1',
+                        value: 111
+                    }]
+                }, {
+                    label: '节点1-2',
+                    value: 12
+                }, {
+                    label: '节点1-3',
+                    value: 13
+                }]
+            },
+            {
+                label: '节点2',
+                value: 2,
+                children: [{
+                    label: '节点2-1',
+                    value: 21,
+                    children: [{
+                        label: '节点2-1-1',
+                        value: 211
+                    }]
+                }, {
+                    label: '节点2-2',
+                    value: 22,
+                    children: [{
+                        label: '节点2-2-1',
+                        value: 221
+                    }]
+                }, {
+                    label: '节点2-3',
+                    value: 23
+                }]
+            },
+            {
+                label: '节点3',
+                value: 3,
+                children: [{
+                    label: '节点3-1',
+                    value: 31,
+                    children: [{
+                        label: '节点3-1-1',
+                        value: 311
+                    }]
+                }, {
+                    label: '节点3-2',
+                    value: 32
+                }, {
+                    label: '节点3-3',
+                    value: 33
+                }]
+            }
+        ],
+        css: {
+            inputStyle: {
+                width: '196px',
+                height: '28px'
+            }
+        }
+    }
+
+    $scope.areaValue = "";
+    $scope.areaConfig = {
+        dataUrl: 'assets/data/city.min.js',
+        css: {
+            inputStyle: {
+                width: '196px',
+                height: '28px'
+            }
+        }
+    }
+}]);</script>
+                
+                <section class="module-wrap" id="counter">
+                    <div class="page-header">
+                        <h1>Counter<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/counter">xue.counter</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueCounterDemoCtrl">
   <xue-counter counter-config="vm.counterConfigSm" ng-number="vm.number"></xue-counter>
   <xue-counter counter-config="vm.counterConfig" ng-number="vm.number"></xue-counter>
   <xue-counter counter-config="vm.counterConfigLg" ng-number="vm.number"></xue-counter>
 </div>
-            </div>
-            <div class="content-md markdown-wrap">
-                <h3 id="组件说明">组件说明</h3>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="组件说明">组件说明</h3>
 <p>计数器组件</p>
 <h3 id="attributes">Attributes</h3>
 <table>
@@ -812,24 +1009,31 @@
 </tr>
 </tbody></table>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueCounterDemoCtrl&quot;&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'counter')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueCounterDemoCtrl&quot;&gt;
   &lt;xue-counter counter-config=&quot;vm.counterConfigSm&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
   &lt;xue-counter counter-config=&quot;vm.counterConfig&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
   &lt;xue-counter counter-config=&quot;vm.counterConfigLg&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
 &lt;/div&gt;</code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueCounterDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueCounterDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     $scope.vm = {
         counterConfig: {
             suffix: &quot;℃&quot;,
@@ -855,32 +1059,58 @@
         number: 20
     }
 }]);</code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
-    </section>
-    
-    <section class="module-wrap" id="datepicker">
-        <div class="page-header">
-            <h1>Datepicker<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/datepicker">xue.datepicker</a>)
-                </small></h1>
-        </div>
-        <div class="page-content">
-            <div class="content-html">
-                <div ng-controller="xueDatepickerdemoCtrl">
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueCounterDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        counterConfig: {
+            suffix: "℃",
+            max: 300,
+            min: 0,
+            type: 2,
+            changeCallback: function (value) {
+                console.log(value);
+            }
+        },
+        counterConfigLg: {
+            suffix: "℃",
+            max: 300,
+            min: 0,
+            size: 'large'
+        },
+        counterConfigSm: {
+            suffix: "℃",
+            max: 300,
+            min: 20,
+            size: 'small'
+        },
+        number: 20
+    }
+}]);</script>
+                
+                <section class="module-wrap" id="datepicker">
+                    <div class="page-header">
+                        <h1>Datepicker<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/datepicker">xue.datepicker</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueDatepickerdemoCtrl">
     <xue-datepicker date-config="test.config" min-date="test.minDate" max-date="test.maxDate" ng-val="test.value"></xue-datepicker>
     </br>
     </br>
     <xue-datepicker date-config="test1.config" ng-val="test1.value"></xue-datepicker>
 </div>
 
-            </div>
-            <div class="content-md markdown-wrap">
-                <h3 id="组件说明">组件说明</h3>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="组件说明">组件说明</h3>
 <p><strong>日期组件</strong></p>
 <h3 id="attributes">Attributes</h3>
 <table>
@@ -1035,26 +1265,33 @@
 </tr>
 </tbody></table>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueDatepickerdemoCtrl&quot;&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'datepicker')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueDatepickerdemoCtrl&quot;&gt;
     &lt;xue-datepicker date-config=&quot;test.config&quot; min-date=&quot;test.minDate&quot; max-date=&quot;test.maxDate&quot; ng-val=&quot;test.value&quot;&gt;&lt;/xue-datepicker&gt;
     &lt;/br&gt;
     &lt;/br&gt;
     &lt;xue-datepicker date-config=&quot;test1.config&quot; ng-val=&quot;test1.value&quot;&gt;&lt;/xue-datepicker&gt;
 &lt;/div&gt;
 </code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueDatepickerdemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueDatepickerdemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
     $scope.test = {
         value: &quot;2020-02-25 14:00:00&quot;,
         minDate: &quot;2020-02-24 14:00:00&quot;,
@@ -1070,23 +1307,39 @@
         }
     }
 }]);</code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
-    </section>
-    
-    <section class="module-wrap" id="directives">
-        <div class="page-header">
-            <h1>Directives<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/directives">xue.directives</a>)
-                </small></h1>
-        </div>
-        <div class="page-content">
-            <div class="content-html">
-                <div ng-controller="xueDirectivesDemoCtrl">
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueDatepickerdemoCtrl',['$scope',function($scope){
+    $scope.test = {
+        value: "2020-02-25 14:00:00",
+        minDate: "2020-02-24 14:00:00",
+        maxDate: "2020-02-28 14:00:00",
+        config: {
+            format: "YYYY-MM-DD hh:mm:ss"
+        }
+    }
+    $scope.test1 = {
+        value: "14:00:00",
+        config: {
+            format: "hh:mm:ss"
+        }
+    }
+}]);</script>
+                
+                <section class="module-wrap" id="directives">
+                    <div class="page-header">
+                        <h1>Directives<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/directives">xue.directives</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueDirectivesDemoCtrl">
     单选框：<xue-radio ng-checked="vm.ischeck" ng-click="vm.ischeck=!vm.ischeck"></xue-radio>
     <xue-radio ng-checked="!vm.ischeck" ng-click="vm.ischeck=!vm.ischeck"></xue-radio>
     复选框：<xue-checkbox ng-checked="vm.ischeck" ng-click="vm.ischeck=!vm.ischeck"></xue-checkbox>
@@ -1108,9 +1361,9 @@
     <!-- <no-permission-page text="'您暂未开通权限！'" style="height:100px;"></no-permission-page> -->
     <span title="title测试">title测试</span>
 </div>
-            </div>
-            <div class="content-md markdown-wrap">
-                <h4 id="单选">单选</h4>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h4 id="单选">单选</h4>
 <h5 id="xue-radio-attributes">xue-radio Attributes</h5>
 <table>
 <thead>
@@ -1216,15 +1469,21 @@
 </tr>
 </tbody></table>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueDirectivesDemoCtrl&quot;&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'directives')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueDirectivesDemoCtrl&quot;&gt;
     单选框：&lt;xue-radio ng-checked=&quot;vm.ischeck&quot; ng-click=&quot;vm.ischeck=!vm.ischeck&quot;&gt;&lt;/xue-radio&gt;
     &lt;xue-radio ng-checked=&quot;!vm.ischeck&quot; ng-click=&quot;vm.ischeck=!vm.ischeck&quot;&gt;&lt;/xue-radio&gt;
     复选框：&lt;xue-checkbox ng-checked=&quot;vm.ischeck&quot; ng-click=&quot;vm.ischeck=!vm.ischeck&quot;&gt;&lt;/xue-checkbox&gt;
@@ -1246,11 +1505,12 @@
     &lt;!-- &lt;no-permission-page text=&quot;&#39;您暂未开通权限！&#39;&quot; style=&quot;height:100px;&quot;&gt;&lt;/no-permission-page&gt; --&gt;
     &lt;span title=&quot;title测试&quot;&gt;title测试&lt;/span&gt;
 &lt;/div&gt;</code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueDirectivesDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueDirectivesDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     $scope.vm = {
         ischeck: true,
         fruit: &#39;1&#39;,
@@ -1260,31 +1520,41 @@
         }
     }
 }])</code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
-    </section>
-    
-    <section class="module-wrap" id="loading">
-        <div class="page-header">
-            <h1>Loading<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/loading">xue.loading</a>)
-                </small></h1>
-        </div>
-        <div class="page-content">
-            <div class="content-html">
-                <div ng-controller="xueLoadingDemoCtrl">
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueDirectivesDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        ischeck: true,
+        fruit: '1',
+        inputValue: '',
+        click: function (value) {
+            console.log(value);
+        }
+    }
+}])</script>
+                
+                <section class="module-wrap" id="loading">
+                    <div class="page-header">
+                        <h1>Loading<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/loading">xue.loading</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueLoadingDemoCtrl">
     <div style="position:relative;width:300px;height:100px;display:inline-block;" xue-loading="vm.loadingConfig"></div>
     <div style="position:relative;width:300px;height:100px;display:inline-block;" xue-loading="vm.loadingConfig2"></div>
     <div style="position:relative;width:300px;height:100px;display:inline-block;" xue-loading="vm.loadingConfig3"></div>
     <button ng-click="vm.stop()">停止</button>
 </div>
-            </div>
-            <div class="content-md markdown-wrap">
-                <h3 id="组件说明">组件说明</h3>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="组件说明">组件说明</h3>
 <p> loading加载</p>
 <h3 id="attributes">Attributes</h3>
 <table>
@@ -1363,25 +1633,32 @@
 </tr>
 </tbody></table>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueLoadingDemoCtrl&quot;&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'loading')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueLoadingDemoCtrl&quot;&gt;
     &lt;div style=&quot;position:relative;width:300px;height:100px;display:inline-block;&quot; xue-loading=&quot;vm.loadingConfig&quot;&gt;&lt;/div&gt;
     &lt;div style=&quot;position:relative;width:300px;height:100px;display:inline-block;&quot; xue-loading=&quot;vm.loadingConfig2&quot;&gt;&lt;/div&gt;
     &lt;div style=&quot;position:relative;width:300px;height:100px;display:inline-block;&quot; xue-loading=&quot;vm.loadingConfig3&quot;&gt;&lt;/div&gt;
     &lt;button ng-click=&quot;vm.stop()&quot;&gt;停止&lt;/button&gt;
 &lt;/div&gt;</code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueLoadingDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueLoadingDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     var vm = $scope.vm = {
         loadingConfig: {
             isShowLoading: true,
@@ -1406,28 +1683,53 @@
         }
     }
 }])</code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
-    </section>
-    
-    <section class="module-wrap" id="menu">
-        <div class="page-header">
-            <h1>Menu<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/menu">xue.menu</a>)
-                </small></h1>
-        </div>
-        <div class="page-content">
-            <div class="content-html">
-                <div ng-controller="xueMenuDemoCtrl">
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueLoadingDemoCtrl', ['$scope', function ($scope) {
+    var vm = $scope.vm = {
+        loadingConfig: {
+            isShowLoading: true,
+            msg: "加载中,请稍候..."
+        },
+        loadingConfig2: {
+            isShowLoading: true,
+            theme: 'dark-theme',
+            loadingTypeClass: 'square-jelly-box',
+            msg: "加载中,请稍候..."
+        },
+        loadingConfig3: {
+            isShowLoading: true,
+            theme: 'dark-theme',
+            loadingTypeClass: 'line-spin-clockwise',
+            msg: "加载中,请稍候..."
+        },
+        stop: function () {
+            vm.loadingConfig.isShowLoading = false;
+            vm.loadingConfig2.isShowLoading = false;
+            vm.loadingConfig3.isShowLoading = false;
+        }
+    }
+}])</script>
+                
+                <section class="module-wrap" id="menu">
+                    <div class="page-header">
+                        <h1>Menu<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/menu">xue.menu</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueMenuDemoCtrl">
     <xue-menu menu-config="menuConfig"></xue-menu>
 </div>
-            </div>
-            <div class="content-md markdown-wrap">
-                <h3 id="组件说明">组件说明</h3>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="组件说明">组件说明</h3>
 <p><strong>菜单组件</strong></p>
 <h3 id="attributes">Attributes</h3>
 <table>
@@ -1562,22 +1864,29 @@
 </tr>
 </tbody></table>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueMenuDemoCtrl&quot;&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'menu')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueMenuDemoCtrl&quot;&gt;
     &lt;xue-menu menu-config=&quot;menuConfig&quot;&gt;&lt;/xue-menu&gt;
 &lt;/div&gt;</code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueMenuDemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueMenuDemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
     $scope.menuConfig = {
         search: true,
         data: [{
@@ -1622,23 +1931,68 @@
     }
 }]);
 </code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
-    </section>
-    
-    <section class="module-wrap" id="modal">
-        <div class="page-header">
-            <h1>Modal<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/modal">xue.modal</a>)
-                </small></h1>
-        </div>
-        <div class="page-content">
-            <div class="content-html">
-                <div ng-controller="xueModalDemoCtrl">
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueMenuDemoCtrl',['$scope',function($scope){
+    $scope.menuConfig = {
+        search: true,
+        data: [{
+            id: 1,
+            menuName: "菜单1",
+            subMenus: [{
+                id: 11,
+                menuName: "菜单项1-1"
+            },{
+                id: 12,
+                menuName: "菜单项1-2"
+            },{
+                id: 13,
+                menuName: "菜单项1-3"
+            },{
+                id: 14,
+                menuName: "菜单项1-4"
+            }]
+        },{
+            id: 2,
+            menuName: "菜单2",
+            subMenus: [{
+                id: 21,
+                menuName: "菜单项2-1"
+            },{
+                id: 22,
+                menuName: "菜单项2-2"
+            },{
+                id: 23,
+                menuName: "菜单项2-3"
+            },{
+                id: 24,
+                menuName: "菜单项2-4"
+            }]
+        }],
+        clickRouter: function(item) {//导航菜单点击回调
+            console.log(item);
+        },
+        oneDimenName: 'menuName',//一级菜单标题字段名
+        childrenName: 'subMenus',//二维数组对象名
+        twoDimenName: 'menuName'//二级菜单标题字段名
+    }
+}]);
+</script>
+                
+                <section class="module-wrap" id="modal">
+                    <div class="page-header">
+                        <h1>Modal<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/modal">xue.modal</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueModalDemoCtrl">
     <script type="text/ng-template" id="modal.test.html">
         <div>
             {{test}}
@@ -1647,19 +2001,25 @@
     </script>
     <button ng-click="open()">打开</button>
 </div>
-            </div>
-            <div class="content-md markdown-wrap">
-                <h3 id="test">test</h3>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="test">test</h3>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueModalDemoCtrl&quot;&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'modal')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueModalDemoCtrl&quot;&gt;
     &lt;script type=&quot;text/ng-template&quot; id=&quot;modal.test.html&quot;&gt;
         &lt;div&gt;
             {{test}}
@@ -1668,11 +2028,12 @@
     &lt;/script&gt;
     &lt;button ng-click=&quot;open()&quot;&gt;打开&lt;/button&gt;
 &lt;/div&gt;</code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueModalDemoCtrl&#39;, 
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueModalDemoCtrl&#39;, 
     [&#39;$scope&#39;, &#39;$xModal&#39;,function ($scope, $xModal) {
     console.log($xModal);
     $scope.open = function(){
@@ -1701,28 +2062,57 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
         });
     }
 }]);</code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
-    </section>
-    
-    <section class="module-wrap" id="notice">
-        <div class="page-header">
-            <h1>Notice<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/notice">xue.notice</a>)
-                </small></h1>
-        </div>
-        <div class="page-content">
-            <div class="content-html">
-                <div ng-controller="xueNoticeDemoCtrl" style="text-align:center;">
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueModalDemoCtrl', 
+    ['$scope', '$xModal',function ($scope, $xModal) {
+    console.log($xModal);
+    $scope.open = function(){
+        var test = $xModal.open({
+            templateUrl: 'modal.test.html',
+            controller: 'modalTestCtrl'
+        });
+        test.close(function(ret){
+            console.log(ret);
+        });
+    }
+    /* $xModal.open({
+        templateUrl: 'app/case_center/case_work/case_work_process/case_record/burner_confirm.tpl.html',
+        controller: 'burnerConfirmCtrl',
+        resolve: {
+            dummy:$couchPotato.resolveDependencies(['app/case_center/case_work/case_work_process/case_record/burner_confirm.ctrl.js'])
+        }
+    }) */
+}]);
+angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstance',function($scope,$modalInstance){
+    console.log('xxx');
+    $scope.test = "zxl";
+    $scope.close = function(){
+        $modalInstance.close({
+            a: 'test zxl'
+        });
+    }
+}]);</script>
+                
+                <section class="module-wrap" id="notice">
+                    <div class="page-header">
+                        <h1>Notice<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/notice">xue.notice</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueNoticeDemoCtrl" style="text-align:center;">
     <xue-notice notice-config="vm.config"></xue-notice>
 </div>
-            </div>
-            <div class="content-md markdown-wrap">
-                <h3 id="组件说明">组件说明</h3>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="组件说明">组件说明</h3>
 <p>消息组件</p>
 <h3 id="attributes">Attributes</h3>
 <table>
@@ -1906,22 +2296,29 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
 </tr>
 </tbody></table>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueNoticeDemoCtrl&quot; style=&quot;text-align:center;&quot;&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'notice')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueNoticeDemoCtrl&quot; style=&quot;text-align:center;&quot;&gt;
     &lt;xue-notice notice-config=&quot;vm.config&quot;&gt;&lt;/xue-notice&gt;
 &lt;/div&gt;</code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueNoticeDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueNoticeDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     $scope.vm = {
         config: {
             count: 15,
@@ -1962,23 +2359,64 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
         }
     }
 }]);</code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
-    </section>
-    
-    <section class="module-wrap" id="pagination">
-        <div class="page-header">
-            <h1>Pagination<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/pagination">xue.pagination</a>)
-                </small></h1>
-        </div>
-        <div class="page-content">
-            <div class="content-html">
-                <div ng-controller="xuePaginationDemoCtrl" style="overflow: auto;">
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueNoticeDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        config: {
+            count: 15,
+            selectTabId: 1,
+            listMaxLen: 10,
+            noticeTypeList: [{contentType: '提示分类内容', count: 0},{contentType: '提示分类内容2', count: 101}],
+            noticeList: [{
+                content: '提示内容1',
+                contentType:'审批1',
+                time: '2019-08-20 17:13:55'
+            }, {
+                content: '提示内容2',
+                contentType:'审批2',
+                time: '2019-08-20 17:13:55'
+            }],
+            formatField: {
+                contentTitle:'contentType'
+            },
+            tabMark: 'number',
+            tabItem: [{
+                id: 0,
+                name: '通知提醒',
+                count: 99
+            }, {
+                id: 1,
+                name: '待办事项',
+                count: 105
+            }, {
+                id: 2,
+                name: '系统公告',
+                count: 24
+            }],
+            showNoticeType: false,
+            tabItemClick: function (item) {
+                console.log(item);
+                $scope.vm.config.showNoticeType =true;
+            }
+        }
+    }
+}]);</script>
+                
+                <section class="module-wrap" id="pagination">
+                    <div class="page-header">
+                        <h1>Pagination<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/pagination">xue.pagination</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xuePaginationDemoCtrl" style="overflow: auto;">
     <xue-pagination class="xui-pagination-sm" total-items="mv.total" max-size="mv.maxSize" ng-model="mv.page"
         items-per-page="mv.size" boundary-links="true">
     </xue-pagination>
@@ -1992,19 +2430,25 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
     </xue-pagination>
     <br /><br />
 </div>
-            </div>
-            <div class="content-md markdown-wrap">
-                <h3 id="xue-pagination-settings">xue-pagination settings</h3>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="xue-pagination-settings">xue-pagination settings</h3>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xuePaginationDemoCtrl&quot; style=&quot;overflow: auto;&quot;&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'pagination')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xuePaginationDemoCtrl&quot; style=&quot;overflow: auto;&quot;&gt;
     &lt;xue-pagination class=&quot;xui-pagination-sm&quot; total-items=&quot;mv.total&quot; max-size=&quot;mv.maxSize&quot; ng-model=&quot;mv.page&quot;
         items-per-page=&quot;mv.size&quot; boundary-links=&quot;true&quot;&gt;
     &lt;/xue-pagination&gt;
@@ -2018,11 +2462,12 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
     &lt;/xue-pagination&gt;
     &lt;br /&gt;&lt;br /&gt;
 &lt;/div&gt;</code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xuePaginationDemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xuePaginationDemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
     $scope.mv = {
         total: 100,
         page: 2,
@@ -2030,28 +2475,36 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
         size: 10
     };
 }]);</code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
-    </section>
-    
-    <section class="module-wrap" id="scroller">
-        <div class="page-header">
-            <h1>Scroller<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/scroller">xue.scroller</a>)
-                </small></h1>
-        </div>
-        <div class="page-content">
-            <div class="content-html">
-                <div ng-controller="xueScrollerDemoCtrl">
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xuePaginationDemoCtrl',['$scope',function($scope){
+    $scope.mv = {
+        total: 100,
+        page: 2,
+        maxSize: 5,
+        size: 10
+    };
+}]);</script>
+                
+                <section class="module-wrap" id="scroller">
+                    <div class="page-header">
+                        <h1>Scroller<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/scroller">xue.scroller</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueScrollerDemoCtrl">
     <xue-scroller scroll-config="scrollConfig"></xue-scroller>
 </div>
-            </div>
-            <div class="content-md markdown-wrap">
-                <h3 id="组件说明">组件说明</h3>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="组件说明">组件说明</h3>
 <p><strong>词条滚动组件</strong></p>
 <h3 id="attributes">Attributes</h3>
 <table>
@@ -2172,22 +2625,29 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
 </tr>
 </tbody></table>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueScrollerDemoCtrl&quot;&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'scroller')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueScrollerDemoCtrl&quot;&gt;
     &lt;xue-scroller scroll-config=&quot;scrollConfig&quot;&gt;&lt;/xue-scroller&gt;
 &lt;/div&gt;</code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueScrollerDemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueScrollerDemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
     $scope.scrollConfig = {
         dataType: 3,
         isAutoPlay: true,
@@ -2205,23 +2665,41 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
         }]
     }
 }]);</code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
-    </section>
-    
-    <section class="module-wrap" id="select">
-        <div class="page-header">
-            <h1>Select<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/select">xue.select</a>)
-                </small></h1>
-        </div>
-        <div class="page-content">
-            <div class="content-html">
-                <div ng-controller="xueSelectdemoCtrl">
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueScrollerDemoCtrl',['$scope',function($scope){
+    $scope.scrollConfig = {
+        dataType: 3,
+        isAutoPlay: true,
+        isLoop: true,
+        data: [{
+            text: '111'
+        },{
+            text: '222'
+        },{
+            text: '333'
+        },{
+            text: '444'
+        },{
+            text: '555'
+        }]
+    }
+}]);</script>
+                
+                <section class="module-wrap" id="select">
+                    <div class="page-header">
+                        <h1>Select<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/select">xue.select</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueSelectdemoCtrl">
     <div style="margin-bottom:5px;">单选可过滤不分离：
         <xue-select select-config="mv.flterNoSeparateConfig"></xue-select>
     </div>
@@ -2239,9 +2717,9 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
     </div>
 
 </div>
-            </div>
-            <div class="content-md markdown-wrap">
-                <h3 id="组件说明">组件说明</h3>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="组件说明">组件说明</h3>
 <p>下拉选择组件</p>
 <h3 id="attributes">Attributes</h3>
 <table>
@@ -2487,15 +2965,21 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
 </tr>
 </tbody></table>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueSelectdemoCtrl&quot;&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'select')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueSelectdemoCtrl&quot;&gt;
     &lt;div style=&quot;margin-bottom:5px;&quot;&gt;单选可过滤不分离：
         &lt;xue-select select-config=&quot;mv.flterNoSeparateConfig&quot;&gt;&lt;/xue-select&gt;
     &lt;/div&gt;
@@ -2513,11 +2997,12 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
     &lt;/div&gt;
 
 &lt;/div&gt;</code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueSelectdemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueSelectdemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     $scope.data = [{
         label: &quot;身份证&quot;,
         value: &quot;1&quot;
@@ -2587,28 +3072,98 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
         }
     };
 }]);</code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
-    </section>
-    
-    <section class="module-wrap" id="steps">
-        <div class="page-header">
-            <h1>Steps<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/steps">xue.steps</a>)
-                </small></h1>
-        </div>
-        <div class="page-content">
-            <div class="content-html">
-                <div ng-controller="xueStepsDemoCtrl">
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueSelectdemoCtrl', ['$scope', function ($scope) {
+    $scope.data = [{
+        label: "身份证",
+        value: "1"
+    }, {
+        label: "护照",
+        value: "2"
+    }, {
+        label: "居住证",
+        value: "3"
+    }, {
+        label: "驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证",
+        value: "4"
+    }]
+    $scope.mv = {
+        testConfig: {
+            data: $scope.data,
+            panelHeight: 'auto',
+            panelWidth: '180px',
+            onSelect: function (item) {
+                console.log(item);
+            },
+            clearAll: function () {
+                console.log('清除select');
+            }
+        },
+        noFilterConfig: {
+            data: $scope.data,
+            filter: false
+        },
+        flterNoSeparateConfig: {
+            data: $scope.data,
+            separate: false,
+            onSelect: function (item) {
+                console.log(item);
+            }
+        },
+        multConfig: {
+            data: [{
+                name: "全部",
+                value: "1"
+            }, {
+                name: "小孩",
+                value: "2"
+            }, {
+                name: "青年",
+                value: "3"
+            }, {
+                name: "中年",
+                value: "4"
+            }, {
+                name: "老人",
+                value: "5"
+            }],
+            checkbox: true,
+            valueField: 'value',
+            textField: 'name',
+            panelHeight: '150px',
+            panelWidth: '180px',
+            onSelect: function (item) {
+                console.log($scope.mv.multConfig.checkRows);
+            }
+        },
+        multFilterConfig: {
+            data: $scope.data,
+            checkbox: true,
+            filter: false
+        }
+    };
+}]);</script>
+                
+                <section class="module-wrap" id="steps">
+                    <div class="page-header">
+                        <h1>Steps<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/steps">xue.steps</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueStepsDemoCtrl">
     <xue-steps steps-config="stepsConfig" ng-value="value"></xue-steps>
 </div>
-            </div>
-            <div class="content-md markdown-wrap">
-                <h3 id="组件说明">组件说明</h3>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="组件说明">组件说明</h3>
 <p>步骤条组件</p>
 <h3 id="attributes">Attributes</h3>
 <table>
@@ -2718,22 +3273,29 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
 </tr>
 </tbody></table>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueStepsDemoCtrl&quot;&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'steps')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueStepsDemoCtrl&quot;&gt;
     &lt;xue-steps steps-config=&quot;stepsConfig&quot; ng-value=&quot;value&quot;&gt;&lt;/xue-steps&gt;
 &lt;/div&gt;</code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueStepsDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueStepsDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     $scope.value = 1;
     $scope.stepsConfig = {
         theme:&#39;green-theme&#39;,
@@ -2751,30 +3313,48 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
         }]
     };
 }]);</code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
-    </section>
-    
-    <section class="module-wrap" id="switch">
-        <div class="page-header">
-            <h1>Switch<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/switch">xue.switch</a>)
-                </small></h1>
-        </div>
-        <div class="page-content">
-            <div class="content-html">
-                <div ng-controller="xueSwitchDemoCtrl">
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueStepsDemoCtrl', ['$scope', function ($scope) {
+    $scope.value = 1;
+    $scope.stepsConfig = {
+        theme:'green-theme',
+        alignCenter: true,
+        iconStyle:'statusNum',
+        options: [{
+            title: 'Finished',
+            code: 0
+        }, {
+            title: 'In Progress',
+            code: 1
+        }, {
+            title: 'Waiting',
+            code: 2
+        }]
+    };
+}]);</script>
+                
+                <section class="module-wrap" id="switch">
+                    <div class="page-header">
+                        <h1>Switch<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/switch">xue.switch</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueSwitchDemoCtrl">
     <xue-switch   ng-checked="vm.isOpen" switch-click="vm.toggleConfig.onselect(vm.isOpen)"></xue-switch>
     <xue-switch   ng-checked="false"  ng-disabled="true"></xue-switch>
     <!-- <xue-toggle toggle-config="vm.toggleConfig" ng-disabled="vm.isOpen"></xue-toggle> -->
 </div>
-            </div>
-            <div class="content-md markdown-wrap">
-                <h3 id="组件说明">组件说明</h3>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="组件说明">组件说明</h3>
 <p> switch开关</p>
 <h3 id="attributes">Attributes</h3>
 <table>
@@ -2807,24 +3387,31 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
 </tr>
 </tbody></table>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueSwitchDemoCtrl&quot;&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'switch')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueSwitchDemoCtrl&quot;&gt;
     &lt;xue-switch   ng-checked=&quot;vm.isOpen&quot; switch-click=&quot;vm.toggleConfig.onselect(vm.isOpen)&quot;&gt;&lt;/xue-switch&gt;
     &lt;xue-switch   ng-checked=&quot;false&quot;  ng-disabled=&quot;true&quot;&gt;&lt;/xue-switch&gt;
     &lt;!-- &lt;xue-toggle toggle-config=&quot;vm.toggleConfig&quot; ng-disabled=&quot;vm.isOpen&quot;&gt;&lt;/xue-toggle&gt; --&gt;
 &lt;/div&gt;</code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueSwitchDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueSwitchDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     $scope.vm = {
         toggleConfig: {
             onSelect: function (flag) {
@@ -2834,28 +3421,38 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
         isOpen: true
     }
 }])</code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
-    </section>
-    
-    <section class="module-wrap" id="table">
-        <div class="page-header">
-            <h1>Table<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/table">xue.table</a>)
-                </small></h1>
-        </div>
-        <div class="page-content">
-            <div class="content-html">
-                <div ng-controller="xueTableDemoCtrl">
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueSwitchDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        toggleConfig: {
+            onSelect: function (flag) {
+                $scope.vm.isOpen = !flag;
+            }
+        },
+        isOpen: true
+    }
+}])</script>
+                
+                <section class="module-wrap" id="table">
+                    <div class="page-header">
+                        <h1>Table<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/table">xue.table</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueTableDemoCtrl">
     <xue-table table-config="vm.tableConfig"></xue-table>
 </div>
-            </div>
-            <div class="content-md markdown-wrap">
-                <h3 id="组件说明">组件说明</h3>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="组件说明">组件说明</h3>
 <p>表格组件</p>
 <h3 id="attributes">Attributes</h3>
 <table>
@@ -3196,22 +3793,29 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
 </tr>
 </tbody></table>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueTableDemoCtrl&quot;&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'table')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueTableDemoCtrl&quot;&gt;
     &lt;xue-table table-config=&quot;vm.tableConfig&quot;&gt;&lt;/xue-table&gt;
 &lt;/div&gt;</code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueTableDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueTableDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     $scope.vm = {
         tableConfig: {
             showTableCol: true,
@@ -3298,23 +3902,110 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
         }
     }
 }]);</code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
-    </section>
-    
-    <section class="module-wrap" id="tabs">
-        <div class="page-header">
-            <h1>Tabs<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/tabs">xue.tabs</a>)
-                </small></h1>
-        </div>
-        <div class="page-content">
-            <div class="content-html">
-                <div ng-controller="xueTabsDemoCtrl">
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueTableDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        tableConfig: {
+            showTableCol: true,
+            checkbox: true, //单选
+            toolbar: {
+                show: true,
+                title: '表格列表',
+                tools: [{
+                    text: '刷新',
+                    icon: 'xui-icon xui-icon-ios-refresh'
+                }]
+            },
+            rows: [{
+                id: 1,
+                name1: 1,
+                name2: 1,
+                name3: 1,
+                name4: 1,
+                name5: 1
+            }, {
+                id: 2,
+                name1: 2,
+                name2: 2,
+                name3: 2,
+                name4: 2,
+                name5: 2
+            }, {
+                id: 3,
+                name1: '内容3',
+                name2: '内容3',
+                name3: '内容3',
+                name4: '内容3',
+                name5: '内容3'
+            }],
+            colunms: [{
+                label: '标题栏1',
+                name: 'name1'
+            }, {
+                label: '标题栏2',
+                name: 'name2'
+            }, {
+                label: '标题栏3',
+                name: 'name3'
+            }, {
+                label: '标题栏4',
+                name: 'name4'
+
+            }, {
+                label: '标题栏5',
+                name: 'name5'
+            }],
+            total: 3,
+            optConfigExt: [{
+                optName: '操作',
+                optStyle: {
+                    width: '120px'
+                },
+                optContent: [{
+                    id: 'add',
+                    name: '添加',
+                    className: "xui-icon xui-icon-ios-add-circle-outline",
+                    callback: function (row) {
+                        console.log(row);
+                    },
+                    formatter: function (row) {
+                        return true;
+                    }
+                }, {
+                    id: 'view',
+                    name: '查看',
+                    className: "xui-icon xui-icon-ios-create-outline",
+                    formatter: function () {
+                        return true;
+                    }
+                }, {
+                    id: 'cancle',
+                    name: '取消',
+                    className: "xui-icon xui-icon-ios-trash-outline",
+                    formatter: function (row) {
+                        return true;
+                    }
+                }]
+            }]
+        }
+    }
+}]);</script>
+                
+                <section class="module-wrap" id="tabs">
+                    <div class="page-header">
+                        <h1>Tabs<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/tabs">xue.tabs</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueTabsDemoCtrl">
 
     <xue-tabs-wrap ng-model="vm.activeValue1">
         <xue-tab label="'标签1'" value="1">
@@ -3360,19 +4051,25 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
 
 </div>
 
-            </div>
-            <div class="content-md markdown-wrap">
-                <h3 id="xue-tabs-settings">xue-tabs settings</h3>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="xue-tabs-settings">xue-tabs settings</h3>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueTabsDemoCtrl&quot;&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'tabs')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueTabsDemoCtrl&quot;&gt;
 
     &lt;xue-tabs-wrap ng-model=&quot;vm.activeValue1&quot;&gt;
         &lt;xue-tab label=&quot;&#39;标签1&#39;&quot; value=&quot;1&quot;&gt;
@@ -3418,11 +4115,12 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
 
 &lt;/div&gt;
 </code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueTabsDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueTabsDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     $scope.vm = {
         activeValue1: 1,
         activeValue2: 2,
@@ -3451,28 +4149,57 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
         }]
     }
 }]);</code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
-    </section>
-    
-    <section class="module-wrap" id="tree">
-        <div class="page-header">
-            <h1>Tree<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/tree">xue.tree</a>)
-                </small></h1>
-        </div>
-        <div class="page-content">
-            <div class="content-html">
-                <div ng-controller="xueTreeDemoCtrl">
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueTabsDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        activeValue1: 1,
+        activeValue2: 2,
+        select: function($event,$selectedIndex,$selected){
+            console.log($event,$selectedIndex,$selected);
+        },
+        deselect: function($event,$selectedIndex,$previousSelected){
+            console.log($event,$selectedIndex,$previousSelected);
+        },
+        tabItems: [{
+            id: 1,
+            name: '标签一',
+            content: '标签一的内容'
+        },{
+            id: 2,
+            name: '标签二',
+            content: '标签二的内容'
+        },{
+            id: 3,
+            name: '标签三',
+            content: '标签三的内容'
+        },{
+            id: 4,
+            name: '标签四',
+            content: '标签四的内容'
+        }]
+    }
+}]);</script>
+                
+                <section class="module-wrap" id="tree">
+                    <div class="page-header">
+                        <h1>Tree<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/tree">xue.tree</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueTreeDemoCtrl">
     <xue-tree tree-config="treeConfig"></xue-tree>
 </div>
-            </div>
-            <div class="content-md markdown-wrap">
-                <h3 id="组件说明">组件说明</h3>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="组件说明">组件说明</h3>
 <p><strong>树组件</strong></p>
 <h3 id="attributes">Attributes</h3>
 <table>
@@ -3663,22 +4390,29 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
 </tr>
 </tbody></table>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueTreeDemoCtrl&quot;&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'tree')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueTreeDemoCtrl&quot;&gt;
     &lt;xue-tree tree-config=&quot;treeConfig&quot;&gt;&lt;/xue-tree&gt;
 &lt;/div&gt;</code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueTreeDemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueTreeDemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
     $scope.treeConfig = {
         data: [{
             name: &#39;tree-1&#39;,
@@ -3702,30 +4436,54 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
     }
 }]);
 </code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
-    </section>
-    
-    <section class="module-wrap" id="validate">
-        <div class="page-header">
-            <h1>Validate<small>
-                    (<a target="_blank"
-                        href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/validate">xue.validate</a>)
-                </small></h1>
-        </div>
-        <div class="page-content">
-            <div class="content-html">
-                <div ng-controller="xueValidateDemoCtrl">
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueTreeDemoCtrl',['$scope',function($scope){
+    $scope.treeConfig = {
+        data: [{
+            name: 'tree-1',
+            id: 1,
+            children: [{
+                name:  'tree-1-1',
+                id: 11,
+                children: [{
+                    name:  'tree-1-1-1',
+                    id: 111
+                }]
+            }, {
+                name:  'tree-1-2',
+                id: 2
+            }, {
+                name:  'tree-1-3',
+                id: 3
+            }]
+        }],
+        showCheckbox: true
+    }
+}]);
+</script>
+                
+                <section class="module-wrap" id="validate">
+                    <div class="page-header">
+                        <h1>Validate<small>
+                                (<a target="_blank"
+                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/validate">xue.validate</a>)
+                            </small></h1>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-html">
+                            <div ng-controller="xueValidateDemoCtrl">
     <div class="xui-validate-container">
         <input type="text" ng-model="pcIp" validate-config="xueValidConfig.pcIp">
     </div>
 </div>
-            </div>
-            <div class="content-md markdown-wrap">
-                <h3 id="组件说明">组件说明</h3>
+                        </div>
+                        <div class="content-md markdown-wrap">
+                            <h3 id="组件说明">组件说明</h3>
 <p><strong>校验组件</strong></p>
 <h3 id="attributes">Attributes</h3>
 <table>
@@ -3909,24 +4667,31 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
 </tr>
 </tbody></table>
 
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueValidateDemoCtrl&quot;&gt;
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="page-content-code">
+                        <div class="col-md-12" ng-controller="PlunkerCtrl">
+                            <!-- <div class="pull-right">
+                                <button type="button" class="btn btn-info plunk-btn"
+                                    ng-click="edit('1.2.32', '1.0.0', 'validate')"><i
+                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                            </div> -->
+                            <xue-tabs-wrap type="border-card">
+                                <xue-tab label="'html'" value="1">
+                                    <div plunker-content="markup">
+                                        <pre
+                                            ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueValidateDemoCtrl&quot;&gt;
     &lt;div class=&quot;xui-validate-container&quot;&gt;
         &lt;input type=&quot;text&quot; ng-model=&quot;pcIp&quot; validate-config=&quot;xueValidConfig.pcIp&quot;&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueValidateDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+                                    </div>
+                                </xue-tab>
+                                <xue-tab label="'javascript'" value="2">
+                                    <div plunker-content="javascript">
+                                        <pre
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueValidateDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     $scope.pcIp = &#39;&#39;;
     $scope.xueValidConfig = {
         pcIp: {
@@ -3937,11 +4702,31 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
     };
 }]);
 </code></pre>
+                                    </div>
+                                </xue-tab>
+                            </xue-tabs-wrap>
                         </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
+                    </div>
+                </section>
+                <script>angular.module('ui.xue.demo').controller('xueValidateDemoCtrl', ['$scope', function ($scope) {
+    $scope.pcIp = '';
+    $scope.xueValidConfig = {
+        pcIp: {
+            requiredTip: "IP地址不能为空",
+            regex: "ip",
+            errorTip: "请填写正确的IP格式！"
+        }
+    };
+}]);
+</script>
+                
             </div>
         </div>
-    </section>
-    
-</div>
+    </div>
+    <div class="footer-container">
+        Copyright © 2020 angularjs-xue
+    </div>
+    <script src="assets/smoothscroll-angular-custom.js"></script>
+</body>
+
+</html>

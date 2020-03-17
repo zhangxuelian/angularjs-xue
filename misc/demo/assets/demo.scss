@@ -115,11 +115,15 @@ body {
                     cursor: pointer;
 
                     &:hover {
-                        font-weight: 700;
+                        color: #333;
                     }
 
                     a {
                         text-decoration: none;
+                        color: #2a859f;
+                    }
+
+                    .active{
                         color: #333;
                     }
                 }
@@ -167,6 +171,7 @@ body {
                             padding-left: 5px;
                             line-height: 30px;
                             color: #333;
+                            cursor: pointer;
                         }
 
                         a {

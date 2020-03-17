@@ -2,9 +2,9 @@
 <html ng-app="ui.xue.demo">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="assets/favicon.ico" />
     <title>angularjs-xue</title>
     <link rel="author" href="<%= pkg.author%>">
@@ -12,15 +12,13 @@
     <script src="assets/angular.min.js"></script>
     <script src="assets/angular-ui-router.min.js"></script>
     <script src="assets/angularjs-xue-full-<%= pkg.version %><%= debug?'':'.min' %>.js"></script>
-    <script src="assets/plunker.js"></script>
-    <script src="assets/app.js"></script>
+    <script src="modules/index.js"></script>
     <link rel="stylesheet" href="assets/angularjs-xue-ui-<%= pkg.version %><%= debug?'':'.min' %>.css">
     <link rel="stylesheet" href="assets/demo.css" />
 </head>
 
 <body class="demo-wrap" id="demoWrap" ng-controller="xueDemoCtrl as demoCtrl"
-    data-demoModules='<%= JSON.stringify(demoSimpleModules) %>' data-version='<%= version %>'
-    data-ng-init="demoCtrl.loadData()">
+    data-demoModules='<%= JSON.stringify(demoSimpleModules) %>' data-ng-init="demoCtrl.loadData()">
     <div class="header-container">
         <div class="header-wrap">
             <h1>
@@ -29,88 +27,25 @@
             </h1>
             <ul>
                 <li ng-repeat="item in demoCtrl.menuData">
-                    <a href="{{'#'+item.id}}">{{item.name}}</a>
+                    <a ui-sref="{{item.id}}" ui-sref-active="active">{{item.name}}</a>
+                </li>
+                <li>
+                    <a href="">V<%= version %></a>
                 </li>
             </ul>
         </div>
     </div>
     <div class="main-container">
-        <div class="main-wrap">
-            <div class="main-menu-container">
-                <ul class="node-menu">
-                    <li>
-                        <a href="#gettingStarted">入门指南</a>
-                    </li>
-                </ul>
-                <ul class="node-menu">
-                    <li>
-                        <a href="#<%= demoModules[0].name %>">组件文档</a>
-                        <% demoModules.forEach(function(module) {  %><div class="child-menu"><a
-                                href="#<%= module.name %>"><%= module.displayName %></a></div><% }); %>
-                    </li>
-                </ul>
-            </div>
-            <div class="main-content-container">
-                <section class="module-wrap" id="getting_started">
-                    <div class="page-header">
-                        <h1>
-                            入门指南
-                        </h1>
-                    </div>
-                    <div class="page-content markdown-wrap">
-                        <%= readMd %>
-                    </div>
-                </section>
-                <% demoModules.forEach(function(module) { %>
-                <section class="module-wrap" id="<%= module.name %>">
-                    <div class="page-header">
-                        <h1><%= module.displayName %><small>
-                                (<a target="_blank"
-                                    href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/<%= module.name %>">xue.<%= module.name %></a>)
-                            </small></h1>
-                    </div>
-                    <div class="page-content">
-                        <div class="content-html">
-                            <%= module.docs.html %>
-                        </div>
-                        <div class="content-md markdown-wrap">
-                            <%= module.docs.md %>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="page-content-code">
-                        <div class="col-md-12" ng-controller="PlunkerCtrl">
-                            <!-- <div class="pull-right">
-                                <button type="button" class="btn btn-info plunk-btn"
-                                    ng-click="edit('<%= ngversion%>', '<%= pkg.version%>', '<%= module.name %>')"><i
-                                        class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
-                            </div> -->
-                            <xue-tabs-wrap type="border-card">
-                                <xue-tab label="'html'" value="1">
-                                    <div plunker-content="markup">
-                                        <pre
-                                            ng-non-bindable><code data-language="html"><%- module.docs.html %></code></pre>
-                                    </div>
-                                </xue-tab>
-                                <xue-tab label="'javascript'" value="2">
-                                    <div plunker-content="javascript">
-                                        <pre
-                                            ng-non-bindable><code data-language="javascript"><%- module.docs.js %></code></pre>
-                                    </div>
-                                </xue-tab>
-                            </xue-tabs-wrap>
-                        </div>
-                    </div>
-                </section>
-                <script><%= module.docs.js %></script>
-                <% }); %>
-            </div>
+        <div class="main-wrap" ui-view>
+
         </div>
+        <% demoModules.forEach(function(module) { %>
+        <script><%= module.docs.js %></script>
+        <% }); %>
     </div>
     <div class="footer-container">
-        Copyright © 2020 angularjs-xue
+        Copyright Â© 2020 angularjs-xue
     </div>
-    <script src="assets/smoothscroll-angular-custom.js"></script>
 </body>
 
 </html>
