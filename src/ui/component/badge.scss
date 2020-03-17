@@ -1,4 +1,4 @@
-$badge-height:18px;
+$badge-height:20px;
 
 .xui-badge-wrap {
     position: absolute;
@@ -7,9 +7,9 @@ $badge-height:18px;
     color: #fff;
     background: #d92b2f;
     padding: 0 5px;
-    height: $badge-height;
-    line-height: $badge-height;
-    border-radius: $badge-height/2;
+    height: 20px;
+    line-height: 18px;
+    border-radius: 10px;
     text-align: center;
     box-sizing: border-box;
     transform: translateY(-50%) translateX(50%);

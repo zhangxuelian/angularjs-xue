@@ -2,32 +2,44 @@ $counter-border-color: #cee0f0 !default;
 $counter-text-bg-color: #f5f7fa !default;
 $counter-text-color: #999 !default;
 $counter-text-hover-color: #0394F9 !default;
-$counter-disabled-bg-color: #c0c4cc !default;
-$counter-disabled-color: #c0c4cc !default;
+$counter-disabled-bg-color: #f5f7fa !default;
+$counter-disabled-font-color: #c0c4cc !default;
 
 $counter-font-size: $font-size-base !default;
 $counter-font-size-sm: $font-size-sm !default;
 $counter-font-size-lg: $font-size-lg !default;
 
-$counter-input-padding-y: .25rem !default;
-$counter-input-padding-x: .85rem !default;
-$counter-input-padding-y-sm: .2rem !default;
-$counter-input-padding-x-sm: .5rem !default;
-$counter-input-padding-y-lg: .75rem !default;
-$counter-input-padding-x-lg: 1.5rem !default;
+$counter-input-padding-x: 1.875rem !default;
+$counter-input-padding-x-sm: 1.25rem !default;
+$counter-input-padding-x-lg: 2.5rem !default;
 
-@mixin counter-size($padding-y, $padding-x, $font-size) {
+$counter-width: 8.75rem !default;
+$counter-width-sm: 7.5rem !default;
+$counter-width-lg: 11.25rem !default;
+
+$counter-height: 1.875rem !default;
+$counter-height-sm: 1.625rem !default;
+$counter-height-lg: 2.25rem !default;
+
+
+@mixin counter-size($width, $height, $font-size, $padding-x) {
+    width: $width;
+    height: $height;
+    line-height: $height;
     font-size: $font-size;
 
     .text,
-    .input,
-    .add,
-    .reduce {
-        padding: $padding-y $padding-x;
+    .input {
+        padding: 0 $padding-x;
     }
 
-    .input span {
-        padding: $padding-y $padding-x;
+    .add,
+    .reduce {
+        width: $padding-x;
+    }
+
+    .input>span {
+        right: $padding-x + 0.375rem;
     }
 }
 
@@ -35,31 +47,30 @@ $counter-input-padding-x-lg: 1.5rem !default;
     display: inline-block;
     border: 1px solid $counter-border-color;
     border-radius: $border-radius;
-    box-sizing: border-box;
+    width: $counter-width;
+    height: $counter-height;
+    line-height: $counter-height;
     font-size: $font-size-base;
+    position: relative;
 
     &.disabled {
         background-color: $counter-disabled-bg-color;
-        color: $counter-disabled-color;
+        color: $counter-disabled-font-color;
         cursor: not-allowed;
 
         input:disabled {
             background-color: $counter-disabled-bg-color;
+            color: $counter-disabled-font-color;
         }
-    }
-
-    &>span {
-        text-align: center;
-        padding: $counter-input-padding-y $counter-input-padding-x;
-        float: left;
     }
 
     .text,
     .input {
-        padding: $counter-input-padding-y $counter-input-padding-x;
+        display: inline-block;
+        width: 100%;
         box-sizing: border-box;
-        border-left: 1px solid $counter-border-color;
-        border-right: 1px solid $counter-border-color;
+        padding: 0 $counter-input-padding-x;
+        text-align: center;
     }
 
     .input {
@@ -69,28 +80,33 @@ $counter-input-padding-x-lg: 1.5rem !default;
             width: 100%;
             text-align: center;
             border: none;
+
         }
 
         &.hasSuffix input {
+            padding-right: 25px;
             box-sizing: border-box;
         }
 
         span {
             position: absolute;
             top: 0;
-            right: 5px;
-            padding: $counter-input-padding-y $counter-input-padding-x;
+            right: $counter-input-padding-x + 0.375rem;
         }
     }
 
     .add,
     .reduce {
-        color: $counter-text-color;
+        position: absolute;
+        text-align: center;
+        box-sizing: border-box;
+        color: #999;
         font-weight: bold;
+        font-size: 20px;
+        width: 30px;
         cursor: pointer;
-        position: relative;
         background-color: $counter-text-bg-color;
-        padding: $counter-input-padding-y $counter-input-padding-x;
+        z-index: 999;
 
         &:hover {
             color: $counter-text-hover-color;
@@ -98,27 +114,31 @@ $counter-input-padding-x-lg: 1.5rem !default;
 
         &.disabled {
             cursor: not-allowed;
-            color: $counter-disabled-color;
+            color: $counter-disabled-font-color;
 
             &:hover {
-                color: $counter-disabled-color;
+                color: $counter-disabled-font-color;
             }
         }
     }
 
     .add {
         border-radius: 0 $border-radius $border-radius 0;
+        right: 0;
+        border-left: 1px solid $counter-border-color;
     }
 
     .reduce {
         border-radius: $border-radius 0 0 $border-radius;
+        left: 0;
+        border-right: 1px solid $counter-border-color;
     }
 
     &.large {
-        @include counter-size($counter-input-padding-y-lg, $counter-input-padding-x-lg, $font-size-lg)
+        @include counter-size($counter-width-lg, $counter-height-lg, $font-size-lg, $counter-input-padding-x-lg);
     }
 
     &.small {
-        @include counter-size($counter-input-padding-y-sm, $counter-input-padding-x-sm, $font-size-sm);
+        @include counter-size($counter-width-sm, $counter-height-sm, $font-size-sm, $counter-input-padding-x-sm);
     }
 }
