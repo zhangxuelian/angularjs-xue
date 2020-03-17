@@ -1,9 +1,10 @@
-<div class="main-menu-container" id="componentLeftWrap" data-first-module-name="<%= demoModules[0].name %>" data-ng-init="component.load()">
+<div class="main-menu-container" id="componentLeftWrap" data-first-module-name="<%= demoModules[0].name %>"
+    data-ng-init="component.load()">
     <ul class="node-menu">
         <li>
             <% demoModules.forEach(function(module) {  %><div class="child-menu">
                 <a data-module-name="<%= module.name %>"
-                ng-click="component.selectMenu($event)"><%= module.displayName %></a></div><% }); %>
+                    ng-click="component.selectMenu($event)"><%= module.displayName %></a></div><% }); %>
         </li>
     </ul>
 </div>
@@ -16,31 +17,41 @@
                         href="https://github.com/zhangxuelian/angularjs-xue/tree/master/src/<%= module.name %>">xue.<%= module.name %></a>)
                 </small></h1>
         </div>
-        <div class="page-content">
-            <div class="content-html">
-                <%= module.docs.html %>
-            </div>
-            <div class="content-md markdown-wrap">
-                <%= module.docs.md %>
-            </div>
-        </div>
-        <hr>
-        <div class="page-content-code">
-            <div class="col-md-12">
-                <xue-tabs-wrap type="border-card">
-                    <xue-tab label="'html'" value="1">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="html"><%- module.docs.html %></code></pre>
-                        </div>
-                    </xue-tab>
-                    <xue-tab label="'javascript'" value="2">
-                        <div class="code-wrap">
-                            <pre ng-non-bindable><code data-language="javascript"><%- module.docs.js %></code></pre>
-                        </div>
-                    </xue-tab>
-                </xue-tabs-wrap>
-            </div>
-        </div>
+        <xue-tabs-wrap>
+            <xue-tab label="'示例'" value="1">
+                <div class="page-content">
+                    <div class="content-html">
+                        <%= module.docs.html %>
+                    </div>
+                </div>
+            </xue-tab>
+            <xue-tab label="'代码'" value="3">
+                <div class="page-content-code">
+                    <div class="col-md-12">
+                        <xue-tabs-wrap type="border-card">
+                            <xue-tab label="'html'" value="1">
+                                <div class="code-wrap">
+                                    <pre ng-non-bindable><code data-language="html"><%- module.docs.html %></code></pre>
+                                </div>
+                            </xue-tab>
+                            <xue-tab label="'javascript'" value="2">
+                                <div class="code-wrap">
+                                    <pre
+                                        ng-non-bindable><code data-language="javascript"><%- module.docs.js %></code></pre>
+                                </div>
+                            </xue-tab>
+                        </xue-tabs-wrap>
+                    </div>
+                </div>
+            </xue-tab>
+            <xue-tab label="'文档'" value="2">
+                <div class="page-content">
+                    <div class="content-md markdown-wrap">
+                        <%= module.docs.md %>
+                    </div>
+                </div>
+            </xue-tab>
+        </xue-tabs-wrap>
     </section>
     <% }); %>
 </div>

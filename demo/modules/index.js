@@ -25,7 +25,7 @@ angular.module('ui.xue.demo', ['ui.xue', 'ui.router'])
             name: '入门指南'
         }, {
             id: 'component',
-            name: '组件文档'
+            name: '组件'
         }, {
             id: 'ui',
             name: 'UI'
