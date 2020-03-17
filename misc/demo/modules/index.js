@@ -20,10 +20,6 @@ angular.module('ui.xue.demo', ['ui.xue', 'ui.router'])
     })
     .controller('xueDemoCtrl', ['$scope', function ($scope) {
         var self = this;
-        self.loadData = function () {
-            var ele = document.getElementById("demoWrap");
-            self.demoModules = JSON.parse(ele.attributes["data-demoModules"].nodeValue);
-        };
         self.menuData = [{
             id: "getting_started",
             name: '入门指南'

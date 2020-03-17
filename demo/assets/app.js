@@ -37,13 +37,6 @@ angular.module('ui.xue.demo', ['ui.xue', 'plunker', 'ui.router'])
   }])
   .controller('xueDemoCtrl', ['$scope', function ($scope) {
     var self = this;
-    self.loadData = function () {
-      var ele = document.getElementById("demoWrap");
-      self.demoModules = JSON.parse(ele.attributes["data-demoModules"].nodeValue);
-      self.menuData[1].id = self.demoModules[0].name;
-      self.version = ele.attributes["data-version"].nodeValue;
-      self.menuData[4].name = 'V' + self.version;
-    };
     self.menuData = [{
       id: "gettingStarted",
       name: '入门指南'
@@ -56,8 +49,5 @@ angular.module('ui.xue.demo', ['ui.xue', 'plunker', 'ui.router'])
     }, {
       id: 'tool',
       name: '工具库'
-    }, {
-      id: '',
-      name: ''
     }];
   }]);
