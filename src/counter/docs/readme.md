@@ -19,6 +19,7 @@
 | max            | 最大值       |      Number       |   -   |  100    |
 | min            | 最小值       |      Number      |   -   |  0  |
 | step    | 步进值 |      Number      |   -   |  1  |
+| precision    | 小数精度,不能小于步进精度 |      Number      |   -   |  0(默认为步进精度)  |
 | disabled     | 是否禁用 |      Boolean      |   -   | false  |
 | required      | 是否必填 |      Boolean      |   -   |   true   |
 | size | 计数器大小 | String | large,small |   -   |

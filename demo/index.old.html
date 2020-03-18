@@ -116,6 +116,7 @@ $ npm run demo or npm run test-demo</code></pre>
                         <div class="content-html">
                             <div ng-controller="xueAutoSelectDemoCtrl">
     <xue-autoselect select-config="vm.config" ng-val="vm.value"></xue-autoselect>
+    <xue-autoselect select-config="vm.config1"  ng-val="vm.value1" ng-disabled="true"></xue-autoselect>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
@@ -217,6 +218,7 @@ $ npm run demo or npm run test-demo</code></pre>
                                         <pre
                                             ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueAutoSelectDemoCtrl&quot;&gt;
     &lt;xue-autoselect select-config=&quot;vm.config&quot; ng-val=&quot;vm.value&quot;&gt;&lt;/xue-autoselect&gt;
+    &lt;xue-autoselect select-config=&quot;vm.config1&quot;  ng-val=&quot;vm.value1&quot; ng-disabled=&quot;true&quot;&gt;&lt;/xue-autoselect&gt;
 &lt;/div&gt;</code></pre>
                                     </div>
                                 </xue-tab>
@@ -231,6 +233,9 @@ $ npm run demo or npm run test-demo</code></pre>
             selectCallback: function (item) {
                 console.log(item);
             }
+        },
+        config1: {
+            data: [&quot;身份证&quot;, &quot;护照&quot;, &quot;居住证&quot;, &quot;驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证&quot;, &#39;往来通行证&#39;, &#39;港澳通行证&#39;]
         }
     }
 }])</code></pre>
@@ -248,6 +253,9 @@ $ npm run demo or npm run test-demo</code></pre>
             selectCallback: function (item) {
                 console.log(item);
             }
+        },
+        config1: {
+            data: ["身份证", "护照", "居住证", "驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证", '往来通行证', '港澳通行证']
         }
     }
 }])</script>
@@ -337,9 +345,9 @@ $ npm run demo or npm run test-demo</code></pre>
         </div>
     </div>
     <div class="clearfix">input 样式</div>
-    <input type="text" class="xui-input-sm">
-    <input type="text" class="xui-input">
-    <input type="text" class="xui-input-lg">
+    <input type="text" class="xui-input-sm" placeholder="请输入......">
+    <input type="text" class="xui-input" placeholder="请输入......">
+    <input type="text" class="xui-input-lg" placeholder="请输入......">
     <input type="text" class="xui-input" disabled>
 </div>
                         </div>
@@ -499,9 +507,9 @@ $ npm run demo or npm run test-demo</code></pre>
         &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;clearfix&quot;&gt;input 样式&lt;/div&gt;
-    &lt;input type=&quot;text&quot; class=&quot;xui-input-sm&quot;&gt;
-    &lt;input type=&quot;text&quot; class=&quot;xui-input&quot;&gt;
-    &lt;input type=&quot;text&quot; class=&quot;xui-input-lg&quot;&gt;
+    &lt;input type=&quot;text&quot; class=&quot;xui-input-sm&quot; placeholder=&quot;请输入......&quot;&gt;
+    &lt;input type=&quot;text&quot; class=&quot;xui-input&quot; placeholder=&quot;请输入......&quot;&gt;
+    &lt;input type=&quot;text&quot; class=&quot;xui-input-lg&quot; placeholder=&quot;请输入......&quot;&gt;
     &lt;input type=&quot;text&quot; class=&quot;xui-input&quot; disabled&gt;
 &lt;/div&gt;</code></pre>
                                     </div>
@@ -870,9 +878,20 @@ $ npm run demo or npm run test-demo</code></pre>
                     <div class="page-content">
                         <div class="content-html">
                             <div ng-controller="xueCounterDemoCtrl">
+  <div>尺寸大小</div>
   <xue-counter counter-config="vm.counterConfigSm" ng-number="vm.number"></xue-counter>
   <xue-counter counter-config="vm.counterConfig" ng-number="vm.number"></xue-counter>
   <xue-counter counter-config="vm.counterConfigLg" ng-number="vm.number"></xue-counter>
+  <div>禁用</div>
+  <xue-counter counter-config="vm.disabledConfig" ng-number="vm.number"></xue-counter>
+  <xue-counter counter-config="vm.disabledConfig1" ng-number="vm.number"></xue-counter>
+  <div>可输入</div>
+  <xue-counter counter-config="vm.inputConfig" ng-number="vm.number"></xue-counter>
+  <xue-counter counter-config="vm.inputConfig2" ng-number="vm.number"></xue-counter>
+  <xue-counter counter-config="vm.inputConfig3" ng-number="vm.number"></xue-counter>
+  <div>步进</div>
+  <xue-counter counter-config="vm.stepConfig" ng-number="vm.number"></xue-counter>
+  <xue-counter counter-config="vm.stepConfig2" ng-number="vm.number"></xue-counter>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
@@ -941,6 +960,13 @@ $ npm run demo or npm run test-demo</code></pre>
 <td align="left">Number</td>
 <td align="left">-</td>
 <td align="left">1</td>
+</tr>
+<tr>
+<td>precision</td>
+<td align="left">小数精度,不能小于步进精度</td>
+<td align="left">Number</td>
+<td align="left">-</td>
+<td align="left">0(默认为步进精度)</td>
 </tr>
 <tr>
 <td>disabled</td>
@@ -1022,9 +1048,20 @@ $ npm run demo or npm run test-demo</code></pre>
                                     <div plunker-content="markup">
                                         <pre
                                             ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueCounterDemoCtrl&quot;&gt;
+  &lt;div&gt;尺寸大小&lt;/div&gt;
   &lt;xue-counter counter-config=&quot;vm.counterConfigSm&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
   &lt;xue-counter counter-config=&quot;vm.counterConfig&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
   &lt;xue-counter counter-config=&quot;vm.counterConfigLg&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
+  &lt;div&gt;禁用&lt;/div&gt;
+  &lt;xue-counter counter-config=&quot;vm.disabledConfig&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
+  &lt;xue-counter counter-config=&quot;vm.disabledConfig1&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
+  &lt;div&gt;可输入&lt;/div&gt;
+  &lt;xue-counter counter-config=&quot;vm.inputConfig&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
+  &lt;xue-counter counter-config=&quot;vm.inputConfig2&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
+  &lt;xue-counter counter-config=&quot;vm.inputConfig3&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
+  &lt;div&gt;步进&lt;/div&gt;
+  &lt;xue-counter counter-config=&quot;vm.stepConfig&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
+  &lt;xue-counter counter-config=&quot;vm.stepConfig2&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
 &lt;/div&gt;</code></pre>
                                     </div>
                                 </xue-tab>
@@ -1032,12 +1069,9 @@ $ npm run demo or npm run test-demo</code></pre>
                                     <div plunker-content="javascript">
                                         <pre
                                             ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueCounterDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
-    $scope.vm = {
+    var vm = $scope.vm = {
         counterConfig: {
             suffix: &quot;℃&quot;,
-            max: 300,
-            min: 0,
-            type: 2,
             changeCallback: function (value) {
                 console.log(value);
             }
@@ -1054,6 +1088,35 @@ $ npm run demo or npm run test-demo</code></pre>
             min: 20,
             size: &#39;small&#39;
         },
+        disabledConfig: {
+            disabled: true
+        },
+        disabledConfig1: {
+            type: 2,
+            disabled: true
+        },
+        inputConfig: {
+            suffix: &quot;个&quot;,
+            type: 2,
+            size: &#39;small&#39;
+        },
+        inputConfig2: {
+            suffix: &quot;个&quot;,
+            type: 2
+        },
+        inputConfig3: {
+            suffix: &quot;个&quot;,
+            type: 2,
+            size: &#39;large&#39;
+        },
+        stepConfig: {
+            step: 0.05
+        },
+        stepConfig2: {
+            suffix: &quot;个&quot;,
+            type: 2,
+            step: 10
+        },
         number: 20
     }
 }]);</code></pre>
@@ -1064,12 +1127,9 @@ $ npm run demo or npm run test-demo</code></pre>
                     </div>
                 </section>
                 <script>angular.module('ui.xue.demo').controller('xueCounterDemoCtrl', ['$scope', function ($scope) {
-    $scope.vm = {
+    var vm = $scope.vm = {
         counterConfig: {
             suffix: "℃",
-            max: 300,
-            min: 0,
-            type: 2,
             changeCallback: function (value) {
                 console.log(value);
             }
@@ -1085,6 +1145,35 @@ $ npm run demo or npm run test-demo</code></pre>
             max: 300,
             min: 20,
             size: 'small'
+        },
+        disabledConfig: {
+            disabled: true
+        },
+        disabledConfig1: {
+            type: 2,
+            disabled: true
+        },
+        inputConfig: {
+            suffix: "个",
+            type: 2,
+            size: 'small'
+        },
+        inputConfig2: {
+            suffix: "个",
+            type: 2
+        },
+        inputConfig3: {
+            suffix: "个",
+            type: 2,
+            size: 'large'
+        },
+        stepConfig: {
+            step: 0.05
+        },
+        stepConfig2: {
+            suffix: "个",
+            type: 2,
+            step: 10
         },
         number: 20
     }
