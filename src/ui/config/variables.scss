@@ -36,27 +36,6 @@ $color-black: #000000 !default;
 $color-white: #FFFFFF !default;
 $background-color-base: #F5F7FA !default;
 
-$theme-colors: () !default;
-$theme-colors: map-merge(
-  ("primary": $color-primary,
-  "success": $color-success,
-  "info": $color-info,
-  "warning": $color-warning,
-  "danger": $color-danger,
-  "text-primary": $color-text-primary,
-  "text-regular": $color-text-regular,
-  "text-secondary": $color-text-secondary,
-  "text-placeholder": $color-text-placeholder,
-  "border-base": $border-color-base,
-  "border-light": $border-color-light,
-  "border-lighter": $border-color-lighter,
-  "border-extra-light": $border-color-extra-light,
-  "black": $color-black,
-  "white": $color-white,
-  "background-base": $background-color-base
-  ),
-  $theme-colors);
-
 // Set a specific jump point for requesting color jumps
 $theme-color-interval: 8% !default;
 

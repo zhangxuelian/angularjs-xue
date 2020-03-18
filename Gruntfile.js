@@ -449,6 +449,7 @@ module.exports = function (grunt) {
 
     });
     grunt.registerTask('build-ui', function () {
+        var tempObj = {};
         grunt.file.expand('src/ui/docs/*').forEach((dir) => {
             var name = dir.split('/')[3];
             var module  = {
@@ -462,8 +463,15 @@ module.exports = function (grunt) {
                         .map(grunt.file.read).join('\n')
                 }
             };
-            grunt.config('uiModules', grunt.config('uiModules').concat(module));
+            if(name == "color"){
+                tempObj = module;
+            }else{
+                grunt.config('uiModules', grunt.config('uiModules').concat(module));
+            }
         });
+        var tempArr = grunt.config('uiModules');
+        tempArr.unshift(tempObj);
+        grunt.config('uiModules',tempArr);
     });
     grunt.registerTask('demo', ['delFiles', 'sass', 'html2js', 'build', 'cssmin', 'build-ui','copy:demohtml', 'copy:demoassets', 'copy:demodist']);
     grunt.registerTask('test-demo', function () {
