@@ -32,7 +32,9 @@ angular.module('ui.xue.demo').controller('xueCounterDemoCtrl', ['$scope', functi
         },
         inputConfig2: {
             suffix: "个",
-            type: 2
+            type: 2,
+            step: 0.5,
+            min: 10.0
         },
         inputConfig3: {
             suffix: "个",

@@ -193,7 +193,9 @@
         },
         inputConfig2: {
             suffix: "个",
-            type: 2
+            type: 2,
+            step: 0.5,
+            min: 10.0
         },
         inputConfig3: {
             suffix: "个",
@@ -231,8 +233,11 @@
         
         <script>angular.module('ui.xue.demo').controller('xueDirectivesDemoCtrl', ['$scope', function ($scope) {
     $scope.vm = {
-        ischeck: true,
-        fruit: '1',
+        radioCheck: true,
+        checkboxCheck: false,
+        checkboxCheck2: false,
+        checkboxCheck3: false,
+        fruit: '香蕉',
         inputValue: '',
         click: function (value) {
             console.log(value);
@@ -255,13 +260,40 @@
         loadingConfig3: {
             isShowLoading: true,
             theme: 'dark-theme',
+            loadingTypeClass: 'ball-pulse-sync',
+            msg: "加载中,请稍候..."
+        },
+        loadingConfig4: {
+            isShowLoading: true,
             loadingTypeClass: 'line-spin-clockwise',
             msg: "加载中,请稍候..."
+        },
+        loadingConfig5: {
+            isShowLoading: true,
+            theme: 'dark-theme',
+            loadingTypeClass: 'ball-clip-rotate',
+            msg: "加载中,请稍候..."
+        },
+        loadingConfig6: {
+            isShowLoading: true,
+            theme: 'dark-theme',
+            loadingTypeClass: 'ball-spin-clockwise',
+            msg: "加载中,请稍候..."
+        },
+        loadingConfig7: {
+            isShowLoading: true,
+            loadIcon:'xui-icon xui-icon-ios-refresh',
+            loadingTypeClass: null,
+            msg: "拼命加载中..."
         },
         stop: function () {
             vm.loadingConfig.isShowLoading = false;
             vm.loadingConfig2.isShowLoading = false;
             vm.loadingConfig3.isShowLoading = false;
+            vm.loadingConfig4.isShowLoading = false;
+            vm.loadingConfig5.isShowLoading = false;
+            vm.loadingConfig6.isShowLoading = false;
+            vm.loadingConfig7.isShowLoading = false;
         }
     }
 }])</script>
@@ -485,9 +517,22 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
         
         <script>angular.module('ui.xue.demo').controller('xueStepsDemoCtrl', ['$scope', function ($scope) {
     $scope.value = 1;
-    $scope.stepsConfig = {
+    $scope.defaultConfig = {
+        options: [{
+            title: 'Finished',
+            code: 0
+        }, {
+            title: 'In Progress',
+            code: 1
+        }, {
+            title: 'Waiting',
+            code: 2
+        }]
+    };
+    $scope.stepsConfigSm = {
         theme:'green-theme',
         alignCenter: true,
+        size:'small',
         iconStyle:'statusNum',
         options: [{
             title: 'Finished',
@@ -498,6 +543,102 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
         }, {
             title: 'Waiting',
             code: 2
+        }]
+    };
+    $scope.stepsConfigDes = {
+        alignCenter: true,
+        iconStyle:'statusNum',
+        options: [{
+            title: 'Finished',
+            code: 0,
+            description:'步骤文字描述...'
+        }, {
+            title: 'In Progress',
+            code: 1,
+            description:'步骤文字描述...'
+        }, {
+            title: 'Waiting',
+            code: 2,
+            description:'步骤文字描述...'
+        }]
+    };
+    $scope.stepsConfig2 = {
+        theme:'green-theme',
+        alignCenter: true,
+        direction: "vertical", //horizontal:水平布局,vertical：垂直布局
+        iconStyle:'fillStatus',
+        options: [{
+            title: 'Finished',
+            code: 0
+        }, {
+            title: 'In Progress',
+            code: 1
+        }, {
+            title: 'Waiting',
+            code: 2
+        }]
+    };
+    $scope.stepsConfigLg = {
+        theme:'green-theme',
+        alignCenter: true,
+        iconStyle:'strokeStatus',
+        size:'large',
+        options: [{
+            title: 'Finished',
+            code: 0
+        }, {
+            title: 'In Progress',
+            code: 1
+        }, {
+            title: 'Waiting',
+            code: 2
+        }]
+    };
+    $scope.stepsConfig = {
+        theme:'green-theme',
+        alignCenter: true,
+        iconStyle:'strokeStatus',
+        options: [{
+            title: 'Finished',
+            code: 0
+        }, {
+            title: 'In Progress',
+            code: 1
+        }, {
+            title: 'Waiting',
+            code: 2
+        }]
+    };
+    $scope.stepsConfig4 = {
+        theme:'green-theme',
+        iconStyle:'point',
+        options: [{
+            title: 'Finished',
+            code: 0
+        }, {
+            title: 'In Progress',
+            code: 1
+        }, {
+            title: 'Waiting',
+            code: 2
+        }]
+    };
+    $scope.stepsConfig5 = {
+        theme:'green-theme',
+        alignCenter: true,
+        iconStyle:'iconfont',
+        options: [{
+            title: 'Finished',
+            code: 0,
+            iconfont:'xui-icon xui-icon-md-checkmark'
+        }, {
+            title: 'In Progress',
+            code: 1,
+            iconfont:'xui-icon xui-icon-ios-cloud-download'
+        }, {
+            title: 'Waiting',
+            code: 2,
+            iconfont:'xui-icon xui-icon-ios-cloud-upload'
         }]
     };
 }]);</script>

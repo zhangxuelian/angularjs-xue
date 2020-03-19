@@ -49,7 +49,7 @@ angular.module('xue.counter', ['xue.util.lang'])
                         }
                     },
                     changeByBtn: function (code) {
-                        if (scope.counterConfig.disabled && (gxCounterCtrl.stepDecimals > scope.counterConfig.precision)) {
+                        if (scope.counterConfig.disabled || (gxCounterCtrl.stepDecimals > scope.counterConfig.precision)) {
                             return;
                         }
                         gxCounterCtrl.number = Number(gxCounterCtrl.number);
@@ -121,8 +121,8 @@ angular.module('xue.counter', ['xue.util.lang'])
                 //监听外部传入的值
                 scope.ngNumberWatcher = scope.$watch("ngNumber", function (newVal) {
                     if (typeof (newVal) != 'undefined') {
-                        gxCounterCtrl.number = newVal;
-                        gxCounterCtrl.lastNumber = newVal;
+                        gxCounterCtrl.number = newVal.toFixed(scope.counterConfig.precision);
+                        gxCounterCtrl.lastNumber = newVal.toFixed(scope.counterConfig.precision);
                     }
                 });
                 scope.$on('$destroy', function () {

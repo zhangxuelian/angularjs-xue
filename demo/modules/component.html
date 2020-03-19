@@ -713,7 +713,7 @@
                 <div class="page-content">
                     <div class="content-html">
                         <div ng-controller="xueCounterDemoCtrl">
-  <div>尺寸大小</div>
+  <div>尺寸</div>
   <xue-counter counter-config="vm.counterConfigSm" ng-number="vm.number"></xue-counter>
   <xue-counter counter-config="vm.counterConfig" ng-number="vm.number"></xue-counter>
   <xue-counter counter-config="vm.counterConfigLg" ng-number="vm.number"></xue-counter>
@@ -738,7 +738,7 @@
                             <xue-tab label="'html'" value="1">
                                 <div class="code-wrap">
                                     <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueCounterDemoCtrl&quot;&gt;
-  &lt;div&gt;尺寸大小&lt;/div&gt;
+  &lt;div&gt;尺寸&lt;/div&gt;
   &lt;xue-counter counter-config=&quot;vm.counterConfigSm&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
   &lt;xue-counter counter-config=&quot;vm.counterConfig&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
   &lt;xue-counter counter-config=&quot;vm.counterConfigLg&quot; ng-number=&quot;vm.number&quot;&gt;&lt;/xue-counter&gt;
@@ -792,7 +792,9 @@
         },
         inputConfig2: {
             suffix: &quot;个&quot;,
-            type: 2
+            type: 2,
+            step: 0.5,
+            min: 10.0
         },
         inputConfig3: {
             suffix: &quot;个&quot;,
@@ -1200,25 +1202,36 @@
                 <div class="page-content">
                     <div class="content-html">
                         <div ng-controller="xueDirectivesDemoCtrl">
-    单选框：<xue-radio ng-checked="vm.ischeck" ng-click="vm.ischeck=!vm.ischeck"></xue-radio>
-    <xue-radio ng-checked="!vm.ischeck" ng-click="vm.ischeck=!vm.ischeck"></xue-radio>
-    复选框：<xue-checkbox ng-checked="vm.ischeck" ng-click="vm.ischeck=!vm.ischeck"></xue-checkbox>
-
-    <div>单选组:</div>
-    <xue-radio-group name="'香蕉'" ng-model="vm.fruit" value="'1'" ng-disabled="true">
+    <div>单选</div>
+    <xue-radio ng-checked="vm.radioCheck" ng-click="vm.radioCheck=!vm.radioCheck"></xue-radio>
+    <xue-radio ng-checked="!vm.radioCheck" ng-click="vm.radioCheck=!vm.radioCheck"></xue-radio>
+    <div>单选组</div>
+    <xue-radio-group name="'香蕉'" ng-model="vm.fruit" value="'香蕉'" ng-disabled="true">
     </xue-radio-group>
-    <xue-radio-group name="'橘子'" ng-model="vm.fruit" value="'2'">
+    <xue-radio-group name="'橘子'" ng-model="vm.fruit" value="'橘子'">
     </xue-radio-group>
-    <xue-radio-group name="'橙子'" ng-model="vm.fruit" value="'3'">
+    <xue-radio-group name="'橙子'" ng-model="vm.fruit" value="'橙子'">
     </xue-radio-group>
-    <xue-radio-group name="'哈密瓜'" ng-model="vm.fruit" value="'4'" radio-click="vm.click('4')">
+    <xue-radio-group name="'哈密瓜'" ng-model="vm.fruit" value="'哈密瓜'" radio-click="vm.click('哈密瓜')">
     </xue-radio-group>
-    </br>
-    </br>
+    <div>选中了：{{vm.fruit}}</div>
+    <br>
+    <div>复选</div>
     <div>
-        <input class="xui-input" type="text" placeholder="校验输入数字" filter-number="vm.inputValue" ng-model="vm.inputValue">
+        <xue-checkbox ng-checked="vm.checkboxCheck" ng-click="vm.checkboxCheck=!vm.checkboxCheck"></xue-checkbox>复选框1
+        <xue-checkbox ng-checked="vm.checkboxCheck2" ng-click="vm.checkboxCheck2=!vm.checkboxCheck2"></xue-checkbox>复选框2
+        <xue-checkbox ng-checked="vm.checkboxCheck3" ng-click="vm.checkboxCheck3=!vm.checkboxCheck3"></xue-checkbox>复选框3
     </div>
-    <!-- <no-permission-page text="'您暂未开通权限！'" style="height:100px;"></no-permission-page> -->
+
+    <br>
+    <br>
+    <div>
+        <input class="xui-input" type="text" placeholder="校验输入数字" filter-number="vm.inputValue"
+            ng-model="vm.inputValue">
+    </div>
+    <br>
+    <div>无权限页面</div>
+    <no-permission-page text="'您暂未开通权限！'" style="height:100px;"></no-permission-page>
     <span title="title测试">title测试</span>
 </div>
                     </div>
@@ -1231,25 +1244,36 @@
                             <xue-tab label="'html'" value="1">
                                 <div class="code-wrap">
                                     <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueDirectivesDemoCtrl&quot;&gt;
-    单选框：&lt;xue-radio ng-checked=&quot;vm.ischeck&quot; ng-click=&quot;vm.ischeck=!vm.ischeck&quot;&gt;&lt;/xue-radio&gt;
-    &lt;xue-radio ng-checked=&quot;!vm.ischeck&quot; ng-click=&quot;vm.ischeck=!vm.ischeck&quot;&gt;&lt;/xue-radio&gt;
-    复选框：&lt;xue-checkbox ng-checked=&quot;vm.ischeck&quot; ng-click=&quot;vm.ischeck=!vm.ischeck&quot;&gt;&lt;/xue-checkbox&gt;
-
-    &lt;div&gt;单选组:&lt;/div&gt;
-    &lt;xue-radio-group name=&quot;&#39;香蕉&#39;&quot; ng-model=&quot;vm.fruit&quot; value=&quot;&#39;1&#39;&quot; ng-disabled=&quot;true&quot;&gt;
+    &lt;div&gt;单选&lt;/div&gt;
+    &lt;xue-radio ng-checked=&quot;vm.radioCheck&quot; ng-click=&quot;vm.radioCheck=!vm.radioCheck&quot;&gt;&lt;/xue-radio&gt;
+    &lt;xue-radio ng-checked=&quot;!vm.radioCheck&quot; ng-click=&quot;vm.radioCheck=!vm.radioCheck&quot;&gt;&lt;/xue-radio&gt;
+    &lt;div&gt;单选组&lt;/div&gt;
+    &lt;xue-radio-group name=&quot;&#39;香蕉&#39;&quot; ng-model=&quot;vm.fruit&quot; value=&quot;&#39;香蕉&#39;&quot; ng-disabled=&quot;true&quot;&gt;
     &lt;/xue-radio-group&gt;
-    &lt;xue-radio-group name=&quot;&#39;橘子&#39;&quot; ng-model=&quot;vm.fruit&quot; value=&quot;&#39;2&#39;&quot;&gt;
+    &lt;xue-radio-group name=&quot;&#39;橘子&#39;&quot; ng-model=&quot;vm.fruit&quot; value=&quot;&#39;橘子&#39;&quot;&gt;
     &lt;/xue-radio-group&gt;
-    &lt;xue-radio-group name=&quot;&#39;橙子&#39;&quot; ng-model=&quot;vm.fruit&quot; value=&quot;&#39;3&#39;&quot;&gt;
+    &lt;xue-radio-group name=&quot;&#39;橙子&#39;&quot; ng-model=&quot;vm.fruit&quot; value=&quot;&#39;橙子&#39;&quot;&gt;
     &lt;/xue-radio-group&gt;
-    &lt;xue-radio-group name=&quot;&#39;哈密瓜&#39;&quot; ng-model=&quot;vm.fruit&quot; value=&quot;&#39;4&#39;&quot; radio-click=&quot;vm.click(&#39;4&#39;)&quot;&gt;
+    &lt;xue-radio-group name=&quot;&#39;哈密瓜&#39;&quot; ng-model=&quot;vm.fruit&quot; value=&quot;&#39;哈密瓜&#39;&quot; radio-click=&quot;vm.click(&#39;哈密瓜&#39;)&quot;&gt;
     &lt;/xue-radio-group&gt;
-    &lt;/br&gt;
-    &lt;/br&gt;
+    &lt;div&gt;选中了：{{vm.fruit}}&lt;/div&gt;
+    &lt;br&gt;
+    &lt;div&gt;复选&lt;/div&gt;
     &lt;div&gt;
-        &lt;input class=&quot;xui-input&quot; type=&quot;text&quot; placeholder=&quot;校验输入数字&quot; filter-number=&quot;vm.inputValue&quot; ng-model=&quot;vm.inputValue&quot;&gt;
+        &lt;xue-checkbox ng-checked=&quot;vm.checkboxCheck&quot; ng-click=&quot;vm.checkboxCheck=!vm.checkboxCheck&quot;&gt;&lt;/xue-checkbox&gt;复选框1
+        &lt;xue-checkbox ng-checked=&quot;vm.checkboxCheck2&quot; ng-click=&quot;vm.checkboxCheck2=!vm.checkboxCheck2&quot;&gt;&lt;/xue-checkbox&gt;复选框2
+        &lt;xue-checkbox ng-checked=&quot;vm.checkboxCheck3&quot; ng-click=&quot;vm.checkboxCheck3=!vm.checkboxCheck3&quot;&gt;&lt;/xue-checkbox&gt;复选框3
     &lt;/div&gt;
-    &lt;!-- &lt;no-permission-page text=&quot;&#39;您暂未开通权限！&#39;&quot; style=&quot;height:100px;&quot;&gt;&lt;/no-permission-page&gt; --&gt;
+
+    &lt;br&gt;
+    &lt;br&gt;
+    &lt;div&gt;
+        &lt;input class=&quot;xui-input&quot; type=&quot;text&quot; placeholder=&quot;校验输入数字&quot; filter-number=&quot;vm.inputValue&quot;
+            ng-model=&quot;vm.inputValue&quot;&gt;
+    &lt;/div&gt;
+    &lt;br&gt;
+    &lt;div&gt;无权限页面&lt;/div&gt;
+    &lt;no-permission-page text=&quot;&#39;您暂未开通权限！&#39;&quot; style=&quot;height:100px;&quot;&gt;&lt;/no-permission-page&gt;
     &lt;span title=&quot;title测试&quot;&gt;title测试&lt;/span&gt;
 &lt;/div&gt;</code></pre>
                                 </div>
@@ -1259,8 +1283,11 @@
                                     <pre
                                         ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueDirectivesDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     $scope.vm = {
-        ischeck: true,
-        fruit: &#39;1&#39;,
+        radioCheck: true,
+        checkboxCheck: false,
+        checkboxCheck2: false,
+        checkboxCheck3: false,
+        fruit: &#39;香蕉&#39;,
         inputValue: &#39;&#39;,
         click: function (value) {
             console.log(value);
@@ -1399,11 +1426,20 @@
             <xue-tab label="'示例'" value="1">
                 <div class="page-content">
                     <div class="content-html">
-                        <div ng-controller="xueLoadingDemoCtrl">
-    <div style="position:relative;width:300px;height:100px;display:inline-block;" xue-loading="vm.loadingConfig"></div>
-    <div style="position:relative;width:300px;height:100px;display:inline-block;" xue-loading="vm.loadingConfig2"></div>
-    <div style="position:relative;width:300px;height:100px;display:inline-block;" xue-loading="vm.loadingConfig3"></div>
-    <button ng-click="vm.stop()">停止</button>
+                        <style>
+    .loading-demo>div{
+        position:relative;width:48%;height:100px;display:inline-block;
+    }
+</style>
+<div ng-controller="xueLoadingDemoCtrl" class="loading-demo">
+    <div xue-loading="vm.loadingConfig"></div>
+    <div xue-loading="vm.loadingConfig2"></div>
+    <div xue-loading="vm.loadingConfig3"></div>
+    <div xue-loading="vm.loadingConfig4"></div>
+    <div xue-loading="vm.loadingConfig5"></div>
+    <div xue-loading="vm.loadingConfig6"></div>
+    <div xue-loading="vm.loadingConfig7"></div>
+    <button class="xui-btn" ng-click="vm.stop()">停止</button>
 </div>
                     </div>
                 </div>
@@ -1414,11 +1450,20 @@
                         <xue-tabs-wrap type="border-card">
                             <xue-tab label="'html'" value="1">
                                 <div class="code-wrap">
-                                    <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueLoadingDemoCtrl&quot;&gt;
-    &lt;div style=&quot;position:relative;width:300px;height:100px;display:inline-block;&quot; xue-loading=&quot;vm.loadingConfig&quot;&gt;&lt;/div&gt;
-    &lt;div style=&quot;position:relative;width:300px;height:100px;display:inline-block;&quot; xue-loading=&quot;vm.loadingConfig2&quot;&gt;&lt;/div&gt;
-    &lt;div style=&quot;position:relative;width:300px;height:100px;display:inline-block;&quot; xue-loading=&quot;vm.loadingConfig3&quot;&gt;&lt;/div&gt;
-    &lt;button ng-click=&quot;vm.stop()&quot;&gt;停止&lt;/button&gt;
+                                    <pre ng-non-bindable><code data-language="html">&lt;style&gt;
+    .loading-demo&gt;div{
+        position:relative;width:48%;height:100px;display:inline-block;
+    }
+&lt;/style&gt;
+&lt;div ng-controller=&quot;xueLoadingDemoCtrl&quot; class=&quot;loading-demo&quot;&gt;
+    &lt;div xue-loading=&quot;vm.loadingConfig&quot;&gt;&lt;/div&gt;
+    &lt;div xue-loading=&quot;vm.loadingConfig2&quot;&gt;&lt;/div&gt;
+    &lt;div xue-loading=&quot;vm.loadingConfig3&quot;&gt;&lt;/div&gt;
+    &lt;div xue-loading=&quot;vm.loadingConfig4&quot;&gt;&lt;/div&gt;
+    &lt;div xue-loading=&quot;vm.loadingConfig5&quot;&gt;&lt;/div&gt;
+    &lt;div xue-loading=&quot;vm.loadingConfig6&quot;&gt;&lt;/div&gt;
+    &lt;div xue-loading=&quot;vm.loadingConfig7&quot;&gt;&lt;/div&gt;
+    &lt;button class=&quot;xui-btn&quot; ng-click=&quot;vm.stop()&quot;&gt;停止&lt;/button&gt;
 &lt;/div&gt;</code></pre>
                                 </div>
                             </xue-tab>
@@ -1440,13 +1485,40 @@
         loadingConfig3: {
             isShowLoading: true,
             theme: &#39;dark-theme&#39;,
+            loadingTypeClass: &#39;ball-pulse-sync&#39;,
+            msg: &quot;加载中,请稍候...&quot;
+        },
+        loadingConfig4: {
+            isShowLoading: true,
             loadingTypeClass: &#39;line-spin-clockwise&#39;,
             msg: &quot;加载中,请稍候...&quot;
+        },
+        loadingConfig5: {
+            isShowLoading: true,
+            theme: &#39;dark-theme&#39;,
+            loadingTypeClass: &#39;ball-clip-rotate&#39;,
+            msg: &quot;加载中,请稍候...&quot;
+        },
+        loadingConfig6: {
+            isShowLoading: true,
+            theme: &#39;dark-theme&#39;,
+            loadingTypeClass: &#39;ball-spin-clockwise&#39;,
+            msg: &quot;加载中,请稍候...&quot;
+        },
+        loadingConfig7: {
+            isShowLoading: true,
+            loadIcon:&#39;xui-icon xui-icon-ios-refresh&#39;,
+            loadingTypeClass: null,
+            msg: &quot;拼命加载中...&quot;
         },
         stop: function () {
             vm.loadingConfig.isShowLoading = false;
             vm.loadingConfig2.isShowLoading = false;
             vm.loadingConfig3.isShowLoading = false;
+            vm.loadingConfig4.isShowLoading = false;
+            vm.loadingConfig5.isShowLoading = false;
+            vm.loadingConfig6.isShowLoading = false;
+            vm.loadingConfig7.isShowLoading = false;
         }
     }
 }])</code></pre>
@@ -1524,7 +1596,7 @@
 </tr>
 <tr>
 <td>itemArr</td>
-<td align="left">样式dom数组</td>
+<td align="left">loading动画展示dom节点数</td>
 <td align="left">Array</td>
 <td align="left">-</td>
 <td align="left">-</td>
@@ -2797,7 +2869,19 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
                 <div class="page-content">
                     <div class="content-html">
                         <div ng-controller="xueStepsDemoCtrl">
+    <h5>基本使用：</h5>
+    <xue-steps steps-config="defaultConfig" ng-value="value"></xue-steps>
+    <xue-steps steps-config="stepsConfig4" ng-value="value"></xue-steps>
+    <h5>步骤条大小：</h5>
+    <xue-steps steps-config="stepsConfigSm" ng-value="value"></xue-steps>
     <xue-steps steps-config="stepsConfig" ng-value="value"></xue-steps>
+    <xue-steps steps-config="stepsConfigLg" ng-value="value"></xue-steps>
+    <h5>垂直步骤条：</h5>
+    <xue-steps steps-config="stepsConfig2" ng-value="value"></xue-steps>
+    <h5>有描述的步骤条:</h5>
+    <xue-steps steps-config="stepsConfigDes" ng-value="value"></xue-steps>
+    <h5>自定义图标：</h5>
+    <xue-steps steps-config="stepsConfig5" ng-value="value"></xue-steps>
 </div>
                     </div>
                 </div>
@@ -2809,7 +2893,19 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
                             <xue-tab label="'html'" value="1">
                                 <div class="code-wrap">
                                     <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueStepsDemoCtrl&quot;&gt;
+    &lt;h5&gt;基本使用：&lt;/h5&gt;
+    &lt;xue-steps steps-config=&quot;defaultConfig&quot; ng-value=&quot;value&quot;&gt;&lt;/xue-steps&gt;
+    &lt;xue-steps steps-config=&quot;stepsConfig4&quot; ng-value=&quot;value&quot;&gt;&lt;/xue-steps&gt;
+    &lt;h5&gt;步骤条大小：&lt;/h5&gt;
+    &lt;xue-steps steps-config=&quot;stepsConfigSm&quot; ng-value=&quot;value&quot;&gt;&lt;/xue-steps&gt;
     &lt;xue-steps steps-config=&quot;stepsConfig&quot; ng-value=&quot;value&quot;&gt;&lt;/xue-steps&gt;
+    &lt;xue-steps steps-config=&quot;stepsConfigLg&quot; ng-value=&quot;value&quot;&gt;&lt;/xue-steps&gt;
+    &lt;h5&gt;垂直步骤条：&lt;/h5&gt;
+    &lt;xue-steps steps-config=&quot;stepsConfig2&quot; ng-value=&quot;value&quot;&gt;&lt;/xue-steps&gt;
+    &lt;h5&gt;有描述的步骤条:&lt;/h5&gt;
+    &lt;xue-steps steps-config=&quot;stepsConfigDes&quot; ng-value=&quot;value&quot;&gt;&lt;/xue-steps&gt;
+    &lt;h5&gt;自定义图标：&lt;/h5&gt;
+    &lt;xue-steps steps-config=&quot;stepsConfig5&quot; ng-value=&quot;value&quot;&gt;&lt;/xue-steps&gt;
 &lt;/div&gt;</code></pre>
                                 </div>
                             </xue-tab>
@@ -2818,9 +2914,22 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
                                     <pre
                                         ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueStepsDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     $scope.value = 1;
-    $scope.stepsConfig = {
+    $scope.defaultConfig = {
+        options: [{
+            title: &#39;Finished&#39;,
+            code: 0
+        }, {
+            title: &#39;In Progress&#39;,
+            code: 1
+        }, {
+            title: &#39;Waiting&#39;,
+            code: 2
+        }]
+    };
+    $scope.stepsConfigSm = {
         theme:&#39;green-theme&#39;,
         alignCenter: true,
+        size:&#39;small&#39;,
         iconStyle:&#39;statusNum&#39;,
         options: [{
             title: &#39;Finished&#39;,
@@ -2831,6 +2940,102 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
         }, {
             title: &#39;Waiting&#39;,
             code: 2
+        }]
+    };
+    $scope.stepsConfigDes = {
+        alignCenter: true,
+        iconStyle:&#39;statusNum&#39;,
+        options: [{
+            title: &#39;Finished&#39;,
+            code: 0,
+            description:&#39;步骤文字描述...&#39;
+        }, {
+            title: &#39;In Progress&#39;,
+            code: 1,
+            description:&#39;步骤文字描述...&#39;
+        }, {
+            title: &#39;Waiting&#39;,
+            code: 2,
+            description:&#39;步骤文字描述...&#39;
+        }]
+    };
+    $scope.stepsConfig2 = {
+        theme:&#39;green-theme&#39;,
+        alignCenter: true,
+        direction: &quot;vertical&quot;, //horizontal:水平布局,vertical：垂直布局
+        iconStyle:&#39;fillStatus&#39;,
+        options: [{
+            title: &#39;Finished&#39;,
+            code: 0
+        }, {
+            title: &#39;In Progress&#39;,
+            code: 1
+        }, {
+            title: &#39;Waiting&#39;,
+            code: 2
+        }]
+    };
+    $scope.stepsConfigLg = {
+        theme:&#39;green-theme&#39;,
+        alignCenter: true,
+        iconStyle:&#39;strokeStatus&#39;,
+        size:&#39;large&#39;,
+        options: [{
+            title: &#39;Finished&#39;,
+            code: 0
+        }, {
+            title: &#39;In Progress&#39;,
+            code: 1
+        }, {
+            title: &#39;Waiting&#39;,
+            code: 2
+        }]
+    };
+    $scope.stepsConfig = {
+        theme:&#39;green-theme&#39;,
+        alignCenter: true,
+        iconStyle:&#39;strokeStatus&#39;,
+        options: [{
+            title: &#39;Finished&#39;,
+            code: 0
+        }, {
+            title: &#39;In Progress&#39;,
+            code: 1
+        }, {
+            title: &#39;Waiting&#39;,
+            code: 2
+        }]
+    };
+    $scope.stepsConfig4 = {
+        theme:&#39;green-theme&#39;,
+        iconStyle:&#39;point&#39;,
+        options: [{
+            title: &#39;Finished&#39;,
+            code: 0
+        }, {
+            title: &#39;In Progress&#39;,
+            code: 1
+        }, {
+            title: &#39;Waiting&#39;,
+            code: 2
+        }]
+    };
+    $scope.stepsConfig5 = {
+        theme:&#39;green-theme&#39;,
+        alignCenter: true,
+        iconStyle:&#39;iconfont&#39;,
+        options: [{
+            title: &#39;Finished&#39;,
+            code: 0,
+            iconfont:&#39;xui-icon xui-icon-md-checkmark&#39;
+        }, {
+            title: &#39;In Progress&#39;,
+            code: 1,
+            iconfont:&#39;xui-icon xui-icon-ios-cloud-download&#39;
+        }, {
+            title: &#39;Waiting&#39;,
+            code: 2,
+            iconfont:&#39;xui-icon xui-icon-ios-cloud-upload&#39;
         }]
     };
 }]);</code></pre>
@@ -2971,10 +3176,16 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
                 <div class="page-content">
                     <div class="content-html">
                         <div ng-controller="xueSwitchDemoCtrl">
+    <h5>基本使用</h5>
     <xue-switch   ng-checked="vm.isOpen" switch-click="vm.toggleConfig.onselect(vm.isOpen)"></xue-switch>
+   <h5>禁用</h5>
     <xue-switch   ng-checked="false"  ng-disabled="true"></xue-switch>
+    <xue-switch   ng-checked="true"  ng-disabled="true"></xue-switch>
     <!-- <xue-toggle toggle-config="vm.toggleConfig" ng-disabled="vm.isOpen"></xue-toggle> -->
 </div>
+
+
+
                     </div>
                 </div>
             </xue-tab>
@@ -2985,10 +3196,16 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
                             <xue-tab label="'html'" value="1">
                                 <div class="code-wrap">
                                     <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueSwitchDemoCtrl&quot;&gt;
+    &lt;h5&gt;基本使用&lt;/h5&gt;
     &lt;xue-switch   ng-checked=&quot;vm.isOpen&quot; switch-click=&quot;vm.toggleConfig.onselect(vm.isOpen)&quot;&gt;&lt;/xue-switch&gt;
+   &lt;h5&gt;禁用&lt;/h5&gt;
     &lt;xue-switch   ng-checked=&quot;false&quot;  ng-disabled=&quot;true&quot;&gt;&lt;/xue-switch&gt;
+    &lt;xue-switch   ng-checked=&quot;true&quot;  ng-disabled=&quot;true&quot;&gt;&lt;/xue-switch&gt;
     &lt;!-- &lt;xue-toggle toggle-config=&quot;vm.toggleConfig&quot; ng-disabled=&quot;vm.isOpen&quot;&gt;&lt;/xue-toggle&gt; --&gt;
-&lt;/div&gt;</code></pre>
+&lt;/div&gt;
+
+
+</code></pre>
                                 </div>
                             </xue-tab>
                             <xue-tab label="'javascript'" value="2">
