@@ -1,0 +1,107 @@
+.heading{
+    font-size: 16px;
+    line-height: 30px;
+}
+.subheading{
+    font-size: 14px;
+    line-height: 30px;
+}
+.ui-demo-color{
+    .primary-wrap{
+        width: 440px;
+        height: 120px;
+        margin: 0;
+        .primary-color{
+            height: 80px;
+            width: 100%;
+            border-radius: 3px 3px 0 0;
+            color: #fff;
+            text-align: center;
+            line-height: 80px;
+        }
+        .primary-list{
+            height: 40px;
+            width: 100%;
+            ul{
+                list-style: none;
+                &::after{
+                    content: "";
+                    display: block;
+                    clear: both;
+                }
+                li{
+                    float: left;
+                    width: 40px;
+                    height: 40px;
+                    &:first-child{
+                        border-radius: 0 0 0 3px;
+                    }
+                    &:last-child{
+                        border-radius: 0 0 3px 0;
+                    }
+                }  
+            }
+        }
+    }
+    .auxiliary-wrap{
+        ul{
+            list-style: none;
+            &::after{
+                content: "";
+                display: block;
+                clear: both;
+            }
+            li{
+                float: left;
+                width: 120px;
+                height: 80px;
+                margin-right: 20px;
+                .color-content{
+                    height: 50px;
+                    color: #fff;
+                    text-align: center;
+                    line-height: 50px;
+                    border-radius: 3px 3px 0 0;
+                }
+                .color-liner{
+                    &::after{
+                        content: "";
+                        display: block;
+                        clear: both;
+                    }
+                    span{
+                        display: block;
+                        width: 60px;
+                        float: left;
+                        height: 30px;
+                        &:first-child{
+                            border-radius: 0 0 0 3px;
+                        }
+                        &:last-child{
+                            border-radius: 0 0 3px 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .neutral-wrap{
+        display: flex;
+        .neutral-list{
+            width: 200px;
+            margin: 0;
+            margin-right: 20px;
+            ul{
+                color: #fff;
+                li{
+                    height: 50px;
+                    width: 200px;
+                    border-radius: 3px;
+                    line-height: 50px;
+                    text-align: center;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+}

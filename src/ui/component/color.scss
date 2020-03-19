@@ -37,9 +37,9 @@ $color-liner-list: (
     "info-light": $color-info-light,
     "info-lighter": $color-info-lighter,
     "warning-light": $color-warning-light,
-    "warning-lighte": $color-warning-lighter,
+    "warning-lighter": $color-warning-lighter,
     "danger-light": $color-danger-light,
-    "danger-lighte": $color-danger-lighter
+    "danger-lighter": $color-danger-lighter
 );
 @each $key, $map in $theme-colors {
     .xui-color-#{$key}{

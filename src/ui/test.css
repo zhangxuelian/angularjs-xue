@@ -62,8 +62,7 @@ h6 {
   font-size: 1rem; }
 
 p {
-  margin-top: 0;
-  margin-bottom: 1rem; }
+  margin-top: 0; }
 
 abbr[title],
 abbr[data-original-title] {
@@ -3114,10 +3113,10 @@ table {
 .xui-bg-warning-light {
   background-color: #faecd8; }
 
-.xui-color-warning-lighte {
+.xui-color-warning-lighter {
   color: #fcf4e8; }
 
-.xui-bg-warning-lighte {
+.xui-bg-warning-lighter {
   background-color: #fcf4e8; }
 
 .xui-color-danger-light {
@@ -3126,10 +3125,10 @@ table {
 .xui-bg-danger-light {
   background-color: #fde2e2; }
 
-.xui-color-danger-lighte {
+.xui-color-danger-lighter {
   color: #feeded; }
 
-.xui-bg-danger-lighte {
+.xui-bg-danger-lighter {
   background-color: #feeded; }
 
 .xui-input {

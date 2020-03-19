@@ -1,43 +1,8 @@
-<style>
-    .primary-wrap{
-        width: 440px;
-        height: 120px;
-    }
-    .primary-wrap .primary-color{
-        height: 80px;
-        width: 100%;
-        border-radius: 3px 3px 0 0;
-    }
-    .primary-list{
-        height: 40px;
-        width: 100%;
-    }
-    .primary-list ul{
-        list-style: none;
-    }
-    .primary-list ul li{
-        float: left;
-        width: 40px;
-        height: 40px;
-    }
-    .primary-list ul li::after{
-        content: "";
-        display: block;
-        clear: both;
-    }
-    .primary-list ul li:first-child{
-        border-radius: 0 0 0 3px;
-    }
-    .primary-list ul li:last-child{
-        border-radius: 0 0 3px 0;
-    }
-</style>
-<div>
-    <p>主色</p>
+<div class="ui-demo-color">
+    <p class="heading xui-color-text-regular">主色</p>
+    <p class="subheading xui-color-text-secondary">主要品牌色。</p>
     <div class="primary-wrap">
-        <div class="primary-color xui-bg-primary">
-
-        </div>
+        <div class="primary-color xui-bg-primary">Brand Color</div>
         <div class="primary-list">
             <ul>
                 <li class="xui-bg-primary-900"></li>
@@ -51,6 +16,54 @@
                 <li class="xui-bg-primary-100"></li>
                 <li class="xui-bg-primary-light"></li>
                 <li class="xui-bg-primary-lighter"></li>
+            </ul>
+        </div>
+    </div>
+    <p class="heading xui-color-text-regular">辅助色</p>
+    <p class="subheading xui-color-text-secondary">除了主色外的场景色，需要在不同的场景中使用（例如危险色表示危险的操作）。</p>
+    <div class="auxiliary-wrap">
+        <ul>
+            <li>
+                <div class="color-content xui-bg-success">success</div>
+                <div class="color-liner"><span class="xui-bg-success-light"></span><span class="xui-bg-success-lighter"></span></div>
+            </li>
+            <li>
+                <div class="color-content xui-bg-info">info</div>
+                <div class="color-liner"><span class="xui-bg-info-light"></span><span class="xui-bg-info-lighter"></span></div>
+            </li>
+            <li>
+                <div class="color-content xui-bg-warning">warning</div>
+                <div class="color-liner"><span class="xui-bg-warning-light"></span><span class="xui-bg-warning-lighter"></span></div>
+            </li>
+            <li>
+                <div class="color-content xui-bg-danger">danger</div>
+                <div class="color-liner"><span class="xui-bg-danger-light"></span><span class="xui-bg-danger-lighter"></span></div>
+            </li>
+        </ul>
+    </div>
+    <p class="heading xui-color-text-regular">中性色</p>
+    <p class="subheading xui-color-text-secondary">中性色用于文本、背景和边框颜色。通过运用不同的中性色，来表现层次结构。</p>
+    <div class="neutral-wrap">
+        <div class="neutral-list">
+            <ul>
+                <li class="xui-bg-text-primary">主要文字</li>
+                <li class="xui-bg-text-regular">常规文字</li>
+                <li class="xui-bg-text-secondary">次要文字</li>
+                <li class="xui-bg-text-placeholder">占位文字</li>
+            </ul>
+        </div>
+        <div class="neutral-list">
+            <ul style="color: #606266">
+                <li class="xui-bg-border-base">一级边框</li>
+                <li class="xui-bg-border-light">二级边框</li>
+                <li class="xui-bg-border-lighter">三级边框</li>
+                <li class="xui-bg-border-extra-light">四级边框</li>
+            </ul>
+        </div>
+        <div class="neutral-list">
+            <ul>
+                <li class="xui-bg-black">基础黑色</li>
+                <li class="xui-bg-white" style="color: #606266; border: solid 1px #dcdfe6">基础白色</li>
             </ul>
         </div>
     </div>
