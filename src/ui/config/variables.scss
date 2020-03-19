@@ -11,72 +11,30 @@ $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black: #000 !default;
 
-$grays: () !default;
-// stylelint-disable-next-line scss/dollar-variable-default
-$grays: map-merge(("100": $gray-100,
-    "200": $gray-200,
-    "300": $gray-300,
-    "400": $gray-400,
-    "500": $gray-500,
-    "600": $gray-600,
-    "700": $gray-700,
-    "800": $gray-800,
-    "900": $gray-900),
-  $grays);
-
-$blue: #5BABE6 !default;
-$blue-deep: #2180BA !default;
+$blue: #1989fa !default;
 $purple: #A059B9 !default;
-$purple-deep: #8D44AD !default;
 $red: #E94B40 !default;
-$red-deep: #C5392A !default;
 $orange: #E77F20 !default;
-$orange-deep: #D75205 !default;
 $yellow: #F2C311 !default;
-$yellow-deep: #F39D16 !default;
 $green: #2ECE6E !default;
-$green-deep: #28AC60 !default;
 $teal: #1DBC9C !default;
-$teal-deep: #17A086 !default;
 
-$colors: () !default;
-// stylelint-disable-next-line scss/dollar-variable-default
-$colors: map-merge(("blue": $blue,
-    "blue-deep": $blue-deep,
-    "purple": $purple,
-    "purple-deep":$purple-deep,
-    "red": $red,
-    "red-deep": $red-deep,
-    "orange": $orange,
-    "orange-deep":$orange-deep,
-    "yellow": $yellow,
-    "yellow-deep":$yellow-deep,
-    "green": $green,
-    "green-deep": $green-deep,
-    "teal": $teal,
-    "teal-deep": $teal-deep,
-    "white": $white,
-    "gray": $gray-600,
-    "gray-dark": $gray-800),
-  $colors);
-
-$primary: $blue !default;
-$secondary: $gray-600 !default;
-$success: $green !default;
-$info: $gray-600 !default;
-$warning: $yellow !default;
-$danger: $red !default;
-$light: $gray-100 !default;
-$dark: $gray-800 !default;
-
-$theme-colors: ("primary": $primary,
-  "secondary": $secondary,
-  "success": $success,
-  "info": $info,
-  "warning": $warning,
-  "danger": $danger,
-  "light": $light,
-  "dark": $dark) !default;
+$color-primary: #409EFF !default;
+$color-success: #67C23A !default;
+$color-info: #909399 !default;
+$color-warning: #E6A23C !default;
+$color-danger: #F56C6C !default;
+$color-text-primary: #303133 !default;
+$color-text-regular: #606266 !default;
+$color-text-secondary: #909399 !default;
+$color-text-placeholder: #C0C4CC !default;
+$border-color-base: #DCDFE6 !default;
+$border-color-light: #E4E7ED !default;
+$border-color-lighter: #EBEEF5 !default;
+$border-color-extra-light: #F2F6FC !default;
+$color-black: #000000 !default;
+$color-white: #FFFFFF !default;
+$background-color-base: #F5F7FA !default;
 
 // Set a specific jump point for requesting color jumps
 $theme-color-interval: 8% !default;
@@ -88,77 +46,28 @@ $yiq-contrasted-threshold: 150 !default;
 $yiq-text-dark: $gray-900 !default;
 $yiq-text-light: $white !default;
 
-// fusv-disable
-$blue-100: tint-color($blue, 8) !default;
-$blue-200: tint-color($blue, 6) !default;
-$blue-300: tint-color($blue, 4) !default;
-$blue-400: tint-color($blue, 2) !default;
-$blue-500: $blue !default;
-$blue-600: shade-color($blue, 2) !default;
-$blue-700: shade-color($blue, 4) !default;
-$blue-800: shade-color($blue, 6) !default;
-$blue-900: shade-color($blue, 8) !default;
-
-$purple-100: tint-color($purple, 8) !default;
-$purple-200: tint-color($purple, 6) !default;
-$purple-300: tint-color($purple, 4) !default;
-$purple-400: tint-color($purple, 2) !default;
-$purple-500: $purple !default;
-$purple-600: shade-color($purple, 2) !default;
-$purple-700: shade-color($purple, 4) !default;
-$purple-800: shade-color($purple, 6) !default;
-$purple-900: shade-color($purple, 8) !default;
-
-$red-100: tint-color($red, 8) !default;
-$red-200: tint-color($red, 6) !default;
-$red-300: tint-color($red, 4) !default;
-$red-400: tint-color($red, 2) !default;
-$red-500: $red !default;
-$red-600: shade-color($red, 2) !default;
-$red-700: shade-color($red, 4) !default;
-$red-800: shade-color($red, 6) !default;
-$red-900: shade-color($red, 8) !default;
-
-$orange-100: tint-color($orange, 8) !default;
-$orange-200: tint-color($orange, 6) !default;
-$orange-300: tint-color($orange, 4) !default;
-$orange-400: tint-color($orange, 2) !default;
-$orange-500: $orange !default;
-$orange-600: shade-color($orange, 2) !default;
-$orange-700: shade-color($orange, 4) !default;
-$orange-800: shade-color($orange, 6) !default;
-$orange-900: shade-color($orange, 8) !default;
-
-$yellow-100: tint-color($yellow, 8) !default;
-$yellow-200: tint-color($yellow, 6) !default;
-$yellow-300: tint-color($yellow, 4) !default;
-$yellow-400: tint-color($yellow, 2) !default;
-$yellow-500: $yellow !default;
-$yellow-600: shade-color($yellow, 2) !default;
-$yellow-700: shade-color($yellow, 4) !default;
-$yellow-800: shade-color($yellow, 6) !default;
-$yellow-900: shade-color($yellow, 8) !default;
-
-$green-100: tint-color($green, 8) !default;
-$green-200: tint-color($green, 6) !default;
-$green-300: tint-color($green, 4) !default;
-$green-400: tint-color($green, 2) !default;
-$green-500: $green !default;
-$green-600: shade-color($green, 2) !default;
-$green-700: shade-color($green, 4) !default;
-$green-800: shade-color($green, 6) !default;
-$green-900: shade-color($green, 8) !default;
-
-$teal-100: tint-color($teal, 8) !default;
-$teal-200: tint-color($teal, 6) !default;
-$teal-300: tint-color($teal, 4) !default;
-$teal-400: tint-color($teal, 2) !default;
-$teal-500: $teal !default;
-$teal-600: shade-color($teal, 2) !default;
-$teal-700: shade-color($teal, 4) !default;
-$teal-800: shade-color($teal, 6) !default;
-$teal-900: shade-color($teal, 8) !default;
+// fusv-disable example for $primary
+$primary-100: tint-color($color-primary, 8) !default;
+$primary-200: tint-color($color-primary, 6) !default;
+$primary-300: tint-color($color-primary, 4) !default;
+$primary-400: tint-color($color-primary, 2) !default;
+$primary-500: $color-primary !default;
+$primary-600: shade-color($color-primary, 2) !default;
+$primary-700: shade-color($color-primary, 4) !default;
+$primary-800: shade-color($color-primary, 6) !default;
+$primary-900: shade-color($color-primary, 8) !default;
 // fusv-enable
+
+$color-primary-light: tint-color($color-primary, 10) !default;
+$color-primary-lighter: tint-color($color-primary, 11) !default;
+$color-success-light: tint-color($color-success, 10) !default;
+$color-success-lighter: tint-color($color-success, 11) !default;
+$color-info-light: tint-color($color-info, 10) !default;
+$color-info-lighter: tint-color($color-info, 11) !default;
+$color-warning-light: tint-color($color-warning, 10) !default;
+$color-warning-lighter: tint-color($color-warning, 11) !default;
+$color-danger-light: tint-color($color-danger, 10) !default;
+$color-danger-lighter: tint-color($color-danger, 11) !default;
 
 // Characters which are escaped by the escape-svg function
 $escaped-characters: (("<", "%3c"),
@@ -215,7 +124,7 @@ $body-text-align: null !default;
 //
 // Style anchor elements.
 
-$link-color: $primary !default;
+$link-color: $color-primary !default;
 $link-decoration: none !default;
 $link-hover-color: darken($link-color, 15%) !default;
 $link-hover-decoration: underline !default;
@@ -292,7 +201,7 @@ $box-shadow-lg: 0 1rem 3rem rgba($black, .175) !default;
 $box-shadow-inset: inset 0 1px 2px rgba($black, .075) !default;
 
 $component-active-color: $white !default;
-$component-active-bg: $primary !default;
+$component-active-bg: $color-primary !default;
 
 $caret-width: .3em !default;
 $caret-vertical-align: $caret-width * .85 !default;

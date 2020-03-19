@@ -12,10 +12,14 @@ angular.module('ui.xue.demo', ['ui.xue', 'ui.router'])
             controllerAs: 'component'
         }).state('ui', {
             url: '/ui',
-            templateUrl: 'modules/ui.html'
+            templateUrl: 'modules/ui.html',
+            controller: 'componentCtrl',
+            controllerAs: 'ui'
         }).state('tool', {
             url: '/tool',
-            templateUrl: 'modules/tool.html'
+            templateUrl: 'modules/tool.html',
+            controller: 'componentCtrl',
+            controllerAs: 'tool'
         });
     })
     .controller('xueDemoCtrl', ['$scope', function ($scope) {

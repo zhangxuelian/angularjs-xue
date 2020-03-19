@@ -1,0 +1,57 @@
+<style>
+    .primary-wrap{
+        width: 440px;
+        height: 120px;
+    }
+    .primary-wrap .primary-color{
+        height: 80px;
+        width: 100%;
+        border-radius: 3px 3px 0 0;
+    }
+    .primary-list{
+        height: 40px;
+        width: 100%;
+    }
+    .primary-list ul{
+        list-style: none;
+    }
+    .primary-list ul li{
+        float: left;
+        width: 40px;
+        height: 40px;
+    }
+    .primary-list ul li::after{
+        content: "";
+        display: block;
+        clear: both;
+    }
+    .primary-list ul li:first-child{
+        border-radius: 0 0 0 3px;
+    }
+    .primary-list ul li:last-child{
+        border-radius: 0 0 3px 0;
+    }
+</style>
+<div>
+    <p>主色</p>
+    <div class="primary-wrap">
+        <div class="primary-color xui-bg-primary">
+
+        </div>
+        <div class="primary-list">
+            <ul>
+                <li class="xui-bg-primary-900"></li>
+                <li class="xui-bg-primary-800"></li>
+                <li class="xui-bg-primary-700"></li>
+                <li class="xui-bg-primary-600"></li>
+                <li class="xui-bg-primary-500"></li>
+                <li class="xui-bg-primary-400"></li>
+                <li class="xui-bg-primary-300"></li>
+                <li class="xui-bg-primary-200"></li>
+                <li class="xui-bg-primary-100"></li>
+                <li class="xui-bg-primary-light"></li>
+                <li class="xui-bg-primary-lighter"></li>
+            </ul>
+        </div>
+    </div>
+</div>

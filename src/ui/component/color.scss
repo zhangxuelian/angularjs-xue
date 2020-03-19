@@ -1,0 +1,67 @@
+$theme-colors: () !default;
+$theme-colors: map-merge(
+  ("primary": $color-primary,
+  "success": $color-success,
+  "info": $color-info,
+  "warning": $color-warning,
+  "danger": $color-danger,
+  "text-primary": $color-text-primary,
+  "text-regular": $color-text-regular,
+  "text-secondary": $color-text-secondary,
+  "text-placeholder": $color-text-placeholder,
+  "border-base": $border-color-base,
+  "border-light": $border-color-light,
+  "border-lighter": $border-color-lighter,
+  "border-extra-light": $border-color-extra-light,
+  "black": $color-black,
+  "white": $color-white,
+  "background-base": $background-color-base
+  ),
+  $theme-colors);
+$primary-color-list: (
+    "primary-100":$primary-100,
+    "primary-200":$primary-200,
+    "primary-300":$primary-300,
+    "primary-400":$primary-400,
+    "primary-500":$primary-500,
+    "primary-600":$primary-600,
+    "primary-700":$primary-700,
+    "primary-800":$primary-800,
+    "primary-900":$primary-900
+);
+$color-liner-list: (
+    "primary-light": $color-primary-light,
+    "primary-lighter": $color-primary-lighter,
+    "success-light": $color-success-light,
+    "success-lighter": $color-success-lighter,
+    "info-light": $color-info-light,
+    "info-lighter": $color-info-lighter,
+    "warning-light": $color-warning-light,
+    "warning-lighte": $color-warning-lighter,
+    "danger-light": $color-danger-light,
+    "danger-lighte": $color-danger-lighter
+);
+@each $key, $map in $theme-colors {
+    .xui-color-#{$key}{
+        color: $map;
+    }
+    .xui-bg-#{$key}{
+        background-color: $map;
+    }
+}
+@each $key, $map in $primary-color-list {
+    .xui-color-#{$key}{
+        color: $map;
+    }
+    .xui-bg-#{$key}{
+        background-color: $map;
+    }
+}
+@each $key, $map in $color-liner-list {
+    .xui-color-#{$key}{
+        color: $map;
+    }
+    .xui-bg-#{$key}{
+        background-color: $map;
+    }
+}

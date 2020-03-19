@@ -1,3 +1,203 @@
+<div class="main-menu-container" id="componentLeftWrap" data-first-module-name="color"
+    data-ng-init="ui.load()">
+    <ul class="node-menu">
+        <li>
+            <div class="child-menu">
+                <a data-module-name="color"
+                    ng-click="ui.selectMenu($event)">Color</a></div><div class="child-menu">
+                <a data-module-name="border"
+                    ng-click="ui.selectMenu($event)">Border</a></div>
+        </li>
+    </ul>
+</div>
+<div class="main-content-container" id="componentRightWrap">
+    
+    <section class="module-wrap" id="color">
+        <div class="page-header">
+            <h1>Color</h1>
+        </div>
+        <xue-tabs-wrap>
+            <xue-tab label="'示例'" value="1">
+                <div class="page-content">
+                    <div class="content-html">
+                        <style>
+    .primary-wrap{
+        width: 440px;
+        height: 120px;
+    }
+    .primary-wrap .primary-color{
+        height: 80px;
+        width: 100%;
+        border-radius: 3px 3px 0 0;
+    }
+    .primary-list{
+        height: 40px;
+        width: 100%;
+    }
+    .primary-list ul{
+        list-style: none;
+    }
+    .primary-list ul li{
+        float: left;
+        width: 40px;
+        height: 40px;
+    }
+    .primary-list ul li::after{
+        content: "";
+        display: block;
+        clear: both;
+    }
+    .primary-list ul li:first-child{
+        border-radius: 0 0 0 3px;
+    }
+    .primary-list ul li:last-child{
+        border-radius: 0 0 3px 0;
+    }
+</style>
 <div>
+    <p>主色</p>
+    <div class="primary-wrap">
+        <div class="primary-color xui-bg-primary">
+
+        </div>
+        <div class="primary-list">
+            <ul>
+                <li class="xui-bg-primary-900"></li>
+                <li class="xui-bg-primary-800"></li>
+                <li class="xui-bg-primary-700"></li>
+                <li class="xui-bg-primary-600"></li>
+                <li class="xui-bg-primary-500"></li>
+                <li class="xui-bg-primary-400"></li>
+                <li class="xui-bg-primary-300"></li>
+                <li class="xui-bg-primary-200"></li>
+                <li class="xui-bg-primary-100"></li>
+                <li class="xui-bg-primary-light"></li>
+                <li class="xui-bg-primary-lighter"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+                    </div>
+                </div>
+            </xue-tab>
+            <xue-tab label="'代码'" value="3">
+                <div class="page-content-code">
+                    <div class="col-md-12">
+                        <xue-tabs-wrap type="border-card">
+                            <xue-tab label="'html'" value="1">
+                                <div class="code-wrap">
+                                    <pre ng-non-bindable><code data-language="html">&lt;style&gt;
+    .primary-wrap{
+        width: 440px;
+        height: 120px;
+    }
+    .primary-wrap .primary-color{
+        height: 80px;
+        width: 100%;
+        border-radius: 3px 3px 0 0;
+    }
+    .primary-list{
+        height: 40px;
+        width: 100%;
+    }
+    .primary-list ul{
+        list-style: none;
+    }
+    .primary-list ul li{
+        float: left;
+        width: 40px;
+        height: 40px;
+    }
+    .primary-list ul li::after{
+        content: &quot;&quot;;
+        display: block;
+        clear: both;
+    }
+    .primary-list ul li:first-child{
+        border-radius: 0 0 0 3px;
+    }
+    .primary-list ul li:last-child{
+        border-radius: 0 0 3px 0;
+    }
+&lt;/style&gt;
+&lt;div&gt;
+    &lt;p&gt;主色&lt;/p&gt;
+    &lt;div class=&quot;primary-wrap&quot;&gt;
+        &lt;div class=&quot;primary-color xui-bg-primary&quot;&gt;
+
+        &lt;/div&gt;
+        &lt;div class=&quot;primary-list&quot;&gt;
+            &lt;ul&gt;
+                &lt;li class=&quot;xui-bg-primary-900&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-800&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-700&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-600&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-500&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-400&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-300&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-200&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-100&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-light&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-lighter&quot;&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                                </div>
+                            </xue-tab>
+                        </xue-tabs-wrap>
+                    </div>
+                </div>
+            </xue-tab>
+            <xue-tab label="'文档'" value="2">
+                <div class="page-content">
+                    <div class="content-md markdown-wrap">
+                        <h4 id="ui-color-default-theme">ui color default theme</h4>
+
+                    </div>
+                </div>
+            </xue-tab>
+        </xue-tabs-wrap>
+    </section>
+    
+    <section class="module-wrap" id="border">
+        <div class="page-header">
+            <h1>Border</h1>
+        </div>
+        <xue-tabs-wrap>
+            <xue-tab label="'示例'" value="1">
+                <div class="page-content">
+                    <div class="content-html">
+                        <div>
+    test border
+</div>
+                    </div>
+                </div>
+            </xue-tab>
+            <xue-tab label="'代码'" value="3">
+                <div class="page-content-code">
+                    <div class="col-md-12">
+                        <xue-tabs-wrap type="border-card">
+                            <xue-tab label="'html'" value="1">
+                                <div class="code-wrap">
+                                    <pre ng-non-bindable><code data-language="html">&lt;div&gt;
+    test border
+&lt;/div&gt;</code></pre>
+                                </div>
+                            </xue-tab>
+                        </xue-tabs-wrap>
+                    </div>
+                </div>
+            </xue-tab>
+            <xue-tab label="'文档'" value="2">
+                <div class="page-content">
+                    <div class="content-md markdown-wrap">
+                        <h4 id="test-border">test border</h4>
+
+                    </div>
+                </div>
+            </xue-tab>
+        </xue-tabs-wrap>
+    </section>
     
 </div>

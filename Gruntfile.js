@@ -11,6 +11,7 @@ module.exports = function (grunt) {
         ngversion: '1.2.32',
         debug: false,
         modules: [],//to be filled in by build task
+        uiModules: [],
         pkg: grunt.file.readJSON('package.json'),
         dist: 'dist',
         filename: 'angularjs-xue',
@@ -156,7 +157,7 @@ module.exports = function (grunt) {
             demosrc: {
                 files: [{
                     expand: true,
-                    src: ['*.js','*.css','fonts/*', 'data/*'],
+                    src: ['*.js', '*.css', 'fonts/*', 'data/*'],
                     cwd: 'dist',
                     dest: 'demo/assets/'
                 }]
@@ -447,12 +448,37 @@ module.exports = function (grunt) {
         grunt.task.run(['concat', 'uglify', 'copy:dist', 'makeModuleMappingFile', 'makeRawFilesJs', 'makeVersionsMappingFile']);
 
     });
-    grunt.registerTask('demo', ['delFiles', 'sass', 'html2js', 'build', 'cssmin', 'copy:demohtml', 'copy:demoassets', 'copy:demodist']);
+    grunt.registerTask('build-ui', function () {
+        var tempObj = {};
+        grunt.file.expand('src/ui/docs/*').forEach((dir) => {
+            var name = dir.split('/')[3];
+            var module  = {
+                name: name,
+                moduleName: name,
+                displayName: util.ucwords(util.breakup(name, ' ')),
+                docs: {
+                    md: grunt.file.expand(`src/ui/docs/${name}/*.md`)
+                        .map(grunt.file.read).map((str) => marked(str)).join('\n'),
+                    html: grunt.file.expand(`src/ui/docs/${name}/*.html`)
+                        .map(grunt.file.read).join('\n')
+                }
+            };
+            if(name == "color"){
+                tempObj = module;
+            }else{
+                grunt.config('uiModules', grunt.config('uiModules').concat(module));
+            }
+        });
+        var tempArr = grunt.config('uiModules');
+        tempArr.unshift(tempObj);
+        grunt.config('uiModules',tempArr);
+    });
+    grunt.registerTask('demo', ['delFiles', 'sass', 'html2js', 'build', 'cssmin', 'build-ui','copy:demohtml', 'copy:demoassets', 'copy:demodist']);
     grunt.registerTask('test-demo', function () {
         grunt.config('debug', true);
-        grunt.task.run(['delFiles', 'sass', 'html2js', 'build', 'cssmin', 'copy:demohtml', 'copy:demoassets', 'copy:demosrc']);
+        grunt.task.run(['delFiles', 'sass', 'html2js', 'build', 'cssmin', 'build-ui','copy:demohtml', 'copy:demoassets', 'copy:demosrc']);
     });
-    grunt.registerTask('justDemo', ['copy:demohtml', 'copy:demoassets', 'copy:demodist']);
+    grunt.registerTask('justDemo', ['build-ui','copy:demohtml', 'copy:demoassets', 'copy:demodist']);
     grunt.registerTask('makeModuleMappingFile', function () {
         var moduleMappingJs = 'demo/assets/module-mapping.json';
         var moduleMappings = grunt.config('moduleFileMapping');

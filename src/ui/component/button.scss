@@ -127,8 +127,8 @@ $button-hover-tint-percent:20% !default;
     }
 
     &:active {
-        color: mix($black, $primary, $button-active-shade-percent);
-        border-color: mix($black, $primary, $button-active-shade-percent);
+        color: mix($black, $color-primary, $button-active-shade-percent);
+        border-color: mix($black, $color-primary, $button-active-shade-percent);
         outline: none;
     }
 
@@ -137,23 +137,23 @@ $button-hover-tint-percent:20% !default;
     // }
 
     &.xui-btn-warning {
-        @include button-variant($color:#fff, $border-color:$warning, $background-color:$warning);
+        @include button-variant($color:#fff, $border-color:$color-warning, $background-color:$color-warning);
     }
 
     &.xui-btn-success {
-        @include button-variant($color:#fff, $border-color:$success, $background-color:$success);
+        @include button-variant($color:#fff, $border-color:$color-success, $background-color:$color-success);
     }
 
     &.xui-btn-danger {
-        @include button-variant($color:#fff, $border-color:$danger, $background-color:$danger);
+        @include button-variant($color:#fff, $border-color:$color-danger, $background-color:$color-danger);
     }
 
     &.xui-btn-info {
-        @include button-variant($color:#fff, $border-color:$info, $background-color:$info);
+        @include button-variant($color:#fff, $border-color:$color-info, $background-color:$color-info);
     }
 
     &.xui-btn-primary {
-        @include button-variant($color:#fff, $border-color: $primary, $background-color: $primary);
+        @include button-variant($color:#fff, $border-color: $color-primary, $background-color: $color-primary);
     }
 
     &.xui-btn-circle {
