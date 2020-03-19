@@ -402,7 +402,7 @@ angular.module('xue.counter', ['xue.util.lang'])
                         }
                     },
                     changeByBtn: function (code) {
-                        if (scope.counterConfig.disabled && (gxCounterCtrl.stepDecimals > scope.counterConfig.precision)) {
+                        if (scope.counterConfig.disabled || (gxCounterCtrl.stepDecimals > scope.counterConfig.precision)) {
                             return;
                         }
                         gxCounterCtrl.number = Number(gxCounterCtrl.number);
@@ -474,8 +474,8 @@ angular.module('xue.counter', ['xue.util.lang'])
                 //监听外部传入的值
                 scope.ngNumberWatcher = scope.$watch("ngNumber", function (newVal) {
                     if (typeof (newVal) != 'undefined') {
-                        gxCounterCtrl.number = newVal;
-                        gxCounterCtrl.lastNumber = newVal;
+                        gxCounterCtrl.number = newVal.toFixed(scope.counterConfig.precision);
+                        gxCounterCtrl.lastNumber = newVal.toFixed(scope.counterConfig.precision);
                     }
                 });
                 scope.$on('$destroy', function () {
@@ -1674,8 +1674,9 @@ angular.module('xue.loading', [])
                 var loadingConfig = {
                     isShowLoading: false, // false 不显示加载窗
                     theme: 'default-theme', // 'default-theme','dark-theme'
-                    msg: '', // 加载中需展示的文字，如：'加载中……'
+                    msg: '加载中,请稍候...', // 加载中需展示的文字，如：'加载中……'
                     className: '', // 自定义样式类名
+                    loadIcon: '', // 自定义loading图标
                     loadingTypeClass: 'ball-circus', // 'ball-circus','square-jelly-box','ball-spin-clockwise'
                     // 'line-spin-clockwise','ball-clip-rotate','ball-pulse-sync'
                     itemArr: null, //不同加载样式所需的dom数不同。
@@ -1686,9 +1687,10 @@ angular.module('xue.loading', [])
                     template: '<div class="loading-shade" ng-class="loadingConfig.className" ng-style="{\'z-index\':loadingConfig.zIndex}"\
                         ng-if="loadingConfig.isShowLoading">\
                         <div class="loading-content" ng-class="loadingConfig.theme">\
-                            <div class="loading-container" ng-class="loadingConfig.loadingTypeClass">\
+                            <div class="loading-container" ng-class="loadingConfig.loadingTypeClass" ng-if="!loadingConfig.loadIcon">\
                                 <div class="loading-item" ng-repeat="x in loadingConfig.itemArr track by $index"></div>\
                             </div>\
+                            <div class="loading-container" ng-if="loadingConfig.loadIcon" ng-class="loadingConfig.loadIcon"></div>\
                             <div class="loading-text">{{loadingConfig.msg}}</div>\
                         </div>\
                     </div>',

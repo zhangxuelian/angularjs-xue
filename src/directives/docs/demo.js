@@ -1,7 +1,10 @@
 angular.module('ui.xue.demo').controller('xueDirectivesDemoCtrl', ['$scope', function ($scope) {
     $scope.vm = {
-        ischeck: true,
-        fruit: '1',
+        radioCheck: true,
+        checkboxCheck: false,
+        checkboxCheck2: false,
+        checkboxCheck3: false,
+        fruit: '香蕉',
         inputValue: '',
         click: function (value) {
             console.log(value);

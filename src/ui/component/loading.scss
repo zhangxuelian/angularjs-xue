@@ -21,7 +21,9 @@ $squareW: 50px;
         background-color: $defColor;
         border: 0 solid $defColor;
     }
-
+    .xui-icon{
+        color: $defColor;
+    }
     .loading-text {
         color: $defColor;
         line-height: 2.5;
@@ -32,6 +34,9 @@ $squareW: 50px;
     .loading-item {
         background-color: $blueColor;
         border: 0 solid $blueColor;
+    }
+    .xui-icon{
+        color: $blueColor;
     }
 
     .loading-text {
@@ -895,6 +900,10 @@ $squareW: 50px;
                 }
 
             }
+        }
+        .xui-icon{
+            font-size:32px;
+            animation: ball-clip-rotate .75s linear infinite;
         }
     }
 }

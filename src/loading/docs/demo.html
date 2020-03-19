@@ -1,6 +1,15 @@
-<div ng-controller="xueLoadingDemoCtrl">
-    <div style="position:relative;width:300px;height:100px;display:inline-block;" xue-loading="vm.loadingConfig"></div>
-    <div style="position:relative;width:300px;height:100px;display:inline-block;" xue-loading="vm.loadingConfig2"></div>
-    <div style="position:relative;width:300px;height:100px;display:inline-block;" xue-loading="vm.loadingConfig3"></div>
-    <button ng-click="vm.stop()">停止</button>
+<style>
+    .loading-demo>div{
+        position:relative;width:48%;height:100px;display:inline-block;
+    }
+</style>
+<div ng-controller="xueLoadingDemoCtrl" class="loading-demo">
+    <div xue-loading="vm.loadingConfig"></div>
+    <div xue-loading="vm.loadingConfig2"></div>
+    <div xue-loading="vm.loadingConfig3"></div>
+    <div xue-loading="vm.loadingConfig4"></div>
+    <div xue-loading="vm.loadingConfig5"></div>
+    <div xue-loading="vm.loadingConfig6"></div>
+    <div xue-loading="vm.loadingConfig7"></div>
+    <button class="xui-btn" ng-click="vm.stop()">停止</button>
 </div>

@@ -4393,7 +4393,8 @@ table {
         height: 8px; }
       .xui-steps-wrap .step-item .bar-icon.num, .xui-steps-wrap .step-item .bar-icon.statusNum, .xui-steps-wrap .step-item .bar-icon.strokeStatus {
         border: 2px solid #dae1ec;
-        background-color: #fff; }
+        background-color: #fff;
+        box-sizing: border-box; }
       .xui-steps-wrap .step-item .bar-icon.iconfont, .xui-steps-wrap .step-item .bar-icon.img {
         background-color: #fff; }
     .xui-steps-wrap .step-item .bar-line {
@@ -4453,12 +4454,14 @@ table {
       /* Chrome */
       -ms-flex: 1;
       /* IE 10 */
-      flex: 1; }
+      flex: 1;
+      margin: 0; }
       .xui-steps-wrap.vertical .step-item .step-bar .bar-line {
         top: 0;
         bottom: 0;
         left: 50%;
-        width: 2px; }
+        width: 2px;
+        transform: translateX(-1px); }
       .xui-steps-wrap.vertical .step-item .step-bar .bar-icon {
         vertical-align: top; }
       .xui-steps-wrap.vertical .step-item .step-main {
@@ -4466,7 +4469,8 @@ table {
         margin-left: 10px; }
   .xui-steps-wrap.blue-theme .step-item.passed .bar-icon.num, .xui-steps-wrap.blue-theme .step-item.passed .bar-icon.statusNum, .xui-steps-wrap.blue-theme .step-item.passed .bar-icon.strokeStatus, .xui-steps-wrap.blue-theme .step-item.passed .bar-icon.point {
     border: 2px solid #0394F9;
-    color: #0394F9; }
+    color: #0394F9;
+    box-sizing: border-box; }
   .xui-steps-wrap.blue-theme .step-item.passed .bar-icon.iconfont {
     color: #0394F9; }
   .xui-steps-wrap.blue-theme .step-item.passed .bar-icon.point {
@@ -4480,7 +4484,8 @@ table {
   .xui-steps-wrap.blue-theme .step-item.active .bar-icon.num, .xui-steps-wrap.blue-theme .step-item.active .bar-icon.statusNum, .xui-steps-wrap.blue-theme .step-item.active .bar-icon.point, .xui-steps-wrap.blue-theme .step-item.active .bar-icon.fillStatus {
     background-color: #0394F9;
     border: 2px solid #0394F9;
-    color: #fff; }
+    color: #fff;
+    box-sizing: border-box; }
   .xui-steps-wrap.blue-theme .step-item.active .bar-icon.strokeStatus {
     border: 2px solid #0394F9; }
     .xui-steps-wrap.blue-theme .step-item.active .bar-icon.strokeStatus::before {
@@ -4495,7 +4500,8 @@ table {
     color: #0394F9; }
   .xui-steps-wrap.green-theme .step-item.passed .bar-icon.num, .xui-steps-wrap.green-theme .step-item.passed .bar-icon.statusNum, .xui-steps-wrap.green-theme .step-item.passed .bar-icon.strokeStatus, .xui-steps-wrap.green-theme .step-item.passed .bar-icon.point {
     border: 2px solid #13BA5A;
-    color: #13BA5A; }
+    color: #13BA5A;
+    box-sizing: border-box; }
   .xui-steps-wrap.green-theme .step-item.passed .bar-icon.iconfont {
     color: #13BA5A; }
   .xui-steps-wrap.green-theme .step-item.passed .bar-icon.point {
@@ -4509,7 +4515,8 @@ table {
   .xui-steps-wrap.green-theme .step-item.active .bar-icon.num, .xui-steps-wrap.green-theme .step-item.active .bar-icon.statusNum, .xui-steps-wrap.green-theme .step-item.active .bar-icon.point, .xui-steps-wrap.green-theme .step-item.active .bar-icon.fillStatus {
     background-color: #13BA5A;
     border: 2px solid #13BA5A;
-    color: #fff; }
+    color: #fff;
+    box-sizing: border-box; }
   .xui-steps-wrap.green-theme .step-item.active .bar-icon.strokeStatus {
     border: 2px solid #13BA5A; }
     .xui-steps-wrap.green-theme .step-item.active .bar-icon.strokeStatus::before {
@@ -4522,11 +4529,13 @@ table {
     color: #13BA5A; }
   .xui-steps-wrap.green-theme .step-item.active .step-title {
     color: #13BA5A; }
-  .xui-steps-wrap.small .step-item .bar-icon:not(.point) {
-    width: 16px;
-    height: 16px; }
-  .xui-steps-wrap.small .step-item .step-main {
+  .xui-steps-wrap.small .step-item {
     font-size: 12px; }
+    .xui-steps-wrap.small .step-item .bar-icon:not(.point) {
+      width: 16px;
+      height: 16px; }
+    .xui-steps-wrap.small .step-item .step-main {
+      font-size: 12px; }
   .xui-steps-wrap.large .step-item .bar-icon:not(.point) {
     width: 32px;
     height: 32px;
@@ -5820,6 +5829,9 @@ table {
   background-color: #98bff6;
   border: 0 solid #98bff6; }
 
+.default-theme .xui-icon {
+  color: #98bff6; }
+
 .default-theme .loading-text {
   color: #98bff6;
   line-height: 2.5; }
@@ -5827,6 +5839,9 @@ table {
 .dark-theme .loading-item {
   background-color: #3f6de8;
   border: 0 solid #3f6de8; }
+
+.dark-theme .xui-icon {
+  color: #3f6de8; }
 
 .dark-theme .loading-text {
   color: #3f6de8;
@@ -6493,6 +6508,9 @@ table {
           -moz-animation-delay: 0s;
           -o-animation-delay: 0s;
           animation-delay: 0s; }
+    .loading-shade .loading-content .xui-icon {
+      font-size: 32px;
+      animation: ball-clip-rotate .75s linear infinite; }
 
 .xui-validate-container {
   /*表单验证：右侧提示信息*/
