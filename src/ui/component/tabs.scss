@@ -93,7 +93,7 @@ $tab-border-color: $gray-300 !default;
             }
             &.disabled{
                 .nav-link{
-                    color: $btn-link-disabled-color;
+                    //color: $btn-link-disabled-color;
                     cursor: not-allowed;
                 }
             }
