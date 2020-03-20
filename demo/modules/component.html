@@ -1629,6 +1629,8 @@
                     <div class="content-html">
                         <div ng-controller="xueMenuDemoCtrl">
     <xue-menu menu-config="menuConfig"></xue-menu>
+    <xue-menu1 menu-config="menuConfig1"></xue-menu1>
+    <xue-menu1 menu-config="menuConfig2"></xue-menu1>
 </div>
                     </div>
                 </div>
@@ -1641,13 +1643,15 @@
                                 <div class="code-wrap">
                                     <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueMenuDemoCtrl&quot;&gt;
     &lt;xue-menu menu-config=&quot;menuConfig&quot;&gt;&lt;/xue-menu&gt;
+    &lt;xue-menu1 menu-config=&quot;menuConfig1&quot;&gt;&lt;/xue-menu1&gt;
+    &lt;xue-menu1 menu-config=&quot;menuConfig2&quot;&gt;&lt;/xue-menu1&gt;
 &lt;/div&gt;</code></pre>
                                 </div>
                             </xue-tab>
                             <xue-tab label="'javascript'" value="2">
                                 <div class="code-wrap">
                                     <pre
-                                        ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueMenuDemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
+                                        ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueMenuDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     $scope.menuConfig = {
         search: true,
         data: [{
@@ -1656,42 +1660,125 @@
             subMenus: [{
                 id: 11,
                 menuName: &quot;菜单项1-1&quot;
-            },{
+            }, {
                 id: 12,
                 menuName: &quot;菜单项1-2&quot;
-            },{
+            }, {
                 id: 13,
                 menuName: &quot;菜单项1-3&quot;
-            },{
+            }, {
                 id: 14,
                 menuName: &quot;菜单项1-4&quot;
             }]
-        },{
+        }, {
             id: 2,
             menuName: &quot;菜单2&quot;,
             subMenus: [{
                 id: 21,
                 menuName: &quot;菜单项2-1&quot;
-            },{
+            }, {
                 id: 22,
                 menuName: &quot;菜单项2-2&quot;
-            },{
+            }, {
                 id: 23,
                 menuName: &quot;菜单项2-3&quot;
-            },{
+            }, {
                 id: 24,
                 menuName: &quot;菜单项2-4&quot;
             }]
         }],
-        clickRouter: function(item) {//导航菜单点击回调
+        clickRouter: function (item) { //导航菜单点击回调
             console.log(item);
         },
-        oneDimenName: &#39;menuName&#39;,//一级菜单标题字段名
-        childrenName: &#39;subMenus&#39;,//二维数组对象名
-        twoDimenName: &#39;menuName&#39;//二级菜单标题字段名
+        oneDimenName: &#39;menuName&#39;, //一级菜单标题字段名
+        childrenName: &#39;subMenus&#39;, //二维数组对象名
+        twoDimenName: &#39;menuName&#39; //二级菜单标题字段名
     }
-}]);
-</code></pre>
+    $scope.menuConfig1 = {
+        selectId: 111, // 当前选中导航菜单ID
+        data: [{
+            id: &#39;1&#39;,
+            menuName: &#39;菜单1&#39;,
+            subMenus: [{
+                id: &#39;11&#39;,
+                menuName: &#39;菜单项1-1&#39;,
+                subMenus: [{
+                    id: &#39;111&#39;,
+                    menuName: &#39;菜单项1-1&#39;
+                }]
+            }]
+        }, {
+            id: &#39;2&#39;,
+            menuName: &#39;菜单2&#39;,
+            subMenus: [{
+                id: &#39;21&#39;,
+                menuName: &#39;菜单项1-2&#39;,
+                subMenus: [{
+                    id: &#39;211&#39;,
+                    menuName: &#39;菜单项1-2&#39;
+                }]
+            }]
+        },{
+            id: &#39;3&#39;,
+            menuName: &#39;菜单3&#39;
+        },{
+            id: &#39;4&#39;,
+            menuName: &#39;菜单4&#39;,
+            subMenus: [{
+                id: &#39;41&#39;,
+                menuName: &#39;菜单项4-1&#39;
+            },{
+                id: &#39;42&#39;,
+                menuName: &#39;菜单项4-2&#39;
+            }]
+        }]
+    }
+    $scope.menuConfig2 = {
+        mode: &#39;horizontal&#39;,
+        selectId: 111, // 当前选中导航菜单ID
+        data: [{
+            id: &#39;1&#39;,
+            menuName: &#39;菜单1&#39;,
+            subMenus: [{
+                id: &#39;11&#39;,
+                menuName: &#39;菜单项1-1&#39;,
+                subMenus: [{
+                    id: &#39;111&#39;,
+                    menuName: &#39;菜单项1-1-1&#39;
+                },{
+                    id: &#39;121&#39;,
+                    menuName: &#39;菜单项1-2-1&#39;
+                }]
+            },{
+                id: &#39;12&#39;,
+                menuName: &#39;菜单12&#39;
+            },{
+                id: &#39;13&#39;,
+                menuName: &#39;菜单13&#39;
+            }]
+        }, {
+            id: &#39;2&#39;,
+            menuName: &#39;菜单2&#39;,
+            subMenus: [{
+                id: &#39;21&#39;,
+                menuName: &#39;菜单项2-1&#39;,
+                subMenus: [{
+                    id: &#39;211&#39;,
+                    menuName: &#39;菜单项2-1-1&#39;
+                },{
+                    id: &#39;212&#39;,
+                    menuName: &#39;菜单项2-1-2&#39;
+                }]
+            },{
+                id: &#39;22&#39;,
+                menuName: &#39;菜单项2-2&#39;
+            }]
+        },{
+            id: &#39;3&#39;,
+            menuName: &#39;菜单3&#39;
+        }]
+    }
+}]);</code></pre>
                                 </div>
                             </xue-tab>
                         </xue-tabs-wrap>
