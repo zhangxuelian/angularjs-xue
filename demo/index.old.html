@@ -2358,9 +2358,9 @@ $ npm run demo or npm run test-demo</code></pre>
         <div>
             {{test}}
         </div>
-        <button ng-click="close()">关闭</button>
+        <button class="xui-btn is-plain" ng-click="close()">关闭­</button>
     </script>
-    <button ng-click="open()">打开</button>
+    <button class="xui-btn is-plain" ng-click="open()">打开</button>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
@@ -2385,9 +2385,9 @@ $ npm run demo or npm run test-demo</code></pre>
         &lt;div&gt;
             {{test}}
         &lt;/div&gt;
-        &lt;button ng-click=&quot;close()&quot;&gt;关闭&lt;/button&gt;
+        &lt;button class=&quot;xui-btn is-plain&quot; ng-click=&quot;close()&quot;&gt;关闭­&lt;/button&gt;
     &lt;/script&gt;
-    &lt;button ng-click=&quot;open()&quot;&gt;打开&lt;/button&gt;
+    &lt;button class=&quot;xui-btn is-plain&quot; ng-click=&quot;open()&quot;&gt;打开&lt;/button&gt;
 &lt;/div&gt;</code></pre>
                                     </div>
                                 </xue-tab>
@@ -2778,11 +2778,19 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
                     <div class="page-content">
                         <div class="content-html">
                             <div ng-controller="xuePaginationDemoCtrl" style="overflow: auto;">
+    <xue-pagination class="xui-pagination-mini" total-items="mv.total" max-size="mv.maxSize" ng-model="mv.page"
+        items-per-page="mv.size" boundary-links="true">
+    </xue-pagination>
+    <br /><br />
     <xue-pagination class="xui-pagination-sm" total-items="mv.total" max-size="mv.maxSize" ng-model="mv.page"
         items-per-page="mv.size" boundary-links="true">
     </xue-pagination>
     <br /><br />
     <xue-pagination total-items="mv.total" max-size="mv.maxSize" ng-model="mv.page" items-per-page="mv.size"
+        boundary-links="true">
+    </xue-pagination>
+    <br /><br />
+    <xue-pagination class="xui-pagination-lg" total-items="mv.total" max-size="mv.maxSize" ng-model="mv.page" items-per-page="mv.size"
         boundary-links="true">
     </xue-pagination>
     <br /><br />
@@ -2810,11 +2818,19 @@ angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstan
                                     <div plunker-content="markup">
                                         <pre
                                             ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xuePaginationDemoCtrl&quot; style=&quot;overflow: auto;&quot;&gt;
+    &lt;xue-pagination class=&quot;xui-pagination-mini&quot; total-items=&quot;mv.total&quot; max-size=&quot;mv.maxSize&quot; ng-model=&quot;mv.page&quot;
+        items-per-page=&quot;mv.size&quot; boundary-links=&quot;true&quot;&gt;
+    &lt;/xue-pagination&gt;
+    &lt;br /&gt;&lt;br /&gt;
     &lt;xue-pagination class=&quot;xui-pagination-sm&quot; total-items=&quot;mv.total&quot; max-size=&quot;mv.maxSize&quot; ng-model=&quot;mv.page&quot;
         items-per-page=&quot;mv.size&quot; boundary-links=&quot;true&quot;&gt;
     &lt;/xue-pagination&gt;
     &lt;br /&gt;&lt;br /&gt;
     &lt;xue-pagination total-items=&quot;mv.total&quot; max-size=&quot;mv.maxSize&quot; ng-model=&quot;mv.page&quot; items-per-page=&quot;mv.size&quot;
+        boundary-links=&quot;true&quot;&gt;
+    &lt;/xue-pagination&gt;
+    &lt;br /&gt;&lt;br /&gt;
+    &lt;xue-pagination class=&quot;xui-pagination-lg&quot; total-items=&quot;mv.total&quot; max-size=&quot;mv.maxSize&quot; ng-model=&quot;mv.page&quot; items-per-page=&quot;mv.size&quot;
         boundary-links=&quot;true&quot;&gt;
     &lt;/xue-pagination&gt;
     &lt;br /&gt;&lt;br /&gt;

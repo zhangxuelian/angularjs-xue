@@ -55,7 +55,7 @@ $table-header-bg-color: #eff6ff !default;
             }
 
             button {
-                @include xui-btn($btn-border-radius, $btn-padding-y, $btn-padding-x, $btn-font-size);
+                //@include xui-btn($btn-border-radius, $btn-padding-y, $btn-padding-x, $btn-font-size);
                 height: 30px;
                 line-height: 20px;
                 padding: 5px 10px;

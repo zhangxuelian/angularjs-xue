@@ -87,13 +87,13 @@ $tab-border-color: $gray-300 !default;
             }
             &.active{
                 .nav-link{
-                    border-bottom: solid 2px $pagination-color;
-                    color: $pagination-color;
+                    border-bottom: solid 2px $color-primary;
+                    color: $color-primary;
                 }
             }
             &.disabled{
                 .nav-link{
-                    color: $btn-link-disabled-color;
+                    //color: $btn-link-disabled-color;
                     cursor: not-allowed;
                 }
             }

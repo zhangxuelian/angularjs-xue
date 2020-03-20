@@ -1,10 +1,10 @@
 .heading{
     font-size: 16px;
-    line-height: 30px;
+    line-height: 40px;
 }
 .subheading{
     font-size: 14px;
-    line-height: 30px;
+    line-height: 35px;
 }
 .ui-demo-color{
     .primary-wrap{
@@ -103,5 +103,10 @@
                 }
             }
         }
+    }
+}
+.ui-demo-btn{
+    .btn-list{
+        margin-bottom: 10px;
     }
 }
