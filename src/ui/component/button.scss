@@ -1,3 +1,17 @@
+// name color
+$btn-colors: (
+    (primary,$color-primary),
+    (info,$color-info),
+    (success,$color-success),
+    (warning,$color-warning),
+    (danger,$color-danger)
+);
+// name padding-y padding-x font-size border-radius
+$btn-size: (
+    (lg,12,20,14,4),
+    (sm,9,15,12,3),
+    (mini,7,15,12,3),
+);
 .xui-btn{
     display: inline-block;
     line-height: 1;
@@ -15,20 +29,12 @@
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-    padding: 12px 20px;
+    padding: 10px 20px;
     font-size: 14px;
     border-radius: 4px;
     &:active,&:hover,&:focus{
         outline: none;
     }
-}
-$btn-colors: 
-    ((primary,$color-primary),
-    (info,$color-info),
-    (success,$color-success),
-    (warning,$color-warning),
-    (danger,$color-danger));
-.xui-btn-default{
     &:hover{
         background-color: $color-primary-lighter;
         border-color: $primary-200;
@@ -54,7 +60,6 @@ $btn-colors:
     }
     &.is-round{
         border-radius: 20px;
-        padding: 12px 23px;
         &.is-disabled{
             &.hover{
                 background-color: $color-white;
@@ -66,6 +71,39 @@ $btn-colors:
         color: tint-color($color-text-regular, 7);
         border-color: tint-color($border-color-base, 2);
         background-color: $color-white;
+    }
+}
+.xui-btn-group{
+    display: inline-block;
+    vertical-align: middle;
+    &::before,&::before{
+        display: table;
+        content: "";
+    }
+    &::after{
+        clear: both;
+    }
+    .xui-btn{
+        float: left;
+        position: relative;
+        &:first-child{
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-right-color: hsla(0,0%,100%,.5);
+        }
+        &:last-child{
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-left-color: hsla(0,0%,100%,.5);
+        }
+        &:not(:last-child){
+            margin-right: -1px;
+        }
+        &:not(:first-child):not(:last-child){
+            border-radius: 0;
+            border-left-color: hsla(0,0%,100%,.5);
+            border-right-color: hsla(0,0%,100%,.5);
+        }
     }
 }
 @each $name, $color in $btn-colors {
@@ -109,12 +147,22 @@ $btn-colors:
         }
         &.is-round{
             border-radius: 20px;
-            padding: 12px 23px;
         }
         &.is-disabled{
             cursor: not-allowed;
+            color: $color-white;
             background-color: tint-color($color, 7);
             border-color: tint-color($color, 7);
+        }
+    }
+}
+@each $name,$padding-y,$padding-x,$font-size,$border-radius in $btn-size {
+    .xui-btn.xui-btn-#{$name}{
+        padding: #{$padding-y}px #{$padding-x}px;
+        font-size: #{$font-size}px;
+        border-radius: #{$border-radius}px;
+        &.is-round{
+            border-radius: #{$padding-x}px;
         }
     }
 }

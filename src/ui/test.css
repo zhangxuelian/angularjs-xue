@@ -3222,42 +3222,60 @@ table {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
-  padding: 12px 20px;
+  padding: 10px 20px;
   font-size: 14px;
   border-radius: 4px; }
   .xui-btn:active, .xui-btn:hover, .xui-btn:focus {
     outline: none; }
-
-.xui-btn-default:hover {
-  background-color: #e8f3ff;
-  border-color: #9ccdff;
-  color: #409EFF; }
-
-.xui-btn-default:active {
-  background-color: #e8f3ff;
-  border-color: #3685d6;
-  color: #3685d6; }
-
-.xui-btn-default.is-plain:hover {
-  background-color: #FFFFFF; }
-
-.xui-btn-default.is-plain:active {
-  background-color: #FFFFFF; }
-
-.xui-btn-default.is-plain.is-disabled.hover {
-  background-color: #FFFFFF; }
-
-.xui-btn-default.is-round {
-  border-radius: 20px;
-  padding: 12px 23px; }
-  .xui-btn-default.is-round.is-disabled.hover {
+  .xui-btn:hover {
+    background-color: #e8f3ff;
+    border-color: #9ccdff;
+    color: #409EFF; }
+  .xui-btn:active {
+    background-color: #e8f3ff;
+    border-color: #3685d6;
+    color: #3685d6; }
+  .xui-btn.is-plain:hover {
+    background-color: #FFFFFF; }
+  .xui-btn.is-plain:active {
+    background-color: #FFFFFF; }
+  .xui-btn.is-plain.is-disabled.hover {
+    background-color: #FFFFFF; }
+  .xui-btn.is-round {
+    border-radius: 20px; }
+    .xui-btn.is-round.is-disabled.hover {
+      background-color: #FFFFFF; }
+  .xui-btn.is-disabled {
+    cursor: not-allowed;
+    color: #b9babc;
+    border-color: #e2e4ea;
     background-color: #FFFFFF; }
 
-.xui-btn-default.is-disabled {
-  cursor: not-allowed;
-  color: #b9babc;
-  border-color: #e2e4ea;
-  background-color: #FFFFFF; }
+.xui-btn-group {
+  display: inline-block;
+  vertical-align: middle; }
+  .xui-btn-group::before, .xui-btn-group::before {
+    display: table;
+    content: ""; }
+  .xui-btn-group::after {
+    clear: both; }
+  .xui-btn-group .xui-btn {
+    float: left;
+    position: relative; }
+    .xui-btn-group .xui-btn:first-child {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right-color: rgba(255, 255, 255, 0.5); }
+    .xui-btn-group .xui-btn:last-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left-color: rgba(255, 255, 255, 0.5); }
+    .xui-btn-group .xui-btn:not(:last-child) {
+      margin-right: -1px; }
+    .xui-btn-group .xui-btn:not(:first-child):not(:last-child) {
+      border-radius: 0;
+      border-left-color: rgba(255, 255, 255, 0.5);
+      border-right-color: rgba(255, 255, 255, 0.5); }
 
 .xui-btn-primary {
   color: #FFFFFF;
@@ -3291,10 +3309,10 @@ table {
       .xui-btn-primary.is-plain.is-disabled:hover {
         color: #abd4ff; }
   .xui-btn-primary.is-round {
-    border-radius: 20px;
-    padding: 12px 23px; }
+    border-radius: 20px; }
   .xui-btn-primary.is-disabled {
     cursor: not-allowed;
+    color: #FFFFFF;
     background-color: #abd4ff;
     border-color: #abd4ff; }
 
@@ -3330,10 +3348,10 @@ table {
       .xui-btn-info.is-plain.is-disabled:hover {
         color: #cecfd2; }
   .xui-btn-info.is-round {
-    border-radius: 20px;
-    padding: 12px 23px; }
+    border-radius: 20px; }
   .xui-btn-info.is-disabled {
     cursor: not-allowed;
+    color: #FFFFFF;
     background-color: #cecfd2;
     border-color: #cecfd2; }
 
@@ -3369,10 +3387,10 @@ table {
       .xui-btn-success.is-plain.is-disabled:hover {
         color: #bce4a8; }
   .xui-btn-success.is-round {
-    border-radius: 20px;
-    padding: 12px 23px; }
+    border-radius: 20px; }
   .xui-btn-success.is-disabled {
     cursor: not-allowed;
+    color: #FFFFFF;
     background-color: #bce4a8;
     border-color: #bce4a8; }
 
@@ -3408,10 +3426,10 @@ table {
       .xui-btn-warning.is-plain.is-disabled:hover {
         color: #f4d6a9; }
   .xui-btn-warning.is-round {
-    border-radius: 20px;
-    padding: 12px 23px; }
+    border-radius: 20px; }
   .xui-btn-warning.is-disabled {
     cursor: not-allowed;
+    color: #FFFFFF;
     background-color: #f4d6a9;
     border-color: #f4d6a9; }
 
@@ -3447,12 +3465,33 @@ table {
       .xui-btn-danger.is-plain.is-disabled:hover {
         color: #fbbebe; }
   .xui-btn-danger.is-round {
-    border-radius: 20px;
-    padding: 12px 23px; }
+    border-radius: 20px; }
   .xui-btn-danger.is-disabled {
     cursor: not-allowed;
+    color: #FFFFFF;
     background-color: #fbbebe;
     border-color: #fbbebe; }
+
+.xui-btn.xui-btn-lg {
+  padding: 12px 20px;
+  font-size: 14px;
+  border-radius: 4px; }
+  .xui-btn.xui-btn-lg.is-round {
+    border-radius: 20px; }
+
+.xui-btn.xui-btn-sm {
+  padding: 9px 15px;
+  font-size: 12px;
+  border-radius: 3px; }
+  .xui-btn.xui-btn-sm.is-round {
+    border-radius: 15px; }
+
+.xui-btn.xui-btn-mini {
+  padding: 7px 15px;
+  font-size: 12px;
+  border-radius: 3px; }
+  .xui-btn.xui-btn-mini.is-round {
+    border-radius: 15px; }
 
 .xui-pagination-wrap {
   padding-left: 0;
