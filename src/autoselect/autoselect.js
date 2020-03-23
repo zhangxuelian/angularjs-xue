@@ -111,8 +111,7 @@ angular.module('xue.autoselect', ['xue.util.lang'])
                 selectCtrl.init();
 
                 scope.$on("$destroy", function () {
-                    var self = this;
-                    self.watch.destroy();
+                    selectCtrl.watch.destroy();
                     $('#' + scope.selectConfig.id).remove();
                 });
             }

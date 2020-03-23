@@ -1,113 +1,144 @@
-$tab-padding-y: .25rem !default;
-$tab-padding-x: .85rem !default;
-$tab-padding-y-sm: .2rem !default;
-$tab-padding-x-sm: .5rem !default;
-$tab-padding-y-lg: .75rem !default;
-$tab-padding-x-lg: 1.5rem !default;
+// $tab-padding-y: .25rem !default;
+// $tab-padding-x: .85rem !default;
+// $tab-padding-y-sm: .2rem !default;
+// $tab-padding-x-sm: .5rem !default;
+// $tab-padding-y-lg: .75rem !default;
+// $tab-padding-x-lg: 1.5rem !default;
 
-$tab-bg: $white !default;
-$tab-border-width: $border-width !default;
-$tab-border-color: $gray-300 !default;
+$tab-bg: $color-white !default;
 
-@mixin tab-size($padding-y, $padding-x, $font-size, $border-radius){
-    .nav-link{
-        padding: $padding-y $padding-x;
-        @include font-size($font-size);
-    }
-}
-@mixin tab-type-card(){
-    .xui-nav-wrap{
+$tab-size:((lg, 12, 20, 16, 4),
+    (sm, 9, 15, 12, 3),
+    (mini, 7, 15, 12, 3));
+
+@mixin tab-type-card() {
+    .xui-nav-wrap {
         border-bottom: none;
-        border-bottom: solid 1px $tab-border-color;
-        .nav-item{
+        border-bottom: solid 1px $border-color-base;
+
+        .nav-item {
             margin-right: 5px;
-            .nav-link{
-                border: solid 1px $tab-border-color;
+
+            .nav-link {
+                border: solid 1px $border-color-base;
                 border-radius: 3px 3px 0 0;
                 border-bottom: none;
                 margin-bottom: -1px;
-                background-color: $gray-100;
+                background-color: $background-color-base;
             }
-            &.active{
-                .nav-link{
-                    border-bottom: solid 1px $tab-bg!important;
+
+            &.active {
+                .nav-link {
+                    border-bottom: solid 1px $tab-bg !important;
                     background-color: $tab-bg;
                 }
             }
         }
     }
 }
-@mixin tab-type-border-card(){
-    border:solid 1px $tab-border-color;
+
+@mixin tab-type-border-card() {
+    border: solid 1px $border-color-base;
     border-radius: 3px;
-    box-shadow: 0 1px 5px 1px rgba(0,0,0,.1);
-    .xui-nav-wrap{
+    box-shadow: 0 1px 5px 1px rgba(0, 0, 0, .1);
+
+    .xui-nav-wrap {
         border-bottom: none;
-        border-bottom: solid 1px $tab-border-color;
-        background-color: $gray-100;
-        .nav-item{
-            .nav-link{
-                border-bottom: solid 1px $tab-border-color;
+        border-bottom: solid 1px $border-color-base;
+        background-color: $background-color-base;
+
+        .nav-item {
+            .nav-link {
+                border-bottom: solid 1px $border-color-base;
                 margin-bottom: -1px;
-                background-color: $gray-100;
+                background-color: $background-color-base;
             }
-            &.active{
-                .nav-link{
-                    border: solid 1px $tab-border-color;
+
+            &.active {
+                .nav-link {
+                    border: solid 1px $border-color-base;
                     border-bottom: solid 1px $tab-bg;
                     border-top: none;
                     background: $tab-bg;
                 }
             }
-            &:first-child{
-                .nav-link{
+
+            &:first-child {
+                .nav-link {
                     border-left: none;
                 }
             }
         }
-        
+
     }
 }
 
-.xui-tabs-wrap{
+.xui-tabs-wrap {
     position: relative;
-    .xui-nav-wrap{
+
+    .xui-nav-wrap {
         @include list-unstyled();
         @include clearfix();
-        border-bottom: solid 2px $tab-border-color;
-        .nav-item{
+        border-bottom: solid 2px $border-color-base;
+
+        .nav-item {
             float: left;
-            .nav-link{
+
+            .nav-link {
                 display: block;
-                color: $gray-800;
+                padding: 8px 16px;
+                color: $color-text-regular;
+                font-size: 14px;
                 background-color: $tab-bg;
                 margin-bottom: -2px;
-                border-bottom: solid 2px $tab-border-color;
+                border-bottom: solid 2px $border-color-base;
                 cursor: pointer;
-            }
-            &.active{
-                .nav-link{
-                    border-bottom: solid 2px $pagination-color;
-                    color: $pagination-color;
+
+                &:hover {
+                    color: $color-primary;
                 }
             }
-            &.disabled{
-                .nav-link{
-                    //color: $btn-link-disabled-color;
+
+            &.active {
+                .nav-link {
+                    border-bottom: solid 2px $color-primary;
+                    color: $color-primary;
+                }
+            }
+
+            &.disabled {
+                .nav-link {
                     cursor: not-allowed;
+                    color: tint-color($color-text-regular, 7);
+                    border-color: tint-color($border-color-base, 2);
                 }
             }
         }
     }
-    .xui-tabs-content{
+
+    .xui-tabs-content {
         padding: 10px;
         box-sizing: border-box;
     }
-    &.card{
+
+    &.card {
         @include tab-type-card();
     }
-    &.border-card{
+
+    &.border-card {
         @include tab-type-border-card();
     }
-    @include tab-size($tab-padding-y,$tab-padding-x,null,$border-radius);
+}
+
+@each $name,
+$padding-y,
+$padding-x,
+$font-size,
+$border-radius in $tab-size {
+    .xui-tabs-wrap.xui-tabs-#{$name} {
+        .xui-nav-wrap .nav-item .nav-link {
+            padding: #{$padding-y}px #{$padding-x}px;
+            font-size:#{$font-size}px;
+        }
+    }
 }
