@@ -11,10 +11,10 @@
 
     <script src="assets/angular.min.js"></script>
     <script src="assets/angular-ui-router.min.js"></script>
-    <script src="assets/angularjs-xue-full-1.0.0.min.js"></script>
+    <script src="assets/angularjs-xue-full-1.0.0.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
-    <link rel="stylesheet" href="assets/angularjs-xue-ui-1.0.0.min.css">
+    <link rel="stylesheet" href="assets/angularjs-xue-ui-1.0.0.css">
     <link rel="stylesheet" href="assets/demo.css" />
 </head>
 
@@ -2185,12 +2185,26 @@ $ npm run demo or npm run test-demo</code></pre>
                         <div class="content-html">
                             <div ng-controller="xueModalDemoCtrl">
     <script type="text/ng-template" id="modal.test.html">
-        <div>
-            {{test}}
+        <div style="height: 150px; line-height: 150px; text-align: center; width: 500px;">
+            {{content}}
         </div>
-        <button class="xui-btn is-plain" ng-click="close()">关闭­</button>
+        <button class="xui-btn is-plain" style="margin: 10px auto;display: block;" ng-click="close()">关闭­</button>
     </script>
-    <button class="xui-btn is-plain" ng-click="open()">打开</button>
+    <script type="text/ng-template" id="modal.drag.html">
+        <div xue-drag style="height: 40px; width: 100%; line-height: 40px; text-align: center; background: #eee;">
+            可拖拽区域
+        </div>
+        <div style="height: 150px; line-height: 150px; text-align: center; width: 500px;">
+            {{content}}
+        </div>
+        <button class="xui-btn is-plain" style="margin: 10px auto;display: block;" ng-click="close()">关闭­</button>
+    </script>
+
+    <button class="xui-btn is-plain" ng-click="open3()">自定义视图/点击背景自动关闭</button>
+    <button class="xui-btn is-plain" ng-click="open1()">url视图</button>
+    <button class="xui-btn is-plain" ng-click="open1()">有背景</button>
+    <button class="xui-btn is-plain" ng-click="open2()">无背景</button>
+    <button class="xui-btn is-plain" ng-click="open4()">可拖拽</button>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
@@ -2212,12 +2226,26 @@ $ npm run demo or npm run test-demo</code></pre>
                                         <pre
                                             ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueModalDemoCtrl&quot;&gt;
     &lt;script type=&quot;text/ng-template&quot; id=&quot;modal.test.html&quot;&gt;
-        &lt;div&gt;
-            {{test}}
+        &lt;div style=&quot;height: 150px; line-height: 150px; text-align: center; width: 500px;&quot;&gt;
+            {{content}}
         &lt;/div&gt;
-        &lt;button class=&quot;xui-btn is-plain&quot; ng-click=&quot;close()&quot;&gt;关闭­&lt;/button&gt;
+        &lt;button class=&quot;xui-btn is-plain&quot; style=&quot;margin: 10px auto;display: block;&quot; ng-click=&quot;close()&quot;&gt;关闭­&lt;/button&gt;
     &lt;/script&gt;
-    &lt;button class=&quot;xui-btn is-plain&quot; ng-click=&quot;open()&quot;&gt;打开&lt;/button&gt;
+    &lt;script type=&quot;text/ng-template&quot; id=&quot;modal.drag.html&quot;&gt;
+        &lt;div xue-drag style=&quot;height: 40px; width: 100%; line-height: 40px; text-align: center; background: #eee;&quot;&gt;
+            可拖拽区域
+        &lt;/div&gt;
+        &lt;div style=&quot;height: 150px; line-height: 150px; text-align: center; width: 500px;&quot;&gt;
+            {{content}}
+        &lt;/div&gt;
+        &lt;button class=&quot;xui-btn is-plain&quot; style=&quot;margin: 10px auto;display: block;&quot; ng-click=&quot;close()&quot;&gt;关闭­&lt;/button&gt;
+    &lt;/script&gt;
+
+    &lt;button class=&quot;xui-btn is-plain&quot; ng-click=&quot;open3()&quot;&gt;自定义视图/点击背景自动关闭&lt;/button&gt;
+    &lt;button class=&quot;xui-btn is-plain&quot; ng-click=&quot;open1()&quot;&gt;url视图&lt;/button&gt;
+    &lt;button class=&quot;xui-btn is-plain&quot; ng-click=&quot;open1()&quot;&gt;有背景&lt;/button&gt;
+    &lt;button class=&quot;xui-btn is-plain&quot; ng-click=&quot;open2()&quot;&gt;无背景&lt;/button&gt;
+    &lt;button class=&quot;xui-btn is-plain&quot; ng-click=&quot;open4()&quot;&gt;可拖拽&lt;/button&gt;
 &lt;/div&gt;</code></pre>
                                     </div>
                                 </xue-tab>
@@ -2226,8 +2254,7 @@ $ npm run demo or npm run test-demo</code></pre>
                                         <pre
                                             ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueModalDemoCtrl&#39;, 
     [&#39;$scope&#39;, &#39;$xModal&#39;,function ($scope, $xModal) {
-    console.log($xModal);
-    $scope.open = function(){
+    $scope.open1 = function(){
         var test = $xModal.open({
             templateUrl: &#39;modal.test.html&#39;,
             controller: &#39;modalTestCtrl&#39;
@@ -2236,17 +2263,41 @@ $ npm run demo or npm run test-demo</code></pre>
             console.log(ret);
         });
     }
-    /* $xModal.open({
-        templateUrl: &#39;app/case_center/case_work/case_work_process/case_record/burner_confirm.tpl.html&#39;,
-        controller: &#39;burnerConfirmCtrl&#39;,
-        resolve: {
-            dummy:$couchPotato.resolveDependencies([&#39;app/case_center/case_work/case_work_process/case_record/burner_confirm.ctrl.js&#39;])
-        }
-    }) */
+    $scope.open2 = function(){
+        var test = $xModal.open({
+            backdrop: false,
+            templateUrl: &#39;modal.test.html&#39;,
+            controller: &#39;modalTestCtrl&#39;
+        });
+    }
+    $scope.open3 = function(){
+        var test = $xModal.open({
+            autoClose: true,
+            template: &#39;&lt;div style=&quot;height: 250px;width: 100%; line-height: 200px;text-align: center;&quot;&gt;这里是自定义template视图&lt;/div&gt;&#39;,
+            controller: &#39;modalTestCtrl&#39;
+        });
+    }
+    $scope.open4 = function(){
+        var test = $xModal.open({
+            drag: true,
+            backdrop: false,
+            templateUrl: &#39;modal.drag.html&#39;,
+            controller: &#39;modalTestCtrl&#39;
+        });
+    }
+    /** example
+        https://github.com/stu-salsbury/angular-couch-potato : $couchPotato
+            $xModal.open({
+            templateUrl: &#39;{path}/example.tpl.html&#39;,
+            controller: &#39;exampleCtrl&#39;,
+            resolve: {
+                dummy:$couchPotato.resolveDependencies([&#39;{path}/example.ctrl.js&#39;])
+            }
+        }) 
+    */
 }]);
 angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$scope&#39;,&#39;$modalInstance&#39;,function($scope,$modalInstance){
-    console.log(&#39;xxx&#39;);
-    $scope.test = &quot;zxl&quot;;
+    $scope.content = &quot;这里是modal控制器里的内容！&quot;;
     $scope.close = function(){
         $modalInstance.close({
             a: &#39;test zxl&#39;
@@ -2261,8 +2312,7 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
                 </section>
                 <script>angular.module('ui.xue.demo').controller('xueModalDemoCtrl', 
     ['$scope', '$xModal',function ($scope, $xModal) {
-    console.log($xModal);
-    $scope.open = function(){
+    $scope.open1 = function(){
         var test = $xModal.open({
             templateUrl: 'modal.test.html',
             controller: 'modalTestCtrl'
@@ -2271,17 +2321,41 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
             console.log(ret);
         });
     }
-    /* $xModal.open({
-        templateUrl: 'app/case_center/case_work/case_work_process/case_record/burner_confirm.tpl.html',
-        controller: 'burnerConfirmCtrl',
-        resolve: {
-            dummy:$couchPotato.resolveDependencies(['app/case_center/case_work/case_work_process/case_record/burner_confirm.ctrl.js'])
-        }
-    }) */
+    $scope.open2 = function(){
+        var test = $xModal.open({
+            backdrop: false,
+            templateUrl: 'modal.test.html',
+            controller: 'modalTestCtrl'
+        });
+    }
+    $scope.open3 = function(){
+        var test = $xModal.open({
+            autoClose: true,
+            template: '<div style="height: 250px;width: 100%; line-height: 200px;text-align: center;">这里是自定义template视图</div>',
+            controller: 'modalTestCtrl'
+        });
+    }
+    $scope.open4 = function(){
+        var test = $xModal.open({
+            drag: true,
+            backdrop: false,
+            templateUrl: 'modal.drag.html',
+            controller: 'modalTestCtrl'
+        });
+    }
+    /** example
+        https://github.com/stu-salsbury/angular-couch-potato : $couchPotato
+            $xModal.open({
+            templateUrl: '{path}/example.tpl.html',
+            controller: 'exampleCtrl',
+            resolve: {
+                dummy:$couchPotato.resolveDependencies(['{path}/example.ctrl.js'])
+            }
+        }) 
+    */
 }]);
 angular.module('ui.xue.demo').controller('modalTestCtrl',['$scope','$modalInstance',function($scope,$modalInstance){
-    console.log('xxx');
-    $scope.test = "zxl";
+    $scope.content = "这里是modal控制器里的内容！";
     $scope.close = function(){
         $modalInstance.close({
             a: 'test zxl'

@@ -105,7 +105,7 @@ angular.module('xue.modal', [])
             var OPENED_MODAL_CLASS = 'modal-open';
             var SNAKE_CASE_REGEXP = /[A-Z]/g;
             var innerUtil = {
-                attribute: ['deferred', 'renderDeferred', 'closedDeferred', 'backdrop', 'keyboard', 'openedClass', 'windowTopClass', 'animation', 'appendTo'],
+                attribute: ['deferred', 'renderDeferred', 'closedDeferred', 'backdrop', 'autoClose', 'keyboard', 'openedClass', 'windowTopClass', 'animation', 'appendTo'],
                 openedWindows: $$stackedMap.createNew(),
                 openedClasses: $$multiMap.createNew(),
                 previousTopOpenedModal: null,
@@ -203,7 +203,7 @@ angular.module('xue.modal', [])
                         }
                         afterAnimating.done = true;
 
-                        $animate.leave(domEl,function(){
+                        $animate.leave(domEl, function () {
                             if (done) {
                                 done();
                             }
@@ -672,7 +672,7 @@ angular.module('xue.modal', [])
                                     renderDeferred: modalRenderDeferred,
                                     closedDeferred: modalClosedDeferred
                                 };
-                                var modalExtKey = ['animation', 'backdrop', 'keyboard', 'backdropClass',
+                                var modalExtKey = ['animation', 'backdrop', 'keyboard', 'autoClose', 'backdropClass',
                                     'windowTopClass', 'windowClass', 'windowTemplateUrl', 'ariaLabelledBy',
                                     'ariaDescribedBy', 'size', 'openedClass', 'appendTo'];
                                 angular.forEach(modalExtKey, function (item) {
@@ -822,6 +822,70 @@ angular.module('xue.modal', [])
                     element.empty();
                     $animate.enter(clone, element);
                 });
+            }
+        };
+    }])
+    .directive('xueDrag', ['$document',function ($document) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var target = element.parent(".xui-modal-dialog");
+                element.css({
+                    "cursor": "move"
+                });
+                var clientHeight = document.body.clientHeight,
+                    clientWidth = document.body.clientWidth;
+                var containerWidth = target[0].clientWidth, containerHeight = target[0].clientHeight;
+                var keydownFlag = false;
+                var position = {
+                    offsetX: 0,
+                    offsetY: 0
+                };
+                element.on("mousedown", function (event) {
+                    
+                    event = event ? event : window.event;
+                    event.stopPropagation();
+                    event.preventDefault();
+
+                    position.offsetX = event.offsetX;
+                    position.offsetY = event.offsetY;
+
+                    keydownFlag = true;
+
+                    $document.on("mousemove", mousemove);
+                    $document.on("mouseup", mouseup);
+
+                });
+                var mousemove = function(event){
+                    if (keydownFlag) {
+
+                        var top = event.clientY - position.offsetY, left = event.clientX - position.offsetX;
+
+                        if (top < 0) {
+                            top = 0;
+                        } else if ((containerHeight + top) > clientHeight) {
+                            top = clientHeight - containerHeight;
+                        }
+
+                        if (left < 0) {
+                            left = 0;
+                        } else if ((containerWidth + left) > clientWidth) {
+                            left = clientWidth - containerWidth;
+                        }
+
+                        target.css({
+                            "position": "absolute",
+                            "top": top+"px",
+                            "left": left+"px"
+                        });
+
+                    }
+                }
+                var mouseup = function(){
+                    keydownFlag = false;
+                    $document.off('mousemove');
+                    $document.off('mouseup');
+                }
             }
         };
     }])

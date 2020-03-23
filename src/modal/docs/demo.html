@@ -1,9 +1,23 @@
 <div ng-controller="xueModalDemoCtrl">
     <script type="text/ng-template" id="modal.test.html">
-        <div>
-            {{test}}
+        <div style="height: 150px; line-height: 150px; text-align: center; width: 500px;">
+            {{content}}
         </div>
-        <button class="xui-btn is-plain" ng-click="close()">关闭­</button>
+        <button class="xui-btn is-plain" style="margin: 10px auto;display: block;" ng-click="close()">关闭­</button>
     </script>
-    <button class="xui-btn is-plain" ng-click="open()">打开</button>
+    <script type="text/ng-template" id="modal.drag.html">
+        <div xue-drag style="height: 40px; width: 100%; line-height: 40px; text-align: center; background: #eee;">
+            可拖拽区域
+        </div>
+        <div style="height: 150px; line-height: 150px; text-align: center; width: 500px;">
+            {{content}}
+        </div>
+        <button class="xui-btn is-plain" style="margin: 10px auto;display: block;" ng-click="close()">关闭­</button>
+    </script>
+
+    <button class="xui-btn is-plain" ng-click="open3()">自定义视图/点击背景自动关闭</button>
+    <button class="xui-btn is-plain" ng-click="open1()">url视图</button>
+    <button class="xui-btn is-plain" ng-click="open1()">有背景</button>
+    <button class="xui-btn is-plain" ng-click="open2()">无背景</button>
+    <button class="xui-btn is-plain" ng-click="open4()">可拖拽</button>
 </div>

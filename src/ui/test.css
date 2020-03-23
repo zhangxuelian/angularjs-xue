@@ -6467,8 +6467,7 @@ table {
     vertical-align: middle; }
   .xui-modal-window .xui-modal-dialog {
     display: inline-block;
-    width: 420px;
-    padding-bottom: 10px;
+    min-width: 420px;
     vertical-align: middle;
     background-color: #fff;
     border-radius: 4px;
