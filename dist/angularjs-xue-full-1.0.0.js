@@ -7,7 +7,7 @@
  * License: ISC
  */
 angular.module("ui.xue", ["ui.xue.tpls", "xue.util.lang","xue.autoselect","xue.badge","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.loading","xue.menu","xue.modal","xue.notice","xue.pagination","xue.scroller","xue.select","xue.steps","xue.switch","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util","xue.validate"]);
-angular.module("ui.xue.tpls", ["xue/template/autoselect/autoselect.html","xue/template/cascader/cascader.html","xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/menu/menu1.html","xue/template/modal/modal.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/scroller/scroller.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
+angular.module("ui.xue.tpls", ["xue/template/autoselect/autoselect.html","xue/template/cascader/cascader.html","xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/menu/menu1.html","xue/template/modal/dialog.html","xue/template/modal/modal.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/scroller/scroller.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
 /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
 //@ sourceMappingURL=jquery-1.10.2.min.map
 */
@@ -2075,7 +2075,9 @@ angular.module('xue.modal', [])
             var OPENED_MODAL_CLASS = 'modal-open';
             var SNAKE_CASE_REGEXP = /[A-Z]/g;
             var innerUtil = {
-                attribute: ['deferred', 'renderDeferred', 'closedDeferred', 'backdrop', 'autoClose', 'keyboard', 'openedClass', 'windowTopClass', 'animation', 'appendTo'],
+                attribute: ['deferred', 'renderDeferred', 'closedDeferred', 'backdrop', 
+                    'autoClose', 'keyboard', 'openedClass', 'windowTopClass', 'animation', 
+                    'appendTo','dialogParam'],
                 openedWindows: $$stackedMap.createNew(),
                 openedClasses: $$multiMap.createNew(),
                 previousTopOpenedModal: null,
@@ -2348,7 +2350,11 @@ angular.module('xue.modal', [])
 
                     // Set the top modal index based on the index of the previous top modal
                     innerUtil.topModalIndex = innerUtil.previousTopOpenedModal ? parseInt(innerUtil.previousTopOpenedModal.value.modalDomEl.attr('index'), 10) + 1 : 0;
-                    var angularDomEl = angular.element('<div xue-modal-window="xui-modal-window"></div>');
+                    if (modal.dialog) {
+                        var angularDomEl = angular.element('<div xue-dialog-window ></div>');
+                    } else {
+                        var angularDomEl = angular.element('<div xue-modal-window ></div>');
+                    }
                     angularDomEl.attr({
                         'class': 'xui-modal-window',
                         'template-url': modal.windowTemplateUrl,
@@ -2551,7 +2557,9 @@ angular.module('xue.modal', [])
                         ariaLabelledBy: '',
                         ariaDescribedBy: '',
                         size: '',
-                        controller: null
+                        controller: null,
+                        dialog: false,
+                        dialogParam: {}
                     },
                     promiseChain: null,
                     resolveWithTemplate: function () {
@@ -2644,7 +2652,7 @@ angular.module('xue.modal', [])
                                 };
                                 var modalExtKey = ['animation', 'backdrop', 'keyboard', 'autoClose', 'backdropClass',
                                     'windowTopClass', 'windowClass', 'windowTemplateUrl', 'ariaLabelledBy',
-                                    'ariaDescribedBy', 'size', 'openedClass', 'appendTo'];
+                                    'ariaDescribedBy', 'size', 'openedClass', 'appendTo', 'dialog','dialogParam'];
                                 angular.forEach(modalExtKey, function (item) {
                                     modal[item] = modalOptions[item];
                                 });
@@ -2795,7 +2803,7 @@ angular.module('xue.modal', [])
             }
         };
     }])
-    .directive('xueDrag', ['$document',function ($document) {
+    .directive('xueDrag', ['$document', function ($document) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -2812,7 +2820,7 @@ angular.module('xue.modal', [])
                     offsetY: 0
                 };
                 element.on("mousedown", function (event) {
-                    
+
                     event = event ? event : window.event;
                     event.stopPropagation();
                     event.preventDefault();
@@ -2826,7 +2834,7 @@ angular.module('xue.modal', [])
                     $document.on("mouseup", mouseup);
 
                 });
-                var mousemove = function(event){
+                var mousemove = function (event) {
                     if (keydownFlag) {
 
                         var top = event.clientY - position.offsetY, left = event.clientX - position.offsetX;
@@ -2845,13 +2853,13 @@ angular.module('xue.modal', [])
 
                         target.css({
                             "position": "absolute",
-                            "top": top+"px",
-                            "left": left+"px"
+                            "top": top + "px",
+                            "left": left + "px"
                         });
 
                     }
                 }
-                var mouseup = function(){
+                var mouseup = function () {
                     keydownFlag = false;
                     $document.off('mousemove');
                     $document.off('mouseup');
@@ -2859,6 +2867,98 @@ angular.module('xue.modal', [])
             }
         };
     }])
+    .directive('xueDialogWindow', ['$q', '$document', '$modalStack',function ($q, $document, $modalStack) {
+        return {
+            scope: {
+                index: '@'
+            },
+            restrict: 'A',
+            transclude: true,
+            templateUrl: function (tElement, tAttrs) {
+                return tAttrs.templateUrl || 'xue/template/modal/dialog.html';
+            },
+            link: function (scope, element, attrs) {
+                var modal = $modalStack.getTop();
+                scope.dialogParam = modal.value.dialogParam;
+                element.addClass(attrs.windowTopClass || '');
+                scope.size = attrs.size;
+                scope.close = function (evt) {
+                    if (modal && modal.value.autoClose &&
+                        evt.target === evt.currentTarget) {
+                        evt.preventDefault();
+                        evt.stopPropagation();
+                        $modalStack.dismiss(modal.key, 'backdrop click');
+                    }
+                };
+                element.on('click', scope.close);
+                scope.$isRendered = true;
+                var modalRenderDeferObj = $q.defer();
+                scope.$$postDigest(function () {
+                    modalRenderDeferObj.resolve();
+                });
+                modalRenderDeferObj.promise.then(function () {
+                    var animationPromise = null;
+                    $q.when(animationPromise).then(function () {
+                        var modal = $modalStack.getTop();
+                        if (modal) {
+                            $modalStack.modalRendered(modal.key);
+                        }
+                        if (!($document[0].activeElement && element[0].contains($document[0].activeElement))) {
+                            var inputWithAutofocus = element[0].querySelector('[autofocus]');
+                            if (inputWithAutofocus) {
+                                inputWithAutofocus.focus();
+                            } else {
+                                element[0].focus();
+                            }
+                        }
+                    });
+                });
+            }
+        };
+    }])
+    .service('$xDialog', ['$xModal', function ($xModal) {
+        this.open = function (param) {
+            var defaultOpt = {
+                modalParam: {
+                    dialog: true,
+                    autoClose: false,
+                    backdrop: true,
+                    controller: null,
+                    templateUrl: "",
+                    template: "",
+                },
+                title: "",
+                header: true,
+                footer: true,
+                close: true,
+                confirm: true,
+                cancel: true,
+                confirmValue: "确定",
+                cancelValue: "取消",
+                confirm: function () { },
+                cancel: function () { }
+            };
+            var options = angular.extend(defaultOpt.modalParam, param.modalParam);
+            options.dialogParam = {};
+            angular.forEach(defaultOpt,function(item,i){
+                if(i != 'modalParam'){
+                    options.dialogParam[i] = item;
+                }
+            });
+            console.log(options);
+            var modalInstance = $xModal.open(options);
+            return modalInstance;
+        }
+    }])
+    /* .service('$xMessage',['$xModal',function($xModal){
+
+    }])
+    .service('$xLoading',['$xModal',function($xModal){
+        
+    }])
+    .directive('xueLoading',[function(){
+
+    }]) */
     ;
 angular.module('xue.notice', ['xue.util.lang'])
     .directive('xueNotice', ["xueUtilLang", "$timeout", function (xueUtilLang, $timeout) {
@@ -7483,6 +7583,23 @@ angular.module("xue/template/menu/menu1.html", []).run(["$templateCache", functi
     "                <li  ng-include=\"'menuTempVertical'\"  ng-repeat=\"item in item.subMenus\"></li>\n" +
     "            </ul>\n" +
     "    </script>\n" +
+    "</div>");
+}]);
+
+angular.module("xue/template/modal/dialog.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("xue/template/modal/dialog.html",
+    "<div class=\"xui-modal-dialog xui-dialog-wrap {{size ? 'modal-' + size : ''}}\" >\n" +
+    "    <div class=\"xui-dialog-header\" ng-if=\"!!dialogParam.header\">\n" +
+    "        <span>{{dialogParam.title}}</span>\n" +
+    "        <span ng-if=\"!!dialogParam.close\">X</span>\n" +
+    "    </div>\n" +
+    "    <div class=\"xui-dialog-body\" xue-modal-transclude>\n" +
+    "        \n" +
+    "    </div>\n" +
+    "    <div class=\"xui-dialog-footer\" ng-if=\"!!dialogParam.footer\">\n" +
+    "        <button ng-if=\"!!dialogParam.cancel\" class=\"xui-btn\">{{dialogParam.cancelValue}}</button>\n" +
+    "        <button ng-if=\"!!dialogParam.confirm\" class=\"xui-btn xui-btn-primary\">{{dialogParam.confirmValue}}</button>\n" +
+    "    </div>\n" +
     "</div>");
 }]);
 
