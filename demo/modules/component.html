@@ -212,75 +212,30 @@
     }
 </style>
 <div ng-controller="xueBadgeDemoCtrl" class="demo-badge">
+    <div>基本使用</div>
     <span>
         <button class="xui-btn">消息1</button>
         <xue-badge badge-config="vm.config"> </xue-badge>
     </span>
+    <div>自定义背景颜色</div>
     <span>
         <button class="xui-btn xui-btn-primary">消息2</button>
         <xue-badge badge-config="vm.config2"> </xue-badge>
     </span>
+    <div>超出max展示max+</div>
     <span>
         <button class="xui-btn">消息3</button>
         <xue-badge badge-config="vm.config3"> </xue-badge>
     </span>
+    <div>展示小圆点</div>
+    <span>
+        <button class="xui-btn">消息</button>
+        <xue-badge badge-config="vm.dotConfig"> </xue-badge>
+    </span>
+    <div>单独使用：</div>
     <span>
         <xue-badge badge-config="vm.config4"> </xue-badge>
     </span>
-    </br>
-    <div>button 按钮：</div>
-    <div>
-        <button class="xui-btn">默认按钮</button>
-        <button class="xui-btn xui-btn-warning">警告按钮</button>
-        <button class="xui-btn xui-btn-success">成功按钮</button>
-        <button class="xui-btn xui-btn-danger">危险按钮</button>
-        <button class="xui-btn xui-btn-info">信息按钮</button>
-        <button class="xui-btn xui-btn-primary">主要按钮</button>
-       
-    </div>
-    <div>
-        禁用按钮:
-        <button class="xui-btn" disabled>默认按钮</button>
-        <button class="xui-btn xui-btn-warning" disabled>警告按钮</button>
-        <button class="xui-btn xui-btn-success" disabled>成功按钮</button>
-        <button class="xui-btn xui-btn-danger" disabled>危险按钮</button>
-        <button class="xui-btn xui-btn-info" disabled>信息按钮</button>
-        <button class="xui-btn xui-btn-primary" disabled>主要按钮</button>
-    </div> 
-    <div>
-        按钮大小:
-        <button class="xui-btn-sm">小按钮</button>
-        <button class="xui-btn">按钮</button>
-        <button class="xui-btn-lg">大按钮</button>
-    </div>
-    <div> 带图标按钮:
-        <button class="xui-btn"><i class="xui-icon xui-icon-ios-add-circle-outline"></i></button>
-        <button class="xui-btn xui-btn-primary"><i class="xui-icon xui-icon-md-search"></i>搜索</button>
-        <button class="xui-btn xui-btn-info"><i class="xui-icon xui-icon-md-search"></i>搜索</button>
-    </div>
-    <div>
-        圆角按钮：
-        <button class="xui-btn xui-btn-primary xui-btn-circle icon-only"><i class="xui-icon xui-icon-md-search"></i></button>
-        <button class="xui-btn xui-btn-circle">默认按钮</button>
-        <button class="xui-btn xui-btn-warning xui-btn-circle">警告按钮</button>
-    </div>
-    <div>按钮组：
-        <div class="xui-btn-group btn-group-vertical">
-            <button class="xui-btn">添加</button>
-            <button class="xui-btn">编辑</button>
-            <button class="xui-btn">删除</button>
-        </div>
-        <div class="xui-btn-group">
-            <button class="xui-btn xui-btn-primary">添加</button>
-            <button class="xui-btn xui-btn-primary">编辑</button>
-            <button class="xui-btn xui-btn-primary">删除</button>
-        </div>
-    </div>
-    <div class="clearfix">input 样式</div>
-    <input type="text" class="xui-input-sm" placeholder="请输入......">
-    <input type="text" class="xui-input" placeholder="请输入......">
-    <input type="text" class="xui-input-lg" placeholder="请输入......">
-    <input type="text" class="xui-input" disabled>
 </div>
                     </div>
                 </div>
@@ -302,75 +257,30 @@
     }
 &lt;/style&gt;
 &lt;div ng-controller=&quot;xueBadgeDemoCtrl&quot; class=&quot;demo-badge&quot;&gt;
+    &lt;div&gt;基本使用&lt;/div&gt;
     &lt;span&gt;
         &lt;button class=&quot;xui-btn&quot;&gt;消息1&lt;/button&gt;
         &lt;xue-badge badge-config=&quot;vm.config&quot;&gt; &lt;/xue-badge&gt;
     &lt;/span&gt;
+    &lt;div&gt;自定义背景颜色&lt;/div&gt;
     &lt;span&gt;
         &lt;button class=&quot;xui-btn xui-btn-primary&quot;&gt;消息2&lt;/button&gt;
         &lt;xue-badge badge-config=&quot;vm.config2&quot;&gt; &lt;/xue-badge&gt;
     &lt;/span&gt;
+    &lt;div&gt;超出max展示max+&lt;/div&gt;
     &lt;span&gt;
         &lt;button class=&quot;xui-btn&quot;&gt;消息3&lt;/button&gt;
         &lt;xue-badge badge-config=&quot;vm.config3&quot;&gt; &lt;/xue-badge&gt;
     &lt;/span&gt;
+    &lt;div&gt;展示小圆点&lt;/div&gt;
+    &lt;span&gt;
+        &lt;button class=&quot;xui-btn&quot;&gt;消息&lt;/button&gt;
+        &lt;xue-badge badge-config=&quot;vm.dotConfig&quot;&gt; &lt;/xue-badge&gt;
+    &lt;/span&gt;
+    &lt;div&gt;单独使用：&lt;/div&gt;
     &lt;span&gt;
         &lt;xue-badge badge-config=&quot;vm.config4&quot;&gt; &lt;/xue-badge&gt;
     &lt;/span&gt;
-    &lt;/br&gt;
-    &lt;div&gt;button 按钮：&lt;/div&gt;
-    &lt;div&gt;
-        &lt;button class=&quot;xui-btn&quot;&gt;默认按钮&lt;/button&gt;
-        &lt;button class=&quot;xui-btn xui-btn-warning&quot;&gt;警告按钮&lt;/button&gt;
-        &lt;button class=&quot;xui-btn xui-btn-success&quot;&gt;成功按钮&lt;/button&gt;
-        &lt;button class=&quot;xui-btn xui-btn-danger&quot;&gt;危险按钮&lt;/button&gt;
-        &lt;button class=&quot;xui-btn xui-btn-info&quot;&gt;信息按钮&lt;/button&gt;
-        &lt;button class=&quot;xui-btn xui-btn-primary&quot;&gt;主要按钮&lt;/button&gt;
-       
-    &lt;/div&gt;
-    &lt;div&gt;
-        禁用按钮:
-        &lt;button class=&quot;xui-btn&quot; disabled&gt;默认按钮&lt;/button&gt;
-        &lt;button class=&quot;xui-btn xui-btn-warning&quot; disabled&gt;警告按钮&lt;/button&gt;
-        &lt;button class=&quot;xui-btn xui-btn-success&quot; disabled&gt;成功按钮&lt;/button&gt;
-        &lt;button class=&quot;xui-btn xui-btn-danger&quot; disabled&gt;危险按钮&lt;/button&gt;
-        &lt;button class=&quot;xui-btn xui-btn-info&quot; disabled&gt;信息按钮&lt;/button&gt;
-        &lt;button class=&quot;xui-btn xui-btn-primary&quot; disabled&gt;主要按钮&lt;/button&gt;
-    &lt;/div&gt; 
-    &lt;div&gt;
-        按钮大小:
-        &lt;button class=&quot;xui-btn-sm&quot;&gt;小按钮&lt;/button&gt;
-        &lt;button class=&quot;xui-btn&quot;&gt;按钮&lt;/button&gt;
-        &lt;button class=&quot;xui-btn-lg&quot;&gt;大按钮&lt;/button&gt;
-    &lt;/div&gt;
-    &lt;div&gt; 带图标按钮:
-        &lt;button class=&quot;xui-btn&quot;&gt;&lt;i class=&quot;xui-icon xui-icon-ios-add-circle-outline&quot;&gt;&lt;/i&gt;&lt;/button&gt;
-        &lt;button class=&quot;xui-btn xui-btn-primary&quot;&gt;&lt;i class=&quot;xui-icon xui-icon-md-search&quot;&gt;&lt;/i&gt;搜索&lt;/button&gt;
-        &lt;button class=&quot;xui-btn xui-btn-info&quot;&gt;&lt;i class=&quot;xui-icon xui-icon-md-search&quot;&gt;&lt;/i&gt;搜索&lt;/button&gt;
-    &lt;/div&gt;
-    &lt;div&gt;
-        圆角按钮：
-        &lt;button class=&quot;xui-btn xui-btn-primary xui-btn-circle icon-only&quot;&gt;&lt;i class=&quot;xui-icon xui-icon-md-search&quot;&gt;&lt;/i&gt;&lt;/button&gt;
-        &lt;button class=&quot;xui-btn xui-btn-circle&quot;&gt;默认按钮&lt;/button&gt;
-        &lt;button class=&quot;xui-btn xui-btn-warning xui-btn-circle&quot;&gt;警告按钮&lt;/button&gt;
-    &lt;/div&gt;
-    &lt;div&gt;按钮组：
-        &lt;div class=&quot;xui-btn-group btn-group-vertical&quot;&gt;
-            &lt;button class=&quot;xui-btn&quot;&gt;添加&lt;/button&gt;
-            &lt;button class=&quot;xui-btn&quot;&gt;编辑&lt;/button&gt;
-            &lt;button class=&quot;xui-btn&quot;&gt;删除&lt;/button&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;xui-btn-group&quot;&gt;
-            &lt;button class=&quot;xui-btn xui-btn-primary&quot;&gt;添加&lt;/button&gt;
-            &lt;button class=&quot;xui-btn xui-btn-primary&quot;&gt;编辑&lt;/button&gt;
-            &lt;button class=&quot;xui-btn xui-btn-primary&quot;&gt;删除&lt;/button&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;clearfix&quot;&gt;input 样式&lt;/div&gt;
-    &lt;input type=&quot;text&quot; class=&quot;xui-input-sm&quot; placeholder=&quot;请输入......&quot;&gt;
-    &lt;input type=&quot;text&quot; class=&quot;xui-input&quot; placeholder=&quot;请输入......&quot;&gt;
-    &lt;input type=&quot;text&quot; class=&quot;xui-input-lg&quot; placeholder=&quot;请输入......&quot;&gt;
-    &lt;input type=&quot;text&quot; class=&quot;xui-input&quot; disabled&gt;
 &lt;/div&gt;</code></pre>
                                 </div>
                             </xue-tab>
@@ -380,11 +290,10 @@
                                         ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueBadgeDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
     var vm = $scope.vm = {
         config: {
-            count: 101,
-            isDot: true
+            count: 12
         },
         config2: {
-            count: 103,
+            count: 8,
             bgColor: &#39;#0394F9&#39;
         },
         config3: {
@@ -395,6 +304,10 @@
         config4: {
             count: 14,
             isAlone: true
+        },
+        dotConfig:{
+            isDot:true,
+            count:10
         }
     }
 }])</code></pre>
@@ -2375,7 +2288,79 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
             <xue-tab label="'文档'" value="2">
                 <div class="page-content">
                     <div class="content-md markdown-wrap">
-                        <h3 id="xue-pagination-settings">xue-pagination settings</h3>
+                        <h3 id="组件说明">组件说明</h3>
+<p>分页组件</p>
+<h3 id="attributes">Attributes</h3>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+<th>类型</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>total-items</td>
+<td>总页数</td>
+<td>Number</td>
+<td>-</td>
+</tr>
+<tr>
+<td>first-text</td>
+<td>首页文案</td>
+<td>String</td>
+<td>首页</td>
+</tr>
+<tr>
+<td>previous-text</td>
+<td>上一页文案</td>
+<td>String</td>
+<td>上页</td>
+</tr>
+<tr>
+<td>next-text</td>
+<td>下一页文案</td>
+<td>String</td>
+<td>下页</td>
+</tr>
+<tr>
+<td>last-text</td>
+<td>尾页文案</td>
+<td>String</td>
+<td>尾页</td>
+</tr>
+<tr>
+<td>max-size</td>
+<td>最大页数选项</td>
+<td>Number</td>
+<td>-</td>
+</tr>
+<tr>
+<td>items-per-page</td>
+<td>每页条数</td>
+<td>Number</td>
+<td>10</td>
+</tr>
+<tr>
+<td>boundary-links</td>
+<td></td>
+<td>Boolean</td>
+<td></td>
+</tr>
+<tr>
+<td>direction-links</td>
+<td></td>
+<td>Boolean</td>
+<td></td>
+</tr>
+<tr>
+<td>rotate</td>
+<td></td>
+<td>Boolean</td>
+<td></td>
+</tr>
+</tbody></table>
 
                     </div>
                 </div>
@@ -4001,7 +3986,95 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;,[&#39;$
             <xue-tab label="'文档'" value="2">
                 <div class="page-content">
                     <div class="content-md markdown-wrap">
-                        <h3 id="xue-tabs-settings">xue-tabs settings</h3>
+                        <h3 id="xue-tabs">xue-tabs</h3>
+<p>选项卡切换组件</p>
+<h3 id="xuetabswrap-attributes">xueTabsWrap Attributes</h3>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+<th>类型</th>
+<th>可选值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td>tab类型</td>
+<td>String</td>
+<td>border-card/card</td>
+<td>null</td>
+</tr>
+<tr>
+<td>tab-position</td>
+<td>tab位置</td>
+<td>Object</td>
+<td>top/right/bottom/left</td>
+<td>top</td>
+</tr>
+<tr>
+<td>ng-model</td>
+<td>当前选中tab</td>
+<td>String</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h3 id="xuetab-attributes">xueTab Attributes</h3>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+<th>类型</th>
+<th>可选值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>label</td>
+<td>tab选项值</td>
+<td>String</td>
+<td>border-card/card</td>
+<td>null</td>
+</tr>
+<tr>
+<td>value</td>
+<td>tab选项value</td>
+<td>String</td>
+<td>top/right/bottom/left</td>
+<td>top</td>
+</tr>
+<tr>
+<td>disabled</td>
+<td>是否禁用</td>
+<td>Boolean</td>
+<td></td>
+<td>false</td>
+</tr>
+<tr>
+<td>closable</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>select</td>
+<td>选择回调</td>
+<td>Fucntion</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>deselect</td>
+<td>取消选中回调</td>
+<td>Function</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
 
                     </div>
                 </div>
