@@ -1,4 +1,4 @@
-// name color
+// (name, color)
 $btn-colors: (
     (primary,$color-primary),
     (info,$color-info),
@@ -6,7 +6,7 @@ $btn-colors: (
     (warning,$color-warning),
     (danger,$color-danger)
 );
-// name padding-y padding-x font-size border-radius
+// (name, padding-y, padding-x, font-size, border-radius)
 $btn-size: (
     (lg,12,20,14,4),
     (sm,9,15,12,3),

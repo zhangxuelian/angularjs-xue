@@ -3132,78 +3132,77 @@ table {
   background-color: #feeded; }
 
 .xui-input {
-  display: inline-block;
-  padding: 0 0.5rem;
-  vertical-align: middle;
-  height: 32px;
-  border-radius: 0.25rem;
-  background-color: #fff;
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+  -webkit-appearance: none;
+  background-color: #FFFFFF;
+  background-image: none;
+  border-radius: 3px;
+  border: 1px solid #DCDFE6;
   box-sizing: border-box;
-  border: 1px solid #cee0f0;
-  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-  -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+  color: #606266;
+  display: inline-block;
+  font-size: 14px;
+  height: 36px;
+  line-height: 36px;
+  outline: none;
+  padding: 0 15px;
+  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  width: 180px; }
+  .xui-input.is-round {
+    border-radius: 18px; }
+  .xui-input:hover {
+    border-color: #cacdd4; }
   .xui-input:focus {
-    border-color: #66afe9;
-    outline: 0;
-    -webkit-box-shadow: 0 0 0.5rem #66afe9;
-    box-shadow: 0 0 0.5rem #66afe9; }
+    outline: none;
+    border-color: #409EFF;
+    box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.1); }
+  .xui-input::-webkit-input-placeholder {
+    color: #C0C4CC; }
+  .xui-input::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #C0C4CC; }
+  .xui-input:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #C0C4CC; }
+  .xui-input:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #C0C4CC; }
   .xui-input[disabled] {
     cursor: not-allowed;
-    background-color: #e9ecef;
-    border-color: #e9ecef; }
-
-.xui-input-sm {
-  display: inline-block;
-  padding: 0 0.5rem;
-  vertical-align: middle;
-  height: 28px;
-  font-size: 0.875rem;
-  border-radius: 0.2rem;
-  background-color: #fff;
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
-  box-sizing: border-box;
-  border: 1px solid #cee0f0;
-  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-  -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
-  .xui-input-sm:focus {
-    border-color: #66afe9;
-    outline: 0;
-    -webkit-box-shadow: 0 0 0.5rem #66afe9;
-    box-shadow: 0 0 0.5rem #66afe9; }
-  .xui-input-sm[disabled] {
-    cursor: not-allowed;
-    background-color: #e9ecef;
-    border-color: #e9ecef; }
+    background-color: #F5F7FA;
+    border-color: #E4E7ED; }
 
 .xui-input-lg {
-  display: inline-block;
-  padding: 0 0.5rem;
-  vertical-align: middle;
   height: 40px;
-  font-size: 1.25rem;
-  border-radius: 0.3rem;
-  background-color: #fff;
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
-  box-sizing: border-box;
-  border: 1px solid #cee0f0;
-  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-  -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
-  .xui-input-lg:focus {
-    border-color: #66afe9;
-    outline: 0;
-    -webkit-box-shadow: 0 0 0.5rem #66afe9;
-    box-shadow: 0 0 0.5rem #66afe9; }
-  .xui-input-lg[disabled] {
-    cursor: not-allowed;
-    background-color: #e9ecef;
-    border-color: #e9ecef; }
+  line-height: 40px;
+  padding: 0 15px;
+  font-size: 15px;
+  border-radius: 4px;
+  width: 200px; }
+  .xui-input-lg.is-round {
+    border-radius: 20px;
+    padding: 0 18px; }
+
+.xui-input-middle {
+  height: 32px;
+  line-height: 32px;
+  padding: 0 15px;
+  font-size: 14px;
+  border-radius: 3px;
+  width: 180px; }
+  .xui-input-middle.is-round {
+    border-radius: 16px;
+    padding: 0 18px; }
+
+.xui-input-sm {
+  height: 28px;
+  line-height: 28px;
+  padding: 0 8px;
+  font-size: 13px;
+  border-radius: 3px;
+  width: 120px; }
+  .xui-input-sm.is-round {
+    border-radius: 14px;
+    padding: 0 11px; }
 
 .xui-btn {
   display: inline-block;
