@@ -1,0 +1,13 @@
+<div class="xui-modal-dialog xui-dialog-wrap {{size ? 'modal-' + size : ''}}" >
+    <div class="xui-dialog-header" ng-if="!!dialogParam.header">
+        <span>{{dialogParam.title}}</span>
+        <span ng-if="!!dialogParam.close">X</span>
+    </div>
+    <div class="xui-dialog-body" xue-modal-transclude>
+        
+    </div>
+    <div class="xui-dialog-footer" ng-if="!!dialogParam.footer">
+        <button ng-if="!!dialogParam.cancel" class="xui-btn">{{dialogParam.cancelValue}}</button>
+        <button ng-if="!!dialogParam.confirm" class="xui-btn xui-btn-primary">{{dialogParam.confirmValue}}</button>
+    </div>
+</div>

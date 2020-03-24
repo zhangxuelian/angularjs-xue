@@ -8,7 +8,9 @@
                 <a data-module-name="border"
                     ng-click="ui.selectMenu($event)">Border</a></div><div class="child-menu">
                 <a data-module-name="button"
-                    ng-click="ui.selectMenu($event)">Button</a></div>
+                    ng-click="ui.selectMenu($event)">Button</a></div><div class="child-menu">
+                <a data-module-name="input"
+                    ng-click="ui.selectMenu($event)">Input</a></div>
         </li>
     </ul>
 </div>
@@ -389,6 +391,95 @@
             &lt;button class=&quot;xui-btn xui-btn-primary&quot;&gt;第二个按钮&lt;/button&gt;
             &lt;button class=&quot;xui-btn xui-btn-primary&quot;&gt;第三个按钮&lt;/button&gt;
         &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                                </div>
+                            </xue-tab>
+                        </xue-tabs-wrap>
+                    </div>
+                </div>
+            </xue-tab>
+            <xue-tab label="'文档'" value="2">
+                <div class="page-content">
+                    <div class="content-md markdown-wrap">
+                        
+                    </div>
+                </div>
+            </xue-tab>
+        </xue-tabs-wrap>
+    </section>
+    
+    <section class="module-wrap" id="input">
+        <div class="page-header">
+            <h1>Input</h1>
+        </div>
+        <xue-tabs-wrap>
+            <xue-tab label="'示例'" value="1">
+                <div class="page-content">
+                    <div class="content-html">
+                        <div class="ui-demo-ipt">
+    <p class="heading">基础输入框</p>
+    <div class="ipt-list">
+        <input type="text" class="xui-input xui-input-lg" placeholder="大尺寸输入框">
+        <input type="text" class="xui-input" placeholder="默认输入框">
+        <input type="text" class="xui-input xui-input-middle" placeholder="中尺寸输入框">
+        <input type="text" class="xui-input xui-input-sm" placeholder="小尺寸输入框">
+    </div>
+    <div class="ipt-list">
+        <input type="text" class="xui-input xui-input-lg is-round" placeholder="大尺寸圆角框">
+        <input type="text" class="xui-input is-round" placeholder="默认圆角框">
+        <input type="text" class="xui-input xui-input-middle is-round" placeholder="中尺寸圆角框">
+        <input type="text" class="xui-input xui-input-sm is-round" placeholder="小尺寸圆角框">
+    </div>
+    <p class="heading">禁用输入框</p>
+    <div class="ipt-list">
+        <input type="text" disabled class="xui-input xui-input-lg" placeholder="大尺寸输入框">
+        <input type="text" disabled class="xui-input" placeholder="默认输入框">
+        <input type="text" disabled class="xui-input xui-input-middle" placeholder="中尺寸输入框">
+        <input type="text" disabled class="xui-input xui-input-sm" placeholder="小尺寸输入框">
+    </div>
+    <div class="ipt-list">
+        <input type="text" disabled class="xui-input xui-input-lg is-round" placeholder="大尺寸圆角框">
+        <input type="text" disabled class="xui-input is-round" placeholder="默认圆角框">
+        <input type="text" disabled class="xui-input xui-input-middle is-round" placeholder="中尺寸输入框">
+        <input type="text" disabled class="xui-input xui-input-sm is-round" placeholder="小尺寸圆角框">
+    </div>
+</div>
+                    </div>
+                </div>
+            </xue-tab>
+            <xue-tab label="'代码'" value="3">
+                <div class="page-content-code">
+                    <div class="col-md-12">
+                        <xue-tabs-wrap type="border-card">
+                            <xue-tab label="'html'" value="1">
+                                <div class="code-wrap">
+                                    <pre ng-non-bindable><code data-language="html">&lt;div class=&quot;ui-demo-ipt&quot;&gt;
+    &lt;p class=&quot;heading&quot;&gt;基础输入框&lt;/p&gt;
+    &lt;div class=&quot;ipt-list&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input xui-input-lg&quot; placeholder=&quot;大尺寸输入框&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input&quot; placeholder=&quot;默认输入框&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input xui-input-middle&quot; placeholder=&quot;中尺寸输入框&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input xui-input-sm&quot; placeholder=&quot;小尺寸输入框&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;ipt-list&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input xui-input-lg is-round&quot; placeholder=&quot;大尺寸圆角框&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input is-round&quot; placeholder=&quot;默认圆角框&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input xui-input-middle is-round&quot; placeholder=&quot;中尺寸圆角框&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input xui-input-sm is-round&quot; placeholder=&quot;小尺寸圆角框&quot;&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;heading&quot;&gt;禁用输入框&lt;/p&gt;
+    &lt;div class=&quot;ipt-list&quot;&gt;
+        &lt;input type=&quot;text&quot; disabled class=&quot;xui-input xui-input-lg&quot; placeholder=&quot;大尺寸输入框&quot;&gt;
+        &lt;input type=&quot;text&quot; disabled class=&quot;xui-input&quot; placeholder=&quot;默认输入框&quot;&gt;
+        &lt;input type=&quot;text&quot; disabled class=&quot;xui-input xui-input-middle&quot; placeholder=&quot;中尺寸输入框&quot;&gt;
+        &lt;input type=&quot;text&quot; disabled class=&quot;xui-input xui-input-sm&quot; placeholder=&quot;小尺寸输入框&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;ipt-list&quot;&gt;
+        &lt;input type=&quot;text&quot; disabled class=&quot;xui-input xui-input-lg is-round&quot; placeholder=&quot;大尺寸圆角框&quot;&gt;
+        &lt;input type=&quot;text&quot; disabled class=&quot;xui-input is-round&quot; placeholder=&quot;默认圆角框&quot;&gt;
+        &lt;input type=&quot;text&quot; disabled class=&quot;xui-input xui-input-middle is-round&quot; placeholder=&quot;中尺寸输入框&quot;&gt;
+        &lt;input type=&quot;text&quot; disabled class=&quot;xui-input xui-input-sm is-round&quot; placeholder=&quot;小尺寸圆角框&quot;&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
                                 </div>
