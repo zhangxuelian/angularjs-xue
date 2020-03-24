@@ -1833,8 +1833,32 @@ $ npm run demo or npm run test-demo</code></pre>
                         <div class="content-html">
                             <div ng-controller="xueMenuDemoCtrl">
     <xue-menu menu-config="menuConfig"></xue-menu>
-    <xue-menu1 menu-config="menuConfig1"></xue-menu1>
-    <xue-menu1 menu-config="menuConfig2"></xue-menu1>
+    <xue-menu1 mode="vertical" default-active="221">
+        <xue-menu-item label="'菜单1'" value="1"></xue-menu-item>
+        <xue-submenu label="'菜单2'" value="2">
+            <xue-menu-item label="'菜单2-1'" value="21"></xue-menu-item>
+            <xue-submenu label="'菜单2-2'" value="22">
+                <xue-menu-item label="'菜单2-2-1'" value="221"></xue-menu-item>
+            </xue-submenu>
+        </xue-submenu>
+        <xue-menu-item label="'菜单3'" value="3" select="select($selectedIndex,$selected)"></xue-menu-item>
+    </xue-menu1>
+    <xue-menu1 mode="horizontal">
+        <xue-menu-item label="'菜单1'" value="1"></xue-menu-item>
+        <xue-submenu label="'菜单2'" value="2">
+            <xue-menu-item label="'菜单2-1'" value="21"></xue-menu-item>
+            <xue-submenu label="'菜单2-2'" value="22">
+                <xue-menu-item label="'菜单2-2-1'" value="221"></xue-menu-item>
+            </xue-submenu>
+        </xue-submenu>
+        <xue-menu-item label="'菜单3'" value="3"></xue-menu-item>
+    </xue-menu1>
+    <xue-menu1>
+        <xue-submenu ng-repeat="item in menulist" label="item.menuName" value="item.id" ng-if="item.subMenus">
+            <xue-menu-item ng-repeat="item in item.subMenus" label="item.menuName" value="item.id"></xue-menu-item>
+        </xue-submenu>
+        <xue-menu-item ng-repeat="item in menulist" label="item.menuName" value="item.id" ng-if="!item.subMenus"></xue-menu-item>
+    </xue-menu1>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
@@ -1989,8 +2013,32 @@ $ npm run demo or npm run test-demo</code></pre>
                                         <pre
                                             ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueMenuDemoCtrl&quot;&gt;
     &lt;xue-menu menu-config=&quot;menuConfig&quot;&gt;&lt;/xue-menu&gt;
-    &lt;xue-menu1 menu-config=&quot;menuConfig1&quot;&gt;&lt;/xue-menu1&gt;
-    &lt;xue-menu1 menu-config=&quot;menuConfig2&quot;&gt;&lt;/xue-menu1&gt;
+    &lt;xue-menu1 mode=&quot;vertical&quot; default-active=&quot;221&quot;&gt;
+        &lt;xue-menu-item label=&quot;&#39;菜单1&#39;&quot; value=&quot;1&quot;&gt;&lt;/xue-menu-item&gt;
+        &lt;xue-submenu label=&quot;&#39;菜单2&#39;&quot; value=&quot;2&quot;&gt;
+            &lt;xue-menu-item label=&quot;&#39;菜单2-1&#39;&quot; value=&quot;21&quot;&gt;&lt;/xue-menu-item&gt;
+            &lt;xue-submenu label=&quot;&#39;菜单2-2&#39;&quot; value=&quot;22&quot;&gt;
+                &lt;xue-menu-item label=&quot;&#39;菜单2-2-1&#39;&quot; value=&quot;221&quot;&gt;&lt;/xue-menu-item&gt;
+            &lt;/xue-submenu&gt;
+        &lt;/xue-submenu&gt;
+        &lt;xue-menu-item label=&quot;&#39;菜单3&#39;&quot; value=&quot;3&quot; select=&quot;select($selectedIndex,$selected)&quot;&gt;&lt;/xue-menu-item&gt;
+    &lt;/xue-menu1&gt;
+    &lt;xue-menu1 mode=&quot;horizontal&quot;&gt;
+        &lt;xue-menu-item label=&quot;&#39;菜单1&#39;&quot; value=&quot;1&quot;&gt;&lt;/xue-menu-item&gt;
+        &lt;xue-submenu label=&quot;&#39;菜单2&#39;&quot; value=&quot;2&quot;&gt;
+            &lt;xue-menu-item label=&quot;&#39;菜单2-1&#39;&quot; value=&quot;21&quot;&gt;&lt;/xue-menu-item&gt;
+            &lt;xue-submenu label=&quot;&#39;菜单2-2&#39;&quot; value=&quot;22&quot;&gt;
+                &lt;xue-menu-item label=&quot;&#39;菜单2-2-1&#39;&quot; value=&quot;221&quot;&gt;&lt;/xue-menu-item&gt;
+            &lt;/xue-submenu&gt;
+        &lt;/xue-submenu&gt;
+        &lt;xue-menu-item label=&quot;&#39;菜单3&#39;&quot; value=&quot;3&quot;&gt;&lt;/xue-menu-item&gt;
+    &lt;/xue-menu1&gt;
+    &lt;xue-menu1&gt;
+        &lt;xue-submenu ng-repeat=&quot;item in menulist&quot; label=&quot;item.menuName&quot; value=&quot;item.id&quot; ng-if=&quot;item.subMenus&quot;&gt;
+            &lt;xue-menu-item ng-repeat=&quot;item in item.subMenus&quot; label=&quot;item.menuName&quot; value=&quot;item.id&quot;&gt;&lt;/xue-menu-item&gt;
+        &lt;/xue-submenu&gt;
+        &lt;xue-menu-item ng-repeat=&quot;item in menulist&quot; label=&quot;item.menuName&quot; value=&quot;item.id&quot; ng-if=&quot;!item.subMenus&quot;&gt;&lt;/xue-menu-item&gt;
+    &lt;/xue-menu1&gt;
 &lt;/div&gt;</code></pre>
                                     </div>
                                 </xue-tab>
@@ -2124,6 +2172,41 @@ $ npm run demo or npm run test-demo</code></pre>
             menuName: &#39;菜单3&#39;
         }]
     }
+    $scope.select= function(index,select){
+        console.log(index,select);
+    }
+    $scope.menulist =  [{
+        id: &#39;1&#39;,
+        menuName: &#39;菜单1&#39;,
+        subMenus: [{
+            id: &#39;11&#39;,
+            menuName: &#39;菜单项1-1&#39;
+        }]
+    }, {
+        id: &#39;2&#39;,
+        menuName: &#39;菜单2&#39;,
+        subMenus: [{
+            id: &#39;21&#39;,
+            menuName: &#39;菜单项1-2&#39;,
+            subMenus: [{
+                id: &#39;211&#39;,
+                menuName: &#39;菜单项1-2&#39;
+            }]
+        }]
+    },{
+        id: &#39;3&#39;,
+        menuName: &#39;菜单3&#39;
+    },{
+        id: &#39;4&#39;,
+        menuName: &#39;菜单4&#39;,
+        subMenus: [{
+            id: &#39;41&#39;,
+            menuName: &#39;菜单项4-1&#39;
+        },{
+            id: &#39;42&#39;,
+            menuName: &#39;菜单项4-2&#39;
+        }]
+    }]
 }]);</code></pre>
                                     </div>
                                 </xue-tab>
@@ -2258,6 +2341,41 @@ $ npm run demo or npm run test-demo</code></pre>
             menuName: '菜单3'
         }]
     }
+    $scope.select= function(index,select){
+        console.log(index,select);
+    }
+    $scope.menulist =  [{
+        id: '1',
+        menuName: '菜单1',
+        subMenus: [{
+            id: '11',
+            menuName: '菜单项1-1'
+        }]
+    }, {
+        id: '2',
+        menuName: '菜单2',
+        subMenus: [{
+            id: '21',
+            menuName: '菜单项1-2',
+            subMenus: [{
+                id: '211',
+                menuName: '菜单项1-2'
+            }]
+        }]
+    },{
+        id: '3',
+        menuName: '菜单3'
+    },{
+        id: '4',
+        menuName: '菜单4',
+        subMenus: [{
+            id: '41',
+            menuName: '菜单项4-1'
+        },{
+            id: '42',
+            menuName: '菜单项4-2'
+        }]
+    }]
 }]);</script>
                 
                 <section class="module-wrap" id="modal">
