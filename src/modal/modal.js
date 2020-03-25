@@ -380,10 +380,9 @@ angular.module('xue.modal', ['xue.util.lang'])
 
                     // Set the top modal index based on the index of the previous top modal
                     innerUtil.topModalIndex = innerUtil.previousTopOpenedModal ? parseInt(innerUtil.previousTopOpenedModal.value.modalDomEl.attr('index'), 10) + 1 : 0;
+                    var angularDomEl = angular.element('<div xue-modal-window ></div>');
                     if (modal.dialog) {
-                        var angularDomEl = angular.element('<div xue-dialog-window ></div>');
-                    } else {
-                        var angularDomEl = angular.element('<div xue-modal-window ></div>');
+                        angularDomEl = angular.element('<div xue-dialog-window ></div>');
                     }
                     angularDomEl.attr({
                         'class': 'xui-modal-window',
@@ -965,7 +964,7 @@ angular.module('xue.modal', ['xue.util.lang'])
                     backdrop: true,
                     controller: null,
                     templateUrl: "",
-                    template: "",
+                    template: ""
                 },
                 title: "标题",
                 header: true,
@@ -1002,7 +1001,9 @@ angular.module('xue.modal', ['xue.util.lang'])
                 position: "center", // center...todo
                 finish: function(){}
             };
-            
+            /* $xModal.open({
+                template: ""
+            }) */
 
         };
     }])

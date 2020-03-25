@@ -3,7 +3,7 @@ angular.module('ui.xue.demo').controller('xueModalDemoCtrl',
         // 基础模态框
         $scope.open1 = function (type) {
             if (type == 1) {
-                var test = $xModal.open({
+                $xModal.open({
                     autoClose: true,
                     template: '<div style="height: 250px;width: 100%; line-height: 200px;text-align: center;">这里是自定义template视图</div>'
                 });
@@ -29,14 +29,14 @@ angular.module('ui.xue.demo').controller('xueModalDemoCtrl',
                 });
             }
             if (type == 3) {
-                var test = $xModal.open({
+                $xModal.open({
                     backdrop: false,
                     templateUrl: 'modal.test.html',
                     controller: 'modalTestCtrl'
                 });
             }
             if (type == 4) {
-                var test = $xModal.open({
+                $xModal.open({
                     backdrop: false,
                     templateUrl: 'modal.drag.html',
                     controller: 'modalTestCtrl'
@@ -56,16 +56,16 @@ angular.module('ui.xue.demo').controller('xueModalDemoCtrl',
         // 基础对话框
         $scope.open2 = function (type) {
             if (type == 1) {
-                var modalInstance = $xDialog.open({
+                var modalInstance1 = $xDialog.open({
                     title: "基础对话框标题",
                     confirmCallback: function () {
-                        modalInstance.close();
+                        modalInstance1.close();
                     },
                     cancelCallback: function () {
-                        modalInstance.dismiss();
+                        modalInstance1.dismiss();
                     },
                     closeCallback: function () {
-                        modalInstance.dismiss();
+                        modalInstance1.dismiss();
                     },
                     modalParam: {
                         template: '<div style="height: 250px;width: 100%; line-height: 200px;text-align: center;">基础对话框</div>'
@@ -73,22 +73,22 @@ angular.module('ui.xue.demo').controller('xueModalDemoCtrl',
                 });
             }
             if (type == 2) {
-                var modalInstance = $xDialog.open({
+                var modalInstance2 = $xDialog.open({
                     title: "自定义对话框标题",
                     confirmValue: "确定按钮",
                     cancelValue: "取消按钮",
                     confirmCallback: function () {
-                        modalInstance.close({
+                        modalInstance2.close({
                             test: '确定参数'
                         });
                     },
                     cancelCallback: function () {
-                        modalInstance.dismiss({
+                        modalInstance2.dismiss({
                             test: '取消参数'
                         });
                     },
                     closeCallback: function () {
-                        modalInstance.dismiss({
+                        modalInstance2.dismiss({
                             test: '关闭参数'
                         });
                     },
@@ -97,14 +97,14 @@ angular.module('ui.xue.demo').controller('xueModalDemoCtrl',
                         controller: 'modalTestCtrl'
                     }
                 });
-                modalInstance.result.then(function (ret) {
+                modalInstance2.result.then(function (ret) {
                     console.log("关闭原因：", ret);
                 }, function (ret) {
                     console.log("取消原因：", ret);
                 });
             }
             if (type == 3) {
-                var modalInstance = $xDialog.open({
+                var modalInstance3 = $xDialog.open({
                     title: "自定义对话框标题",
                     cancelValue: "关闭",
                     header: false,
@@ -112,7 +112,7 @@ angular.module('ui.xue.demo').controller('xueModalDemoCtrl',
                     confirm: false,
                     cancel: true,
                     cancelCallback: function () {
-                        modalInstance.dismiss();
+                        modalInstance3.dismiss();
                     },
                     modalParam: {
                         templateUrl: 'dialog.test.html',

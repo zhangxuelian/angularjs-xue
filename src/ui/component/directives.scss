@@ -5,16 +5,16 @@
     vertical-align: middle;
     width: 20px;
     height: 20px;
-    border: 1px solid #cee0f0;
+    border: 1px solid $border-color-base;
     border-radius: 10px;
     cursor: pointer;
     background: #fff;
     box-sizing: border-box;
 
     &.gx-checked {
-        background: #0394F9;
-        border: 5px solid #dff2ff;
-        box-shadow: 0 0 0px 1px #80cbff;
+        background: $color-primary;
+        border: 5px solid tint-color($color-primary, 11);//#dff2ff;
+        box-shadow: 0 0 0px 1px  tint-color($color-primary, 4);//#80cbff;
     }
 }
 
@@ -26,8 +26,8 @@
     line-height: 20px;
     border-radius: $border-radius;
     box-sizing: border-box;
-    background: $white;
-    border: 1px solid #cee0f0;
+    background: #fff;
+    border: 1px solid $border-color-base;;
     cursor: pointer;
     margin: 0;
     padding: 0;
@@ -35,15 +35,15 @@
     text-align: center;
 
     &:hover {
-        border: $border-width solid $blue;
+        border: $border-width solid $color-primary;
     }
 
     &.gx-checked {
-        background: #dff2ff;
-        border: $border-width solid $blue;
+        background: tint-color($color-primary, 11);
+        border: $border-width solid $color-primary;
 
         i {
-            color: $blue;
+            color: $color-primary;
         }
     }
 
@@ -140,7 +140,7 @@
         transform: translate(-50%, -50%);
         font-size: 16px;
         font-weight: 700;
-        color: #FA9823;
+        color: $color-warning;
         &>.xui-icon{
             font-size:60px;
             display:block;
@@ -172,7 +172,7 @@
         vertical-align: middle;
         width: 20px;
         height: 20px;
-        border: 1px solid #cee0f0;
+        border: 1px solid $border-color-base;;
         border-radius: 10px;
         cursor: pointer;
         background: #fff;
@@ -184,10 +184,10 @@
             width: 20px;
             height: 20px;
             // margin: 1px 5px 5px 1px;
-            background: #0394F9;
-            border: 5px solid #dff2ff;
+            background: $color-primary;
+            border: 5px solid tint-color($color-primary, 11);;
             border-radius: 10px;
-            box-shadow: 0 0 0 1px #80cbff;
+            box-shadow: 0 0 0 1px tint-color($color-primary, 4);;
         }
 
         &.disabled {
@@ -203,7 +203,7 @@
         vertical-align: middle;
 
         &.disabled {
-            color: #999;
+            color: $color-text-secondary;
             cursor: not-allowed;
         }
     }
@@ -211,7 +211,7 @@
 .common-title-tip {
     position: absolute;
     background-color: #fff;
-    color: #333;
+    color: $color-text-primary;
     padding: 5px 10px;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
     border-radius: 3px;

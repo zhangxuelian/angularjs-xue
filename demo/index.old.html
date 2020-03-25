@@ -11,10 +11,10 @@
 
     <script src="assets/angular.min.js"></script>
     <script src="assets/angular-ui-router.min.js"></script>
-    <script src="assets/angularjs-xue-full-1.0.0.js"></script>
+    <script src="assets/angularjs-xue-full-1.0.0.min.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
-    <link rel="stylesheet" href="assets/angularjs-xue-ui-1.0.0.css">
+    <link rel="stylesheet" href="assets/angularjs-xue-ui-1.0.0.min.css">
     <link rel="stylesheet" href="assets/demo.css" />
 </head>
 
@@ -1833,8 +1833,8 @@ $ npm run demo or npm run test-demo</code></pre>
                         <div class="content-html">
                             <div ng-controller="xueMenuDemoCtrl">
     <xue-menu menu-config="menuConfig"></xue-menu>
-    <xue-menu1 menu-config="menuConfig1"></xue-menu1>
-    <xue-menu1 menu-config="menuConfig2"></xue-menu1>
+    <xue-menu2 menu-config="menuConfig1"></xue-menu2>
+    <!-- <xue-menu2 menu-config="menuConfig2"></xue-menu2> -->
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
@@ -1989,8 +1989,8 @@ $ npm run demo or npm run test-demo</code></pre>
                                         <pre
                                             ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueMenuDemoCtrl&quot;&gt;
     &lt;xue-menu menu-config=&quot;menuConfig&quot;&gt;&lt;/xue-menu&gt;
-    &lt;xue-menu1 menu-config=&quot;menuConfig1&quot;&gt;&lt;/xue-menu1&gt;
-    &lt;xue-menu1 menu-config=&quot;menuConfig2&quot;&gt;&lt;/xue-menu1&gt;
+    &lt;xue-menu2 menu-config=&quot;menuConfig1&quot;&gt;&lt;/xue-menu2&gt;
+    &lt;!-- &lt;xue-menu2 menu-config=&quot;menuConfig2&quot;&gt;&lt;/xue-menu2&gt; --&gt;
 &lt;/div&gt;</code></pre>
                                     </div>
                                 </xue-tab>
@@ -2041,18 +2041,11 @@ $ npm run demo or npm run test-demo</code></pre>
         twoDimenName: &#39;menuName&#39; //二级菜单标题字段名
     }
     $scope.menuConfig1 = {
-        selectId: 111, // 当前选中导航菜单ID
+        search: true,
+        selectId: &#39;41&#39;, // 当前选中导航菜单ID
         data: [{
             id: &#39;1&#39;,
-            menuName: &#39;菜单1&#39;,
-            subMenus: [{
-                id: &#39;11&#39;,
-                menuName: &#39;菜单项1-1&#39;,
-                subMenus: [{
-                    id: &#39;111&#39;,
-                    menuName: &#39;菜单项1-1&#39;
-                }]
-            }]
+            menuName: &#39;菜单1&#39;
         }, {
             id: &#39;2&#39;,
             menuName: &#39;菜单2&#39;,
@@ -2061,7 +2054,10 @@ $ npm run demo or npm run test-demo</code></pre>
                 menuName: &#39;菜单项1-2&#39;,
                 subMenus: [{
                     id: &#39;211&#39;,
-                    menuName: &#39;菜单项1-2&#39;
+                    menuName: &#39;菜单项2-1-1&#39;
+                },{
+                    id: &#39;212&#39;,
+                    menuName: &#39;菜单项2-1-2&#39;
                 }]
             }]
         },{
@@ -2077,7 +2073,10 @@ $ npm run demo or npm run test-demo</code></pre>
                 id: &#39;42&#39;,
                 menuName: &#39;菜单项4-2&#39;
             }]
-        }]
+        }],
+        clickMenu: function (item) { //导航菜单点击回调
+            console.log(item);
+        }
     }
     $scope.menuConfig2 = {
         mode: &#39;horizontal&#39;,
@@ -2175,18 +2174,11 @@ $ npm run demo or npm run test-demo</code></pre>
         twoDimenName: 'menuName' //二级菜单标题字段名
     }
     $scope.menuConfig1 = {
-        selectId: 111, // 当前选中导航菜单ID
+        search: true,
+        selectId: '41', // 当前选中导航菜单ID
         data: [{
             id: '1',
-            menuName: '菜单1',
-            subMenus: [{
-                id: '11',
-                menuName: '菜单项1-1',
-                subMenus: [{
-                    id: '111',
-                    menuName: '菜单项1-1'
-                }]
-            }]
+            menuName: '菜单1'
         }, {
             id: '2',
             menuName: '菜单2',
@@ -2195,7 +2187,10 @@ $ npm run demo or npm run test-demo</code></pre>
                 menuName: '菜单项1-2',
                 subMenus: [{
                     id: '211',
-                    menuName: '菜单项1-2'
+                    menuName: '菜单项2-1-1'
+                },{
+                    id: '212',
+                    menuName: '菜单项2-1-2'
                 }]
             }]
         },{
@@ -2211,7 +2206,10 @@ $ npm run demo or npm run test-demo</code></pre>
                 id: '42',
                 menuName: '菜单项4-2'
             }]
-        }]
+        }],
+        clickMenu: function (item) { //导航菜单点击回调
+            console.log(item);
+        }
     }
     $scope.menuConfig2 = {
         mode: 'horizontal',
@@ -2413,7 +2411,7 @@ $ npm run demo or npm run test-demo</code></pre>
         // 基础模态框
         $scope.open1 = function (type) {
             if (type == 1) {
-                var test = $xModal.open({
+                $xModal.open({
                     autoClose: true,
                     template: &#39;&lt;div style=&quot;height: 250px;width: 100%; line-height: 200px;text-align: center;&quot;&gt;这里是自定义template视图&lt;/div&gt;&#39;
                 });
@@ -2439,14 +2437,14 @@ $ npm run demo or npm run test-demo</code></pre>
                 });
             }
             if (type == 3) {
-                var test = $xModal.open({
+                $xModal.open({
                     backdrop: false,
                     templateUrl: &#39;modal.test.html&#39;,
                     controller: &#39;modalTestCtrl&#39;
                 });
             }
             if (type == 4) {
-                var test = $xModal.open({
+                $xModal.open({
                     backdrop: false,
                     templateUrl: &#39;modal.drag.html&#39;,
                     controller: &#39;modalTestCtrl&#39;
@@ -2466,16 +2464,16 @@ $ npm run demo or npm run test-demo</code></pre>
         // 基础对话框
         $scope.open2 = function (type) {
             if (type == 1) {
-                var modalInstance = $xDialog.open({
+                var modalInstance1 = $xDialog.open({
                     title: &quot;基础对话框标题&quot;,
                     confirmCallback: function () {
-                        modalInstance.close();
+                        modalInstance1.close();
                     },
                     cancelCallback: function () {
-                        modalInstance.dismiss();
+                        modalInstance1.dismiss();
                     },
                     closeCallback: function () {
-                        modalInstance.dismiss();
+                        modalInstance1.dismiss();
                     },
                     modalParam: {
                         template: &#39;&lt;div style=&quot;height: 250px;width: 100%; line-height: 200px;text-align: center;&quot;&gt;基础对话框&lt;/div&gt;&#39;
@@ -2483,22 +2481,22 @@ $ npm run demo or npm run test-demo</code></pre>
                 });
             }
             if (type == 2) {
-                var modalInstance = $xDialog.open({
+                var modalInstance2 = $xDialog.open({
                     title: &quot;自定义对话框标题&quot;,
                     confirmValue: &quot;确定按钮&quot;,
                     cancelValue: &quot;取消按钮&quot;,
                     confirmCallback: function () {
-                        modalInstance.close({
+                        modalInstance2.close({
                             test: &#39;确定参数&#39;
                         });
                     },
                     cancelCallback: function () {
-                        modalInstance.dismiss({
+                        modalInstance2.dismiss({
                             test: &#39;取消参数&#39;
                         });
                     },
                     closeCallback: function () {
-                        modalInstance.dismiss({
+                        modalInstance2.dismiss({
                             test: &#39;关闭参数&#39;
                         });
                     },
@@ -2507,14 +2505,14 @@ $ npm run demo or npm run test-demo</code></pre>
                         controller: &#39;modalTestCtrl&#39;
                     }
                 });
-                modalInstance.result.then(function (ret) {
+                modalInstance2.result.then(function (ret) {
                     console.log(&quot;关闭原因：&quot;, ret);
                 }, function (ret) {
                     console.log(&quot;取消原因：&quot;, ret);
                 });
             }
             if (type == 3) {
-                var modalInstance = $xDialog.open({
+                var modalInstance3 = $xDialog.open({
                     title: &quot;自定义对话框标题&quot;,
                     cancelValue: &quot;关闭&quot;,
                     header: false,
@@ -2522,7 +2520,7 @@ $ npm run demo or npm run test-demo</code></pre>
                     confirm: false,
                     cancel: true,
                     cancelCallback: function () {
-                        modalInstance.dismiss();
+                        modalInstance3.dismiss();
                     },
                     modalParam: {
                         templateUrl: &#39;dialog.test.html&#39;,
@@ -2572,7 +2570,7 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;, [&#39;
         // 基础模态框
         $scope.open1 = function (type) {
             if (type == 1) {
-                var test = $xModal.open({
+                $xModal.open({
                     autoClose: true,
                     template: '<div style="height: 250px;width: 100%; line-height: 200px;text-align: center;">这里是自定义template视图</div>'
                 });
@@ -2598,14 +2596,14 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;, [&#39;
                 });
             }
             if (type == 3) {
-                var test = $xModal.open({
+                $xModal.open({
                     backdrop: false,
                     templateUrl: 'modal.test.html',
                     controller: 'modalTestCtrl'
                 });
             }
             if (type == 4) {
-                var test = $xModal.open({
+                $xModal.open({
                     backdrop: false,
                     templateUrl: 'modal.drag.html',
                     controller: 'modalTestCtrl'
@@ -2625,16 +2623,16 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;, [&#39;
         // 基础对话框
         $scope.open2 = function (type) {
             if (type == 1) {
-                var modalInstance = $xDialog.open({
+                var modalInstance1 = $xDialog.open({
                     title: "基础对话框标题",
                     confirmCallback: function () {
-                        modalInstance.close();
+                        modalInstance1.close();
                     },
                     cancelCallback: function () {
-                        modalInstance.dismiss();
+                        modalInstance1.dismiss();
                     },
                     closeCallback: function () {
-                        modalInstance.dismiss();
+                        modalInstance1.dismiss();
                     },
                     modalParam: {
                         template: '<div style="height: 250px;width: 100%; line-height: 200px;text-align: center;">基础对话框</div>'
@@ -2642,22 +2640,22 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;, [&#39;
                 });
             }
             if (type == 2) {
-                var modalInstance = $xDialog.open({
+                var modalInstance2 = $xDialog.open({
                     title: "自定义对话框标题",
                     confirmValue: "确定按钮",
                     cancelValue: "取消按钮",
                     confirmCallback: function () {
-                        modalInstance.close({
+                        modalInstance2.close({
                             test: '确定参数'
                         });
                     },
                     cancelCallback: function () {
-                        modalInstance.dismiss({
+                        modalInstance2.dismiss({
                             test: '取消参数'
                         });
                     },
                     closeCallback: function () {
-                        modalInstance.dismiss({
+                        modalInstance2.dismiss({
                             test: '关闭参数'
                         });
                     },
@@ -2666,14 +2664,14 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;, [&#39;
                         controller: 'modalTestCtrl'
                     }
                 });
-                modalInstance.result.then(function (ret) {
+                modalInstance2.result.then(function (ret) {
                     console.log("关闭原因：", ret);
                 }, function (ret) {
                     console.log("取消原因：", ret);
                 });
             }
             if (type == 3) {
-                var modalInstance = $xDialog.open({
+                var modalInstance3 = $xDialog.open({
                     title: "自定义对话框标题",
                     cancelValue: "关闭",
                     header: false,
@@ -2681,7 +2679,7 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;, [&#39;
                     confirm: false,
                     cancel: true,
                     cancelCallback: function () {
-                        modalInstance.dismiss();
+                        modalInstance3.dismiss();
                     },
                     modalParam: {
                         templateUrl: 'dialog.test.html',
@@ -4326,8 +4324,8 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
 </thead>
 <tbody><tr>
 <td>ng-checked</td>
-<td>消息属性对象</td>
-<td>Object</td>
+<td>是否选中</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>ng-disabled</td>

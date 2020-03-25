@@ -1,66 +1,36 @@
-$counter-border-color: #cee0f0 !default;
-$counter-text-bg-color: #f5f7fa !default;
-$counter-text-color: #999 !default;
-$counter-text-hover-color: #0394F9 !default;
-$counter-disabled-bg-color: #f5f7fa !default;
-$counter-disabled-font-color: #c0c4cc !default;
-
-$counter-font-size: $font-size-base !default;
-$counter-font-size-sm: $font-size-sm !default;
-$counter-font-size-lg: $font-size-lg !default;
-
-$counter-input-padding-x: 1.875rem !default;
-$counter-input-padding-x-sm: 1.25rem !default;
-$counter-input-padding-x-lg: 2.5rem !default;
-
-$counter-width: 8.75rem !default;
-$counter-width-sm: 7.5rem !default;
-$counter-width-lg: 11.25rem !default;
-
-$counter-height: 1.875rem !default;
-$counter-height-sm: 1.625rem !default;
-$counter-height-lg: 2.25rem !default;
-
-
-@mixin counter-size($width, $height, $font-size, $padding-x) {
-    width: $width;
-    height: $height;
-    line-height: $height;
-    font-size: $font-size;
-
-    .text,
-    .input {
-        padding: 0 $padding-x;
-    }
-
-    .add,
-    .reduce {
-        width: $padding-x;
-    }
-
-    .input>span {
-        right: $padding-x + 0.375rem;
-    }
-}
+$counter-border-color: $border-color-base !default;
+$counter-text-bg-color: $background-color-base !default;
+$counter-text-color: $color-text-regular;
+$counter-size: ( // (lg,140,30,14,30),
+    (large, 180, 36, 16, 40),
+    (small, 120, 26, 12, 20)
+);
 
 .xui-counter-wrap {
     display: inline-block;
     border: 1px solid $counter-border-color;
     border-radius: $border-radius;
-    width: $counter-width;
-    height: $counter-height;
-    line-height: $counter-height;
-    font-size: $font-size-base;
+    width: 140px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
     position: relative;
+    &:hover{
+        border-color: $color-primary;
+    }
 
     &.disabled {
-        background-color: $counter-disabled-bg-color;
-        color: $counter-disabled-font-color;
+        &:hover{
+            border-color: $counter-border-color;
+        }
+    
         cursor: not-allowed;
+        color: tint-color($counter-text-color, 7);
+        background-color: $counter-text-bg-color;
 
         input:disabled {
-            background-color: $counter-disabled-bg-color;
-            color: $counter-disabled-font-color;
+            color: tint-color($counter-text-color, 7);
+            background-color: $counter-text-bg-color;
         }
     }
 
@@ -69,7 +39,7 @@ $counter-height-lg: 2.25rem !default;
         display: inline-block;
         width: 100%;
         box-sizing: border-box;
-        padding: 0 $counter-input-padding-x;
+        padding: 0 30px;
         text-align: center;
     }
 
@@ -91,7 +61,7 @@ $counter-height-lg: 2.25rem !default;
         span {
             position: absolute;
             top: 0;
-            right: $counter-input-padding-x + 0.375rem;
+            right: 36px;
         }
     }
 
@@ -100,24 +70,23 @@ $counter-height-lg: 2.25rem !default;
         position: absolute;
         text-align: center;
         box-sizing: border-box;
-        color: #999;
-        font-weight: bold;
         font-size: 20px;
+        color: $counter-text-color;
         width: 30px;
         cursor: pointer;
         background-color: $counter-text-bg-color;
         z-index: 999;
 
         &:hover {
-            color: $counter-text-hover-color;
+            color: $color-primary;
         }
 
         &.disabled {
             cursor: not-allowed;
-            color: $counter-disabled-font-color;
+            color: tint-color($counter-text-color, 7);
 
             &:hover {
-                color: $counter-disabled-font-color;
+                color: tint-color($counter-text-color, 7);
             }
         }
     }
@@ -133,12 +102,30 @@ $counter-height-lg: 2.25rem !default;
         left: 0;
         border-right: 1px solid $counter-border-color;
     }
+}
+@each $name,
+$width,
+$height,
+$font-size,
+$padding-x in $counter-size {
+    .xui-counter-wrap.#{$name} {
+        width: #{$width}px;
+        height: #{$height}px;
+        line-height:#{$height}px;
+        font-size: #{$font-size}px;
 
-    &.large {
-        @include counter-size($counter-width-lg, $counter-height-lg, $font-size-lg, $counter-input-padding-x-lg);
-    }
+        .text,
+        .input {
+            padding: 0 #{$padding-x}px;
+        }
 
-    &.small {
-        @include counter-size($counter-width-sm, $counter-height-sm, $font-size-sm, $counter-input-padding-x-sm);
+        .add,
+        .reduce {
+            width: #{$padding-x}px;
+        }
+
+        .input>span {
+            right: #{$padding-x + 6}px;
+        }
     }
 }

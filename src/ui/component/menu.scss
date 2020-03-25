@@ -226,12 +226,77 @@ $menu-search-list-bg: #336dae !default;
     }
 }
 
-.xui-menu-wrap1 {
-    border-right: solid 1px #e6e6e6;
+.xui-menu-wrap2 {
     list-style: none;
     position: relative;
     margin: 0;
     padding-left: 0;
+    width: 100%;
+    height: 100%;
+    background: $background-color-base;
+
+    &.support-search {
+        padding-top: $menu-search-height;
+    }
+
+    .menu-search {
+        height: $menu-search-height;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        // border-bottom: $menu-search-border-width solid $menu-search-border-color;
+
+        .menu-search-icon {
+            position: absolute;
+            font-size: 22px;
+            top: 12px;
+            left: 5%;
+            padding-left: 5px;
+            // color: $menu-search-color;
+        }
+
+        .menu-ipt {
+            height: 30px;
+            width: 90%;
+            border-radius: 15px;
+            margin-top: 7px;
+            margin-left: 5%;
+            background-color: $background-color-base;
+            border-color: $border-color-base;
+            // color: $menu-search-color;
+            padding-left: 30px;
+            box-sizing: border-box;
+            outline: 0;
+        }
+
+        .menu-list {
+            position: absolute;
+            top: 38px;
+            width: 90%;
+            left: 5%;
+            z-index: 9999;
+            background: $menu-search-list-bg;
+            color: $menu-color;
+            border-radius: 5px;
+
+            ul {
+                list-style: none;
+
+                li {
+                    height: $menu-search-item-height;
+                    line-height: $menu-search-item-height;
+                    text-align: left;
+                    cursor: pointer;
+                    padding: 0 10px;
+                    color: $menu-active-color;
+
+                    &:hover {
+                        color: $menu-color;
+                    }
+                }
+            }
+        }
+    }
 
     .menu-item {
         .menu-title {
@@ -246,14 +311,18 @@ $menu-search-list-bg: #336dae !default;
             transition: 0.3s ease-out;
 
             &:hover {
-                background: #cee0f0;
-                // border-left: solid 5px #cee0f0;
+                background-color: $color-primary-lighter;
+                color: $color-primary;
+                .icon-dot{
+                    background-color: $color-primary;
+                }
             }
 
             &.active {
-                background: #cee0f0;
-                // border-left: solid 5px #cee0f0;
-                color: $menu-active-color;
+                color: shade-color($color-primary, 2);
+                .icon-dot{
+                    background-color:  shade-color($color-primary, 2);
+                }
             }
 
             .title-arrow-right {
@@ -269,10 +338,18 @@ $menu-search-list-bg: #336dae !default;
                 }
             }
         }
-
+        .menu-sub-item .icon-dot{
+            display:inline-block;
+            width: 5px;
+            height: 5px;
+            background:$color-text-primary;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
     }
 
     &.xui-menu-horizontal {
+        border-right: none;
         .menu-item {
             float: left;
             margin: 0;
@@ -283,28 +360,38 @@ $menu-search-list-bg: #336dae !default;
                 position: absolute;
                 background: $menu-hover-bg;
             }
+            &.is-opened {
+                >.xui-menu-popup {
+                    display: block;
+                }
+            }
+    
+            &.is-active {
+                color: $menu-active-color;
+            }
         }
-
-    }
-}
-
-.xui-menu-popup-content {
-    .xui-menu-popup {
-        position: absolute;
-        background: $menu-hover-bg;
-        margin-top: 5px;
-        border-radius: 2px;
-        min-width: 200px;
-        padding: 5px 0;
-       
-        .menu-sub-item{
+        .xui-menu-popup {
             position: absolute;
-            left: 100%;
-            margin-left:5px;
-            top:0;
-            background: #ddd;
-            z-index: 50;
-            width:100%;
+            background: $menu-hover-bg;
+            // margin-top: 5px;
+            border-radius: 2px;
+            min-width: 200px;
+            padding: 5px 0;
+            display: none;
+            transition: all .3s;
+            z-index:999;
+            .xui-menu-popup {
+                position: absolute;
+                left: 100%;
+                // margin-left: 5px;
+                top: 0;
+                z-index: 50;
+                width: 100%;
+            }
+            .menu-item {
+                float: none;
+            }
         }
+
     }
 }

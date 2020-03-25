@@ -1,4 +1,4 @@
-angular.module('xue.menu', ['xue.util.lang'])
+angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
     .directive('xueMenu', ['xueUtilLang', function (xueUtilLang) {
         return {
             restrict: "E",
@@ -143,7 +143,8 @@ angular.module('xue.menu', ['xue.util.lang'])
             }
         }
     }])
-    .directive('xueMenu1', ['xueUtilLang', function (xueUtilLang) {
+
+    .directive('xueMenu2', ['xueUtilLang', '$timeout', 'xueUtilObject', function (xueUtilLang, $timeout, xueUtilObject) {
         return {
             restrict: 'E',
             replace: true,
@@ -151,7 +152,7 @@ angular.module('xue.menu', ['xue.util.lang'])
                 menuConfig: '='
             },
             templateUrl: function (element, attrs) {
-                return attrs.templateUrl || 'xue/template/menu/menu1.html'
+                return attrs.templateUrl || 'xue/template/menu/menu2.html'
             },
             link: function (scope, ele, attrs) {
                 var defaultConfig = {
@@ -161,82 +162,130 @@ angular.module('xue.menu', ['xue.util.lang'])
                         id: '1',
                         menuName: '菜单1'
                     }], // 菜单数组
-                    uniqueOpened: false, // 是否只打开一个子菜单
+                    uniqueOpened: true, // 是否只打开一个子菜单
                     setFirst: true, //是否选中第一个
                     selectId: null, // 当前选中导航菜单ID
                     menuId: 'id', //导航菜单唯一标识字段名称
+                    childrenName:'subMenus',
                     clickMenu: function () {}
                 }
                 scope.menuConfig = angular.extend(defaultConfig, scope.menuConfig || {});
+                //支持搜索菜单
+                if (scope.menuConfig.search) {
+                    scope.vm = {
+                        searchValue: '',
+                        menuList: [],
+                        //当前鼠标是否在搜索列表上
+                        onSearchListDiv: false,
+                        select: function (item) {
+                            this.searchValue = '';
+                            scope.clickMenu(item);
+                        },
+                        formatData: function (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                this.menuList.push(data[i]);
+                                if(data[i][scope.menuConfig.childrenName]){
+                                    scope.vm.formatData(data[i][scope.menuConfig.childrenName]);
+                                }
+                         
+                            }
+                        },
+                        /**
+                         * 隐藏搜索框
+                         */
+                        hideSearchBox: function () {
+                            //当鼠标的焦点不在搜索框里面时，失去焦点才去隐藏
+                            if (!this.onSearchListDiv) {
+                                this.searchValue = '';
+                            }
+                        }
+                    };
 
+                }
                 scope.clickMenu = function (item) {
                     if (!item.subMenus) {
                         scope.menuConfig.selectId = item[scope.menuConfig.menuId];
-                        if (xueUtilLang.isFunction(scope.menuConfig.clickRouter)) {
+                        if (xueUtilLang.isFunction(scope.menuConfig.clickMenu)) {
                             scope.menuConfig.clickMenu(item);
                         }
-                    } else {
-                        var open = item.open;
-                        if (scope.menuConfig.uniqueOpened) {
-                            angular.forEach(scope.menuConfig.data, function (obj, i) {
+                        if (scope.menuConfig.mode == 'horizontal') {
+                            angular.forEach(scope.menuConfig.data, function (obj) {
                                 obj.open = false;
                             });
                         }
-                        if (open) {
-                            item.open = false;
-                        } else {
+                    } else {
+                        if (scope.menuConfig.mode == 'horizontal') {
                             item.open = true;
+                            return;
+                        }
+                        if (scope.menuConfig.uniqueOpened) {
+                            var data = scope.menuConfig.data;
+                            var pathArr = xueUtilObject.searchKeys(data, item[scope.menuConfig.menuId]);
+                            if (pathArr.length < 3) {
+                                angular.forEach(data, function (obj) {
+                                    obj.open = false;
+                                });
+                            }
+                            item.open = !item.open;
+                        } else {
+                            item.open = !item.open;
                         }
                     }
                 }
                 //设置数据
                 var dataWatch = scope.$watch("menuConfig.data", function (newVal, oldVal) {
+                
                     if (newVal) {
-                        // if (scope.menuConfig.setFirst && scope.menuConfig.data.length) {
-                        //     var item = scope.menuConfig.data[0];
-                        //     scope.clickMenu(item);
-                        //     if (item[scope.menuConfig.childrenName] && item[scope.menuConfig.subMenus].length) {
-                        //         scope.menuConfig.clickMenu(item[scope.menuConfig.childrenName][0]);
-                        //         scope.menuConfig.selectId = item[scope.menuConfig.childrenName][0][scope.menuConfig.routerId];
-                        //         item.open = true;
-                        //     }
-                        // }
+                        if (scope.menuConfig.setFirst && scope.menuConfig.data.length) {
+                            var item = scope.menuConfig.data[0];
+                            scope.clickMenu(item);
+                        }
                         if (scope.menuConfig.search) {
                             scope.vm.formatData(newVal);
                         }
                     }
                 })
                 //设置选中id
-                // var idWatch = scope.$watch('menuConfig.selectId', function (newVal, oldVal) {
-                //     var data = scope.menuConfig.data;
-                //     if (newVal && data) {
-                //         for (var i = 0; i < data.length; i++) {
-                //             if (newVal == data[i][scope.menuConfig.menuId]) {
-                //                 break;
-                //             }
-                //             if (data[i].subMenus) {
-                //                 var childrenData = data[i][scope.menuConfig.childrenName];
-                //                 for (var j = 0; j < childrenData.length; j++) {
-                //                     if (childrenData[j][scope.menuConfig.menuId] == newVal) {
-                //                         if (scope.menuConfig.uniqueOpened) {
-                //                             angular.forEach(data, function (obj) {
-                //                                 obj.open = false;
-                //                             });
-                //                         }
-                //                         data[i].open = true;
-                //                         break;
-                //                     }
-                //                 }
-                //             }
-                //         }
-                //     }
-                // })
-                scope.mouseenter = function(item){
-                    item.open = true;
+                var idWatch = scope.$watch('menuConfig.selectId', function (newVal, oldVal) {
+                    var data = scope.menuConfig.data;
+                    if (newVal && data) {
+                        if (scope.menuConfig.uniqueOpened) {
+                            angular.forEach(data, function (obj) {
+                                obj.open = false;
+                            });
+                            scope.selectIndex(newVal);
+                        }
+                    }
+                })
+                scope.selectIndex = function (key) {
+                    var data = scope.menuConfig.data;
+                    var index = xueUtilObject.searchKeys(data, key); // 选中路径数组
+                    var n = 0;
+                    while (index.length > 2 * n) {
+                        var pathArr = index.slice(0, 2 * n + 1);
+                        xueUtilObject.findValByPath(data, pathArr).open = true;
+                        n++;
+                    }
+                }
+                scope.mouseenter = function (item) {
+                    if (scope.menuConfig.mode == 'vertical') {
+                        return;
+                    }
+                    $timeout(function () {
+                        item.open = true;
+                    })
+                }
+                scope.mouseleave = function (item) {
+                    if (scope.menuConfig.mode == 'vertical') {
+                        return;
+                    }
+                    $timeout(function () {
+                        item.open = false;
+                    })
                 }
                 scope.$on("$destroy", function () {
                     dataWatch();
-                    // idWatch();
+                    idWatch();
                 })
             }
         }

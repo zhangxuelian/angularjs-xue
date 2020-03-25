@@ -11,9 +11,9 @@
 
     <script src="assets/angular.min.js"></script>
     <script src="assets/angular-ui-router.min.js"></script>
-    <script src="assets/angularjs-xue-full-1.0.0.js"></script>
+    <script src="assets/angularjs-xue-full-1.0.0.min.js"></script>
     <script src="modules/index.js"></script>
-    <link rel="stylesheet" href="assets/angularjs-xue-ui-1.0.0.css">
+    <link rel="stylesheet" href="assets/angularjs-xue-ui-1.0.0.min.css">
     <link rel="stylesheet" href="assets/demo.css" />
     <link rel="stylesheet" href="assets/ui.css" />
 </head>
@@ -346,18 +346,11 @@
         twoDimenName: 'menuName' //二级菜单标题字段名
     }
     $scope.menuConfig1 = {
-        selectId: 111, // 当前选中导航菜单ID
+        search: true,
+        selectId: '41', // 当前选中导航菜单ID
         data: [{
             id: '1',
-            menuName: '菜单1',
-            subMenus: [{
-                id: '11',
-                menuName: '菜单项1-1',
-                subMenus: [{
-                    id: '111',
-                    menuName: '菜单项1-1'
-                }]
-            }]
+            menuName: '菜单1'
         }, {
             id: '2',
             menuName: '菜单2',
@@ -366,7 +359,10 @@
                 menuName: '菜单项1-2',
                 subMenus: [{
                     id: '211',
-                    menuName: '菜单项1-2'
+                    menuName: '菜单项2-1-1'
+                },{
+                    id: '212',
+                    menuName: '菜单项2-1-2'
                 }]
             }]
         },{
@@ -382,7 +378,10 @@
                 id: '42',
                 menuName: '菜单项4-2'
             }]
-        }]
+        }],
+        clickMenu: function (item) { //导航菜单点击回调
+            console.log(item);
+        }
     }
     $scope.menuConfig2 = {
         mode: 'horizontal',
@@ -436,7 +435,7 @@
         // 基础模态框
         $scope.open1 = function (type) {
             if (type == 1) {
-                var test = $xModal.open({
+                $xModal.open({
                     autoClose: true,
                     template: '<div style="height: 250px;width: 100%; line-height: 200px;text-align: center;">这里是自定义template视图</div>'
                 });
@@ -462,14 +461,14 @@
                 });
             }
             if (type == 3) {
-                var test = $xModal.open({
+                $xModal.open({
                     backdrop: false,
                     templateUrl: 'modal.test.html',
                     controller: 'modalTestCtrl'
                 });
             }
             if (type == 4) {
-                var test = $xModal.open({
+                $xModal.open({
                     backdrop: false,
                     templateUrl: 'modal.drag.html',
                     controller: 'modalTestCtrl'
@@ -489,16 +488,16 @@
         // 基础对话框
         $scope.open2 = function (type) {
             if (type == 1) {
-                var modalInstance = $xDialog.open({
+                var modalInstance1 = $xDialog.open({
                     title: "基础对话框标题",
                     confirmCallback: function () {
-                        modalInstance.close();
+                        modalInstance1.close();
                     },
                     cancelCallback: function () {
-                        modalInstance.dismiss();
+                        modalInstance1.dismiss();
                     },
                     closeCallback: function () {
-                        modalInstance.dismiss();
+                        modalInstance1.dismiss();
                     },
                     modalParam: {
                         template: '<div style="height: 250px;width: 100%; line-height: 200px;text-align: center;">基础对话框</div>'
@@ -506,22 +505,22 @@
                 });
             }
             if (type == 2) {
-                var modalInstance = $xDialog.open({
+                var modalInstance2 = $xDialog.open({
                     title: "自定义对话框标题",
                     confirmValue: "确定按钮",
                     cancelValue: "取消按钮",
                     confirmCallback: function () {
-                        modalInstance.close({
+                        modalInstance2.close({
                             test: '确定参数'
                         });
                     },
                     cancelCallback: function () {
-                        modalInstance.dismiss({
+                        modalInstance2.dismiss({
                             test: '取消参数'
                         });
                     },
                     closeCallback: function () {
-                        modalInstance.dismiss({
+                        modalInstance2.dismiss({
                             test: '关闭参数'
                         });
                     },
@@ -530,14 +529,14 @@
                         controller: 'modalTestCtrl'
                     }
                 });
-                modalInstance.result.then(function (ret) {
+                modalInstance2.result.then(function (ret) {
                     console.log("关闭原因：", ret);
                 }, function (ret) {
                     console.log("取消原因：", ret);
                 });
             }
             if (type == 3) {
-                var modalInstance = $xDialog.open({
+                var modalInstance3 = $xDialog.open({
                     title: "自定义对话框标题",
                     cancelValue: "关闭",
                     header: false,
@@ -545,7 +544,7 @@
                     confirm: false,
                     cancel: true,
                     cancelCallback: function () {
-                        modalInstance.dismiss();
+                        modalInstance3.dismiss();
                     },
                     modalParam: {
                         templateUrl: 'dialog.test.html',

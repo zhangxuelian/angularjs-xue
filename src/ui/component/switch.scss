@@ -46,8 +46,8 @@
     }
 }
 
-$switch-check-color:#13BA5A !default;
-$switch-discheck-color:#CAE7FC !default;
+$switch-check-color: $color-primary !default;
+$switch-discheck-color:$border-color-base !default;
 .xui-switch-wrap {
     display: inline-block;
     width: 30px;
@@ -58,6 +58,7 @@ $switch-discheck-color:#CAE7FC !default;
 
     &.disabled {
         cursor: not-allowed;
+        opacity:0.6;
     }
 
     .swith-checkbox {
@@ -94,7 +95,7 @@ $switch-discheck-color:#CAE7FC !default;
         width: 18px;
         height: 18px;
         border-radius: 9px;
-        background: #fff;
+        background: $color-white;
         top: 0;
         left: 0;
         border: 1px solid $switch-discheck-color;
