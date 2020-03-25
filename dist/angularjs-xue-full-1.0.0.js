@@ -6,7 +6,7 @@
  * Require angularjs version: 1.2.32
  * License: ISC
  */
-angular.module("ui.xue", ["ui.xue.tpls", "xue.util.lang","xue.autoselect","xue.badge","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.loading","xue.menu","xue.modal","xue.notice","xue.pagination","xue.scroller","xue.select","xue.steps","xue.switch","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util","xue.validate"]);
+angular.module("ui.xue", ["ui.xue.tpls", "xue.util.lang","xue.autoselect","xue.badge","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.loading","xue.util.object","xue.menu","xue.modal","xue.notice","xue.pagination","xue.scroller","xue.select","xue.steps","xue.switch","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.properties","xue.util.seq","xue.util.function","xue.util","xue.validate"]);
 angular.module("ui.xue.tpls", ["xue/template/autoselect/autoselect.html","xue/template/cascader/cascader.html","xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/menu/menu2.html","xue/template/modal/dialog.html","xue/template/modal/modal.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/scroller/scroller.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
 /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
 //@ sourceMappingURL=jquery-1.10.2.min.map
@@ -1724,7 +1724,7 @@ angular.module('xue.loading', [])
             }
         }
     }])
-angular.module('xue.menu', ['xue.util.lang'])
+angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
     .directive('xueMenu', ['xueUtilLang', function (xueUtilLang) {
         return {
             restrict: "E",

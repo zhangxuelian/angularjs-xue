@@ -1,9 +1,9 @@
 $blue-theme:#0394F9 !default;
 $green-theme:#13BA5A !default;
 
-$steps-default-color: #dae1ec !default;
-$step-text-default-color: #999 !default;
-$step-bg-color: $white;
+$steps-default-color: $border-color-base !default;
+$step-text-default-color: $color-text-regular !default;
+$step-bg-color: $color-white;
 
 .xui-steps-wrap {
     @mixin displayFlex {

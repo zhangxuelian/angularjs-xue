@@ -200,8 +200,50 @@
             <xue-tab label="'示例'" value="1">
                 <div class="page-content">
                     <div class="content-html">
-                        <div>
-    test border
+                        <style>
+    .demo {
+        display: flex;
+    }
+
+    .demo-border {
+        width: 200px;
+        height: 100px;
+        border: 1px solid #DCDFE6;
+        text-align: center;
+        margin: 0 10px
+    }
+</style>
+<div>
+    <p class="heading">圆角</p>
+    <div class="demo">
+        <div class="demo-border">
+            无圆角 
+            <p>border-radius:0px;</p>
+        </div>
+        <div class="demo-border" style="border-radius:2px;">
+            小圆角 
+            <p>border-radius:2px;</p>
+        </div>
+        <div class="demo-border" style="border-radius:4px;">
+            大圆角 
+            <p>border-radius:4px;</p>
+        </div>
+        <div class="demo-border" style="border-radius:20px;">
+            圆形圆角 
+            <p>border-radius:20px;</p>
+        </div>
+    </div>
+    <p class="heading">阴影</p>
+    <div class="demo">
+        <div class="demo-border" style="border-radius:4px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);">
+            基础投影 
+            <p>box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)</p>
+        </div>
+        <div class="demo-border" style="border-radius:4px;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);">
+            浅色投影
+            <p>box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)</p>
+        </div>
+    </div>
 </div>
                     </div>
                 </div>
@@ -212,8 +254,50 @@
                         <xue-tabs-wrap type="border-card">
                             <xue-tab label="'html'" value="1">
                                 <div class="code-wrap">
-                                    <pre ng-non-bindable><code data-language="html">&lt;div&gt;
-    test border
+                                    <pre ng-non-bindable><code data-language="html">&lt;style&gt;
+    .demo {
+        display: flex;
+    }
+
+    .demo-border {
+        width: 200px;
+        height: 100px;
+        border: 1px solid #DCDFE6;
+        text-align: center;
+        margin: 0 10px
+    }
+&lt;/style&gt;
+&lt;div&gt;
+    &lt;p class=&quot;heading&quot;&gt;圆角&lt;/p&gt;
+    &lt;div class=&quot;demo&quot;&gt;
+        &lt;div class=&quot;demo-border&quot;&gt;
+            无圆角 
+            &lt;p&gt;border-radius:0px;&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;demo-border&quot; style=&quot;border-radius:2px;&quot;&gt;
+            小圆角 
+            &lt;p&gt;border-radius:2px;&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;demo-border&quot; style=&quot;border-radius:4px;&quot;&gt;
+            大圆角 
+            &lt;p&gt;border-radius:4px;&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;demo-border&quot; style=&quot;border-radius:20px;&quot;&gt;
+            圆形圆角 
+            &lt;p&gt;border-radius:20px;&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;heading&quot;&gt;阴影&lt;/p&gt;
+    &lt;div class=&quot;demo&quot;&gt;
+        &lt;div class=&quot;demo-border&quot; style=&quot;border-radius:4px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);&quot;&gt;
+            基础投影 
+            &lt;p&gt;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;demo-border&quot; style=&quot;border-radius:4px;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);&quot;&gt;
+            浅色投影
+            &lt;p&gt;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;</code></pre>
                                 </div>
                             </xue-tab>

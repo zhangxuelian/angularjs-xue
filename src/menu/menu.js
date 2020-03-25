@@ -1,4 +1,4 @@
-angular.module('xue.menu', ['xue.util.lang'])
+angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
     .directive('xueMenu', ['xueUtilLang', function (xueUtilLang) {
         return {
             restrict: "E",
