@@ -1858,7 +1858,8 @@
         <div style="height: 150px; line-height: 150px; text-align: center; width: 500px;">
             {{content}}
         </div>
-        <button class="xui-btn is-plain" style="margin: 10px auto;display: block;" ng-click="close()">关闭­</button>
+        <button class="xui-btn" style="margin: 10px 20px 0 0;float: right;" ng-click="cancel()">取消</button>
+        <button class="xui-btn xui-btn-primary" style="margin: 10px;float: right;" ng-click="close()">关闭­</button>
     </script>
     <script type="text/ng-template" id="modal.drag.html">
         <div xue-drag style="height: 40px; width: 100%; line-height: 40px; text-align: center; background: #eee;">
@@ -1869,17 +1870,23 @@
         </div>
         <button class="xui-btn is-plain" style="margin: 10px auto;display: block;" ng-click="close()">关闭­</button>
     </script>
+    <script type="text/ng-template" id="dialog.test.html">
+        <div style="width:500px; height: 250px; line-height: 250px; text-align: center">
+            dialog视图
+        </div>
+    </script>
     <p class="heading">基础模态框</p>
     <div class="modal-list">
-        <button class="xui-btn is-plain" ng-click="open1(1)">自定义视图/点击背景自动关闭</button>
-        <button class="xui-btn is-plain" ng-click="open1(2)">url视图</button>
-        <button class="xui-btn is-plain" ng-click="open1(3)">有背景</button>
-        <button class="xui-btn is-plain" ng-click="open1(4)">无背景</button>
-        <button class="xui-btn is-plain" ng-click="open1(5)">可拖拽</button>
+        <button class="xui-btn is-plain" ng-click="open1(1)">自定义template视图/点击背景自动关闭</button>
+        <button class="xui-btn is-plain" ng-click="open1(2)">自定义url视图/自定义控制器/带背景</button>
+        <button class="xui-btn is-plain" ng-click="open1(3)">无背景</button>
+        <button class="xui-btn is-plain" ng-click="open1(4)">可拖拽</button>
     </div>
     <p class="heading">基础对话框</p>
     <div class="modal-list">
         <button class="xui-btn is-round" ng-click="open2(1)">打开对话框</button>
+        <button class="xui-btn is-round" ng-click="open2(2)">自定义对话框1</button>
+        <button class="xui-btn is-round" ng-click="open2(3)">自定义对话框2</button>
     </div>
     <p class="heading">提示框</p>
     <div class="modal-list">
@@ -1918,7 +1925,8 @@
         &lt;div style=&quot;height: 150px; line-height: 150px; text-align: center; width: 500px;&quot;&gt;
             {{content}}
         &lt;/div&gt;
-        &lt;button class=&quot;xui-btn is-plain&quot; style=&quot;margin: 10px auto;display: block;&quot; ng-click=&quot;close()&quot;&gt;关闭­&lt;/button&gt;
+        &lt;button class=&quot;xui-btn&quot; style=&quot;margin: 10px 20px 0 0;float: right;&quot; ng-click=&quot;cancel()&quot;&gt;取消&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-primary&quot; style=&quot;margin: 10px;float: right;&quot; ng-click=&quot;close()&quot;&gt;关闭­&lt;/button&gt;
     &lt;/script&gt;
     &lt;script type=&quot;text/ng-template&quot; id=&quot;modal.drag.html&quot;&gt;
         &lt;div xue-drag style=&quot;height: 40px; width: 100%; line-height: 40px; text-align: center; background: #eee;&quot;&gt;
@@ -1929,17 +1937,23 @@
         &lt;/div&gt;
         &lt;button class=&quot;xui-btn is-plain&quot; style=&quot;margin: 10px auto;display: block;&quot; ng-click=&quot;close()&quot;&gt;关闭­&lt;/button&gt;
     &lt;/script&gt;
+    &lt;script type=&quot;text/ng-template&quot; id=&quot;dialog.test.html&quot;&gt;
+        &lt;div style=&quot;width:500px; height: 250px; line-height: 250px; text-align: center&quot;&gt;
+            dialog视图
+        &lt;/div&gt;
+    &lt;/script&gt;
     &lt;p class=&quot;heading&quot;&gt;基础模态框&lt;/p&gt;
     &lt;div class=&quot;modal-list&quot;&gt;
-        &lt;button class=&quot;xui-btn is-plain&quot; ng-click=&quot;open1(1)&quot;&gt;自定义视图/点击背景自动关闭&lt;/button&gt;
-        &lt;button class=&quot;xui-btn is-plain&quot; ng-click=&quot;open1(2)&quot;&gt;url视图&lt;/button&gt;
-        &lt;button class=&quot;xui-btn is-plain&quot; ng-click=&quot;open1(3)&quot;&gt;有背景&lt;/button&gt;
-        &lt;button class=&quot;xui-btn is-plain&quot; ng-click=&quot;open1(4)&quot;&gt;无背景&lt;/button&gt;
-        &lt;button class=&quot;xui-btn is-plain&quot; ng-click=&quot;open1(5)&quot;&gt;可拖拽&lt;/button&gt;
+        &lt;button class=&quot;xui-btn is-plain&quot; ng-click=&quot;open1(1)&quot;&gt;自定义template视图/点击背景自动关闭&lt;/button&gt;
+        &lt;button class=&quot;xui-btn is-plain&quot; ng-click=&quot;open1(2)&quot;&gt;自定义url视图/自定义控制器/带背景&lt;/button&gt;
+        &lt;button class=&quot;xui-btn is-plain&quot; ng-click=&quot;open1(3)&quot;&gt;无背景&lt;/button&gt;
+        &lt;button class=&quot;xui-btn is-plain&quot; ng-click=&quot;open1(4)&quot;&gt;可拖拽&lt;/button&gt;
     &lt;/div&gt;
     &lt;p class=&quot;heading&quot;&gt;基础对话框&lt;/p&gt;
     &lt;div class=&quot;modal-list&quot;&gt;
         &lt;button class=&quot;xui-btn is-round&quot; ng-click=&quot;open2(1)&quot;&gt;打开对话框&lt;/button&gt;
+        &lt;button class=&quot;xui-btn is-round&quot; ng-click=&quot;open2(2)&quot;&gt;自定义对话框1&lt;/button&gt;
+        &lt;button class=&quot;xui-btn is-round&quot; ng-click=&quot;open2(3)&quot;&gt;自定义对话框2&lt;/button&gt;
     &lt;/div&gt;
     &lt;p class=&quot;heading&quot;&gt;提示框&lt;/p&gt;
     &lt;div class=&quot;modal-list&quot;&gt;
@@ -1976,29 +1990,38 @@
             if (type == 1) {
                 var test = $xModal.open({
                     autoClose: true,
-                    template: &#39;&lt;div style=&quot;height: 250px;width: 100%; line-height: 200px;text-align: center;&quot;&gt;这里是自定义template视图&lt;/div&gt;&#39;,
-                    controller: &#39;modalTestCtrl&#39;
+                    template: &#39;&lt;div style=&quot;height: 250px;width: 100%; line-height: 200px;text-align: center;&quot;&gt;这里是自定义template视图&lt;/div&gt;&#39;
                 });
             }
-            if (type == 2 || type == 3) {
-                var test = $xModal.open({
+            if (type == 2) {
+                var modalInstance = $xModal.open({
                     templateUrl: &#39;modal.test.html&#39;,
                     controller: &#39;modalTestCtrl&#39;
                 });
-                test.result.then(function (ret) {
-                    console.log(ret);
+                modalInstance.result.then(function (ret) {
+                    console.log(&quot;关闭原因：&quot;, ret);
+                }, function (ret) {
+                    console.log(&quot;取消原因：&quot;, ret);
+                });
+                modalInstance.closed.then(function (ret) {
+                    console.log(&quot;关闭弹窗&quot;);
+                });
+                modalInstance.opened.then(function (ret) {
+                    console.log(&quot;打开弹窗&quot;);
+                });
+                modalInstance.rendered.then(function (ret) {
+                    console.log(&quot;渲染完成&quot;);
                 });
             }
-            if (type == 4) {
+            if (type == 3) {
                 var test = $xModal.open({
                     backdrop: false,
                     templateUrl: &#39;modal.test.html&#39;,
                     controller: &#39;modalTestCtrl&#39;
                 });
             }
-            if (type == 5) {
+            if (type == 4) {
                 var test = $xModal.open({
-                    drag: true,
                     backdrop: false,
                     templateUrl: &#39;modal.drag.html&#39;,
                     controller: &#39;modalTestCtrl&#39;
@@ -2016,50 +2039,87 @@
             */
         }
         // 基础对话框
-        $scope.open2 = function(type){
-            if(type == 1){
+        $scope.open2 = function (type) {
+            if (type == 1) {
                 var modalInstance = $xDialog.open({
-                    title: &quot;标题&quot;,
-                    beforeConfirm: function(){
-                        console.log(&#39;确定前&#39;);
+                    title: &quot;基础对话框标题&quot;,
+                    confirmCallback: function () {
+                        modalInstance.close();
                     },
-                    confirm: function(){
-                        console.log(&#39;确定&#39;);
+                    cancelCallback: function () {
+                        modalInstance.dismiss();
                     },
-                    beforeCancel: function(){
-                        console.log(&#39;取消前&#39;);
-                    },
-                    cancel: function(){
-                        console.log(&#39;取消&#39;);
-                    },
-                    beforeClose: function(){
-                        console.log(&#39;关闭前&#39;);
-                    },
-                    close: function(){
-                        console.log(&#39;关闭&#39;);
+                    closeCallback: function () {
+                        modalInstance.dismiss();
                     },
                     modalParam: {
-                        template: &#39;&lt;div style=&quot;height: 250px;width: 100%; line-height: 200px;text-align: center;&quot;&gt;这里是自定义template视图&lt;/div&gt;&#39;,
+                        template: &#39;&lt;div style=&quot;height: 250px;width: 100%; line-height: 200px;text-align: center;&quot;&gt;基础对话框&lt;/div&gt;&#39;
+                    }
+                });
+            }
+            if (type == 2) {
+                var modalInstance = $xDialog.open({
+                    title: &quot;自定义对话框标题&quot;,
+                    confirmValue: &quot;确定按钮&quot;,
+                    cancelValue: &quot;取消按钮&quot;,
+                    confirmCallback: function () {
+                        modalInstance.close({
+                            test: &#39;确定参数&#39;
+                        });
+                    },
+                    cancelCallback: function () {
+                        modalInstance.dismiss({
+                            test: &#39;取消参数&#39;
+                        });
+                    },
+                    closeCallback: function () {
+                        modalInstance.dismiss({
+                            test: &#39;关闭参数&#39;
+                        });
+                    },
+                    modalParam: {
+                        templateUrl: &#39;dialog.test.html&#39;,
                         controller: &#39;modalTestCtrl&#39;
                     }
                 });
-
+                modalInstance.result.then(function (ret) {
+                    console.log(&quot;关闭原因：&quot;, ret);
+                }, function (ret) {
+                    console.log(&quot;取消原因：&quot;, ret);
+                });
+            }
+            if (type == 3) {
+                var modalInstance = $xDialog.open({
+                    title: &quot;自定义对话框标题&quot;,
+                    cancelValue: &quot;关闭&quot;,
+                    header: false,
+                    footer: true,
+                    confirm: false,
+                    cancel: true,
+                    cancelCallback: function () {
+                        modalInstance.dismiss();
+                    },
+                    modalParam: {
+                        templateUrl: &#39;dialog.test.html&#39;,
+                        controller: &#39;modalTestCtrl&#39;
+                    }
+                });
             }
         }
         // 提示框
-        $scope.open3 = function(type){
+        $scope.open3 = function (type) {
 
         }
         // 通知框
-        $scope.open4 = function(type){
+        $scope.open4 = function (type) {
 
         }
         // 弹出式loading
-        $scope.open5 = function(type){
+        $scope.open5 = function (type) {
 
         }
         // 局部式loading
-        $scope.open6 = function(type){
+        $scope.open6 = function (type) {
 
         }
     }]);
@@ -2067,7 +2127,12 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;, [&#39;
     $scope.content = &quot;这里是modal控制器里的内容！&quot;;
     $scope.close = function () {
         $modalInstance.close({
-            a: &#39;test zxl&#39;
+            test: &#39;close传参对象&#39;
+        });
+    }
+    $scope.cancel = function () {
+        $modalInstance.dismiss({
+            test: &#39;dismiss传参对象&#39;
         });
     }
 }]);</code></pre>

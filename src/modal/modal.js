@@ -1,4 +1,4 @@
-angular.module('xue.modal', [])
+angular.module('xue.modal', ['xue.util.lang'])
     .factory('$$multiMap', function () {
         return {
             createNew: function () {
@@ -105,9 +105,9 @@ angular.module('xue.modal', [])
             var OPENED_MODAL_CLASS = 'modal-open';
             var SNAKE_CASE_REGEXP = /[A-Z]/g;
             var innerUtil = {
-                attribute: ['deferred', 'renderDeferred', 'closedDeferred', 'backdrop', 
-                    'autoClose', 'keyboard', 'openedClass', 'windowTopClass', 'animation', 
-                    'appendTo','dialogParam'],
+                attribute: ['deferred', 'renderDeferred', 'closedDeferred', 'backdrop',
+                    'autoClose', 'keyboard', 'openedClass', 'windowTopClass', 'animation',
+                    'appendTo', 'dialogParam'],
                 openedWindows: $$stackedMap.createNew(),
                 openedClasses: $$multiMap.createNew(),
                 previousTopOpenedModal: null,
@@ -682,7 +682,7 @@ angular.module('xue.modal', [])
                                 };
                                 var modalExtKey = ['animation', 'backdrop', 'keyboard', 'autoClose', 'backdropClass',
                                     'windowTopClass', 'windowClass', 'windowTemplateUrl', 'ariaLabelledBy',
-                                    'ariaDescribedBy', 'size', 'openedClass', 'appendTo', 'dialog','dialogParam'];
+                                    'ariaDescribedBy', 'size', 'openedClass', 'appendTo', 'dialog', 'dialogParam'];
                                 angular.forEach(modalExtKey, function (item) {
                                     modal[item] = modalOptions[item];
                                 });
@@ -897,55 +897,65 @@ angular.module('xue.modal', [])
             }
         };
     }])
-    .directive('xueDialogWindow', ['$q', '$document', '$modalStack',function ($q, $document, $modalStack) {
-        return {
-            scope: {
-                index: '@'
-            },
-            restrict: 'A',
-            transclude: true,
-            templateUrl: function (tElement, tAttrs) {
-                return tAttrs.templateUrl || 'xue/template/modal/dialog.html';
-            },
-            link: function (scope, element, attrs) {
-                var modal = $modalStack.getTop();
-                scope.dialogParam = modal.value.dialogParam;
-                element.addClass(attrs.windowTopClass || '');
-                scope.size = attrs.size;
-                scope.close = function (evt) {
-                    if (modal && modal.value.autoClose &&
-                        evt.target === evt.currentTarget) {
-                        evt.preventDefault();
-                        evt.stopPropagation();
-                        $modalStack.dismiss(modal.key, 'backdrop click');
-                    }
-                };
-                element.on('click', scope.close);
-                scope.$isRendered = true;
-                var modalRenderDeferObj = $q.defer();
-                scope.$$postDigest(function () {
-                    modalRenderDeferObj.resolve();
-                });
-                modalRenderDeferObj.promise.then(function () {
-                    var animationPromise = null;
-                    $q.when(animationPromise).then(function () {
-                        var modal = $modalStack.getTop();
-                        if (modal) {
-                            $modalStack.modalRendered(modal.key);
+    .directive('xueDialogWindow', ['$q', '$document', '$modalStack', 'xueUtilLang',
+        function ($q, $document, $modalStack, xueUtilLang) {
+            return {
+                scope: {
+                    index: '@'
+                },
+                restrict: 'A',
+                transclude: true,
+                templateUrl: function (tElement, tAttrs) {
+                    return tAttrs.templateUrl || 'xue/template/modal/dialog.html';
+                },
+                link: function (scope, element, attrs) {
+                    var modal = $modalStack.getTop();
+                    scope.dialogParam = modal.value.dialogParam;
+                    scope.ext = {
+                        close: scope.dialogParam.closeCallback && xueUtilLang.isFunction(scope.dialogParam.closeCallback) ?
+                            scope.dialogParam.closeCallback : function () { },
+                        confirm: scope.dialogParam.confirmCallback && xueUtilLang.isFunction(scope.dialogParam.confirmCallback) ?
+                            scope.dialogParam.confirmCallback : function () { },
+                        cancel: scope.dialogParam.cancelCallback && xueUtilLang.isFunction(scope.dialogParam.cancelCallback) ?
+                            scope.dialogParam.cancelCallback : function () { }
+                    };
+
+                    element.addClass(attrs.windowTopClass || '');
+                    scope.size = attrs.size;
+                    scope.close = function (evt) {
+                        if (modal && modal.value.autoClose &&
+                            evt.target === evt.currentTarget) {
+                            evt.preventDefault();
+                            evt.stopPropagation();
+                            $modalStack.dismiss(modal.key, 'backdrop click');
                         }
-                        if (!($document[0].activeElement && element[0].contains($document[0].activeElement))) {
-                            var inputWithAutofocus = element[0].querySelector('[autofocus]');
-                            if (inputWithAutofocus) {
-                                inputWithAutofocus.focus();
-                            } else {
-                                element[0].focus();
-                            }
-                        }
+                    };
+                    element.on('click', scope.close);
+                    scope.$isRendered = true;
+                    var modalRenderDeferObj = $q.defer();
+                    scope.$$postDigest(function () {
+                        modalRenderDeferObj.resolve();
                     });
-                });
-            }
-        };
-    }])
+                    modalRenderDeferObj.promise.then(function () {
+                        var animationPromise = null;
+                        $q.when(animationPromise).then(function () {
+                            var modal = $modalStack.getTop();
+                            if (modal) {
+                                $modalStack.modalRendered(modal.key);
+                            }
+                            if (!($document[0].activeElement && element[0].contains($document[0].activeElement))) {
+                                var inputWithAutofocus = element[0].querySelector('[autofocus]');
+                                if (inputWithAutofocus) {
+                                    inputWithAutofocus.focus();
+                                } else {
+                                    element[0].focus();
+                                }
+                            }
+                        });
+                    });
+                }
+            };
+        }])
     .service('$xDialog', ['$xModal', function ($xModal) {
         this.open = function (param) {
             var defaultOpt = {
@@ -957,7 +967,7 @@ angular.module('xue.modal', [])
                     templateUrl: "",
                     template: "",
                 },
-                title: "",
+                title: "标题",
                 header: true,
                 footer: true,
                 close: true,
@@ -965,25 +975,38 @@ angular.module('xue.modal', [])
                 cancel: true,
                 confirmValue: "确定",
                 cancelValue: "取消",
-                confirm: function () { },
-                cancel: function () { }
+                confirmCallback: function () { },
+                cancelCallback: function () { },
+                closeCallback: function () { }
             };
             var options = angular.extend(defaultOpt.modalParam, param.modalParam);
             options.dialogParam = {};
-            angular.forEach(defaultOpt,function(item,i){
-                if(i != 'modalParam'){
+            angular.forEach(defaultOpt, function (item, i) {
+                if (i != 'modalParam') {
                     options.dialogParam[i] = item;
                 }
             });
-            console.log(options);
+            delete param.modalParam;
+            options.dialogParam = angular.extend(options.dialogParam, param);
             var modalInstance = $xModal.open(options);
             return modalInstance;
         }
     }])
-    /* .service('$xMessage',['$xModal',function($xModal){
+    .service('$xMessage', ['$xModal', function ($xModal) {
+        this.open = function (param) {
+            var defaultOpt = {
+                title: "",
+                content: "",
+                type: "info", // info/success/warning/error
+                timeout: 1500,
+                position: "center", // center...todo
+                finish: function(){}
+            };
+            
 
+        };
     }])
-    .service('$xLoading',['$xModal',function($xModal){
+    /* .service('$xLoading',['$xModal',function($xModal){
         
     }])
     .directive('xueLoading',[function(){
