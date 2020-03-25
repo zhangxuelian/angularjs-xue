@@ -144,154 +144,150 @@ angular.module('xue.menu', ['xue.util.lang'])
         }
     }])
 
-    .directive('xueMenu1', ['xueUtilLang', function (xueUtilLang) {
+    .directive('xueMenu2', ['xueUtilLang', '$timeout', 'xueUtilObject', function (xueUtilLang, $timeout, xueUtilObject) {
         return {
             restrict: 'E',
             replace: true,
-            transclude: true,
-            controller: 'xueMenuController',
-            controllerAs: 'menuCtrl',
             scope: {
-                mode: "@", // 菜单模式 vertical/horizontal 默认vertical
-                defaultActive: '=' // 当前选中导航菜单
+                menuConfig: '='
             },
             templateUrl: function (element, attrs) {
-                return attrs.templateUrl || 'xue/template/menu/menu1.html'
+                return attrs.templateUrl || 'xue/template/menu/menu2.html'
             },
-            link: function (scope, ele, attrs, ctrl) {
-                if (typeof scope.defaultActive == 'undefined' && typeof attrs.defaultActive == 'undefined') {
-                    // 默认选中第一个
-                    ctrl.select();
+            link: function (scope, ele, attrs) {
+                var defaultConfig = {
+                    mode: 'vertical', // 菜单模式 vertical/horizontal
+                    backgroundColor: '#fff', // 背景颜色
+                    data: [{
+                        id: '1',
+                        menuName: '菜单1'
+                    }], // 菜单数组
+                    uniqueOpened: true, // 是否只打开一个子菜单
+                    setFirst: true, //是否选中第一个
+                    selectId: null, // 当前选中导航菜单ID
+                    menuId: 'id', //导航菜单唯一标识字段名称
+                    childrenName:'subMenus',
+                    clickMenu: function () {}
                 }
-            }
-        }
-    }])
-    .controller('xueMenuController', ['$scope', '$attrs', 'xueUtilArray', 'xueUtilLang', function ($scope, $attrs, xueUtilArray, xueUtilLang) {
-        var menuCtrl = this,
-            menuAray = [],
-            oldIndex;
-        menuCtrl.mode = $attrs.mode || 'vertical';
-        $scope.activeIndex = $attrs.defaultActive || null;
-        menuCtrl.openedMenus = [];
-        menuCtrl.slectSubMenu = function (submenu) {
-            submenu.opened = !submenu.opened;
-        }
-        menuCtrl.openSubMenu = function (submenu, status) {
-            submenu.opened = status;
-        }
-        menuCtrl.select = function (index, menuItem) {
-            if (!index) {
-                index = menuAray[0];
-            }
-            if (index == oldIndex) {
-                return;
-            }
-            var oldSelect = menuCtrl.openedMenus[oldIndex];
-            if (oldSelect) {
-                oldSelect.active = false;
-            }
-            var selected = menuCtrl.openedMenus[index];
-            if (selected) {
-                if (xueUtilLang.isFunction(selected.onSelect)) {
-                    selected.onSelect({
-                        $selectedIndex: index,
-                        $selected: selected
-                    });
+                scope.menuConfig = angular.extend(defaultConfig, scope.menuConfig || {});
+                //支持搜索菜单
+                if (scope.menuConfig.search) {
+                    scope.vm = {
+                        searchValue: '',
+                        menuList: [],
+                        //当前鼠标是否在搜索列表上
+                        onSearchListDiv: false,
+                        select: function (item) {
+                            this.searchValue = '';
+                            scope.clickMenu(item);
+                        },
+                        formatData: function (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                this.menuList.push(data[i]);
+                                if(data[i][scope.menuConfig.childrenName]){
+                                    scope.vm.formatData(data[i][scope.menuConfig.childrenName]);
+                                }
+                         
+                            }
+                        },
+                        /**
+                         * 隐藏搜索框
+                         */
+                        hideSearchBox: function () {
+                            //当鼠标的焦点不在搜索框里面时，失去焦点才去隐藏
+                            if (!this.onSearchListDiv) {
+                                this.searchValue = '';
+                            }
+                        }
+                    };
+
                 }
-                selected.active = true;
-                oldIndex = index;
-                $scope.activeIndex = index;
-            }
-        }
-        menuCtrl.closeMenu = function () {
-            for (var i in menuCtrl.openedMenus) {
-                menuCtrl.openedMenus[i].opened = false;
-            }
-        }
-        menuCtrl.addMenu = function (menu, value) {
-            menuAray.push(value);
-            menuCtrl.openedMenus[value] = menu;
-            if ($attrs.defaultActive) {
-                menuCtrl.select($attrs.defaultActive);
-            }
-        }
-    }])
-    .directive('xueSubmenu', ['xueUtilLang', 'xueUtilArray', function (xueUtilLang, xueUtilArray) {
-        return {
-            restrict: 'E',
-            replace: true,
-            transclude: true,
-            require: '^xueMenu1',
-            scope: {
-                label: '=',
-                value: '='
-            },
-            templateUrl: function (element, attrs) {
-                return attrs.templateUrl || 'xue/template/menu/submenu.html'
-            },
-            link: function (scope, element, attrs, ctrl, transclude) {
-                scope.mode = ctrl.mode;
-                scope.opened = false;
-                var timeout;
-                scope.slectSubMenu = function (e) {
-                    e.stopPropagation();
-                    if (ctrl.mode == 'vertical') {
-                        ctrl.slectSubMenu(scope);
+                scope.clickMenu = function (item) {
+                    if (!item.subMenus) {
+                        scope.menuConfig.selectId = item[scope.menuConfig.menuId];
+                        if (xueUtilLang.isFunction(scope.menuConfig.clickMenu)) {
+                            scope.menuConfig.clickMenu(item);
+                        }
+                        if (scope.menuConfig.mode == 'horizontal') {
+                            angular.forEach(scope.menuConfig.data, function (obj) {
+                                obj.open = false;
+                            });
+                        }
                     } else {
-                        ctrl.openSubMenu(scope, true);
+                        if (scope.menuConfig.mode == 'horizontal') {
+                            item.open = true;
+                            return;
+                        }
+                        if (scope.menuConfig.uniqueOpened) {
+                            var data = scope.menuConfig.data;
+                            var pathArr = xueUtilObject.searchKeys(data, item[scope.menuConfig.menuId]);
+                            if (pathArr.length < 3) {
+                                angular.forEach(data, function (obj) {
+                                    obj.open = false;
+                                });
+                            }
+                            item.open = !item.open;
+                        } else {
+                            item.open = !item.open;
+                        }
                     }
                 }
-
-                scope.mouseenter = function () {
-                    if (ctrl.mode == 'vertical') {
+                //设置数据
+                var dataWatch = scope.$watch("menuConfig.data", function (newVal, oldVal) {
+                
+                    if (newVal) {
+                        if (scope.menuConfig.setFirst && scope.menuConfig.data.length) {
+                            var item = scope.menuConfig.data[0];
+                            scope.clickMenu(item);
+                        }
+                        if (scope.menuConfig.search) {
+                            scope.vm.formatData(newVal);
+                        }
+                    }
+                })
+                //设置选中id
+                var idWatch = scope.$watch('menuConfig.selectId', function (newVal, oldVal) {
+                    var data = scope.menuConfig.data;
+                    if (newVal && data) {
+                        if (scope.menuConfig.uniqueOpened) {
+                            angular.forEach(data, function (obj) {
+                                obj.open = false;
+                            });
+                            scope.selectIndex(newVal);
+                        }
+                    }
+                })
+                scope.selectIndex = function (key) {
+                    var data = scope.menuConfig.data;
+                    var index = xueUtilObject.searchKeys(data, key); // 选中路径数组
+                    var n = 0;
+                    while (index.length > 2 * n) {
+                        var pathArr = index.slice(0, 2 * n + 1);
+                        xueUtilObject.findValByPath(data, pathArr).open = true;
+                        n++;
+                    }
+                }
+                scope.mouseenter = function (item) {
+                    if (scope.menuConfig.mode == 'vertical') {
                         return;
                     }
-                    clearTimeout(timeout);
-                    timeout = setTimeout(function () {
-                        ctrl.openSubMenu(scope, true);
-                    }, 100);
+                    $timeout(function () {
+                        item.open = true;
+                    })
                 }
-                scope.mouseleave = function () {
-                    if (ctrl.mode == 'vertical') {
+                scope.mouseleave = function (item) {
+                    if (scope.menuConfig.mode == 'vertical') {
                         return;
                     }
-                    clearTimeout(timeout);
-                    timeout = setTimeout(function () {
-                        ctrl.openSubMenu(scope, false);
-                    }, 100);
+                    $timeout(function () {
+                        item.open = false;
+                    })
                 }
-                ctrl.addMenu(scope, scope.value);
+                scope.$on("$destroy", function () {
+                    dataWatch();
+                    idWatch();
+                })
             }
         }
-    }])
 
-    .directive('xueMenuItem', ['xueUtilLang', 'xueUtilArray', function (xueUtilLang, xueUtilArray) {
-        return {
-            restrict: 'E',
-            replace: true,
-            transclude: true,
-            require: '^xueMenu1',
-            scope: {
-                label: '=',
-                value: '=',
-                onSelect: '&select'
-            },
-            templateUrl: function (element, attrs) {
-                return attrs.templateUrl || 'xue/template/menu/menuItem.html'
-            },
-            link: function (scope, ele, attrs, ctrl, transclude) {
-                scope.itemClick = function (e) {
-                    e.stopPropagation();
-                    ctrl.select(scope.value);
-                    if (ctrl.mode == 'horizontal') {
-                        // var parents = $(e.target).parents('.menu-item');
-                        // angular.forEach(parents,function(item){
-                        //     $(item).addClass('is-active');
-                        // })
-                        ctrl.closeMenu();
-                    }
-                }
-                ctrl.addMenu(scope, scope.value);
-            }
-        }
     }])

@@ -42,18 +42,11 @@ angular.module('ui.xue.demo').controller('xueMenuDemoCtrl', ['$scope', function 
         twoDimenName: 'menuName' //二级菜单标题字段名
     }
     $scope.menuConfig1 = {
-        selectId: 111, // 当前选中导航菜单ID
+        search: true,
+        selectId: '41', // 当前选中导航菜单ID
         data: [{
             id: '1',
-            menuName: '菜单1',
-            subMenus: [{
-                id: '11',
-                menuName: '菜单项1-1',
-                subMenus: [{
-                    id: '111',
-                    menuName: '菜单项1-1'
-                }]
-            }]
+            menuName: '菜单1'
         }, {
             id: '2',
             menuName: '菜单2',
@@ -62,7 +55,10 @@ angular.module('ui.xue.demo').controller('xueMenuDemoCtrl', ['$scope', function 
                 menuName: '菜单项1-2',
                 subMenus: [{
                     id: '211',
-                    menuName: '菜单项1-2'
+                    menuName: '菜单项2-1-1'
+                },{
+                    id: '212',
+                    menuName: '菜单项2-1-2'
                 }]
             }]
         },{
@@ -78,7 +74,10 @@ angular.module('ui.xue.demo').controller('xueMenuDemoCtrl', ['$scope', function 
                 id: '42',
                 menuName: '菜单项4-2'
             }]
-        }]
+        }],
+        clickMenu: function (item) { //导航菜单点击回调
+            console.log(item);
+        }
     }
     $scope.menuConfig2 = {
         mode: 'horizontal',
@@ -125,39 +124,4 @@ angular.module('ui.xue.demo').controller('xueMenuDemoCtrl', ['$scope', function 
             menuName: '菜单3'
         }]
     }
-    $scope.select= function(index,select){
-        console.log(index,select);
-    }
-    $scope.menulist =  [{
-        id: '1',
-        menuName: '菜单1',
-        subMenus: [{
-            id: '11',
-            menuName: '菜单项1-1'
-        }]
-    }, {
-        id: '2',
-        menuName: '菜单2',
-        subMenus: [{
-            id: '21',
-            menuName: '菜单项1-2',
-            subMenus: [{
-                id: '211',
-                menuName: '菜单项1-2'
-            }]
-        }]
-    },{
-        id: '3',
-        menuName: '菜单3'
-    },{
-        id: '4',
-        menuName: '菜单4',
-        subMenus: [{
-            id: '41',
-            menuName: '菜单项4-1'
-        },{
-            id: '42',
-            menuName: '菜单项4-2'
-        }]
-    }]
 }]);

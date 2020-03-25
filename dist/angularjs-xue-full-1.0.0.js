@@ -2,12 +2,12 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-03-24
+ * Version: 1.0.0 - 2020-03-25
  * Require angularjs version: 1.2.32
  * License: ISC
  */
 angular.module("ui.xue", ["ui.xue.tpls", "xue.util.lang","xue.autoselect","xue.badge","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.loading","xue.menu","xue.modal","xue.notice","xue.pagination","xue.scroller","xue.select","xue.steps","xue.switch","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.object","xue.util.properties","xue.util.seq","xue.util.function","xue.util","xue.validate"]);
-angular.module("ui.xue.tpls", ["xue/template/autoselect/autoselect.html","xue/template/cascader/cascader.html","xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/menu/menu1.html","xue/template/menu/menuItem.html","xue/template/menu/submenu.html","xue/template/modal/dialog.html","xue/template/modal/modal.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/scroller/scroller.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
+angular.module("ui.xue.tpls", ["xue/template/autoselect/autoselect.html","xue/template/cascader/cascader.html","xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/menu/menu2.html","xue/template/modal/dialog.html","xue/template/modal/modal.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/scroller/scroller.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
 /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
 //@ sourceMappingURL=jquery-1.10.2.min.map
 */
@@ -1870,156 +1870,152 @@ angular.module('xue.menu', ['xue.util.lang'])
         }
     }])
 
-    .directive('xueMenu1', ['xueUtilLang', function (xueUtilLang) {
+    .directive('xueMenu2', ['xueUtilLang', '$timeout', 'xueUtilObject', function (xueUtilLang, $timeout, xueUtilObject) {
         return {
             restrict: 'E',
             replace: true,
-            transclude: true,
-            controller: 'xueMenuController',
-            controllerAs: 'menuCtrl',
             scope: {
-                mode: "@", // 菜单模式 vertical/horizontal 默认vertical
-                defaultActive: '=' // 当前选中导航菜单
+                menuConfig: '='
             },
             templateUrl: function (element, attrs) {
-                return attrs.templateUrl || 'xue/template/menu/menu1.html'
+                return attrs.templateUrl || 'xue/template/menu/menu2.html'
             },
-            link: function (scope, ele, attrs, ctrl) {
-                if (typeof scope.defaultActive == 'undefined' && typeof attrs.defaultActive == 'undefined') {
-                    // 默认选中第一个
-                    ctrl.select();
+            link: function (scope, ele, attrs) {
+                var defaultConfig = {
+                    mode: 'vertical', // 菜单模式 vertical/horizontal
+                    backgroundColor: '#fff', // 背景颜色
+                    data: [{
+                        id: '1',
+                        menuName: '菜单1'
+                    }], // 菜单数组
+                    uniqueOpened: true, // 是否只打开一个子菜单
+                    setFirst: true, //是否选中第一个
+                    selectId: null, // 当前选中导航菜单ID
+                    menuId: 'id', //导航菜单唯一标识字段名称
+                    childrenName:'subMenus',
+                    clickMenu: function () {}
                 }
-            }
-        }
-    }])
-    .controller('xueMenuController', ['$scope', '$attrs', 'xueUtilArray', 'xueUtilLang', function ($scope, $attrs, xueUtilArray, xueUtilLang) {
-        var menuCtrl = this,
-            menuAray = [],
-            oldIndex;
-        menuCtrl.mode = $attrs.mode || 'vertical';
-        $scope.activeIndex = $attrs.defaultActive || null;
-        menuCtrl.openedMenus = [];
-        menuCtrl.slectSubMenu = function (submenu) {
-            submenu.opened = !submenu.opened;
-        }
-        menuCtrl.openSubMenu = function (submenu, status) {
-            submenu.opened = status;
-        }
-        menuCtrl.select = function (index, menuItem) {
-            if (!index) {
-                index = menuAray[0];
-            }
-            if (index == oldIndex) {
-                return;
-            }
-            var oldSelect = menuCtrl.openedMenus[oldIndex];
-            if (oldSelect) {
-                oldSelect.active = false;
-            }
-            var selected = menuCtrl.openedMenus[index];
-            if (selected) {
-                if (xueUtilLang.isFunction(selected.onSelect)) {
-                    selected.onSelect({
-                        $selectedIndex: index,
-                        $selected: selected
-                    });
+                scope.menuConfig = angular.extend(defaultConfig, scope.menuConfig || {});
+                //支持搜索菜单
+                if (scope.menuConfig.search) {
+                    scope.vm = {
+                        searchValue: '',
+                        menuList: [],
+                        //当前鼠标是否在搜索列表上
+                        onSearchListDiv: false,
+                        select: function (item) {
+                            this.searchValue = '';
+                            scope.clickMenu(item);
+                        },
+                        formatData: function (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                this.menuList.push(data[i]);
+                                if(data[i][scope.menuConfig.childrenName]){
+                                    scope.vm.formatData(data[i][scope.menuConfig.childrenName]);
+                                }
+                         
+                            }
+                        },
+                        /**
+                         * 隐藏搜索框
+                         */
+                        hideSearchBox: function () {
+                            //当鼠标的焦点不在搜索框里面时，失去焦点才去隐藏
+                            if (!this.onSearchListDiv) {
+                                this.searchValue = '';
+                            }
+                        }
+                    };
+
                 }
-                selected.active = true;
-                oldIndex = index;
-                $scope.activeIndex = index;
-            }
-        }
-        menuCtrl.closeMenu = function () {
-            for (var i in menuCtrl.openedMenus) {
-                menuCtrl.openedMenus[i].opened = false;
-            }
-        }
-        menuCtrl.addMenu = function (menu, value) {
-            menuAray.push(value);
-            menuCtrl.openedMenus[value] = menu;
-            if ($attrs.defaultActive) {
-                menuCtrl.select($attrs.defaultActive);
-            }
-        }
-    }])
-    .directive('xueSubmenu', ['xueUtilLang', 'xueUtilArray', function (xueUtilLang, xueUtilArray) {
-        return {
-            restrict: 'E',
-            replace: true,
-            transclude: true,
-            require: '^xueMenu1',
-            scope: {
-                label: '=',
-                value: '='
-            },
-            templateUrl: function (element, attrs) {
-                return attrs.templateUrl || 'xue/template/menu/submenu.html'
-            },
-            link: function (scope, element, attrs, ctrl, transclude) {
-                scope.mode = ctrl.mode;
-                scope.opened = false;
-                var timeout;
-                scope.slectSubMenu = function (e) {
-                    e.stopPropagation();
-                    if (ctrl.mode == 'vertical') {
-                        ctrl.slectSubMenu(scope);
+                scope.clickMenu = function (item) {
+                    if (!item.subMenus) {
+                        scope.menuConfig.selectId = item[scope.menuConfig.menuId];
+                        if (xueUtilLang.isFunction(scope.menuConfig.clickMenu)) {
+                            scope.menuConfig.clickMenu(item);
+                        }
+                        if (scope.menuConfig.mode == 'horizontal') {
+                            angular.forEach(scope.menuConfig.data, function (obj) {
+                                obj.open = false;
+                            });
+                        }
                     } else {
-                        ctrl.openSubMenu(scope, true);
+                        if (scope.menuConfig.mode == 'horizontal') {
+                            item.open = true;
+                            return;
+                        }
+                        if (scope.menuConfig.uniqueOpened) {
+                            var data = scope.menuConfig.data;
+                            var pathArr = xueUtilObject.searchKeys(data, item[scope.menuConfig.menuId]);
+                            if (pathArr.length < 3) {
+                                angular.forEach(data, function (obj) {
+                                    obj.open = false;
+                                });
+                            }
+                            item.open = !item.open;
+                        } else {
+                            item.open = !item.open;
+                        }
                     }
                 }
-
-                scope.mouseenter = function () {
-                    if (ctrl.mode == 'vertical') {
+                //设置数据
+                var dataWatch = scope.$watch("menuConfig.data", function (newVal, oldVal) {
+                
+                    if (newVal) {
+                        if (scope.menuConfig.setFirst && scope.menuConfig.data.length) {
+                            var item = scope.menuConfig.data[0];
+                            scope.clickMenu(item);
+                        }
+                        if (scope.menuConfig.search) {
+                            scope.vm.formatData(newVal);
+                        }
+                    }
+                })
+                //设置选中id
+                var idWatch = scope.$watch('menuConfig.selectId', function (newVal, oldVal) {
+                    var data = scope.menuConfig.data;
+                    if (newVal && data) {
+                        if (scope.menuConfig.uniqueOpened) {
+                            angular.forEach(data, function (obj) {
+                                obj.open = false;
+                            });
+                            scope.selectIndex(newVal);
+                        }
+                    }
+                })
+                scope.selectIndex = function (key) {
+                    var data = scope.menuConfig.data;
+                    var index = xueUtilObject.searchKeys(data, key); // 选中路径数组
+                    var n = 0;
+                    while (index.length > 2 * n) {
+                        var pathArr = index.slice(0, 2 * n + 1);
+                        xueUtilObject.findValByPath(data, pathArr).open = true;
+                        n++;
+                    }
+                }
+                scope.mouseenter = function (item) {
+                    if (scope.menuConfig.mode == 'vertical') {
                         return;
                     }
-                    clearTimeout(timeout);
-                    timeout = setTimeout(function () {
-                        ctrl.openSubMenu(scope, true);
-                    }, 100);
+                    $timeout(function () {
+                        item.open = true;
+                    })
                 }
-                scope.mouseleave = function () {
-                    if (ctrl.mode == 'vertical') {
+                scope.mouseleave = function (item) {
+                    if (scope.menuConfig.mode == 'vertical') {
                         return;
                     }
-                    clearTimeout(timeout);
-                    timeout = setTimeout(function () {
-                        ctrl.openSubMenu(scope, false);
-                    }, 100);
+                    $timeout(function () {
+                        item.open = false;
+                    })
                 }
-                ctrl.addMenu(scope, scope.value);
+                scope.$on("$destroy", function () {
+                    dataWatch();
+                    idWatch();
+                })
             }
         }
-    }])
 
-    .directive('xueMenuItem', ['xueUtilLang', 'xueUtilArray', function (xueUtilLang, xueUtilArray) {
-        return {
-            restrict: 'E',
-            replace: true,
-            transclude: true,
-            require: '^xueMenu1',
-            scope: {
-                label: '=',
-                value: '=',
-                onSelect: '&select'
-            },
-            templateUrl: function (element, attrs) {
-                return attrs.templateUrl || 'xue/template/menu/menuItem.html'
-            },
-            link: function (scope, ele, attrs, ctrl, transclude) {
-                scope.itemClick = function (e) {
-                    e.stopPropagation();
-                    ctrl.select(scope.value);
-                    if (ctrl.mode == 'horizontal') {
-                        // var parents = $(e.target).parents('.menu-item');
-                        // angular.forEach(parents,function(item){
-                        //     $(item).addClass('is-active');
-                        // })
-                        ctrl.closeMenu();
-                    }
-                }
-                ctrl.addMenu(scope, scope.value);
-            }
-        }
     }])
 angular.module('xue.modal', [])
     .factory('$$multiMap', function () {
@@ -7595,40 +7591,57 @@ angular.module("xue/template/menu/menu.html", []).run(["$templateCache", functio
     "</div>");
 }]);
 
-angular.module("xue/template/menu/menu1.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("xue/template/menu/menu1.html",
-    "<ul class=\"xui-menu-wrap1 clearfix\" ng-class=\"{'vertical':'xui-menu-vertical','horizontal':'xui-menu-horizontal'}[mode]\"\n" +
-    "    ng-transclude></ul>");
-}]);
-
-angular.module("xue/template/menu/menuItem.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("xue/template/menu/menuItem.html",
-    "<li class=\"menu-item\" ng-class=\"{'is-active':active,'is-disabled':disabled}\"\n" +
-    "ng-click=\"itemClick($event)\">\n" +
-    "    <div  class=\"menu-title\">\n" +
-    "         <span>{{label}}</span> \n" +
-    "    </div>\n" +
-    "</li>");
-}]);
-
-angular.module("xue/template/menu/submenu.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("xue/template/menu/submenu.html",
-    "<li class=\"menu-item\" \n" +
-    "ng-class=\"{'is-opened':opened,'is-active':active}\"\n" +
-    "ng-click=\"slectSubMenu($event)\" ng-mouseenter=\"mouseenter()\" \n" +
-    "ng-mouseleave=\"mouseleave()\" ng-focus=\"focus()\">\n" +
-    "    <div class=\"menu-title\">\n" +
-    "        <span>{{label}}</span>\n" +
-    "        <div class=\"title-arrow-right\">\n" +
-    "            <i ng-if=\"!opened\" class=\"xui-icon xui-icon-ios-arrow-forward\"></i>\n" +
-    "            <i ng-if=\"opened\" class=\"xui-icon xui-icon-ios-arrow-down\"></i>\n" +
+angular.module("xue/template/menu/menu2.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("xue/template/menu/menu2.html",
+    "<div class=\"xui-menu-wrap2\"\n" +
+    " ng-class=\"{true:'support-search'}[menuConfig.search]\"\n" +
+    " ng-class=\"{'vertical':'xui-menu-vertical','horizontal':'xui-menu-horizontal'}[menuConfig.mode]\">\n" +
+    "    <div class=\"menu-search\" ng-if=\"menuConfig.search && menuConfig.mode=='vertical'\">\n" +
+    "        <i class=\"menu-search-icon xui-icon xui-icon-md-search\"></i>\n" +
+    "        <input type=\"text\" class=\"menu-ipt\" ng-model=\"vm.searchValue\" ng-blur=\"vm.hideSearchBox()\">\n" +
+    "        <div class=\"menu-list\" ng-show=\"!!vm.searchValue\"\n" +
+    "            ng-mouseover=\"vm.onSearchListDiv = true\"\n" +
+    "            ng-mouseleave=\"vm.onSearchListDiv = false\">\n" +
+    "            <ul>\n" +
+    "                <li ng-click=\"vm.select(item)\" ng-repeat=\"item in vm.menuList | filter : {menuName:vm.searchValue}\">{{item.menuName}}</li>\n" +
+    "            </ul>\n" +
     "        </div>\n" +
     "    </div>\n" +
-    "    <ul class=\"xui-menu-popup clearfix\"  ng-if=\"mode=='horizontal'\" ng-transclude>\n" +
-    "    </ul>\n" +
-    "    <ul class=\"menu-sub-item xui-menu-inline\" ng-if=\"mode=='vertical'\" ng-transclude >\n" +
-    "    </ul>\n" +
-    "</li>");
+    "     <ul class=\"menu-item-wrap clearfix\" >\n" +
+    "         <li class=\"menu-item\" ng-repeat=\"item in menuConfig.data\" \n" +
+    "         ng-class=\"{'is-opened':item.open}\"\n" +
+    "         ng-mouseenter=\"mouseenter(item)\"\n" +
+    "         ng-mouseleave=\"mouseleave(item)\"\n" +
+    "         ng-include=\"'menuTempVertical'\">\n" +
+    "         </li>\n" +
+    "     </ul>\n" +
+    "     <script id=\"menuTempVertical\" type=\"text/ng-template\">\n" +
+    "         <div  class=\"menu-title\" ng-click=\"clickMenu(item)\" \n" +
+    "        ng-class=\"{true:'active'}[item[menuConfig.menuId] == menuConfig.selectId]\">\n" +
+    "            <div class=\"title-icon\" ng-if=\"item.iconName\">\n" +
+    "                <i class=\"xui-icon xui-icon-ios-arrow-forward\"></i>\n" +
+    "            </div>\n" +
+    "            <i class=\"icon-dot\" ng-if=\"!item.subMenus && menuConfig.mode=='vertical'\"></i>\n" +
+    "             <span>{{item.menuName}}</span>  \n" +
+    "             <div class=\"title-arrow-right\" ng-if=\"!!item.subMenus\">\n" +
+    "                <i ng-if=\"!item.open\" class=\"xui-icon xui-icon-ios-arrow-forward\"></i>\n" +
+    "                <i ng-if=\"!!item.open\" class=\"xui-icon xui-icon-ios-arrow-down\"></i>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "         <ul class=\"menu-sub-item xui-menu-inline\"  ng-if=\"item.open && menuConfig.mode=='vertical'\">\n" +
+    "             <li class=\"menu-item\" ng-repeat=\"item in item.subMenus\"\n" +
+    "             ng-class=\"{'is-opened':item.open}\"\n" +
+    "             ng-include=\"'menuTempVertical'\" ></li> \n" +
+    "         </ul>\n" +
+    "         <ul class=\"xui-menu-popup clearfix\"  ng-if=\"menuConfig.mode=='horizontal' && item.subMenus\" >\n" +
+    "            <li class=\"menu-item\" ng-repeat=\"item in item.subMenus\"\n" +
+    "            ng-class=\"{'is-opened':item.open}\"\n" +
+    "            ng-mouseenter=\"item.open = true\"\n" +
+    "            ng-mouseleave=\"item.open = false\"\n" +
+    "            ng-include=\"'menuTempVertical'\" ></li> \n" +
+    "        </ul>\n" +
+    "    </script>\n" +
+    " </div>");
 }]);
 
 angular.module("xue/template/modal/dialog.html", []).run(["$templateCache", function($templateCache) {

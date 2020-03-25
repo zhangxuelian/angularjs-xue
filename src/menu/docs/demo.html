@@ -1,29 +1,5 @@
 <div ng-controller="xueMenuDemoCtrl">
     <xue-menu menu-config="menuConfig"></xue-menu>
-    <xue-menu1 mode="vertical" default-active="221">
-        <xue-menu-item label="'菜单1'" value="1"></xue-menu-item>
-        <xue-submenu label="'菜单2'" value="2">
-            <xue-menu-item label="'菜单2-1'" value="21"></xue-menu-item>
-            <xue-submenu label="'菜单2-2'" value="22">
-                <xue-menu-item label="'菜单2-2-1'" value="221"></xue-menu-item>
-            </xue-submenu>
-        </xue-submenu>
-        <xue-menu-item label="'菜单3'" value="3" select="select($selectedIndex,$selected)"></xue-menu-item>
-    </xue-menu1>
-    <xue-menu1 mode="horizontal">
-        <xue-menu-item label="'菜单1'" value="1"></xue-menu-item>
-        <xue-submenu label="'菜单2'" value="2">
-            <xue-menu-item label="'菜单2-1'" value="21"></xue-menu-item>
-            <xue-submenu label="'菜单2-2'" value="22">
-                <xue-menu-item label="'菜单2-2-1'" value="221"></xue-menu-item>
-            </xue-submenu>
-        </xue-submenu>
-        <xue-menu-item label="'菜单3'" value="3"></xue-menu-item>
-    </xue-menu1>
-    <xue-menu1>
-        <xue-submenu ng-repeat="item in menulist" label="item.menuName" value="item.id" ng-if="item.subMenus">
-            <xue-menu-item ng-repeat="item in item.subMenus" label="item.menuName" value="item.id"></xue-menu-item>
-        </xue-submenu>
-        <xue-menu-item ng-repeat="item in menulist" label="item.menuName" value="item.id" ng-if="!item.subMenus"></xue-menu-item>
-    </xue-menu1>
+    <xue-menu2 menu-config="menuConfig1"></xue-menu2>
+    <!-- <xue-menu2 menu-config="menuConfig2"></xue-menu2> -->
 </div>
