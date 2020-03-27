@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html ng-app="ui.xue.demo">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="assets/favicon.ico" />
+    <title>angularjs-xue</title>
+    <link rel="author" href="https://github.com/zhangxuelian/angularjs-xue/graphs/contributors">
+
+    <script src="assets/angular.min.js"></script>
+    <script src="assets/angular-ui-router.min.js"></script>
+    <script src="assets/angularjs-xue-full-1.0.0.min.js"></script>
+    <script src="modules/index.js"></script>
+    <link rel="stylesheet" href="assets/angularjs-xue-ui-1.0.0.min.css">
+    <link rel="stylesheet" href="assets/demo.css" />
+    <link rel="stylesheet" href="assets/ui.css" />
+</head>
+
+<body class="demo-wrap" id="demoWrap" ng-controller="xueDemoCtrl as demoCtrl">
+    <div class="header-container">
+        <div class="header-wrap">
+            <h1>
+                <img src="./assets/favicon.ico" alt="">
+                <b>angularjs-xue</b>
+            </h1>
+            <ul>
+                <li ng-repeat="item in demoCtrl.menuData">
+                    <a ui-sref="{{item.id}}" ui-sref-active="active">{{item.name}}</a>
+                </li>
+                <li>
+                    <a href="">V1.0.0</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-container">
+        <div class="main-wrap" ui-view>
+
+        </div>
+        
+        <script>angular.module('ui.xue.demo').controller('xueAutoSelectDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        value: '',
+        config: {
+            data: ["身份证", "护照", "居住证", "驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证", '往来通行证', '港澳通行证'],
+            selectCallback: function (item) {
+                console.log(item);
+            }
+        },
+        config1: {
+            data: ["身份证", "护照", "居住证", "驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证", '往来通行证', '港澳通行证']
+        }
+    }
+}])</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xueBadgeDemoCtrl', ['$scope', function ($scope) {
+    var vm = $scope.vm = {
+        config: {
+            count: 12
+        },
+        config2: {
+            count: 8,
+            bgColor: '#0394F9'
+        },
+        config3: {
+            count: 12,
+            max: 10,
+            bgColor: '#ff492a'
+        },
+        config4: {
+            count: 14,
+            isAlone: true
+        },
+        dotConfig:{
+            isDot:true,
+            count:10
+        }
+    }
+}])</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xueCascaderDemoCtrl',['$scope',function($scope){
+    $scope.testValue = "";
+    $scope.testConfig = {
+        data: [
+            {
+                label: '节点1',
+                value: 1,
+                children: [{
+                    label: '节点1-1',
+                    value: 11,
+                    children: [{
+                        label: '节点1-1-1',
+                        value: 111
+                    }]
+                }, {
+                    label: '节点1-2',
+                    value: 12
+                }, {
+                    label: '节点1-3',
+                    value: 13
+                }]
+            },
+            {
+                label: '节点2',
+                value: 2,
+                children: [{
+                    label: '节点2-1',
+                    value: 21,
+                    children: [{
+                        label: '节点2-1-1',
+                        value: 211
+                    }]
+                }, {
+                    label: '节点2-2',
+                    value: 22,
+                    children: [{
+                        label: '节点2-2-1',
+                        value: 221
+                    }]
+                }, {
+                    label: '节点2-3',
+                    value: 23
+                }]
+            },
+            {
+                label: '节点3',
+                value: 3,
+                children: [{
+                    label: '节点3-1',
+                    value: 31,
+                    children: [{
+                        label: '节点3-1-1',
+                        value: 311
+                    }]
+                }, {
+                    label: '节点3-2',
+                    value: 32
+                }, {
+                    label: '节点3-3',
+                    value: 33
+                }]
+            }
+        ],
+        css: {
+            inputStyle: {
+                width: '196px',
+                height: '28px'
+            }
+        }
+    }
+
+    $scope.areaValue = "";
+    $scope.areaConfig = {
+        dataUrl: 'assets/data/city.min.js',
+        css: {
+            inputStyle: {
+                width: '196px',
+                height: '28px'
+            }
+        }
+    }
+}]);</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xueCounterDemoCtrl', ['$scope', function ($scope) {
+    var vm = $scope.vm = {
+        counterConfig: {
+            suffix: "℃",
+            changeCallback: function (value) {
+                console.log(value);
+            }
+        },
+        counterConfigLg: {
+            suffix: "℃",
+            max: 300,
+            min: 0,
+            size: 'large'
+        },
+        counterConfigSm: {
+            suffix: "℃",
+            max: 300,
+            min: 20,
+            size: 'small'
+        },
+        disabledConfig: {
+            disabled: true
+        },
+        disabledConfig1: {
+            type: 2,
+            disabled: true
+        },
+        inputConfig: {
+            suffix: "个",
+            type: 2,
+            size: 'small'
+        },
+        inputConfig2: {
+            suffix: "个",
+            type: 2,
+            step: 0.5,
+            min: 10.0
+        },
+        inputConfig3: {
+            suffix: "个",
+            type: 2,
+            size: 'large'
+        },
+        stepConfig: {
+            step: 0.05
+        },
+        stepConfig2: {
+            suffix: "个",
+            type: 2,
+            step: 10
+        },
+        number: 20
+    }
+}]);</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xueDatepickerdemoCtrl',['$scope',function($scope){
+    $scope.test = {
+        value: "2020-02-25 14:00:00",
+        minDate: "2020-02-24 14:00:00",
+        maxDate: "2020-02-28 14:00:00",
+        config: {
+            format: "YYYY-MM-DD hh:mm:ss"
+        }
+    }
+    $scope.test1 = {
+        value: "14:00:00",
+        config: {
+            format: "hh:mm:ss"
+        }
+    }
+}]);</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xueDirectivesDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        radioCheck: true,
+        checkboxCheck: false,
+        checkboxCheck2: false,
+        checkboxCheck3: false,
+        fruit: '香蕉',
+        inputValue: '',
+        click: function (value) {
+            console.log(value);
+        }
+    }
+}])</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xueLoadingDemoCtrl', ['$scope', function ($scope) {
+    var vm = $scope.vm = {
+        loadingConfig: {
+            isShowLoading: true,
+            msg: "加载中,请稍候..."
+        },
+        loadingConfig2: {
+            isShowLoading: true,
+            theme: 'dark-theme',
+            loadingTypeClass: 'square-jelly-box',
+            msg: "加载中,请稍候..."
+        },
+        loadingConfig3: {
+            isShowLoading: true,
+            theme: 'dark-theme',
+            loadingTypeClass: 'ball-pulse-sync',
+            msg: "加载中,请稍候..."
+        },
+        loadingConfig4: {
+            isShowLoading: true,
+            loadingTypeClass: 'line-spin-clockwise',
+            msg: "加载中,请稍候..."
+        },
+        loadingConfig5: {
+            isShowLoading: true,
+            theme: 'dark-theme',
+            loadingTypeClass: 'ball-clip-rotate',
+            msg: "加载中,请稍候..."
+        },
+        loadingConfig6: {
+            isShowLoading: true,
+            theme: 'dark-theme',
+            loadingTypeClass: 'ball-spin-clockwise',
+            msg: "加载中,请稍候..."
+        },
+        loadingConfig7: {
+            isShowLoading: true,
+            loadIcon:'xui-icon xui-icon-ios-refresh',
+            loadingTypeClass: null,
+            msg: "拼命加载中..."
+        },
+        stop: function () {
+            vm.loadingConfig.isShowLoading = false;
+            vm.loadingConfig2.isShowLoading = false;
+            vm.loadingConfig3.isShowLoading = false;
+            vm.loadingConfig4.isShowLoading = false;
+            vm.loadingConfig5.isShowLoading = false;
+            vm.loadingConfig6.isShowLoading = false;
+            vm.loadingConfig7.isShowLoading = false;
+        }
+    }
+}])</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xueMenuDemoCtrl', ['$scope', function ($scope) {
+    $scope.menuConfig = {
+        search: true,
+        data: [{
+            id: 1,
+            menuName: "菜单1",
+            subMenus: [{
+                id: 11,
+                menuName: "菜单项1-1"
+            }, {
+                id: 12,
+                menuName: "菜单项1-2"
+            }, {
+                id: 13,
+                menuName: "菜单项1-3"
+            }, {
+                id: 14,
+                menuName: "菜单项1-4"
+            }]
+        }, {
+            id: 2,
+            menuName: "菜单2",
+            subMenus: [{
+                id: 21,
+                menuName: "菜单项2-1"
+            }, {
+                id: 22,
+                menuName: "菜单项2-2"
+            }, {
+                id: 23,
+                menuName: "菜单项2-3"
+            }, {
+                id: 24,
+                menuName: "菜单项2-4"
+            }]
+        }],
+        clickRouter: function (item) { //导航菜单点击回调
+            console.log(item);
+        },
+        oneDimenName: 'menuName', //一级菜单标题字段名
+        childrenName: 'subMenus', //二维数组对象名
+        twoDimenName: 'menuName' //二级菜单标题字段名
+    }
+    $scope.menuConfig1 = {
+        search: true,
+        selectId: '41', // 当前选中导航菜单ID
+        data: [{
+            id: '1',
+            menuName: '菜单1'
+        }, {
+            id: '2',
+            menuName: '菜单2',
+            subMenus: [{
+                id: '21',
+                menuName: '菜单项1-2',
+                subMenus: [{
+                    id: '211',
+                    menuName: '菜单项2-1-1'
+                },{
+                    id: '212',
+                    menuName: '菜单项2-1-2'
+                }]
+            }]
+        },{
+            id: '3',
+            menuName: '菜单3'
+        },{
+            id: '4',
+            menuName: '菜单4',
+            subMenus: [{
+                id: '41',
+                menuName: '菜单项4-1'
+            },{
+                id: '42',
+                menuName: '菜单项4-2'
+            }]
+        }],
+        clickMenu: function (item) { //导航菜单点击回调
+            console.log(item);
+        }
+    }
+    $scope.menuConfig2 = {
+        mode: 'horizontal',
+        selectId: 111, // 当前选中导航菜单ID
+        data: [{
+            id: '1',
+            menuName: '菜单1',
+            subMenus: [{
+                id: '11',
+                menuName: '菜单项1-1',
+                subMenus: [{
+                    id: '111',
+                    menuName: '菜单项1-1-1'
+                },{
+                    id: '121',
+                    menuName: '菜单项1-2-1'
+                }]
+            },{
+                id: '12',
+                menuName: '菜单12'
+            },{
+                id: '13',
+                menuName: '菜单13'
+            }]
+        }, {
+            id: '2',
+            menuName: '菜单2',
+            subMenus: [{
+                id: '21',
+                menuName: '菜单项2-1',
+                subMenus: [{
+                    id: '211',
+                    menuName: '菜单项2-1-1'
+                },{
+                    id: '212',
+                    menuName: '菜单项2-1-2'
+                }]
+            },{
+                id: '22',
+                menuName: '菜单项2-2'
+            }]
+        },{
+            id: '3',
+            menuName: '菜单3'
+        }]
+    }
+}]);</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xueModalDemoCtrl',
+    ['$scope', '$xModal', '$xDialog', function ($scope, $xModal, $xDialog) {
+        // 基础模态框
+        $scope.open1 = function (type) {
+            if (type == 1) {
+                $xModal.open({
+                    autoClose: true,
+                    template: '<div style="height: 250px;width: 100%; line-height: 200px;text-align: center;">这里是自定义template视图</div>'
+                });
+            }
+            if (type == 2) {
+                var modalInstance = $xModal.open({
+                    templateUrl: 'modal.test.html',
+                    controller: 'modalTestCtrl'
+                });
+                modalInstance.result.then(function (ret) {
+                    console.log("关闭原因：", ret);
+                }, function (ret) {
+                    console.log("取消原因：", ret);
+                });
+                modalInstance.closed.then(function (ret) {
+                    console.log("关闭弹窗");
+                });
+                modalInstance.opened.then(function (ret) {
+                    console.log("打开弹窗");
+                });
+                modalInstance.rendered.then(function (ret) {
+                    console.log("渲染完成");
+                });
+            }
+            if (type == 3) {
+                $xModal.open({
+                    backdrop: false,
+                    templateUrl: 'modal.test.html',
+                    controller: 'modalTestCtrl'
+                });
+            }
+            if (type == 4) {
+                $xModal.open({
+                    backdrop: false,
+                    templateUrl: 'modal.drag.html',
+                    controller: 'modalTestCtrl'
+                });
+            }
+            /** example
+                https://github.com/stu-salsbury/angular-couch-potato : $couchPotato
+                    $xModal.open({
+                    templateUrl: '{path}/example.tpl.html',
+                    controller: 'exampleCtrl',
+                    resolve: {
+                        dummy:$couchPotato.resolveDependencies(['{path}/example.ctrl.js'])
+                    }
+                }) 
+            */
+        }
+        // 基础对话框
+        $scope.open2 = function (type) {
+            if (type == 1) {
+                var modalInstance1 = $xDialog.open({
+                    title: "基础对话框标题",
+                    confirmCallback: function () {
+                        modalInstance1.close();
+                    },
+                    cancelCallback: function () {
+                        modalInstance1.dismiss();
+                    },
+                    closeCallback: function () {
+                        modalInstance1.dismiss();
+                    },
+                    modalParam: {
+                        template: '<div style="height: 250px;width: 100%; line-height: 200px;text-align: center;">基础对话框</div>'
+                    }
+                });
+            }
+            if (type == 2) {
+                var modalInstance2 = $xDialog.open({
+                    title: "自定义对话框标题",
+                    confirmValue: "确定按钮",
+                    cancelValue: "取消按钮",
+                    confirmCallback: function () {
+                        modalInstance2.close({
+                            test: '确定参数'
+                        });
+                    },
+                    cancelCallback: function () {
+                        modalInstance2.dismiss({
+                            test: '取消参数'
+                        });
+                    },
+                    closeCallback: function () {
+                        modalInstance2.dismiss({
+                            test: '关闭参数'
+                        });
+                    },
+                    modalParam: {
+                        templateUrl: 'dialog.test.html',
+                        controller: 'modalTestCtrl'
+                    }
+                });
+                modalInstance2.result.then(function (ret) {
+                    console.log("关闭原因：", ret);
+                }, function (ret) {
+                    console.log("取消原因：", ret);
+                });
+            }
+            if (type == 3) {
+                var modalInstance3 = $xDialog.open({
+                    title: "自定义对话框标题",
+                    cancelValue: "关闭",
+                    header: false,
+                    footer: true,
+                    confirm: false,
+                    cancel: true,
+                    cancelCallback: function () {
+                        modalInstance3.dismiss();
+                    },
+                    modalParam: {
+                        templateUrl: 'dialog.test.html',
+                        controller: 'modalTestCtrl'
+                    }
+                });
+            }
+        }
+        // 提示框
+        $scope.open3 = function (type) {
+
+        }
+        // 通知框
+        $scope.open4 = function (type) {
+
+        }
+        // 弹出式loading
+        $scope.open5 = function (type) {
+
+        }
+        // 局部式loading
+        $scope.open6 = function (type) {
+
+        }
+    }]);
+angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+    $scope.content = "这里是modal控制器里的内容！";
+    $scope.close = function () {
+        $modalInstance.close({
+            test: 'close传参对象'
+        });
+    }
+    $scope.cancel = function () {
+        $modalInstance.dismiss({
+            test: 'dismiss传参对象'
+        });
+    }
+}]);</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xueNoticeDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        config: {
+            count: 15,
+            selectTabId: 1,
+            listMaxLen: 10,
+            noticeTypeList: [{contentType: '提示分类内容', count: 0},{contentType: '提示分类内容2', count: 101}],
+            noticeList: [{
+                content: '提示内容1',
+                contentType:'审批1',
+                time: '2019-08-20 17:13:55'
+            }, {
+                content: '提示内容2',
+                contentType:'审批2',
+                time: '2019-08-20 17:13:55'
+            }],
+            formatField: {
+                contentTitle:'contentType'
+            },
+            tabMark: 'number',
+            tabItem: [{
+                id: 0,
+                name: '通知提醒',
+                count: 99
+            }, {
+                id: 1,
+                name: '待办事项',
+                count: 105
+            }, {
+                id: 2,
+                name: '系统公告',
+                count: 24
+            }],
+            showNoticeType: false,
+            tabItemClick: function (item) {
+                console.log(item);
+                $scope.vm.config.showNoticeType =true;
+            }
+        }
+    }
+}]);</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xuePaginationDemoCtrl',['$scope',function($scope){
+    $scope.mv = {
+        total: 100,
+        page: 2,
+        maxSize: 5,
+        size: 10
+    };
+}]);</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xuePopoverDemoCtrl', ['$scope', function ($scope) {
+    $scope.click=function(){
+       console.log('点击事件')
+    }
+    
+}])</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xueScrollerDemoCtrl',['$scope',function($scope){
+    $scope.scrollConfig = {
+        dataType: 3,
+        isAutoPlay: true,
+        isLoop: true,
+        data: [{
+            text: '111'
+        },{
+            text: '222'
+        },{
+            text: '333'
+        },{
+            text: '444'
+        },{
+            text: '555'
+        }]
+    }
+}]);</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xueSelectdemoCtrl', ['$scope', function ($scope) {
+    $scope.data = [{
+        label: "身份证",
+        value: "1"
+    }, {
+        label: "护照",
+        value: "2"
+    }, {
+        label: "居住证",
+        value: "3"
+    }, {
+        label: "驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证",
+        value: "4"
+    }]
+    $scope.mv = {
+        testConfig: {
+            data: $scope.data,
+            panelHeight: 'auto',
+            panelWidth: '180px',
+            onSelect: function (item) {
+                console.log(item);
+            },
+            clearAll: function () {
+                console.log('清除select');
+            }
+        },
+        noFilterConfig: {
+            data: $scope.data,
+            filter: false
+        },
+        flterNoSeparateConfig: {
+            data: $scope.data,
+            separate: false,
+            onSelect: function (item) {
+                console.log(item);
+            }
+        },
+        multConfig: {
+            data: [{
+                name: "全部",
+                value: "1"
+            }, {
+                name: "小孩",
+                value: "2"
+            }, {
+                name: "青年",
+                value: "3"
+            }, {
+                name: "中年",
+                value: "4"
+            }, {
+                name: "老人",
+                value: "5"
+            }],
+            checkbox: true,
+            valueField: 'value',
+            textField: 'name',
+            panelHeight: '150px',
+            panelWidth: '180px',
+            onSelect: function (item) {
+                console.log($scope.mv.multConfig.checkRows);
+            }
+        },
+        multFilterConfig: {
+            data: $scope.data,
+            checkbox: true,
+            filter: false
+        }
+    };
+}]);</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xueStepsDemoCtrl', ['$scope', function ($scope) {
+    $scope.value = 1;
+    $scope.defaultConfig = {
+        options: [{
+            title: 'Finished',
+            code: 0
+        }, {
+            title: 'In Progress',
+            code: 1
+        }, {
+            title: 'Waiting',
+            code: 2
+        }]
+    };
+    $scope.stepsConfigSm = {
+        theme:'green-theme',
+        alignCenter: true,
+        size:'small',
+        iconStyle:'statusNum',
+        options: [{
+            title: 'Finished',
+            code: 0
+        }, {
+            title: 'In Progress',
+            code: 1
+        }, {
+            title: 'Waiting',
+            code: 2
+        }]
+    };
+    $scope.stepsConfigDes = {
+        alignCenter: true,
+        iconStyle:'statusNum',
+        options: [{
+            title: 'Finished',
+            code: 0,
+            description:'步骤文字描述...'
+        }, {
+            title: 'In Progress',
+            code: 1,
+            description:'步骤文字描述...'
+        }, {
+            title: 'Waiting',
+            code: 2,
+            description:'步骤文字描述...'
+        }]
+    };
+    $scope.stepsConfig2 = {
+        theme:'green-theme',
+        alignCenter: true,
+        direction: "vertical", //horizontal:水平布局,vertical：垂直布局
+        iconStyle:'fillStatus',
+        options: [{
+            title: 'Finished',
+            code: 0
+        }, {
+            title: 'In Progress',
+            code: 1
+        }, {
+            title: 'Waiting',
+            code: 2
+        }]
+    };
+    $scope.stepsConfigLg = {
+        theme:'green-theme',
+        alignCenter: true,
+        iconStyle:'strokeStatus',
+        size:'large',
+        options: [{
+            title: 'Finished',
+            code: 0
+        }, {
+            title: 'In Progress',
+            code: 1
+        }, {
+            title: 'Waiting',
+            code: 2
+        }]
+    };
+    $scope.stepsConfig = {
+        theme:'green-theme',
+        alignCenter: true,
+        iconStyle:'strokeStatus',
+        options: [{
+            title: 'Finished',
+            code: 0
+        }, {
+            title: 'In Progress',
+            code: 1
+        }, {
+            title: 'Waiting',
+            code: 2
+        }]
+    };
+    $scope.stepsConfig4 = {
+        theme:'green-theme',
+        iconStyle:'point',
+        options: [{
+            title: 'Finished',
+            code: 0
+        }, {
+            title: 'In Progress',
+            code: 1
+        }, {
+            title: 'Waiting',
+            code: 2
+        }]
+    };
+    $scope.stepsConfig5 = {
+        theme:'green-theme',
+        alignCenter: true,
+        iconStyle:'iconfont',
+        options: [{
+            title: 'Finished',
+            code: 0,
+            iconfont:'xui-icon xui-icon-md-checkmark'
+        }, {
+            title: 'In Progress',
+            code: 1,
+            iconfont:'xui-icon xui-icon-ios-cloud-download'
+        }, {
+            title: 'Waiting',
+            code: 2,
+            iconfont:'xui-icon xui-icon-ios-cloud-upload'
+        }]
+    };
+}]);</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xueSwitchDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        toggleConfig: {
+            onSelect: function (flag) {
+                $scope.vm.isOpen = !flag;
+            }
+        },
+        isOpen: true
+    }
+}])</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xueTableDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        tableConfig: {
+            showTableCol: true,
+            checkbox: true, //单选
+            toolbar: {
+                show: true,
+                title: '表格列表',
+                tools: [{
+                    text: '刷新',
+                    icon: 'xui-icon xui-icon-ios-refresh'
+                }]
+            },
+            rows: [{
+                id: 1,
+                name1: 1,
+                name2: 1,
+                name3: 1,
+                name4: 1,
+                name5: 1
+            }, {
+                id: 2,
+                name1: 2,
+                name2: 2,
+                name3: 2,
+                name4: 2,
+                name5: 2
+            }, {
+                id: 3,
+                name1: '内容3',
+                name2: '内容3',
+                name3: '内容3',
+                name4: '内容3',
+                name5: '内容3'
+            }],
+            colunms: [{
+                label: '标题栏1',
+                name: 'name1'
+            }, {
+                label: '标题栏2',
+                name: 'name2'
+            }, {
+                label: '标题栏3',
+                name: 'name3'
+            }, {
+                label: '标题栏4',
+                name: 'name4'
+
+            }, {
+                label: '标题栏5',
+                name: 'name5'
+            }],
+            total: 3,
+            optConfigExt: [{
+                optName: '操作',
+                optStyle: {
+                    width: '120px'
+                },
+                optContent: [{
+                    id: 'add',
+                    name: '添加',
+                    className: "xui-icon xui-icon-ios-add-circle-outline",
+                    callback: function (row) {
+                        console.log(row);
+                    },
+                    formatter: function (row) {
+                        return true;
+                    }
+                }, {
+                    id: 'view',
+                    name: '查看',
+                    className: "xui-icon xui-icon-ios-create-outline",
+                    formatter: function () {
+                        return true;
+                    }
+                }, {
+                    id: 'cancle',
+                    name: '取消',
+                    className: "xui-icon xui-icon-ios-trash-outline",
+                    formatter: function (row) {
+                        return true;
+                    }
+                }]
+            }]
+        }
+    }
+}]);</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xueTabsDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        activeValue1: 1,
+        activeValue2: 2,
+        select: function($event,$selectedIndex,$selected){
+            console.log($event,$selectedIndex,$selected);
+        },
+        deselect: function($event,$selectedIndex,$previousSelected){
+            console.log($event,$selectedIndex,$previousSelected);
+        },
+        tabItems: [{
+            id: 1,
+            name: '标签一',
+            content: '标签一的内容'
+        },{
+            id: 2,
+            name: '标签二',
+            content: '标签二的内容'
+        },{
+            id: 3,
+            name: '标签三',
+            content: '标签三的内容'
+        },{
+            id: 4,
+            name: '标签四',
+            content: '标签四的内容'
+        }]
+    }
+}]);</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xueTreeDemoCtrl',['$scope',function($scope){
+    $scope.treeConfig = {
+        data: [{
+            name: 'tree-1',
+            id: 1,
+            children: [{
+                name:  'tree-1-1',
+                id: 11,
+                children: [{
+                    name:  'tree-1-1-1',
+                    id: 111
+                }]
+            }, {
+                name:  'tree-1-2',
+                id: 2
+            }, {
+                name:  'tree-1-3',
+                id: 3
+            }]
+        }],
+        showCheckbox: true
+    }
+}]);
+</script>
+        
+        <script>angular.module('ui.xue.demo').controller('xueValidateDemoCtrl', ['$scope', function ($scope) {
+    $scope.pcIp = '';
+    $scope.xueValidConfig = {
+        pcIp: {
+            requiredTip: "IP地址不能为空",
+            regex: "ip",
+            errorTip: "请填写正确的IP格式！"
+        }
+    };
+}]);
+</script>
+        
+    </div>
+    <div class="footer-container">
+        Copyright © 2020 angularjs-xue
+    </div>
+</body>
+
+</html>

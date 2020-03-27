@@ -1,0 +1,585 @@
+<div class="main-menu-container" id="componentLeftWrap" data-first-module-name="color"
+    data-ng-init="ui.load()">
+    <ul class="node-menu">
+        <li>
+            <div class="child-menu">
+                <a data-module-name="color"
+                    ng-click="ui.selectMenu($event)">Color</a></div><div class="child-menu">
+                <a data-module-name="border"
+                    ng-click="ui.selectMenu($event)">Border</a></div><div class="child-menu">
+                <a data-module-name="button"
+                    ng-click="ui.selectMenu($event)">Button</a></div><div class="child-menu">
+                <a data-module-name="input"
+                    ng-click="ui.selectMenu($event)">Input</a></div>
+        </li>
+    </ul>
+</div>
+<div class="main-content-container" id="componentRightWrap">
+    
+    <section class="module-wrap" id="color">
+        <div class="page-header">
+            <h1>Color</h1>
+        </div>
+        <xue-tabs-wrap>
+            <xue-tab label="'示例'" value="1">
+                <div class="page-content">
+                    <div class="content-html">
+                        <div class="ui-demo-color">
+    <p class="heading xui-color-text-regular">主色</p>
+    <p class="subheading xui-color-text-secondary">主要品牌色。</p>
+    <div class="primary-wrap">
+        <div class="primary-color xui-bg-primary">Brand Color</div>
+        <div class="primary-list">
+            <ul>
+                <li class="xui-bg-primary-900"></li>
+                <li class="xui-bg-primary-800"></li>
+                <li class="xui-bg-primary-700"></li>
+                <li class="xui-bg-primary-600"></li>
+                <li class="xui-bg-primary-500"></li>
+                <li class="xui-bg-primary-400"></li>
+                <li class="xui-bg-primary-300"></li>
+                <li class="xui-bg-primary-200"></li>
+                <li class="xui-bg-primary-100"></li>
+                <li class="xui-bg-primary-light"></li>
+                <li class="xui-bg-primary-lighter"></li>
+            </ul>
+        </div>
+    </div>
+    <p class="heading xui-color-text-regular">辅助色</p>
+    <p class="subheading xui-color-text-secondary">除了主色外的场景色，需要在不同的场景中使用（例如危险色表示危险的操作）。</p>
+    <div class="auxiliary-wrap">
+        <ul>
+            <li>
+                <div class="color-content xui-bg-success">success</div>
+                <div class="color-liner"><span class="xui-bg-success-light"></span><span class="xui-bg-success-lighter"></span></div>
+            </li>
+            <li>
+                <div class="color-content xui-bg-info">info</div>
+                <div class="color-liner"><span class="xui-bg-info-light"></span><span class="xui-bg-info-lighter"></span></div>
+            </li>
+            <li>
+                <div class="color-content xui-bg-warning">warning</div>
+                <div class="color-liner"><span class="xui-bg-warning-light"></span><span class="xui-bg-warning-lighter"></span></div>
+            </li>
+            <li>
+                <div class="color-content xui-bg-danger">danger</div>
+                <div class="color-liner"><span class="xui-bg-danger-light"></span><span class="xui-bg-danger-lighter"></span></div>
+            </li>
+        </ul>
+    </div>
+    <p class="heading xui-color-text-regular">中性色</p>
+    <p class="subheading xui-color-text-secondary">中性色用于文本、背景和边框颜色。通过运用不同的中性色，来表现层次结构。</p>
+    <div class="neutral-wrap">
+        <div class="neutral-list">
+            <ul>
+                <li class="xui-bg-text-primary">主要文字</li>
+                <li class="xui-bg-text-regular">常规文字</li>
+                <li class="xui-bg-text-secondary">次要文字</li>
+                <li class="xui-bg-text-placeholder">占位文字</li>
+            </ul>
+        </div>
+        <div class="neutral-list">
+            <ul style="color: #606266">
+                <li class="xui-bg-border-base">一级边框</li>
+                <li class="xui-bg-border-light">二级边框</li>
+                <li class="xui-bg-border-lighter">三级边框</li>
+                <li class="xui-bg-border-extra-light">四级边框</li>
+            </ul>
+        </div>
+        <div class="neutral-list">
+            <ul>
+                <li class="xui-bg-black">基础黑色</li>
+                <li class="xui-bg-white" style="color: #606266; border: solid 1px #dcdfe6">基础白色</li>
+                <li class="xui-bg-background-base" style="color: #606266; border: solid 1px #dcdfe6">基础背景色</li>
+            </ul>
+        </div>
+    </div>
+</div>
+                    </div>
+                </div>
+            </xue-tab>
+            <xue-tab label="'代码'" value="3">
+                <div class="page-content-code">
+                    <div class="col-md-12">
+                        <xue-tabs-wrap type="border-card">
+                            <xue-tab label="'html'" value="1">
+                                <div class="code-wrap">
+                                    <pre ng-non-bindable><code data-language="html">&lt;div class=&quot;ui-demo-color&quot;&gt;
+    &lt;p class=&quot;heading xui-color-text-regular&quot;&gt;主色&lt;/p&gt;
+    &lt;p class=&quot;subheading xui-color-text-secondary&quot;&gt;主要品牌色。&lt;/p&gt;
+    &lt;div class=&quot;primary-wrap&quot;&gt;
+        &lt;div class=&quot;primary-color xui-bg-primary&quot;&gt;Brand Color&lt;/div&gt;
+        &lt;div class=&quot;primary-list&quot;&gt;
+            &lt;ul&gt;
+                &lt;li class=&quot;xui-bg-primary-900&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-800&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-700&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-600&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-500&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-400&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-300&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-200&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-100&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-light&quot;&gt;&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-primary-lighter&quot;&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;heading xui-color-text-regular&quot;&gt;辅助色&lt;/p&gt;
+    &lt;p class=&quot;subheading xui-color-text-secondary&quot;&gt;除了主色外的场景色，需要在不同的场景中使用（例如危险色表示危险的操作）。&lt;/p&gt;
+    &lt;div class=&quot;auxiliary-wrap&quot;&gt;
+        &lt;ul&gt;
+            &lt;li&gt;
+                &lt;div class=&quot;color-content xui-bg-success&quot;&gt;success&lt;/div&gt;
+                &lt;div class=&quot;color-liner&quot;&gt;&lt;span class=&quot;xui-bg-success-light&quot;&gt;&lt;/span&gt;&lt;span class=&quot;xui-bg-success-lighter&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;div class=&quot;color-content xui-bg-info&quot;&gt;info&lt;/div&gt;
+                &lt;div class=&quot;color-liner&quot;&gt;&lt;span class=&quot;xui-bg-info-light&quot;&gt;&lt;/span&gt;&lt;span class=&quot;xui-bg-info-lighter&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;div class=&quot;color-content xui-bg-warning&quot;&gt;warning&lt;/div&gt;
+                &lt;div class=&quot;color-liner&quot;&gt;&lt;span class=&quot;xui-bg-warning-light&quot;&gt;&lt;/span&gt;&lt;span class=&quot;xui-bg-warning-lighter&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;div class=&quot;color-content xui-bg-danger&quot;&gt;danger&lt;/div&gt;
+                &lt;div class=&quot;color-liner&quot;&gt;&lt;span class=&quot;xui-bg-danger-light&quot;&gt;&lt;/span&gt;&lt;span class=&quot;xui-bg-danger-lighter&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;heading xui-color-text-regular&quot;&gt;中性色&lt;/p&gt;
+    &lt;p class=&quot;subheading xui-color-text-secondary&quot;&gt;中性色用于文本、背景和边框颜色。通过运用不同的中性色，来表现层次结构。&lt;/p&gt;
+    &lt;div class=&quot;neutral-wrap&quot;&gt;
+        &lt;div class=&quot;neutral-list&quot;&gt;
+            &lt;ul&gt;
+                &lt;li class=&quot;xui-bg-text-primary&quot;&gt;主要文字&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-text-regular&quot;&gt;常规文字&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-text-secondary&quot;&gt;次要文字&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-text-placeholder&quot;&gt;占位文字&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;neutral-list&quot;&gt;
+            &lt;ul style=&quot;color: #606266&quot;&gt;
+                &lt;li class=&quot;xui-bg-border-base&quot;&gt;一级边框&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-border-light&quot;&gt;二级边框&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-border-lighter&quot;&gt;三级边框&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-border-extra-light&quot;&gt;四级边框&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;neutral-list&quot;&gt;
+            &lt;ul&gt;
+                &lt;li class=&quot;xui-bg-black&quot;&gt;基础黑色&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-white&quot; style=&quot;color: #606266; border: solid 1px #dcdfe6&quot;&gt;基础白色&lt;/li&gt;
+                &lt;li class=&quot;xui-bg-background-base&quot; style=&quot;color: #606266; border: solid 1px #dcdfe6&quot;&gt;基础背景色&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                                </div>
+                            </xue-tab>
+                        </xue-tabs-wrap>
+                    </div>
+                </div>
+            </xue-tab>
+            <xue-tab label="'文档'" value="2">
+                <div class="page-content">
+                    <div class="content-md markdown-wrap">
+                        <h4 id="ui-color-default-theme">ui color default theme</h4>
+
+                    </div>
+                </div>
+            </xue-tab>
+        </xue-tabs-wrap>
+    </section>
+    
+    <section class="module-wrap" id="border">
+        <div class="page-header">
+            <h1>Border</h1>
+        </div>
+        <xue-tabs-wrap>
+            <xue-tab label="'示例'" value="1">
+                <div class="page-content">
+                    <div class="content-html">
+                        <style>
+    .demo {
+        display: flex;
+    }
+
+    .demo-border {
+        width: 200px;
+        height: 100px;
+        border: 1px solid #DCDFE6;
+        text-align: center;
+        margin: 0 10px
+    }
+</style>
+<div>
+    <p class="heading">圆角</p>
+    <div class="demo">
+        <div class="demo-border">
+            无圆角 
+            <p>border-radius:0px;</p>
+        </div>
+        <div class="demo-border" style="border-radius:2px;">
+            小圆角 
+            <p>border-radius:2px;</p>
+        </div>
+        <div class="demo-border" style="border-radius:4px;">
+            大圆角 
+            <p>border-radius:4px;</p>
+        </div>
+        <div class="demo-border" style="border-radius:20px;">
+            圆形圆角 
+            <p>border-radius:20px;</p>
+        </div>
+    </div>
+    <p class="heading">阴影</p>
+    <div class="demo">
+        <div class="demo-border" style="border-radius:4px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);">
+            基础投影 
+            <p>box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)</p>
+        </div>
+        <div class="demo-border" style="border-radius:4px;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);">
+            浅色投影
+            <p>box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)</p>
+        </div>
+    </div>
+</div>
+                    </div>
+                </div>
+            </xue-tab>
+            <xue-tab label="'代码'" value="3">
+                <div class="page-content-code">
+                    <div class="col-md-12">
+                        <xue-tabs-wrap type="border-card">
+                            <xue-tab label="'html'" value="1">
+                                <div class="code-wrap">
+                                    <pre ng-non-bindable><code data-language="html">&lt;style&gt;
+    .demo {
+        display: flex;
+    }
+
+    .demo-border {
+        width: 200px;
+        height: 100px;
+        border: 1px solid #DCDFE6;
+        text-align: center;
+        margin: 0 10px
+    }
+&lt;/style&gt;
+&lt;div&gt;
+    &lt;p class=&quot;heading&quot;&gt;圆角&lt;/p&gt;
+    &lt;div class=&quot;demo&quot;&gt;
+        &lt;div class=&quot;demo-border&quot;&gt;
+            无圆角 
+            &lt;p&gt;border-radius:0px;&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;demo-border&quot; style=&quot;border-radius:2px;&quot;&gt;
+            小圆角 
+            &lt;p&gt;border-radius:2px;&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;demo-border&quot; style=&quot;border-radius:4px;&quot;&gt;
+            大圆角 
+            &lt;p&gt;border-radius:4px;&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;demo-border&quot; style=&quot;border-radius:20px;&quot;&gt;
+            圆形圆角 
+            &lt;p&gt;border-radius:20px;&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;heading&quot;&gt;阴影&lt;/p&gt;
+    &lt;div class=&quot;demo&quot;&gt;
+        &lt;div class=&quot;demo-border&quot; style=&quot;border-radius:4px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);&quot;&gt;
+            基础投影 
+            &lt;p&gt;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;demo-border&quot; style=&quot;border-radius:4px;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);&quot;&gt;
+            浅色投影
+            &lt;p&gt;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                                </div>
+                            </xue-tab>
+                        </xue-tabs-wrap>
+                    </div>
+                </div>
+            </xue-tab>
+            <xue-tab label="'文档'" value="2">
+                <div class="page-content">
+                    <div class="content-md markdown-wrap">
+                        <h4 id="test-border">test border</h4>
+
+                    </div>
+                </div>
+            </xue-tab>
+        </xue-tabs-wrap>
+    </section>
+    
+    <section class="module-wrap" id="button">
+        <div class="page-header">
+            <h1>Button</h1>
+        </div>
+        <xue-tabs-wrap>
+            <xue-tab label="'示例'" value="1">
+                <div class="page-content">
+                    <div class="content-html">
+                        <div class="ui-demo-btn">
+    <p class="heading">基础按钮</p>
+    <div class="btn-list">
+        <button class="xui-btn">默认按钮</button>
+        <button class="xui-btn xui-btn-primary">主要按钮</button>
+        <button class="xui-btn xui-btn-info">信息按钮</button>
+        <button class="xui-btn xui-btn-success">成功按钮</button>
+        <button class="xui-btn xui-btn-warning">警告按钮</button>
+        <button class="xui-btn xui-btn-danger">危险按钮</button>
+    </div>
+    <div class="btn-list">
+        <button class="xui-btn is-disabled">禁用按钮</button>
+        <button class="xui-btn xui-btn-primary is-disabled">主要按钮</button>
+        <button class="xui-btn xui-btn-info is-disabled">信息按钮</button>
+        <button class="xui-btn xui-btn-success is-disabled">成功按钮</button>
+        <button class="xui-btn xui-btn-warning is-disabled">警告按钮</button>
+        <button class="xui-btn xui-btn-danger is-disabled">危险按钮</button>
+    </div>
+    <div class="btn-list">
+        <button class="xui-btn is-plain">朴素按钮</button>
+        <button class="xui-btn xui-btn-primary is-plain">主要按钮</button>
+        <button class="xui-btn xui-btn-info is-plain">信息按钮</button>
+        <button class="xui-btn xui-btn-success is-plain">成功按钮</button>
+        <button class="xui-btn xui-btn-warning is-plain">警告按钮</button>
+        <button class="xui-btn xui-btn-danger is-plain">危险按钮</button>
+    </div>
+    <div class="btn-list">
+        <button class="xui-btn is-plain is-disabled">禁用按钮</button>
+        <button class="xui-btn xui-btn-primary is-plain is-disabled">主要按钮</button>
+        <button class="xui-btn xui-btn-info is-plain is-disabled">信息按钮</button>
+        <button class="xui-btn xui-btn-success is-plain is-disabled">成功按钮</button>
+        <button class="xui-btn xui-btn-warning is-plain is-disabled">警告按钮</button>
+        <button class="xui-btn xui-btn-danger is-plain is-disabled">危险按钮</button>
+    </div>
+    <div class="btn-list">
+        <button class="xui-btn is-round">圆角按钮</button>
+        <button class="xui-btn xui-btn-primary is-round">主要按钮</button>
+        <button class="xui-btn xui-btn-info is-round">信息按钮</button>
+        <button class="xui-btn xui-btn-success is-round">成功按钮</button>
+        <button class="xui-btn xui-btn-warning is-round">警告按钮</button>
+        <button class="xui-btn xui-btn-danger is-round">危险按钮</button>
+    </div>
+    <div class="btn-list">
+        <button class="xui-btn is-round is-disabled">禁用按钮</button>
+        <button class="xui-btn xui-btn-primary is-round is-disabled">主要按钮</button>
+        <button class="xui-btn xui-btn-info is-round is-disabled">信息按钮</button>
+        <button class="xui-btn xui-btn-success is-round is-disabled">成功按钮</button>
+        <button class="xui-btn xui-btn-warning is-round is-disabled">警告按钮</button>
+        <button class="xui-btn xui-btn-danger is-round is-disabled">危险按钮</button>
+    </div>
+    <p class="heading">按钮尺寸</p>
+    <div class="btn-list">
+        <button class="xui-btn xui-btn-lg">大尺寸按钮</button>
+        <button class="xui-btn">默认按钮</button>
+        <button class="xui-btn xui-btn-sm">小尺寸按钮</button>
+        <button class="xui-btn xui-btn-mini">迷你按钮</button>
+    </div>
+    <div class="btn-list">
+        <button class="xui-btn is-round xui-btn-lg">大尺寸按钮</button>
+        <button class="xui-btn is-round">默认按钮</button>
+        <button class="xui-btn is-round xui-btn-sm">小尺寸按钮</button>
+        <button class="xui-btn is-round xui-btn-mini">迷你按钮</button>
+    </div>
+    <p class="heading">按钮组</p>
+    <div class="btn-list">
+        <div class="xui-btn-group">
+            <button class="xui-btn xui-btn-primary">第一个按钮</button>
+            <button class="xui-btn xui-btn-primary">第二个按钮</button>
+            <button class="xui-btn xui-btn-primary">第三个按钮</button>
+        </div>
+    </div>
+</div>
+                    </div>
+                </div>
+            </xue-tab>
+            <xue-tab label="'代码'" value="3">
+                <div class="page-content-code">
+                    <div class="col-md-12">
+                        <xue-tabs-wrap type="border-card">
+                            <xue-tab label="'html'" value="1">
+                                <div class="code-wrap">
+                                    <pre ng-non-bindable><code data-language="html">&lt;div class=&quot;ui-demo-btn&quot;&gt;
+    &lt;p class=&quot;heading&quot;&gt;基础按钮&lt;/p&gt;
+    &lt;div class=&quot;btn-list&quot;&gt;
+        &lt;button class=&quot;xui-btn&quot;&gt;默认按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-primary&quot;&gt;主要按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-info&quot;&gt;信息按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-success&quot;&gt;成功按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-warning&quot;&gt;警告按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-danger&quot;&gt;危险按钮&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;btn-list&quot;&gt;
+        &lt;button class=&quot;xui-btn is-disabled&quot;&gt;禁用按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-primary is-disabled&quot;&gt;主要按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-info is-disabled&quot;&gt;信息按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-success is-disabled&quot;&gt;成功按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-warning is-disabled&quot;&gt;警告按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-danger is-disabled&quot;&gt;危险按钮&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;btn-list&quot;&gt;
+        &lt;button class=&quot;xui-btn is-plain&quot;&gt;朴素按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-primary is-plain&quot;&gt;主要按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-info is-plain&quot;&gt;信息按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-success is-plain&quot;&gt;成功按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-warning is-plain&quot;&gt;警告按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-danger is-plain&quot;&gt;危险按钮&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;btn-list&quot;&gt;
+        &lt;button class=&quot;xui-btn is-plain is-disabled&quot;&gt;禁用按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-primary is-plain is-disabled&quot;&gt;主要按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-info is-plain is-disabled&quot;&gt;信息按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-success is-plain is-disabled&quot;&gt;成功按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-warning is-plain is-disabled&quot;&gt;警告按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-danger is-plain is-disabled&quot;&gt;危险按钮&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;btn-list&quot;&gt;
+        &lt;button class=&quot;xui-btn is-round&quot;&gt;圆角按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-primary is-round&quot;&gt;主要按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-info is-round&quot;&gt;信息按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-success is-round&quot;&gt;成功按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-warning is-round&quot;&gt;警告按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-danger is-round&quot;&gt;危险按钮&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;btn-list&quot;&gt;
+        &lt;button class=&quot;xui-btn is-round is-disabled&quot;&gt;禁用按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-primary is-round is-disabled&quot;&gt;主要按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-info is-round is-disabled&quot;&gt;信息按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-success is-round is-disabled&quot;&gt;成功按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-warning is-round is-disabled&quot;&gt;警告按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-danger is-round is-disabled&quot;&gt;危险按钮&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;heading&quot;&gt;按钮尺寸&lt;/p&gt;
+    &lt;div class=&quot;btn-list&quot;&gt;
+        &lt;button class=&quot;xui-btn xui-btn-lg&quot;&gt;大尺寸按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn&quot;&gt;默认按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-sm&quot;&gt;小尺寸按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn xui-btn-mini&quot;&gt;迷你按钮&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;btn-list&quot;&gt;
+        &lt;button class=&quot;xui-btn is-round xui-btn-lg&quot;&gt;大尺寸按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn is-round&quot;&gt;默认按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn is-round xui-btn-sm&quot;&gt;小尺寸按钮&lt;/button&gt;
+        &lt;button class=&quot;xui-btn is-round xui-btn-mini&quot;&gt;迷你按钮&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;heading&quot;&gt;按钮组&lt;/p&gt;
+    &lt;div class=&quot;btn-list&quot;&gt;
+        &lt;div class=&quot;xui-btn-group&quot;&gt;
+            &lt;button class=&quot;xui-btn xui-btn-primary&quot;&gt;第一个按钮&lt;/button&gt;
+            &lt;button class=&quot;xui-btn xui-btn-primary&quot;&gt;第二个按钮&lt;/button&gt;
+            &lt;button class=&quot;xui-btn xui-btn-primary&quot;&gt;第三个按钮&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                                </div>
+                            </xue-tab>
+                        </xue-tabs-wrap>
+                    </div>
+                </div>
+            </xue-tab>
+            <xue-tab label="'文档'" value="2">
+                <div class="page-content">
+                    <div class="content-md markdown-wrap">
+                        
+                    </div>
+                </div>
+            </xue-tab>
+        </xue-tabs-wrap>
+    </section>
+    
+    <section class="module-wrap" id="input">
+        <div class="page-header">
+            <h1>Input</h1>
+        </div>
+        <xue-tabs-wrap>
+            <xue-tab label="'示例'" value="1">
+                <div class="page-content">
+                    <div class="content-html">
+                        <div class="ui-demo-ipt">
+    <p class="heading">基础输入框</p>
+    <div class="ipt-list">
+        <input type="text" class="xui-input xui-input-lg" placeholder="大尺寸输入框">
+        <input type="text" class="xui-input" placeholder="默认输入框">
+        <input type="text" class="xui-input xui-input-middle" placeholder="中尺寸输入框">
+        <input type="text" class="xui-input xui-input-sm" placeholder="小尺寸输入框">
+    </div>
+    <div class="ipt-list">
+        <input type="text" class="xui-input xui-input-lg is-round" placeholder="大尺寸圆角框">
+        <input type="text" class="xui-input is-round" placeholder="默认圆角框">
+        <input type="text" class="xui-input xui-input-middle is-round" placeholder="中尺寸圆角框">
+        <input type="text" class="xui-input xui-input-sm is-round" placeholder="小尺寸圆角框">
+    </div>
+    <p class="heading">禁用输入框</p>
+    <div class="ipt-list">
+        <input type="text" disabled class="xui-input xui-input-lg" placeholder="大尺寸输入框">
+        <input type="text" disabled class="xui-input" placeholder="默认输入框">
+        <input type="text" disabled class="xui-input xui-input-middle" placeholder="中尺寸输入框">
+        <input type="text" disabled class="xui-input xui-input-sm" placeholder="小尺寸输入框">
+    </div>
+    <div class="ipt-list">
+        <input type="text" disabled class="xui-input xui-input-lg is-round" placeholder="大尺寸圆角框">
+        <input type="text" disabled class="xui-input is-round" placeholder="默认圆角框">
+        <input type="text" disabled class="xui-input xui-input-middle is-round" placeholder="中尺寸输入框">
+        <input type="text" disabled class="xui-input xui-input-sm is-round" placeholder="小尺寸圆角框">
+    </div>
+</div>
+                    </div>
+                </div>
+            </xue-tab>
+            <xue-tab label="'代码'" value="3">
+                <div class="page-content-code">
+                    <div class="col-md-12">
+                        <xue-tabs-wrap type="border-card">
+                            <xue-tab label="'html'" value="1">
+                                <div class="code-wrap">
+                                    <pre ng-non-bindable><code data-language="html">&lt;div class=&quot;ui-demo-ipt&quot;&gt;
+    &lt;p class=&quot;heading&quot;&gt;基础输入框&lt;/p&gt;
+    &lt;div class=&quot;ipt-list&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input xui-input-lg&quot; placeholder=&quot;大尺寸输入框&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input&quot; placeholder=&quot;默认输入框&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input xui-input-middle&quot; placeholder=&quot;中尺寸输入框&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input xui-input-sm&quot; placeholder=&quot;小尺寸输入框&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;ipt-list&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input xui-input-lg is-round&quot; placeholder=&quot;大尺寸圆角框&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input is-round&quot; placeholder=&quot;默认圆角框&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input xui-input-middle is-round&quot; placeholder=&quot;中尺寸圆角框&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input xui-input-sm is-round&quot; placeholder=&quot;小尺寸圆角框&quot;&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;heading&quot;&gt;禁用输入框&lt;/p&gt;
+    &lt;div class=&quot;ipt-list&quot;&gt;
+        &lt;input type=&quot;text&quot; disabled class=&quot;xui-input xui-input-lg&quot; placeholder=&quot;大尺寸输入框&quot;&gt;
+        &lt;input type=&quot;text&quot; disabled class=&quot;xui-input&quot; placeholder=&quot;默认输入框&quot;&gt;
+        &lt;input type=&quot;text&quot; disabled class=&quot;xui-input xui-input-middle&quot; placeholder=&quot;中尺寸输入框&quot;&gt;
+        &lt;input type=&quot;text&quot; disabled class=&quot;xui-input xui-input-sm&quot; placeholder=&quot;小尺寸输入框&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;ipt-list&quot;&gt;
+        &lt;input type=&quot;text&quot; disabled class=&quot;xui-input xui-input-lg is-round&quot; placeholder=&quot;大尺寸圆角框&quot;&gt;
+        &lt;input type=&quot;text&quot; disabled class=&quot;xui-input is-round&quot; placeholder=&quot;默认圆角框&quot;&gt;
+        &lt;input type=&quot;text&quot; disabled class=&quot;xui-input xui-input-middle is-round&quot; placeholder=&quot;中尺寸输入框&quot;&gt;
+        &lt;input type=&quot;text&quot; disabled class=&quot;xui-input xui-input-sm is-round&quot; placeholder=&quot;小尺寸圆角框&quot;&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                                </div>
+                            </xue-tab>
+                        </xue-tabs-wrap>
+                    </div>
+                </div>
+            </xue-tab>
+            <xue-tab label="'文档'" value="2">
+                <div class="page-content">
+                    <div class="content-md markdown-wrap">
+                        
+                    </div>
+                </div>
+            </xue-tab>
+        </xue-tabs-wrap>
+    </section>
+    
+</div>

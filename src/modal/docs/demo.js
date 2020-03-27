@@ -3,31 +3,40 @@ angular.module('ui.xue.demo').controller('xueModalDemoCtrl',
         // 基础模态框
         $scope.open1 = function (type) {
             if (type == 1) {
-                var test = $xModal.open({
+                $xModal.open({
                     autoClose: true,
-                    template: '<div style="height: 250px;width: 100%; line-height: 200px;text-align: center;">这里是自定义template视图</div>',
-                    controller: 'modalTestCtrl'
+                    template: '<div style="height: 250px;width: 100%; line-height: 200px;text-align: center;">这里是自定义template视图</div>'
                 });
             }
-            if (type == 2 || type == 3) {
-                var test = $xModal.open({
+            if (type == 2) {
+                var modalInstance = $xModal.open({
                     templateUrl: 'modal.test.html',
                     controller: 'modalTestCtrl'
                 });
-                test.result.then(function (ret) {
-                    console.log(ret);
+                modalInstance.result.then(function (ret) {
+                    console.log("关闭原因：", ret);
+                }, function (ret) {
+                    console.log("取消原因：", ret);
+                });
+                modalInstance.closed.then(function (ret) {
+                    console.log("关闭弹窗");
+                });
+                modalInstance.opened.then(function (ret) {
+                    console.log("打开弹窗");
+                });
+                modalInstance.rendered.then(function (ret) {
+                    console.log("渲染完成");
                 });
             }
-            if (type == 4) {
-                var test = $xModal.open({
+            if (type == 3) {
+                $xModal.open({
                     backdrop: false,
                     templateUrl: 'modal.test.html',
                     controller: 'modalTestCtrl'
                 });
             }
-            if (type == 5) {
-                var test = $xModal.open({
-                    drag: true,
+            if (type == 4) {
+                $xModal.open({
                     backdrop: false,
                     templateUrl: 'modal.drag.html',
                     controller: 'modalTestCtrl'
@@ -45,50 +54,87 @@ angular.module('ui.xue.demo').controller('xueModalDemoCtrl',
             */
         }
         // 基础对话框
-        $scope.open2 = function(type){
-            if(type == 1){
-                var modalInstance = $xDialog.open({
-                    title: "标题",
-                    beforeConfirm: function(){
-                        console.log('确定前');
+        $scope.open2 = function (type) {
+            if (type == 1) {
+                var modalInstance1 = $xDialog.open({
+                    title: "基础对话框标题",
+                    confirmCallback: function () {
+                        modalInstance1.close();
                     },
-                    confirm: function(){
-                        console.log('确定');
+                    cancelCallback: function () {
+                        modalInstance1.dismiss();
                     },
-                    beforeCancel: function(){
-                        console.log('取消前');
-                    },
-                    cancel: function(){
-                        console.log('取消');
-                    },
-                    beforeClose: function(){
-                        console.log('关闭前');
-                    },
-                    close: function(){
-                        console.log('关闭');
+                    closeCallback: function () {
+                        modalInstance1.dismiss();
                     },
                     modalParam: {
-                        template: '<div style="height: 250px;width: 100%; line-height: 200px;text-align: center;">这里是自定义template视图</div>',
+                        template: '<div style="height: 250px;width: 100%; line-height: 200px;text-align: center;">基础对话框</div>'
+                    }
+                });
+            }
+            if (type == 2) {
+                var modalInstance2 = $xDialog.open({
+                    title: "自定义对话框标题",
+                    confirmValue: "确定按钮",
+                    cancelValue: "取消按钮",
+                    confirmCallback: function () {
+                        modalInstance2.close({
+                            test: '确定参数'
+                        });
+                    },
+                    cancelCallback: function () {
+                        modalInstance2.dismiss({
+                            test: '取消参数'
+                        });
+                    },
+                    closeCallback: function () {
+                        modalInstance2.dismiss({
+                            test: '关闭参数'
+                        });
+                    },
+                    modalParam: {
+                        templateUrl: 'dialog.test.html',
                         controller: 'modalTestCtrl'
                     }
                 });
-
+                modalInstance2.result.then(function (ret) {
+                    console.log("关闭原因：", ret);
+                }, function (ret) {
+                    console.log("取消原因：", ret);
+                });
+            }
+            if (type == 3) {
+                var modalInstance3 = $xDialog.open({
+                    title: "自定义对话框标题",
+                    cancelValue: "关闭",
+                    header: false,
+                    footer: true,
+                    confirm: false,
+                    cancel: true,
+                    cancelCallback: function () {
+                        modalInstance3.dismiss();
+                    },
+                    modalParam: {
+                        templateUrl: 'dialog.test.html',
+                        controller: 'modalTestCtrl'
+                    }
+                });
             }
         }
         // 提示框
-        $scope.open3 = function(type){
+        $scope.open3 = function (type) {
 
         }
         // 通知框
-        $scope.open4 = function(type){
+        $scope.open4 = function (type) {
 
         }
         // 弹出式loading
-        $scope.open5 = function(type){
+        $scope.open5 = function (type) {
 
         }
         // 局部式loading
-        $scope.open6 = function(type){
+        $scope.open6 = function (type) {
 
         }
     }]);
@@ -96,7 +142,12 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
     $scope.content = "这里是modal控制器里的内容！";
     $scope.close = function () {
         $modalInstance.close({
-            a: 'test zxl'
+            test: 'close传参对象'
+        });
+    }
+    $scope.cancel = function () {
+        $modalInstance.dismiss({
+            test: 'dismiss传参对象'
         });
     }
 }]);
