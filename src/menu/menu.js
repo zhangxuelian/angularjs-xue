@@ -157,7 +157,6 @@ angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
             link: function (scope, ele, attrs) {
                 var defaultConfig = {
                     mode: 'vertical', // 菜单模式 vertical/horizontal
-                    backgroundColor: '#fff', // 背景颜色
                     data: [{
                         id: '1',
                         menuName: '菜单1'
@@ -200,7 +199,6 @@ angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
                             }
                         }
                     };
-
                 }
                 scope.clickMenu = function (item) {
                     if (!item.subMenus) {
@@ -214,10 +212,12 @@ angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
                             });
                         }
                     } else {
+                        var open = item.open;
                         if (scope.menuConfig.mode == 'horizontal') {
                             item.open = true;
                             return;
                         }
+                        
                         if (scope.menuConfig.uniqueOpened) {
                             var data = scope.menuConfig.data;
                             var pathArr = xueUtilObject.searchKeys(data, item[scope.menuConfig.menuId]);
@@ -226,9 +226,9 @@ angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
                                     obj.open = false;
                                 });
                             }
-                            item.open = !item.open;
+                            item.open = !open;
                         } else {
-                            item.open = !item.open;
+                            item.open = !open;
                         }
                     }
                 }

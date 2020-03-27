@@ -1,0 +1,20 @@
+<div ng-controller="xuePopoverDemoCtrl">
+    <xue-popover trigger="'hover'">
+        <xue-popover-content  header="'标题1'" content="'测试内容1'"></xue-popover-content>
+        <button class="xui-btn">hover 激活</button>
+    </xue-popover>
+    <xue-popover trigger="'click'">
+        <xue-popover-content header="'标题2'" content="'测试内容2'"></xue-popover-content>
+        <button class="xui-btn">click 激活</button>
+    </xue-popover>
+    <xue-popover trigger="'focus'">
+        <xue-popover-content  header="'标题3'" content="'测试内容3'"></xue-popover-content>
+        <button class="xui-btn">focus 激活</button>
+    </xue-popover>
+    <xue-popover>
+        <xue-popover-content header="'标题4'" content="'测试内容4'" notriangle="true">
+            12123121
+        </xue-popover-content>
+        <button class="xui-btn" ng-click="click()">不要小三角</button>
+    </xue-popover>
+</div>

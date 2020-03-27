@@ -31,13 +31,12 @@ angular.module("xue/template/menu/menu2.html", []).run(["$templateCache", functi
     "            <i class=\"icon-dot\" ng-if=\"!item.subMenus && menuConfig.mode=='vertical'\"></i>\n" +
     "             <span>{{item.menuName}}</span>  \n" +
     "             <div class=\"title-arrow-right\" ng-if=\"!!item.subMenus\">\n" +
-    "                <i ng-if=\"!item.open\" class=\"xui-icon xui-icon-ios-arrow-forward\"></i>\n" +
-    "                <i ng-if=\"!!item.open\" class=\"xui-icon xui-icon-ios-arrow-down\"></i>\n" +
+    "                <i ng-show=\"!item.open\" class=\"xui-icon xui-icon-ios-arrow-forward\"></i>\n" +
+    "                <i ng-show=\"!!item.open\" class=\"xui-icon xui-icon-ios-arrow-down\"></i>\n" +
     "            </div>\n" +
     "        </div>\n" +
-    "         <ul class=\"menu-sub-item xui-menu-inline\"  ng-if=\"item.open && menuConfig.mode=='vertical'\">\n" +
+    "         <ul class=\"menu-sub-item\"  ng-if=\"menuConfig.mode=='vertical'\" ng-show=\"item.open\">\n" +
     "             <li class=\"menu-item\" ng-repeat=\"item in item.subMenus\"\n" +
-    "             ng-class=\"{'is-opened':item.open}\"\n" +
     "             ng-include=\"'menuTempVertical'\" ></li> \n" +
     "         </ul>\n" +
     "         <ul class=\"xui-menu-popup clearfix\"  ng-if=\"menuConfig.mode=='horizontal' && item.subMenus\" >\n" +

@@ -4759,11 +4759,11 @@ table {
   width: 100%;
   height: 100%;
   background: #05172f;
-  color: #fff; }
+  color: #FFFFFF; }
   .xui-menu-wrap.support-search {
-    padding-top: 2.8125rem; }
+    padding-top: 34px; }
   .xui-menu-wrap .menu-search {
-    height: 2.8125rem;
+    height: 34px;
     width: 100%;
     position: absolute;
     top: 0;
@@ -4794,19 +4794,19 @@ table {
       left: 5%;
       z-index: 9999;
       background: #336dae;
-      color: #fff;
+      color: #FFFFFF;
       border-radius: 5px; }
       .xui-menu-wrap .menu-search .menu-list ul {
         list-style: none; }
         .xui-menu-wrap .menu-search .menu-list ul li {
-          height: 1.75rem;
-          line-height: 1.75rem;
+          height: 28px;
+          line-height: 28px;
           text-align: left;
           cursor: pointer;
           padding: 0 10px;
           color: #a4cded; }
           .xui-menu-wrap .menu-search .menu-list ul li:hover {
-            color: #fff; }
+            color: #FFFFFF; }
   .xui-menu-wrap .menu-item-wrap {
     width: 100%;
     height: 100%;
@@ -4882,13 +4882,13 @@ table {
             .xui-menu-wrap .menu-item-wrap .menu-item .item-content ul li.active {
               background: #1e4673;
               border-left: solid 5px #0394F9;
-              color: #fff; }
+              color: #FFFFFF; }
               .xui-menu-wrap .menu-item-wrap .menu-item .item-content ul li.active:hover {
                 border-left: solid 5px #0394F9; }
             .xui-menu-wrap .menu-item-wrap .menu-item .item-content ul li:hover {
               background: #1e4673;
               border-left: solid 5px #1e4673;
-              color: #fff; }
+              color: #FFFFFF; }
             .xui-menu-wrap .menu-item-wrap .menu-item .item-content ul li img {
               width: 14px;
               height: 14px;
@@ -4909,17 +4909,16 @@ table {
                 vertical-align: middle; }
 
 .xui-menu-wrap2 {
-  list-style: none;
   position: relative;
   margin: 0;
-  padding-left: 0;
   width: 100%;
   height: 100%;
-  background: #F5F7FA; }
+  background: #05172f;
+  color: #FFFFFF; }
   .xui-menu-wrap2.support-search {
-    padding-top: 2.8125rem; }
+    padding-top: 40px; }
   .xui-menu-wrap2 .menu-search {
-    height: 2.8125rem;
+    height: 34px;
     width: 100%;
     position: absolute;
     top: 0; }
@@ -4928,15 +4927,17 @@ table {
       font-size: 22px;
       top: 12px;
       left: 5%;
-      padding-left: 5px; }
+      padding-left: 5px;
+      color: #9bc6e8; }
     .xui-menu-wrap2 .menu-search .menu-ipt {
       height: 30px;
       width: 90%;
       border-radius: 15px;
       margin-top: 7px;
       margin-left: 5%;
-      background-color: #F5F7FA;
-      border-color: #DCDFE6;
+      background-color: #1e4673;
+      border-color: #1e4673;
+      color: #9bc6e8;
       padding-left: 30px;
       box-sizing: border-box;
       outline: 0; }
@@ -4947,54 +4948,71 @@ table {
       left: 5%;
       z-index: 9999;
       background: #336dae;
-      color: #fff;
+      color: #FFFFFF;
       border-radius: 5px; }
       .xui-menu-wrap2 .menu-search .menu-list ul {
         list-style: none; }
         .xui-menu-wrap2 .menu-search .menu-list ul li {
-          height: 1.75rem;
-          line-height: 1.75rem;
+          height: 28px;
+          line-height: 28px;
           text-align: left;
           cursor: pointer;
           padding: 0 10px;
           color: #a4cded; }
           .xui-menu-wrap2 .menu-search .menu-list ul li:hover {
-            color: #fff; }
-  .xui-menu-wrap2 .menu-item .menu-title {
-    height: 50px;
-    line-height: 50px;
-    font-size: 16px;
-    width: 100%;
-    padding-left: 35px;
-    padding-right: 40px;
-    position: relative;
-    box-sizing: border-box;
-    transition: 0.3s ease-out; }
-    .xui-menu-wrap2 .menu-item .menu-title:hover {
-      background-color: #e8f3ff;
-      color: #409EFF; }
-      .xui-menu-wrap2 .menu-item .menu-title:hover .icon-dot {
-        background-color: #409EFF; }
-    .xui-menu-wrap2 .menu-item .menu-title.active {
-      color: #3685d6; }
-      .xui-menu-wrap2 .menu-item .menu-title.active .icon-dot {
-        background-color: #3685d6; }
-    .xui-menu-wrap2 .menu-item .menu-title .title-arrow-right {
-      width: 40px;
-      position: absolute;
-      right: 0;
-      height: 100%;
-      top: 0;
-      text-align: center; }
-      .xui-menu-wrap2 .menu-item .menu-title .title-arrow-right i {
-        font-size: 24px; }
-  .xui-menu-wrap2 .menu-item .menu-sub-item .icon-dot {
-    display: inline-block;
-    width: 5px;
-    height: 5px;
-    background: #303133;
-    border-radius: 50%;
-    vertical-align: middle; }
+            color: #FFFFFF; }
+  .xui-menu-wrap2 .menu-item-wrap {
+    list-style-type: none; }
+    .xui-menu-wrap2 .menu-item-wrap .menu-item {
+      transition: 0.4s ease-out; }
+      .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-title {
+        height: 50px;
+        line-height: 50px;
+        font-size: 16px;
+        width: 100%;
+        padding-left: 35px;
+        padding-right: 40px;
+        position: relative;
+        box-sizing: border-box;
+        border-left: solid 5px #05172f;
+        background: #05172f;
+        transition: 0.3s ease-out;
+        color: #ddd; }
+        .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-title:hover {
+          background: #1e4673;
+          border-left: solid 5px #1e4673; }
+          .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-title:hover .icon-dot {
+            background-color: #ddd; }
+        .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-title.active {
+          color: #a4cded;
+          background: #1e4673;
+          border-left: solid 5px #177fd1; }
+          .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-title.active .icon-dot {
+            background-color: #a4cded; }
+        .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-title .title-arrow-right {
+          width: 40px;
+          position: absolute;
+          right: 0;
+          height: 100%;
+          top: 0;
+          text-align: center; }
+          .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-title .title-arrow-right i {
+            font-size: 24px; }
+      .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-sub-item.ng-hide .menu-title {
+        height: 0; }
+      .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-sub-item .menu-title {
+        height: 40px;
+        line-height: 40px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden; }
+      .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-sub-item .icon-dot {
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        background-color: #ddd;
+        border-radius: 50%;
+        vertical-align: middle; }
   .xui-menu-wrap2.xui-menu-horizontal {
     border-right: none; }
     .xui-menu-wrap2.xui-menu-horizontal .menu-item {
@@ -6588,7 +6606,7 @@ table {
   top: 0;
   right: 0;
   color: #fff;
-  background: #d92b2f;
+  background: #F56C6C;
   padding: 0 5px;
   height: 20px;
   line-height: 18px;
@@ -6613,3 +6631,43 @@ table {
     display: inline-block;
     height: 100%;
     line-height: 100%; }
+
+.xui-popover-wrap {
+  display: inline-block; }
+  .xui-popover-wrap .popover-trigger-ele {
+    display: inline-block; }
+
+.xui-popover-container {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #EBEEF5;
+  border-radius: 4px;
+  font-size: 14px;
+  display: none;
+  padding: 18px 20px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  transform: .3s ease-out; }
+  .xui-popover-container .popover-title {
+    color: #303133;
+    font-size: 16px;
+    line-height: 1;
+    margin-bottom: 12px; }
+  .xui-popover-container .triangle {
+    border: solid 7px transparent;
+    border-bottom: solid 7px #EBEEF5;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -14px;
+    left: -7px;
+    margin-left: 50%; }
+    .xui-popover-container .triangle::before {
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+      border: solid 8px transparent;
+      border-bottom: solid 8px #fff;
+      position: absolute;
+      left: -8px;
+      top: -7px; }

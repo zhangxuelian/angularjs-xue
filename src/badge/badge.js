@@ -11,7 +11,7 @@ angular.module('xue.badge', [])
                 "</div>",
             link: function (scope, ele, attrs) {
                 var defaultConfig = {
-                    bgColor: '#d92b2f', // 背景颜色，默认红色
+                    bgColor: '', // 背景颜色，默认辅助色红色
                     max: 99, //超出显示 99+
                     isDot: false, //是否展示小圆点
                     count: 0, // 显示值

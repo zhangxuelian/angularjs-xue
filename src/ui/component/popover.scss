@@ -1,0 +1,26 @@
+.xui-popover-wrap{
+    display: inline-block;
+    .popover-trigger-ele{
+        display:inline-block;
+    }
+}
+.xui-popover-container{
+    position: absolute;
+    background: #fff;
+    border: 1px solid #EBEEF5;
+    border-radius: 4px;
+    font-size: 14px;
+    display:none;
+    padding: 18px 20px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    transform: .3s ease-out;
+    .popover-title{
+        color: #303133;
+        font-size: 16px;
+        line-height: 1;
+        margin-bottom: 12px;
+    }
+    .triangle {
+        @include triangle(7px,#EBEEF5);
+    }
+}
