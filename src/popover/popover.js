@@ -23,8 +23,8 @@ angular.module('xue.popover', [])
                                     triggerEle.bind('mouseenter', popoverCtrl.ev.mouseenter);
                                     triggerEle.bind('mouseleave', popoverCtrl.ev.mouseleave);
                                     var popEle = $('#' + scope.popoverId);
-                                    popEle.bind('mouseenter', popoverCtrl.ev.mouseenter1);
-                                    popEle.bind('mouseleave', popoverCtrl.ev.mouseleave1);
+                                    popEle.bind('mouseenter', popoverCtrl.ev.mouseenterPopover);
+                                    popEle.bind('mouseleave', popoverCtrl.ev.mouseleavePopover);
                                     break;
                                 case 'click':
                                     triggerEle.bind('click', popoverCtrl.ev.click);
@@ -41,12 +41,12 @@ angular.module('xue.popover', [])
                         mouseenter: function (e) {
                             popoverCtrl.show(e);
                         },
-                        mouseenter1: function () {
+                        mouseenterPopover: function () {
                             popoverCtrl.showPanel = true;
                             var popEle = $('#' + scope.popoverId);
                             popEle.show();
                         },
-                        mouseleave1: function () {
+                        mouseleavePopover: function () {
                             popoverCtrl.showPanel = false;
                             popoverCtrl.ev.mouseleave();
 
@@ -55,7 +55,7 @@ angular.module('xue.popover', [])
                             var popEle = $('#' + scope.popoverId);
                             if (!popEle.is(':hidden') && !popEle.showPanel) {
                                 // $timeout(function(){
-                                    popEle.hide();
+                                popEle.hide();
                                 // },200)
                             }
                         },
@@ -85,7 +85,8 @@ angular.module('xue.popover', [])
                             height = $(e.target).outerHeight();
                         var eleHeight = popEle.height(),
                             screenHeight = $('body').height();
-                        var offsetTop = top + height;
+                        var dis = ctrl.notriangle ? 0 : 5;
+                        var offsetTop = top + height + dis;
                         if ((screenHeight - offsetTop) < eleHeight && offsetTop > eleHeight) {
                             popEle.css({
                                 'top': top - eleHeight - 2 + 'px',
@@ -98,7 +99,7 @@ angular.module('xue.popover', [])
                             });
                         }
                         $('body').append(popEle);
-                        popEle.fadeIn();
+                        popEle.show();
                     }
                 }
                 popoverCtrl.init();
@@ -122,14 +123,17 @@ angular.module('xue.popover', [])
             require: '^xuePopover',
             scope: {
                 header: '=',
-                content:'=',
-                notriangle:'='
+                content: '=',
+                notriangle: '=',
+                popoverClass: '='
             },
             templateUrl: function (element, attrs) {
                 return attrs.templateUrl || "xue/template/popover/popover.html";
             },
             link: function (scope, ele, attrs, ctrl) {
                 scope.popoverId = ctrl.id;
+                ctrl.notriangle = scope.notriangle;
+                scope.className = attrs.popoverClass;
             }
         }
     }])

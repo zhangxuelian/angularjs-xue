@@ -1,4 +1,4 @@
-angular.module('ui.xue.demo', ['ui.xue', 'ui.router'])
+angular.module('ui.xue.demo', ['ui.xue', 'ui.router','ngAnimate'])
     .config(function ($urlRouterProvider,$stateProvider) {
         $urlRouterProvider.otherwise('getting_started');
         $stateProvider

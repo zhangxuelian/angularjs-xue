@@ -1,4 +1,4 @@
-angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
+angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
     .directive('xueMenu', ['xueUtilLang', function (xueUtilLang) {
         return {
             restrict: "E",
@@ -165,7 +165,8 @@ angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
                     setFirst: true, //是否选中第一个
                     selectId: null, // 当前选中导航菜单ID
                     menuId: 'id', //导航菜单唯一标识字段名称
-                    childrenName:'subMenus',
+                    childrenName: 'subMenus',// 子菜单名称
+                    menuName:'menuName',// 菜单字段名
                     clickMenu: function () {}
                 }
                 scope.menuConfig = angular.extend(defaultConfig, scope.menuConfig || {});
@@ -183,10 +184,10 @@ angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
                         formatData: function (data) {
                             for (var i = 0; i < data.length; i++) {
                                 this.menuList.push(data[i]);
-                                if(data[i][scope.menuConfig.childrenName]){
+                                if (data[i][scope.menuConfig.childrenName]) {
                                     scope.vm.formatData(data[i][scope.menuConfig.childrenName]);
                                 }
-                         
+
                             }
                         },
                         /**
@@ -210,6 +211,7 @@ angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
                             angular.forEach(scope.menuConfig.data, function (obj) {
                                 obj.open = false;
                             });
+
                         }
                     } else {
                         var open = item.open;
@@ -217,7 +219,7 @@ angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
                             item.open = true;
                             return;
                         }
-                        
+
                         if (scope.menuConfig.uniqueOpened) {
                             var data = scope.menuConfig.data;
                             var pathArr = xueUtilObject.searchKeys(data, item[scope.menuConfig.menuId]);
@@ -234,11 +236,15 @@ angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
                 }
                 //设置数据
                 var dataWatch = scope.$watch("menuConfig.data", function (newVal, oldVal) {
-                
                     if (newVal) {
-                        if (scope.menuConfig.setFirst && scope.menuConfig.data.length) {
+                        if (scope.menuConfig.setFirst && scope.menuConfig.data.length && scope.menuConfig.mode == 'vertical') {
                             var item = scope.menuConfig.data[0];
                             scope.clickMenu(item);
+                            if (item[scope.menuConfig.childrenName] && item[scope.menuConfig.childrenName].length) {
+                                scope.menuConfig.clickRouter(item[scope.menuConfig.childrenName][0]);
+                                scope.menuConfig.selectId = item[scope.menuConfig.childrenName][0][scope.menuConfig.routerId];
+                                item.open = true;
+                            }
                         }
                         if (scope.menuConfig.search) {
                             scope.vm.formatData(newVal);
@@ -249,39 +255,35 @@ angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
                 var idWatch = scope.$watch('menuConfig.selectId', function (newVal, oldVal) {
                     var data = scope.menuConfig.data;
                     if (newVal && data) {
-                        if (scope.menuConfig.uniqueOpened) {
+                        if (scope.menuConfig.uniqueOpened && scope.menuConfig.mode == 'vertical') {
                             angular.forEach(data, function (obj) {
                                 obj.open = false;
                             });
-                            scope.selectIndex(newVal);
+                            scope.selectIndex(newVal, true);
+                        }
+                        if (scope.menuConfig.mode == 'horizontal') {
+                            oldVal && scope.selectIndex(oldVal, false);
+                            scope.selectIndex(newVal, true);
                         }
                     }
                 })
-                scope.selectIndex = function (key) {
+                scope.selectIndex = function (menuId, status) {
                     var data = scope.menuConfig.data;
-                    var index = xueUtilObject.searchKeys(data, key); // 选中路径数组
+                    var index = xueUtilObject.searchKeys(data, menuId); // 选中路径数组
                     var n = 0;
                     while (index.length > 2 * n) {
                         var pathArr = index.slice(0, 2 * n + 1);
-                        xueUtilObject.findValByPath(data, pathArr).open = true;
+                        if (scope.menuConfig.mode == 'horizontal') {
+                            xueUtilObject.findValByPath(data, pathArr).active = status;
+                        } else {
+                            xueUtilObject.findValByPath(data, pathArr).open = status;
+                        }
                         n++;
                     }
                 }
-                scope.mouseenter = function (item) {
-                    if (scope.menuConfig.mode == 'vertical') {
-                        return;
-                    }
-                    $timeout(function () {
-                        item.open = true;
-                    })
-                }
-                scope.mouseleave = function (item) {
-                    if (scope.menuConfig.mode == 'vertical') {
-                        return;
-                    }
-                    $timeout(function () {
-                        item.open = false;
-                    })
+                scope.mouseEvt= function(item,status){
+                    item.open = status;
+
                 }
                 scope.$on("$destroy", function () {
                     dataWatch();

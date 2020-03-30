@@ -1835,7 +1835,7 @@ $ npm run demo or npm run test-demo</code></pre>
                             <div ng-controller="xueMenuDemoCtrl">
     <xue-menu menu-config="menuConfig"></xue-menu>
     <xue-menu2 menu-config="menuConfig1"></xue-menu2>
-    <!-- <xue-menu2 menu-config="menuConfig2"></xue-menu2> -->
+    <xue-menu2 menu-config="menuConfig2"></xue-menu2>
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
@@ -1991,7 +1991,7 @@ $ npm run demo or npm run test-demo</code></pre>
                                             ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueMenuDemoCtrl&quot;&gt;
     &lt;xue-menu menu-config=&quot;menuConfig&quot;&gt;&lt;/xue-menu&gt;
     &lt;xue-menu2 menu-config=&quot;menuConfig1&quot;&gt;&lt;/xue-menu2&gt;
-    &lt;!-- &lt;xue-menu2 menu-config=&quot;menuConfig2&quot;&gt;&lt;/xue-menu2&gt; --&gt;
+    &lt;xue-menu2 menu-config=&quot;menuConfig2&quot;&gt;&lt;/xue-menu2&gt;
 &lt;/div&gt;</code></pre>
                                     </div>
                                 </xue-tab>
@@ -2052,7 +2052,7 @@ $ npm run demo or npm run test-demo</code></pre>
             menuName: &#39;菜单2&#39;,
             subMenus: [{
                 id: &#39;21&#39;,
-                menuName: &#39;菜单项1-2&#39;,
+                menuName: &#39;菜单项2-1&#39;,
                 subMenus: [{
                     id: &#39;211&#39;,
                     menuName: &#39;菜单项2-1-1&#39;
@@ -2081,23 +2081,22 @@ $ npm run demo or npm run test-demo</code></pre>
     }
     $scope.menuConfig2 = {
         mode: &#39;horizontal&#39;,
-        selectId: 111, // 当前选中导航菜单ID
         data: [{
             id: &#39;1&#39;,
             menuName: &#39;菜单1&#39;,
             subMenus: [{
                 id: &#39;11&#39;,
-                menuName: &#39;菜单项1-1&#39;,
-                subMenus: [{
-                    id: &#39;111&#39;,
-                    menuName: &#39;菜单项1-1-1&#39;
-                },{
-                    id: &#39;121&#39;,
-                    menuName: &#39;菜单项1-2-1&#39;
-                }]
+                menuName: &#39;菜单项1-1&#39;
             },{
                 id: &#39;12&#39;,
-                menuName: &#39;菜单12&#39;
+                menuName: &#39;菜单12&#39;,
+                subMenus: [{
+                    id: &#39;121&#39;,
+                    menuName: &#39;菜单项1-2-1&#39;
+                },{
+                    id: &#39;122&#39;,
+                    menuName: &#39;菜单项1-2-2&#39;
+                }]
             },{
                 id: &#39;13&#39;,
                 menuName: &#39;菜单13&#39;
@@ -2122,7 +2121,10 @@ $ npm run demo or npm run test-demo</code></pre>
         },{
             id: &#39;3&#39;,
             menuName: &#39;菜单3&#39;
-        }]
+        }],
+        clickMenu: function (item) { //导航菜单点击回调
+            console.log(item);
+        }
     }
 }]);</code></pre>
                                     </div>
@@ -2185,7 +2187,7 @@ $ npm run demo or npm run test-demo</code></pre>
             menuName: '菜单2',
             subMenus: [{
                 id: '21',
-                menuName: '菜单项1-2',
+                menuName: '菜单项2-1',
                 subMenus: [{
                     id: '211',
                     menuName: '菜单项2-1-1'
@@ -2214,23 +2216,22 @@ $ npm run demo or npm run test-demo</code></pre>
     }
     $scope.menuConfig2 = {
         mode: 'horizontal',
-        selectId: 111, // 当前选中导航菜单ID
         data: [{
             id: '1',
             menuName: '菜单1',
             subMenus: [{
                 id: '11',
-                menuName: '菜单项1-1',
-                subMenus: [{
-                    id: '111',
-                    menuName: '菜单项1-1-1'
-                },{
-                    id: '121',
-                    menuName: '菜单项1-2-1'
-                }]
+                menuName: '菜单项1-1'
             },{
                 id: '12',
-                menuName: '菜单12'
+                menuName: '菜单12',
+                subMenus: [{
+                    id: '121',
+                    menuName: '菜单项1-2-1'
+                },{
+                    id: '122',
+                    menuName: '菜单项1-2-2'
+                }]
             },{
                 id: '13',
                 menuName: '菜单13'
@@ -2255,7 +2256,10 @@ $ npm run demo or npm run test-demo</code></pre>
         },{
             id: '3',
             menuName: '菜单3'
-        }]
+        }],
+        clickMenu: function (item) { //导航菜单点击回调
+            console.log(item);
+        }
     }
 }]);</script>
                 
@@ -3211,7 +3215,7 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
                         <div class="content-html">
                             <div ng-controller="xuePopoverDemoCtrl">
     <xue-popover trigger="'hover'">
-        <xue-popover-content  header="'标题1'" content="'测试内容1'"></xue-popover-content>
+        <xue-popover-content header="'标题1'" content="'测试内容1'"></xue-popover-content>
         <button class="xui-btn">hover 激活</button>
     </xue-popover>
     <xue-popover trigger="'click'">
@@ -3219,11 +3223,11 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
         <button class="xui-btn">click 激活</button>
     </xue-popover>
     <xue-popover trigger="'focus'">
-        <xue-popover-content  header="'标题3'" content="'测试内容3'"></xue-popover-content>
+        <xue-popover-content header="'标题3'" content="'测试内容3'"></xue-popover-content>
         <button class="xui-btn">focus 激活</button>
     </xue-popover>
     <xue-popover>
-        <xue-popover-content header="'标题4'" content="'测试内容4'" notriangle="true">
+        <xue-popover-content popover-class="test" header="'标题4'" content="'测试内容4'" notriangle="true">
             12123121
         </xue-popover-content>
         <button class="xui-btn" ng-click="click()">不要小三角</button>
@@ -3231,7 +3235,60 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
 </div>
                         </div>
                         <div class="content-md markdown-wrap">
-                            <h3 id="气泡弹窗">气泡弹窗</h3>
+                            <h3 id="组件说明">组件说明</h3>
+<p> 气泡提示窗</p>
+<h3 id="xuepopover-attributes">xuePopover Attributes</h3>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+<th>类型</th>
+<th>可选值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>trigger</td>
+<td>触发类型</td>
+<td>String</td>
+<td>hover/click/focus</td>
+<td>hover</td>
+</tr>
+</tbody></table>
+<h3 id="xuepopovercontent-attributes">xuePopoverContent Attributes</h3>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+<th>类型</th>
+<th>可选值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>header</td>
+<td>标题内容</td>
+<td>String</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>content</td>
+<td>内容</td>
+<td>String</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>notriangle</td>
+<td>不展示小三角</td>
+<td>Boolean</td>
+<td>-</td>
+<td>false</td>
+</tr>
+</tbody></table>
 
                         </div>
                     </div>
@@ -3249,7 +3306,7 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
                                         <pre
                                             ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xuePopoverDemoCtrl&quot;&gt;
     &lt;xue-popover trigger=&quot;&#39;hover&#39;&quot;&gt;
-        &lt;xue-popover-content  header=&quot;&#39;标题1&#39;&quot; content=&quot;&#39;测试内容1&#39;&quot;&gt;&lt;/xue-popover-content&gt;
+        &lt;xue-popover-content header=&quot;&#39;标题1&#39;&quot; content=&quot;&#39;测试内容1&#39;&quot;&gt;&lt;/xue-popover-content&gt;
         &lt;button class=&quot;xui-btn&quot;&gt;hover 激活&lt;/button&gt;
     &lt;/xue-popover&gt;
     &lt;xue-popover trigger=&quot;&#39;click&#39;&quot;&gt;
@@ -3257,11 +3314,11 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
         &lt;button class=&quot;xui-btn&quot;&gt;click 激活&lt;/button&gt;
     &lt;/xue-popover&gt;
     &lt;xue-popover trigger=&quot;&#39;focus&#39;&quot;&gt;
-        &lt;xue-popover-content  header=&quot;&#39;标题3&#39;&quot; content=&quot;&#39;测试内容3&#39;&quot;&gt;&lt;/xue-popover-content&gt;
+        &lt;xue-popover-content header=&quot;&#39;标题3&#39;&quot; content=&quot;&#39;测试内容3&#39;&quot;&gt;&lt;/xue-popover-content&gt;
         &lt;button class=&quot;xui-btn&quot;&gt;focus 激活&lt;/button&gt;
     &lt;/xue-popover&gt;
     &lt;xue-popover&gt;
-        &lt;xue-popover-content header=&quot;&#39;标题4&#39;&quot; content=&quot;&#39;测试内容4&#39;&quot; notriangle=&quot;true&quot;&gt;
+        &lt;xue-popover-content popover-class=&quot;test&quot; header=&quot;&#39;标题4&#39;&quot; content=&quot;&#39;测试内容4&#39;&quot; notriangle=&quot;true&quot;&gt;
             12123121
         &lt;/xue-popover-content&gt;
         &lt;button class=&quot;xui-btn&quot; ng-click=&quot;click()&quot;&gt;不要小三角&lt;/button&gt;
@@ -3273,10 +3330,9 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
                                     <div plunker-content="javascript">
                                         <pre
                                             ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xuePopoverDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
-    $scope.click=function(){
-       console.log(&#39;点击事件&#39;)
+    $scope.click = function () {
+        console.log(&#39;点击事件&#39;)
     }
-    
 }])</code></pre>
                                     </div>
                                 </xue-tab>
@@ -3285,10 +3341,9 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
                     </div>
                 </section>
                 <script>angular.module('ui.xue.demo').controller('xuePopoverDemoCtrl', ['$scope', function ($scope) {
-    $scope.click=function(){
-       console.log('点击事件')
+    $scope.click = function () {
+        console.log('点击事件')
     }
-    
 }])</script>
                 
                 <section class="module-wrap" id="scroller">

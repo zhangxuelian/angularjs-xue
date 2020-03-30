@@ -2,7 +2,7 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-03-27
+ * Version: 1.0.0 - 2020-03-30
  * Require angularjs version: 1.2.32
  * License: ISC
  */
@@ -1724,7 +1724,7 @@ angular.module('xue.loading', [])
             }
         }
     }])
-angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
+angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
     .directive('xueMenu', ['xueUtilLang', function (xueUtilLang) {
         return {
             restrict: "E",
@@ -1891,7 +1891,8 @@ angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
                     setFirst: true, //是否选中第一个
                     selectId: null, // 当前选中导航菜单ID
                     menuId: 'id', //导航菜单唯一标识字段名称
-                    childrenName:'subMenus',
+                    childrenName: 'subMenus',// 子菜单名称
+                    menuName:'menuName',// 菜单字段名
                     clickMenu: function () {}
                 }
                 scope.menuConfig = angular.extend(defaultConfig, scope.menuConfig || {});
@@ -1909,10 +1910,10 @@ angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
                         formatData: function (data) {
                             for (var i = 0; i < data.length; i++) {
                                 this.menuList.push(data[i]);
-                                if(data[i][scope.menuConfig.childrenName]){
+                                if (data[i][scope.menuConfig.childrenName]) {
                                     scope.vm.formatData(data[i][scope.menuConfig.childrenName]);
                                 }
-                         
+
                             }
                         },
                         /**
@@ -1936,6 +1937,7 @@ angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
                             angular.forEach(scope.menuConfig.data, function (obj) {
                                 obj.open = false;
                             });
+
                         }
                     } else {
                         var open = item.open;
@@ -1943,7 +1945,7 @@ angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
                             item.open = true;
                             return;
                         }
-                        
+
                         if (scope.menuConfig.uniqueOpened) {
                             var data = scope.menuConfig.data;
                             var pathArr = xueUtilObject.searchKeys(data, item[scope.menuConfig.menuId]);
@@ -1960,11 +1962,15 @@ angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
                 }
                 //设置数据
                 var dataWatch = scope.$watch("menuConfig.data", function (newVal, oldVal) {
-                
                     if (newVal) {
-                        if (scope.menuConfig.setFirst && scope.menuConfig.data.length) {
+                        if (scope.menuConfig.setFirst && scope.menuConfig.data.length && scope.menuConfig.mode == 'vertical') {
                             var item = scope.menuConfig.data[0];
                             scope.clickMenu(item);
+                            if (item[scope.menuConfig.childrenName] && item[scope.menuConfig.childrenName].length) {
+                                scope.menuConfig.clickRouter(item[scope.menuConfig.childrenName][0]);
+                                scope.menuConfig.selectId = item[scope.menuConfig.childrenName][0][scope.menuConfig.routerId];
+                                item.open = true;
+                            }
                         }
                         if (scope.menuConfig.search) {
                             scope.vm.formatData(newVal);
@@ -1975,39 +1981,35 @@ angular.module('xue.menu', ['xue.util.lang','xue.util.object'])
                 var idWatch = scope.$watch('menuConfig.selectId', function (newVal, oldVal) {
                     var data = scope.menuConfig.data;
                     if (newVal && data) {
-                        if (scope.menuConfig.uniqueOpened) {
+                        if (scope.menuConfig.uniqueOpened && scope.menuConfig.mode == 'vertical') {
                             angular.forEach(data, function (obj) {
                                 obj.open = false;
                             });
-                            scope.selectIndex(newVal);
+                            scope.selectIndex(newVal, true);
+                        }
+                        if (scope.menuConfig.mode == 'horizontal') {
+                            oldVal && scope.selectIndex(oldVal, false);
+                            scope.selectIndex(newVal, true);
                         }
                     }
                 })
-                scope.selectIndex = function (key) {
+                scope.selectIndex = function (menuId, status) {
                     var data = scope.menuConfig.data;
-                    var index = xueUtilObject.searchKeys(data, key); // 选中路径数组
+                    var index = xueUtilObject.searchKeys(data, menuId); // 选中路径数组
                     var n = 0;
                     while (index.length > 2 * n) {
                         var pathArr = index.slice(0, 2 * n + 1);
-                        xueUtilObject.findValByPath(data, pathArr).open = true;
+                        if (scope.menuConfig.mode == 'horizontal') {
+                            xueUtilObject.findValByPath(data, pathArr).active = status;
+                        } else {
+                            xueUtilObject.findValByPath(data, pathArr).open = status;
+                        }
                         n++;
                     }
                 }
-                scope.mouseenter = function (item) {
-                    if (scope.menuConfig.mode == 'vertical') {
-                        return;
-                    }
-                    $timeout(function () {
-                        item.open = true;
-                    })
-                }
-                scope.mouseleave = function (item) {
-                    if (scope.menuConfig.mode == 'vertical') {
-                        return;
-                    }
-                    $timeout(function () {
-                        item.open = false;
-                    })
+                scope.mouseEvt= function(item,status){
+                    item.open = status;
+
                 }
                 scope.$on("$destroy", function () {
                     dataWatch();
@@ -3389,8 +3391,8 @@ angular.module('xue.popover', [])
                                     triggerEle.bind('mouseenter', popoverCtrl.ev.mouseenter);
                                     triggerEle.bind('mouseleave', popoverCtrl.ev.mouseleave);
                                     var popEle = $('#' + scope.popoverId);
-                                    popEle.bind('mouseenter', popoverCtrl.ev.mouseenter1);
-                                    popEle.bind('mouseleave', popoverCtrl.ev.mouseleave1);
+                                    popEle.bind('mouseenter', popoverCtrl.ev.mouseenterPopover);
+                                    popEle.bind('mouseleave', popoverCtrl.ev.mouseleavePopover);
                                     break;
                                 case 'click':
                                     triggerEle.bind('click', popoverCtrl.ev.click);
@@ -3407,12 +3409,12 @@ angular.module('xue.popover', [])
                         mouseenter: function (e) {
                             popoverCtrl.show(e);
                         },
-                        mouseenter1: function () {
+                        mouseenterPopover: function () {
                             popoverCtrl.showPanel = true;
                             var popEle = $('#' + scope.popoverId);
                             popEle.show();
                         },
-                        mouseleave1: function () {
+                        mouseleavePopover: function () {
                             popoverCtrl.showPanel = false;
                             popoverCtrl.ev.mouseleave();
 
@@ -3421,7 +3423,7 @@ angular.module('xue.popover', [])
                             var popEle = $('#' + scope.popoverId);
                             if (!popEle.is(':hidden') && !popEle.showPanel) {
                                 // $timeout(function(){
-                                    popEle.hide();
+                                popEle.hide();
                                 // },200)
                             }
                         },
@@ -3451,7 +3453,8 @@ angular.module('xue.popover', [])
                             height = $(e.target).outerHeight();
                         var eleHeight = popEle.height(),
                             screenHeight = $('body').height();
-                        var offsetTop = top + height;
+                        var dis = ctrl.notriangle ? 0 : 5;
+                        var offsetTop = top + height + dis;
                         if ((screenHeight - offsetTop) < eleHeight && offsetTop > eleHeight) {
                             popEle.css({
                                 'top': top - eleHeight - 2 + 'px',
@@ -3464,7 +3467,7 @@ angular.module('xue.popover', [])
                             });
                         }
                         $('body').append(popEle);
-                        popEle.fadeIn();
+                        popEle.show();
                     }
                 }
                 popoverCtrl.init();
@@ -3488,14 +3491,17 @@ angular.module('xue.popover', [])
             require: '^xuePopover',
             scope: {
                 header: '=',
-                content:'=',
-                notriangle:'='
+                content: '=',
+                notriangle: '=',
+                popoverClass: '='
             },
             templateUrl: function (element, attrs) {
                 return attrs.templateUrl || "xue/template/popover/popover.html";
             },
             link: function (scope, ele, attrs, ctrl) {
                 scope.popoverId = ctrl.id;
+                ctrl.notriangle = scope.notriangle;
+                scope.className = attrs.popoverClass;
             }
         }
     }])
@@ -7753,8 +7759,8 @@ angular.module("xue/template/menu/menu.html", []).run(["$templateCache", functio
 angular.module("xue/template/menu/menu2.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/menu/menu2.html",
     "<div class=\"xui-menu-wrap2\"\n" +
-    " ng-class=\"{true:'support-search'}[menuConfig.search]\"\n" +
-    " ng-class=\"{'vertical':'xui-menu-vertical','horizontal':'xui-menu-horizontal'}[menuConfig.mode]\">\n" +
+    " ng-class=\"{'support-search':menuConfig.search,'xui-menu-horizontal':menuConfig.mode=='horizontal'}\"\n" +
+    " >\n" +
     "    <div class=\"menu-search\" ng-if=\"menuConfig.search && menuConfig.mode=='vertical'\">\n" +
     "        <i class=\"menu-search-icon xui-icon xui-icon-md-search\"></i>\n" +
     "        <input type=\"text\" class=\"menu-ipt\" ng-model=\"vm.searchValue\" ng-blur=\"vm.hideSearchBox()\">\n" +
@@ -7762,26 +7768,28 @@ angular.module("xue/template/menu/menu2.html", []).run(["$templateCache", functi
     "            ng-mouseover=\"vm.onSearchListDiv = true\"\n" +
     "            ng-mouseleave=\"vm.onSearchListDiv = false\">\n" +
     "            <ul>\n" +
-    "                <li ng-click=\"vm.select(item)\" ng-repeat=\"item in vm.menuList | filter : {menuName:vm.searchValue}\">{{item.menuName}}</li>\n" +
+    "                <li ng-click=\"vm.select(item)\" ng-repeat=\"item in vm.menuList | filter : {menuName:vm.searchValue}\">{{item[menuConfig.menuName]}}</li>\n" +
     "            </ul>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "     <ul class=\"menu-item-wrap clearfix\" >\n" +
-    "         <li class=\"menu-item\" ng-repeat=\"item in menuConfig.data\" \n" +
-    "         ng-class=\"{'is-opened':item.open}\"\n" +
-    "         ng-mouseenter=\"mouseenter(item)\"\n" +
-    "         ng-mouseleave=\"mouseleave(item)\"\n" +
+    "         <li class=\"menu-item\" ng-repeat=\"item in menuConfig.data\"  ng-if=\"menuConfig.mode=='vertical'\"\n" +
+    "         ng-include=\"'menuTempVertical'\">\n" +
+    "         </li>\n" +
+    "         <li class=\"menu-item\" ng-repeat=\"item in menuConfig.data\"  ng-if=\"menuConfig.mode=='horizontal'\"\n" +
+    "         ng-mouseenter=\"mouseEvt(item,true)\"\n" +
+    "         ng-mouseleave=\"mouseEvt(item,false)\"\n" +
     "         ng-include=\"'menuTempVertical'\">\n" +
     "         </li>\n" +
     "     </ul>\n" +
     "     <script id=\"menuTempVertical\" type=\"text/ng-template\">\n" +
     "         <div  class=\"menu-title\" ng-click=\"clickMenu(item)\" \n" +
-    "        ng-class=\"{true:'active'}[item[menuConfig.menuId] == menuConfig.selectId]\">\n" +
+    "        ng-class=\"{'active':item[menuConfig.menuId] == menuConfig.selectId,'horizontal-active':item.active}\">\n" +
     "            <div class=\"title-icon\" ng-if=\"item.iconName\">\n" +
     "                <i class=\"xui-icon xui-icon-ios-arrow-forward\"></i>\n" +
     "            </div>\n" +
     "            <i class=\"icon-dot\" ng-if=\"!item.subMenus && menuConfig.mode=='vertical'\"></i>\n" +
-    "             <span>{{item.menuName}}</span>  \n" +
+    "             <span>{{item[menuConfig.menuName]}}</span>  \n" +
     "             <div class=\"title-arrow-right\" ng-if=\"!!item.subMenus\">\n" +
     "                <i ng-show=\"!item.open\" class=\"xui-icon xui-icon-ios-arrow-forward\"></i>\n" +
     "                <i ng-show=\"!!item.open\" class=\"xui-icon xui-icon-ios-arrow-down\"></i>\n" +
@@ -7791,13 +7799,14 @@ angular.module("xue/template/menu/menu2.html", []).run(["$templateCache", functi
     "             <li class=\"menu-item\" ng-repeat=\"item in item.subMenus\"\n" +
     "             ng-include=\"'menuTempVertical'\" ></li> \n" +
     "         </ul>\n" +
-    "         <ul class=\"xui-menu-popup clearfix\"  ng-if=\"menuConfig.mode=='horizontal' && item.subMenus\" >\n" +
-    "            <li class=\"menu-item\" ng-repeat=\"item in item.subMenus\"\n" +
-    "            ng-class=\"{'is-opened':item.open}\"\n" +
-    "            ng-mouseenter=\"item.open = true\"\n" +
-    "            ng-mouseleave=\"item.open = false\"\n" +
-    "            ng-include=\"'menuTempVertical'\" ></li> \n" +
-    "        </ul>\n" +
+    "         <div class=\"xui-menu-popup\" ng-show=\"item.open\" ng-if=\"menuConfig.mode=='horizontal' && item.subMenus\">\n" +
+    "            <ul class=\"menu-popup-ul\">\n" +
+    "                <li class=\"menu-item\" ng-repeat=\"item in item.subMenus\"\n" +
+    "                ng-mouseenter=\"mouseEvt(item,true)\"\n" +
+    "                ng-mouseleave=\"mouseEvt(item,false)\"\n" +
+    "                ng-include=\"'menuTempVertical'\" ></li> \n" +
+    "            </ul>\n" +
+    "         </div>\n" +
     "    </script>\n" +
     " </div>");
 }]);
@@ -7919,7 +7928,7 @@ angular.module("xue/template/pagination/pagination.html", []).run(["$templateCac
 
 angular.module("xue/template/popover/popover.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/popover/popover.html",
-    "<div class=\"xui-popover-container\" id=\"{{popoverId}}\">\n" +
+    "<div class=\"xui-popover-container\" id=\"{{popoverId}}\" ng-class=\"className\">\n" +
     "    <div ng-if=\"header\" class=\"popover-title\">{{header}}</div>\n" +
     "    <div ng-if=\"content\" class=\"popover-content\">{{content}}</div>\n" +
     "    <div class=\"triangle\" ng-if=\"!notriangle\"></div>\n" +

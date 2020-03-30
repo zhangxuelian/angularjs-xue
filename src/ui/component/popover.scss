@@ -6,21 +6,21 @@
 }
 .xui-popover-container{
     position: absolute;
-    background: #fff;
-    border: 1px solid #EBEEF5;
+    background: $color-white;
+    border: 1px solid $border-color-lighter;
     border-radius: 4px;
     font-size: 14px;
     display:none;
-    padding: 18px 20px;
+    padding: 12px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    transform: .3s ease-out;
+    transition: .3s ease-out;
     .popover-title{
-        color: #303133;
+        color: $color-text-primary;
         font-size: 16px;
         line-height: 1;
         margin-bottom: 12px;
     }
     .triangle {
-        @include triangle(7px,#EBEEF5);
+        @include triangle(7px,$border-color-lighter);
     }
 }

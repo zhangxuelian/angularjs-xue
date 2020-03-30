@@ -52,7 +52,7 @@ angular.module('ui.xue.demo').controller('xueMenuDemoCtrl', ['$scope', function 
             menuName: '菜单2',
             subMenus: [{
                 id: '21',
-                menuName: '菜单项1-2',
+                menuName: '菜单项2-1',
                 subMenus: [{
                     id: '211',
                     menuName: '菜单项2-1-1'
@@ -81,23 +81,22 @@ angular.module('ui.xue.demo').controller('xueMenuDemoCtrl', ['$scope', function 
     }
     $scope.menuConfig2 = {
         mode: 'horizontal',
-        selectId: 111, // 当前选中导航菜单ID
         data: [{
             id: '1',
             menuName: '菜单1',
             subMenus: [{
                 id: '11',
-                menuName: '菜单项1-1',
-                subMenus: [{
-                    id: '111',
-                    menuName: '菜单项1-1-1'
-                },{
-                    id: '121',
-                    menuName: '菜单项1-2-1'
-                }]
+                menuName: '菜单项1-1'
             },{
                 id: '12',
-                menuName: '菜单12'
+                menuName: '菜单12',
+                subMenus: [{
+                    id: '121',
+                    menuName: '菜单项1-2-1'
+                },{
+                    id: '122',
+                    menuName: '菜单项1-2-2'
+                }]
             },{
                 id: '13',
                 menuName: '菜单13'
@@ -122,6 +121,9 @@ angular.module('ui.xue.demo').controller('xueMenuDemoCtrl', ['$scope', function 
         },{
             id: '3',
             menuName: '菜单3'
-        }]
+        }],
+        clickMenu: function (item) { //导航菜单点击回调
+            console.log(item);
+        }
     }
 }]);

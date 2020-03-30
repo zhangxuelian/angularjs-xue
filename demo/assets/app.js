@@ -1,4 +1,4 @@
-angular.module('ui.xue.demo', ['ui.xue', 'plunker', 'ui.router'])
+angular.module('ui.xue.demo', ['ui.xue', 'plunker', 'ui.router','ngAnimate'])
   .config(function($urlRouterProvider){
     $urlRouterProvider.otherwise("/index");
   })

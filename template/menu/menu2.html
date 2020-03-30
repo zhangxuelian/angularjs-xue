@@ -1,6 +1,6 @@
  <div class="xui-menu-wrap2"
- ng-class="{true:'support-search'}[menuConfig.search]"
- ng-class="{'vertical':'xui-menu-vertical','horizontal':'xui-menu-horizontal'}[menuConfig.mode]">
+ ng-class="{'support-search':menuConfig.search,'xui-menu-horizontal':menuConfig.mode=='horizontal'}"
+ >
     <div class="menu-search" ng-if="menuConfig.search && menuConfig.mode=='vertical'">
         <i class="menu-search-icon xui-icon xui-icon-md-search"></i>
         <input type="text" class="menu-ipt" ng-model="vm.searchValue" ng-blur="vm.hideSearchBox()">
@@ -8,26 +8,28 @@
             ng-mouseover="vm.onSearchListDiv = true"
             ng-mouseleave="vm.onSearchListDiv = false">
             <ul>
-                <li ng-click="vm.select(item)" ng-repeat="item in vm.menuList | filter : {menuName:vm.searchValue}">{{item.menuName}}</li>
+                <li ng-click="vm.select(item)" ng-repeat="item in vm.menuList | filter : {menuName:vm.searchValue}">{{item[menuConfig.menuName]}}</li>
             </ul>
         </div>
     </div>
      <ul class="menu-item-wrap clearfix" >
-         <li class="menu-item" ng-repeat="item in menuConfig.data" 
-         ng-class="{'is-opened':item.open}"
-         ng-mouseenter="mouseenter(item)"
-         ng-mouseleave="mouseleave(item)"
+         <li class="menu-item" ng-repeat="item in menuConfig.data"  ng-if="menuConfig.mode=='vertical'"
+         ng-include="'menuTempVertical'">
+         </li>
+         <li class="menu-item" ng-repeat="item in menuConfig.data"  ng-if="menuConfig.mode=='horizontal'"
+         ng-mouseenter="mouseEvt(item,true)"
+         ng-mouseleave="mouseEvt(item,false)"
          ng-include="'menuTempVertical'">
          </li>
      </ul>
      <script id="menuTempVertical" type="text/ng-template">
          <div  class="menu-title" ng-click="clickMenu(item)" 
-        ng-class="{true:'active'}[item[menuConfig.menuId] == menuConfig.selectId]">
+        ng-class="{'active':item[menuConfig.menuId] == menuConfig.selectId,'horizontal-active':item.active}">
             <div class="title-icon" ng-if="item.iconName">
                 <i class="xui-icon xui-icon-ios-arrow-forward"></i>
             </div>
             <i class="icon-dot" ng-if="!item.subMenus && menuConfig.mode=='vertical'"></i>
-             <span>{{item.menuName}}</span>  
+             <span>{{item[menuConfig.menuName]}}</span>  
              <div class="title-arrow-right" ng-if="!!item.subMenus">
                 <i ng-show="!item.open" class="xui-icon xui-icon-ios-arrow-forward"></i>
                 <i ng-show="!!item.open" class="xui-icon xui-icon-ios-arrow-down"></i>
@@ -37,12 +39,13 @@
              <li class="menu-item" ng-repeat="item in item.subMenus"
              ng-include="'menuTempVertical'" ></li> 
          </ul>
-         <ul class="xui-menu-popup clearfix"  ng-if="menuConfig.mode=='horizontal' && item.subMenus" >
-            <li class="menu-item" ng-repeat="item in item.subMenus"
-            ng-class="{'is-opened':item.open}"
-            ng-mouseenter="item.open = true"
-            ng-mouseleave="item.open = false"
-            ng-include="'menuTempVertical'" ></li> 
-        </ul>
+         <div class="xui-menu-popup" ng-show="item.open" ng-if="menuConfig.mode=='horizontal' && item.subMenus">
+            <ul class="menu-popup-ul">
+                <li class="menu-item" ng-repeat="item in item.subMenus"
+                ng-mouseenter="mouseEvt(item,true)"
+                ng-mouseleave="mouseEvt(item,false)"
+                ng-include="'menuTempVertical'" ></li> 
+            </ul>
+         </div>
     </script>
  </div>
