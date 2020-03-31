@@ -7,8 +7,8 @@
                 ng-style="cascaderConfig.css.inputStyle" 
                 ng-class="cascaderConfig.css.inputClassName"
                 placeholder="请选择" title="{{ ngVal }}" readonly>
-            <i class="cascader-icon fa fa-close" ng-if="cascaderCtrl.showDelete && !!ngVal" title="清空" ng-click="cascaderCtrl.clear($event)"></i>
-            <i class="cascader-icon fa fa-caret-down" ng-if="!(cascaderCtrl.showDelete && !!ngVal)" ng-class="{'expanded': cascaderCtrl.showSelect}"></i>
+            <i class="cascader-icon xui-icon xui-icon-ios-close-circle-outline" ng-if="cascaderCtrl.showDelete && !!ngVal" title="清空" ng-click="cascaderCtrl.clear($event)"></i>
+            <!-- <i class="cascader-icon xui-icon xui-icon-md-arrow-dropdown" ng-if="!(cascaderCtrl.showDelete && !!ngVal)" ng-class="{'expanded': cascaderCtrl.showSelect}"></i> -->
     </div>
     <div class="cascader-select-wrapper" 
         ng-show="cascaderCtrl.showSelect"
@@ -22,7 +22,7 @@
                         ng-class="{'active': item[cascaderConfig.valueField] == cascaderCtrl.selectValue[item.depth]}"
                         ng-repeat="item in list" ng-click="cascaderCtrl.clickItem(item)">
                             {{ item[cascaderConfig.textField] }}
-                            <i class="cascader-icon fa fa-angle-right" ng-if="!item.isLeaf"></i>
+                            <i class="cascader-icon xui-icon xui-icon-md-arrow-dropright" ng-if="!item.isLeaf"></i>
                     </li>
             </ul>
     </div>

@@ -28,6 +28,7 @@ angular.module('xue.popover', [])
                                     break;
                                 case 'click':
                                     triggerEle.bind('click', popoverCtrl.ev.click);
+                                    $("body")[0].addEventListener("click", popoverCtrl.ev.clickOtherArea);
                                     break;
                                 case 'focus':
                                     triggerEle.bind('mousedown', popoverCtrl.ev.mousedown);
@@ -54,9 +55,7 @@ angular.module('xue.popover', [])
                         mouseleave: function () {
                             var popEle = $('#' + scope.popoverId);
                             if (!popEle.is(':hidden') && !popEle.showPanel) {
-                                // $timeout(function(){
                                 popEle.hide();
-                                // },200)
                             }
                         },
                         click: function (e) {
@@ -65,6 +64,12 @@ angular.module('xue.popover', [])
                                 popoverCtrl.show(e);
                             } else {
                                 popEle.fadeOut(300);
+                            }
+                        },
+                        clickOtherArea: function (e) {
+                            if ($(e.target).attr("class") != "xui-popover-wrap" && $(e.target).parents(".xui-popover-wrap").length == 0 &&
+                                $(e.target).attr("id") != scope.popoverId && $(e.target).parents("#" + scope.popoverId).length == 0) {
+                                $('#' + scope.popoverId).fadeOut(300);
                             }
                         },
                         mousedown: function (e) {
@@ -104,6 +109,7 @@ angular.module('xue.popover', [])
                 }
                 popoverCtrl.init();
                 scope.$on('$destroy', function () {
+                    $("body")[0].removeEventListener("click", popoverCtrl.ev.clickOtherArea);
                     $("#" + scope.popoverId).remove();
                 });
             }

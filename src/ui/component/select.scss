@@ -1,13 +1,11 @@
 
-$select-default-width: 11.25rem !default;
-$select-default-height: 15.625rem !default;
 
 $select-height: 28px !default;
-$select-content-border-color: #cee0f0 !default;
-$select-content-bg-color: $gray-100 !default;
-$select-active-color: #0394f9 !default;
-$select-text-color: $gray-800 !default;
-$select-empty-text-color: $gray-600 !default;
+$select-content-border-color: $border-color-base !default;
+$select-content-bg-color: $background-color-base !default;
+$select-active-color: $color-primary !default;
+$select-text-color: $color-text-primary !default;
+$select-empty-text-color: $color-text-placeholder !default;
 
 .xui-select-warp {
     position: relative;
@@ -20,7 +18,7 @@ $select-empty-text-color: $gray-600 !default;
         // @include select-input;
         position: relative;
         text-align: left;
-        width: $select-default-width;
+        width: 180px;
         padding: 0 5px;
         padding-right: 18px !important;
         color: $select-text-color;
@@ -32,7 +30,7 @@ $select-empty-text-color: $gray-600 !default;
         width: 0;
         height: 0;
         border: 4px solid transparent;
-        border-top-color: $gray-800;
+        border-top-color: $select-text-color;
         border-top-width: 6px;
         right: 5px;
         top: 14px;
@@ -42,8 +40,8 @@ $select-empty-text-color: $gray-600 !default;
         position: absolute;
         display: none;
         top: 29px;
-        width: $select-default-width;
-        height: $select-default-height;
+        width: 180px;
+        height: 250px;
         z-index: 1024;
         background: $select-content-bg-color;
         overflow: auto;
@@ -95,9 +93,9 @@ $select-empty-text-color: $gray-600 !default;
                     top: 12px;
                     right: 5px;
                     cursor: pointer;
-                    color: $gray-600;
+                    color: $color-text-regular;
                     line-height: 18px;
-                    @include font-size(18px);
+                    font-size: 18px;
                 }
             }
         }
@@ -117,7 +115,7 @@ $select-empty-text-color: $gray-600 !default;
             overflow: auto !important;
             height: 100% !important;
             // IE8滚动条箭头颜色，重设原来的浅色调避免弹框太小时完全无滚动条
-            scrollbar-arrow-color: $black;
+            scrollbar-arrow-color: $color-black;
 
             li {
                 width: 100% !important;
@@ -135,7 +133,7 @@ $select-empty-text-color: $gray-600 !default;
 
                 &:hover {
                     background: $select-active-color;
-                    color: $white;
+                    color: #fff;
                 }
 
                 input[type='checkbox'] {

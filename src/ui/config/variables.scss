@@ -1,23 +1,23 @@
 // Color system
-$white: #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black: #000 !default;
+// $white: #fff !default;
+// $gray-100: #f8f9fa !default;
+// $gray-200: #e9ecef !default;
+// $gray-300: #dee2e6 !default;
+// $gray-400: #ced4da !default;
+// $gray-500: #adb5bd !default;
+// $gray-600: #6c757d !default;
+// $gray-700: #495057 !default;
+// $gray-800: #343a40 !default;
+// $gray-900: #212529 !default;
+// $black: #000 !default;
 
-$blue: #1989fa !default;
-$purple: #A059B9 !default;
-$red: #E94B40 !default;
-$orange: #E77F20 !default;
-$yellow: #F2C311 !default;
-$green: #2ECE6E !default;
-$teal: #1DBC9C !default;
+// $blue: #1989fa !default;
+// $purple: #A059B9 !default;
+// $red: #E94B40 !default;
+// $orange: #E77F20 !default;
+// $yellow: #F2C311 !default;
+// $green: #2ECE6E !default;
+// $teal: #1DBC9C !default;
 
 $color-primary: #409EFF !default;
 $color-success: #67C23A !default;
@@ -43,8 +43,8 @@ $theme-color-interval: 8% !default;
 $yiq-contrasted-threshold: 150 !default;
 
 // Customize the light and dark text colors for use in our YIQ color contrast function.
-$yiq-text-dark: $gray-900 !default;
-$yiq-text-light: $white !default;
+// $yiq-text-dark: $gray-900 !default;
+// $yiq-text-light: $white !default;
 
 // fusv-disable example for $primary
 $primary-100: tint-color($color-primary, 8) !default;
@@ -115,8 +115,8 @@ $negative-spacers: negativify-map($spacers) !default;
 //
 // Settings for the `<body>` element.
 
-$body-bg: $white !default;
-$body-color: $gray-900 !default;
+// $body-bg: $white !default;
+// $body-color: $gray-900 !default;
 $body-text-align: null !default;
 
 
@@ -187,7 +187,7 @@ $container-padding-x: $grid-gutter-width / 2 !default;
 // Define common padding and border radius sizes and more.
 
 $border-width: 1px !default;
-$border-color: $gray-300 !default;
+// $border-color: $gray-300 !default;
 
 $border-radius: .25rem !default;
 $border-radius-lg: .3rem !default;
@@ -195,13 +195,13 @@ $border-radius-sm: .2rem !default;
 
 $rounded-pill: 50rem !default;
 
-$box-shadow-sm: 0 .125rem .25rem rgba($black, .075) !default;
-$box-shadow: 0 .5rem 1rem rgba($black, .15) !default;
-$box-shadow-lg: 0 1rem 3rem rgba($black, .175) !default;
-$box-shadow-inset: inset 0 1px 2px rgba($black, .075) !default;
+// $box-shadow-sm: 0 .125rem .25rem rgba($black, .075) !default;
+// $box-shadow: 0 .5rem 1rem rgba($black, .15) !default;
+// $box-shadow-lg: 0 1rem 3rem rgba($black, .175) !default;
+// $box-shadow-inset: inset 0 1px 2px rgba($black, .075) !default;
 
-$component-active-color: $white !default;
-$component-active-bg: $color-primary !default;
+// $component-active-color: $white !default;
+// $component-active-bg: $color-primary !default;
 
 $caret-width: .3em !default;
 $caret-vertical-align: $caret-width * .85 !default;
@@ -298,11 +298,11 @@ $small-font-size: .875em !default;
 
 $sub-sup-font-size: .75em !default;
 
-$text-muted: $gray-600 !default;
+// $text-muted: $gray-600 !default;
 
 $initialism-font-size: $small-font-size !default;
 
-$blockquote-small-color: $gray-600 !default;
+// $blockquote-small-color: $gray-600 !default;
 $blockquote-small-font-size: $small-font-size !default;
 $blockquote-font-size: $font-size-base * 1.25 !default;
 
@@ -329,13 +329,13 @@ $hr-margin-y: $spacer !default;
 // Code
 
 $code-font-size: $small-font-size !default;
-$code-color: $gray-500 !default;
+// $code-color: $gray-500 !default;
 
 $kbd-padding-y: .2rem !default;
 $kbd-padding-x: .4rem !default;
 $kbd-font-size: $code-font-size !default;
-$kbd-color: $white !default;
-$kbd-bg: $gray-900 !default;
+// $kbd-color: $white !default;
+// $kbd-bg: $gray-900 !default;
 
 $pre-color: null !default;
 

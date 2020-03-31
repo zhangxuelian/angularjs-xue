@@ -348,7 +348,7 @@ $ npm run demo or npm run test-demo</code></pre>
 <td align="left">显示背景颜色</td>
 <td align="center">String</td>
 <td align="center">-</td>
-<td align="center">&#39;#d92b2f&#39;(红色)</td>
+<td align="center">-</td>
 </tr>
 <tr>
 <td>max</td>
@@ -5676,7 +5676,7 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
                         <div class="content-html">
                             <div ng-controller="xueValidateDemoCtrl">
     <div class="xui-validate-container">
-        <input type="text" ng-model="pcIp" validate-config="xueValidConfig.pcIp">
+        <input type="text" class="xui-input" ng-model="pcIp" xue-validate="xueValidConfig.pcIp">
     </div>
 </div>
                         </div>
@@ -5693,12 +5693,12 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
 </tr>
 </thead>
 <tbody><tr>
-<td>validate-config</td>
+<td>xue-validate</td>
 <td>选择器属性</td>
 <td>Object</td>
 </tr>
 </tbody></table>
-<h4 id="validate-config-对象属性">validate-config 对象属性</h4>
+<h4 id="xue-validate-对象属性">xue-validate 对象属性</h4>
 <table>
 <thead>
 <tr>
@@ -5881,7 +5881,7 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
                                         <pre
                                             ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueValidateDemoCtrl&quot;&gt;
     &lt;div class=&quot;xui-validate-container&quot;&gt;
-        &lt;input type=&quot;text&quot; ng-model=&quot;pcIp&quot; validate-config=&quot;xueValidConfig.pcIp&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input&quot; ng-model=&quot;pcIp&quot; xue-validate=&quot;xueValidConfig.pcIp&quot;&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
                                     </div>

@@ -2,7 +2,7 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-03-30
+ * Version: 1.0.0 - 2020-03-31
  * Require angularjs version: 1.2.32
  * License: ISC
  */
@@ -1891,8 +1891,8 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
                     setFirst: true, //是否选中第一个
                     selectId: null, // 当前选中导航菜单ID
                     menuId: 'id', //导航菜单唯一标识字段名称
-                    childrenName: 'subMenus',// 子菜单名称
-                    menuName:'menuName',// 菜单字段名
+                    childrenName: 'subMenus', // 子菜单名称
+                    menuName: 'menuName', // 菜单字段名
                     clickMenu: function () {}
                 }
                 scope.menuConfig = angular.extend(defaultConfig, scope.menuConfig || {});
@@ -1988,7 +1988,9 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
                             scope.selectIndex(newVal, true);
                         }
                         if (scope.menuConfig.mode == 'horizontal') {
-                            oldVal && scope.selectIndex(oldVal, false);
+                            if (oldVal) {
+                                scope.selectIndex(oldVal, false);
+                            }
                             scope.selectIndex(newVal, true);
                         }
                     }
@@ -2007,7 +2009,7 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
                         n++;
                     }
                 }
-                scope.mouseEvt= function(item,status){
+                scope.mouseEvt = function (item, status) {
                     item.open = status;
 
                 }
@@ -3396,6 +3398,7 @@ angular.module('xue.popover', [])
                                     break;
                                 case 'click':
                                     triggerEle.bind('click', popoverCtrl.ev.click);
+                                    $("body")[0].addEventListener("click", popoverCtrl.ev.clickOtherArea);
                                     break;
                                 case 'focus':
                                     triggerEle.bind('mousedown', popoverCtrl.ev.mousedown);
@@ -3422,9 +3425,7 @@ angular.module('xue.popover', [])
                         mouseleave: function () {
                             var popEle = $('#' + scope.popoverId);
                             if (!popEle.is(':hidden') && !popEle.showPanel) {
-                                // $timeout(function(){
                                 popEle.hide();
-                                // },200)
                             }
                         },
                         click: function (e) {
@@ -3433,6 +3434,12 @@ angular.module('xue.popover', [])
                                 popoverCtrl.show(e);
                             } else {
                                 popEle.fadeOut(300);
+                            }
+                        },
+                        clickOtherArea: function (e) {
+                            if ($(e.target).attr("class") != "xui-popover-wrap" && $(e.target).parents(".xui-popover-wrap").length == 0 &&
+                                $(e.target).attr("id") != scope.popoverId && $(e.target).parents("#" + scope.popoverId).length == 0) {
+                                $('#' + scope.popoverId).fadeOut(300);
                             }
                         },
                         mousedown: function (e) {
@@ -3472,6 +3479,7 @@ angular.module('xue.popover', [])
                 }
                 popoverCtrl.init();
                 scope.$on('$destroy', function () {
+                    $("body")[0].removeEventListener("click", popoverCtrl.ev.clickOtherArea);
                     $("#" + scope.popoverId).remove();
                 });
             }
@@ -6989,7 +6997,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
         return {
             restrict: "A",
             scope: {
-                validateConfig: "="
+                xueValidate: "="
             },
             link: function (scope, ele, attrs) {
                 var xueValidateCtrl = scope.xueValidateCtrl = {
@@ -7182,11 +7190,11 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                         nextNode.classList.add("hide");
                         ele[0].classList.remove('gx-error-tip');
                         if (isAddSuccess && scope.ValidateConfig.errorTipPos != "bottom") {
-                            nextNodeI.classList.remove('xui-icon-ios-close-circle');
+                            nextNodeI.classList.remove('xui-icon-md-alert');
                             nextNodeI.classList.add("xui-icon-ios-checkmark-circle");
                             return;
                         }
-                        nextNodeI.classList.remove('xui-icon-ios-close-circle');
+                        nextNodeI.classList.remove('xui-icon-md-alert');
                     },
                     /**
                      * 校验失败时的页面样式处理
@@ -7207,7 +7215,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                         nextNodeLabel.title = tip;
                         ele[0].classList.add('gx-error-tip');
                         nextNodeI.classList.remove("xui-icon-ios-checkmark-circle");
-                        nextNodeI.classList.add('xui-icon-ios-close-circle');
+                        nextNodeI.classList.add('xui-icon-md-alert');
                     },
                     /**
                      * 元素触发blur事件
@@ -7477,7 +7485,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                      */
                     init: function () {
                         var self = this;
-                        scope.ValidateConfig = angular.extend(self.defaultConfig, scope.ValidateConfig);
+                        scope.ValidateConfig = angular.extend(self.defaultConfig, scope.xueValidate);
                         self.addDivMsg();
                         ele.bind('blur', self.triggerBlur);
                         self.destroy();
@@ -7560,8 +7568,8 @@ angular.module("xue/template/cascader/cascader.html", []).run(["$templateCache",
     "                ng-style=\"cascaderConfig.css.inputStyle\" \n" +
     "                ng-class=\"cascaderConfig.css.inputClassName\"\n" +
     "                placeholder=\"请选择\" title=\"{{ ngVal }}\" readonly>\n" +
-    "            <i class=\"cascader-icon fa fa-close\" ng-if=\"cascaderCtrl.showDelete && !!ngVal\" title=\"清空\" ng-click=\"cascaderCtrl.clear($event)\"></i>\n" +
-    "            <i class=\"cascader-icon fa fa-caret-down\" ng-if=\"!(cascaderCtrl.showDelete && !!ngVal)\" ng-class=\"{'expanded': cascaderCtrl.showSelect}\"></i>\n" +
+    "            <i class=\"cascader-icon xui-icon xui-icon-ios-close-circle-outline\" ng-if=\"cascaderCtrl.showDelete && !!ngVal\" title=\"清空\" ng-click=\"cascaderCtrl.clear($event)\"></i>\n" +
+    "            <!-- <i class=\"cascader-icon xui-icon xui-icon-md-arrow-dropdown\" ng-if=\"!(cascaderCtrl.showDelete && !!ngVal)\" ng-class=\"{'expanded': cascaderCtrl.showSelect}\"></i> -->\n" +
     "    </div>\n" +
     "    <div class=\"cascader-select-wrapper\" \n" +
     "        ng-show=\"cascaderCtrl.showSelect\"\n" +
@@ -7575,7 +7583,7 @@ angular.module("xue/template/cascader/cascader.html", []).run(["$templateCache",
     "                        ng-class=\"{'active': item[cascaderConfig.valueField] == cascaderCtrl.selectValue[item.depth]}\"\n" +
     "                        ng-repeat=\"item in list\" ng-click=\"cascaderCtrl.clickItem(item)\">\n" +
     "                            {{ item[cascaderConfig.textField] }}\n" +
-    "                            <i class=\"cascader-icon fa fa-angle-right\" ng-if=\"!item.isLeaf\"></i>\n" +
+    "                            <i class=\"cascader-icon xui-icon xui-icon-md-arrow-dropright\" ng-if=\"!item.isLeaf\"></i>\n" +
     "                    </li>\n" +
     "            </ul>\n" +
     "    </div>\n" +
@@ -7928,12 +7936,15 @@ angular.module("xue/template/pagination/pagination.html", []).run(["$templateCac
 
 angular.module("xue/template/popover/popover.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/popover/popover.html",
-    "<div class=\"xui-popover-container\" id=\"{{popoverId}}\" ng-class=\"className\">\n" +
-    "    <div ng-if=\"header\" class=\"popover-title\">{{header}}</div>\n" +
-    "    <div ng-if=\"content\" class=\"popover-content\">{{content}}</div>\n" +
-    "    <div class=\"triangle\" ng-if=\"!notriangle\"></div>\n" +
-    "    <div ng-transclude class=\"popover-content\"></div>\n" +
-    "</div>");
+    "<div class=\"xui-popover-container\" id=\"{{popoverId}}\">\n" +
+    "    <div class=\"xui-popover-box\"  ng-class=\"className\">\n" +
+    "        <div ng-if=\"header\" class=\"popover-title\">{{header}}</div>\n" +
+    "        <div ng-if=\"content\" class=\"popover-content\">{{content}}</div>\n" +
+    "        <div class=\"triangle\" ng-if=\"!notriangle\"></div>\n" +
+    "        <div ng-transclude class=\"popover-content\"></div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
 }]);
 
 angular.module("xue/template/scroller/scroller.html", []).run(["$templateCache", function($templateCache) {

@@ -1,14 +1,8 @@
 $circleW: 15px;
-$defColor: #98bff6;
-$blueColor: #3f6de8;
+$defColor: $color-primary !default;
+$blueColor: #3f6de8 !default;
 $squareW: 50px;
 
-// @mixin animationDelay($delayTime){
-//     -webkit-animation-delay: $delayTime;
-//     -moz-animation-delay: $delayTime;
-//     -o-animation-delay: $delayTime;
-//     animation-delay: $delayTime;
-// }
 @mixin animationDelay($sTime, $eTime) {
     -webkit-animation-delay: $sTime, $eTime;
     -moz-animation-delay: $sTime, $eTime;

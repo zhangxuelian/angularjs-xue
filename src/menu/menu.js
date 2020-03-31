@@ -165,8 +165,8 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
                     setFirst: true, //是否选中第一个
                     selectId: null, // 当前选中导航菜单ID
                     menuId: 'id', //导航菜单唯一标识字段名称
-                    childrenName: 'subMenus',// 子菜单名称
-                    menuName:'menuName',// 菜单字段名
+                    childrenName: 'subMenus', // 子菜单名称
+                    menuName: 'menuName', // 菜单字段名
                     clickMenu: function () {}
                 }
                 scope.menuConfig = angular.extend(defaultConfig, scope.menuConfig || {});
@@ -262,7 +262,9 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
                             scope.selectIndex(newVal, true);
                         }
                         if (scope.menuConfig.mode == 'horizontal') {
-                            oldVal && scope.selectIndex(oldVal, false);
+                            if (oldVal) {
+                                scope.selectIndex(oldVal, false);
+                            }
                             scope.selectIndex(newVal, true);
                         }
                     }
@@ -281,7 +283,7 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
                         n++;
                     }
                 }
-                scope.mouseEvt= function(item,status){
+                scope.mouseEvt = function (item, status) {
                     item.open = status;
 
                 }

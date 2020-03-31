@@ -1,30 +1,37 @@
-.xui-datepicker-wrap{
+$datepicker-theme-color: $color-primary !default;
+
+.xui-datepicker-wrap {
     position: relative;
     display: inline-block;
-    .input-wrap{
+
+    .input-wrap {
         display: inline-block;
         width: 180px;
         height: 28px;
         padding: 0 15px;
         position: relative;
-        border: 1px solid #cee0f0;
+        border: 1px solid $border-color-base;
         transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
         border-radius: 5px;
         vertical-align: middle;
         background: #fff;
-        &:focus{
-            border-color: #409EFF;
+        outline: none;
+
+        &:focus {
+            border-color: $datepicker-theme-color;
             outline: 0;
-            -webkit-boxl-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+            -webkit-boxl-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
         }
-        &:hover{
-            .sufix-input{
+
+        &:hover {
+            .sufix-input {
                 display: inline-block;
-                cursor: pointer; 
+                cursor: pointer;
             }
         }
-        .type-ipt{
+
+        .type-ipt {
             position: absolute;
             display: inline-block;
             vertical-align: middle;
@@ -34,7 +41,7 @@
             background-color: #fff;
             background-image: none;
             box-sizing: border-box;
-            color: #606266;
+            color: $color-text-regular;
             font-size: 14px;
             outline: none;
             width: 150px;
@@ -43,13 +50,15 @@
             padding: 3px;
             left: 18px;
         }
-        .prefix-input{
+
+        .prefix-input {
             position: absolute;
             font-size: 18px;
             top: 5px;
             left: 2px;
         }
-        .sufix-input{
+
+        .sufix-input {
             display: none;
             font-size: 16px;
             position: absolute;
@@ -57,64 +66,74 @@
             top: 5px;
         }
     }
-    .type-img{
+
+    .type-img {
         display: inline-block;
     }
-    .type-span{
+
+    .type-span {
         display: inline-block;
     }
 }
 
-@mixin select-time-content{
+@mixin select-time-content {
     height: 150px;
     display: flex;
     width: 100%;
     padding: 2px;
     font-size: 12px;
     position: relative;
-    &::after{
+
+    &::after {
         content: "";
         display: block;
         position: absolute;
-        border-top: solid 1px #ddd;
+        border-top: solid 1px $border-color-base;
         width: 118px;
         height: 30px;
         margin-left: 7px;
         top: 63px;
-        border-bottom: solid 1px #ddd;
+        border-bottom: solid 1px $border-color-base;
     }
-    .time-scrollbar{
+
+    .time-scrollbar {
         flex-grow: 1;
         text-align: center;
         height: 100%;
         overflow: hidden;
         position: relative;
-        ul{
+
+        ul {
             list-style: none;
             position: absolute;
             width: 100%;
             top: 0;
             transition: top 0.1s;
-            &::before{
+
+            &::before {
                 content: "";
                 display: block;
                 width: 100%;
                 height: 60px;
             }
-            &::after{
+
+            &::after {
                 content: "";
                 display: block;
                 width: 100%;
                 height: 60px;
             }
-            li{
+
+            li {
                 line-height: 30px;
-                &.active{
-                    color: #333;
+
+                &.active {
+                    color: $color-text-primary;
                     font-weight: 700;
                 }
-                &:hover{
-                    background: #f0f5fb;
+
+                &:hover {
+                    background: $color-primary-lighter;
                     cursor: pointer;
                 }
             }
@@ -122,23 +141,35 @@
     }
 }
 
-.xl-datepicker-content{
-    ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-        color:    #999;
+.xl-datepicker-content {
+    ::-webkit-input-placeholder {
+        /* WebKit, Blink, Edge */
+        color: $color-text-placeholder;
     }
-    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-       color:    #999;
+
+    :-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: $color-text-placeholder;
     }
-    ::-moz-placeholder { /* Mozilla Firefox 19+ */
-       color:    #999;
+
+    ::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: $color-text-placeholder;
     }
-    :-ms-input-placeholder { /* Internet Explorer 10-11 */
-       color:    #999;
+
+    :-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: $color-text-placeholder;
     }
-    -moz-user-select:none; /*火狐*/
-    -webkit-user-select:none; /*webkit浏览器*/
-    -ms-user-select:none; /*IE10*/
-    -khtml-user-select:none; /*早期浏览器*/
+
+    -moz-user-select:none;
+    /*火狐*/
+    -webkit-user-select:none;
+    /*webkit浏览器*/
+    -ms-user-select:none;
+    /*IE10*/
+    -khtml-user-select:none;
+    /*早期浏览器*/
     user-select:none;
 
     position: absolute;
@@ -150,9 +181,10 @@
     display: none;
     box-shadow: 0 0 15px 0px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    color: #606266;
-    border: solid 1px #DCDFE6;
-    .xl-popper-arrow{
+    color: $color-text-regular;
+    border: solid 1px $border-color-base;
+
+    .xl-popper-arrow {
         top: -6px;
         width: 0;
         height: 0;
@@ -161,57 +193,70 @@
         border-bottom: solid 6px #fff;
         position: absolute;
         left: 35px;
-        &.arrow-bottom{
+
+        &.arrow-bottom {
             top: auto;
             border-bottom: solid 6px transparent;
             border-top: solid 6px #fff;
         }
-        &.arrow-right{
+
+        &.arrow-right {
             left: auto;
             right: 35px;
         }
     }
-    .show-date-wrap{
+
+    .show-date-wrap {
         padding: 5px;
-        border-bottom: solid 1px #DCDFE6;
-        .show-ipt-wrap{
+        border-bottom: solid 1px $border-color-base;
+
+        .show-ipt-wrap {
             position: relative;
             display: inline-block;
             padding: 5px;
             padding-bottom: 0;
-            .show-ipt{
+            outline: none;
+
+            .show-ipt {
                 width: 140px;
                 height: 28px;
                 line-height: 28px;
-                border: 1px solid #ddd;
+                border: 1px solid $border-color-base;
                 padding-left: 8px;
                 padding-right: 8px;
                 border-radius: 3px;
-                &:focus{
-                    border: solid 1px #409EFF;
+                outline: none;
+
+                &:focus {
+                    outline: none;
+                    border: solid 1px $datepicker-theme-color;
                 }
             }
-            .select-time-wrap{
+
+            .select-time-wrap {
                 position: absolute;
                 /* display: none; */
                 width: 140px;
                 height: 180px;
                 z-index: 9999;
-                border: solid 1px #ddd;
+                border: solid 1px $border-color-base;
                 border-radius: 2px;
                 background: #fff;
                 top: 34px;
-                box-shadow: 0 2px 5px 0 rgba(0,0,0,0.1);
-                .select-time-content{
+                box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+
+                .select-time-content {
                     @include select-time-content;
                 }
-                .select-time-footer{
+
+                .select-time-footer {
                     height: 30px;
-                    border-top: solid 1px #ddd;
+                    border-top: solid 1px $border-color-base;
                     text-align: right;
                     line-height: 26px;
-                    .confirm{
-                        color: #409eff;
+
+                    .confirm {
+                        color: $datepicker-theme-color;
                         font-weight: 700;
                         font-size: 12px;
                         margin-right: 15px;
@@ -221,11 +266,13 @@
             }
         }
     }
-    .xl-content-header{
+
+    .xl-content-header {
         text-align: center;
         padding: 15px 10px;
         padding-bottom: 0;
-        &>i{
+
+        &>i {
             height: 16px;
             width: 16px;
             display: inline-block;
@@ -234,129 +281,159 @@
             margin-left: 3px;
             margin-right: 3px;
         }
-        .last-year{
+
+        .last-year {
             float: left;
         }
-        .last-month{
+
+        .last-month {
             float: left;
         }
-        .current-year{
+
+        .current-year {
             line-height: 22px;
             padding: 0 5px;
             cursor: pointer;
-            input{
+
+            input {
                 border: none;
                 width: 45px;
                 height: 22px;
                 line-height: 22px;
-                background: #eaf6ff;
+                background: $color-primary-lighter;;
                 border-radius: 3px;
                 padding: 0 5px;
                 text-align: center;
+                outline: none;
             }
         }
-        .current-month{
+
+        .current-month {
             line-height: 22px;
             padding: 0 5px;
             cursor: pointer;
-            input{
+
+            input {
                 border: none;
                 width: 35px;
                 height: 22px;
                 line-height: 22px;
-                background: #eaf6ff;
+                background: $color-primary-lighter;;
                 border-radius: 3px;
                 padding: 0 5px;
                 text-align: center;
+                outline: none;
             }
         }
-        .next-month{
+
+        .next-month {
             float: right;
         }
-        .next-year{
+
+        .next-year {
             float: right;
         }
     }
-    .xl-content-body{
+
+    .xl-content-body {
         padding: 10px;
-        .xl-datepicker-table{
+
+        .xl-datepicker-table {
             width: 100%;
-            th{
+
+            th {
                 padding: 10px;
                 text-align: center;
-                border-bottom: solid 1px #eee;
+                border-bottom: solid 1px $border-color-base;
             }
-            td{
+
+            td {
                 text-align: center;
                 padding: 7px;
                 font-size: 13px;
-                &.disabled-select{
-                    background: #ececec;
-                    span{
+
+                &.disabled-select {
+                    background: $background-color-base;
+
+                    span {
                         cursor: not-allowed;
-                        &hover{
-                            color: #C0C4CC;
+
+                        &:hover {
+                            color: $color-text-placeholder;
                         }
                     }
                 }
-                span{
+
+                span {
                     width: 25px;
                     height: 25px;
                     line-height: 25px;
                     display: block;
                     cursor: pointer;
-                    &.active{
-                        background: #409EFF;
+
+                    &.active {
+                        background: $datepicker-theme-color;
                         border-radius: 50%;
-                        color: #fff!important;
-                        font-weight: 400!important;
-                        &:hover{
+                        color: #fff !important;
+                        font-weight: 400 !important;
+
+                        &:hover {
                             color: #fff;
                         }
                     }
-                    &.not-current{
-                        color: #C0C4CC;
+
+                    &.not-current {
+                        color: $color-text-placeholder;
                     }
-                    &:hover{
-                        color: #409EFF;
+
+                    &:hover {
+                        color: $datepicker-theme-color;
                     }
-                    &.current{
-                        color: #409EFF;
+
+                    &.current {
+                        color: $datepicker-theme-color;
                         font-weight: 700;
                     }
                 }
             }
         }
     }
-    .xl-content-footer{
-        border-top: 1px solid #e4e4e4;
+
+    .xl-content-footer {
+        border-top: 1px solid $border-color-base;
         padding: 4px;
         text-align: right;
         background-color: #fff;
         position: relative;
         font-size: 0;
-        button{
+
+        button {
             padding: 5px 15px;
             font-size: 12px;
             border-radius: 3px;
             margin: 5px;
-            border: 1px solid #DCDFE6;
+            border: 1px solid $border-color-base;
             background: #fff;
             cursor: pointer;
+            outline: none;
         }
-        .select-now{
+
+        .select-now {
             border-color: transparent;
-            color: #409EFF;
+            color: $datepicker-theme-color;
             background: transparent;
             padding-left: 0;
             padding-right: 0;
+            outline: none;
         }
-        .confirm-date{
-            color: #606266;
+
+        .confirm-date {
+            color: $color-text-regular;
         }
     }
 }
-.xl-timepicker-content{
+
+.xl-timepicker-content {
     position: absolute;
     min-width: 180px;
     height: 200px;
@@ -367,34 +444,41 @@
     display: none;
     box-shadow: 0 0 15px 0px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    color: #606266;
-    border: solid 1px #DCDFE6;
-    .xl-content-body{
+    color: $color-text-regular;
+    border: solid 1px $border-color-base;
+
+    .xl-content-body {
         padding: 10px 0;
-        .select-time-content{
+
+        .select-time-content {
             @include select-time-content;
             height: 180px;
-            &::after{
+
+            &::after {
                 width: 140px;
                 margin-left: 16px;
             }
-            .time-scrollbar{
-                &.disabled-select{
+
+            .time-scrollbar {
+                &.disabled-select {
                     cursor: not-allowed;
-                    ul{
-                        li{
-                            color: #ccc;
-                            &:hover{
+
+                    ul {
+                        li {
+                            color: $border-color-base;
+
+                            &:hover {
                                 cursor: not-allowed;
                             }
                         }
                     }
                 }
             }
-            
+
         }
     }
-    .xl-popper-arrow{
+
+    .xl-popper-arrow {
         top: -6px;
         width: 0;
         height: 0;
@@ -403,12 +487,14 @@
         border-bottom: solid 6px #fff;
         position: absolute;
         left: 35px;
-        &.arrow-bottom{
+
+        &.arrow-bottom {
             top: auto;
             border-bottom: solid 6px transparent;
             border-top: solid 6px #fff;
         }
-        &.arrow-right{
+
+        &.arrow-right {
             left: auto;
             right: 35px;
         }

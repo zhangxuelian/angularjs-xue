@@ -27,7 +27,7 @@
     border-radius: $border-radius;
     box-sizing: border-box;
     background: #fff;
-    border: 1px solid $border-color-base;;
+    border: 1px solid $border-color-base;
     cursor: pointer;
     margin: 0;
     padding: 0;
@@ -52,7 +52,7 @@
         height: 18px;
         line-height: 18px;
         text-align: center;
-        color: $white;
+        color: #fff;
         vertical-align: baseline;
     }
 }
@@ -71,14 +71,14 @@
         vertical-align: middle;
         width: 16px;
         height: 16px;
-        border: 1px solid #dcdee2;
+        border: 1px solid $border-color-base;
         border-radius: 2px;
         background-color: #fff;
         transition: border-color .2s ease-in-out, background-color .2s ease-in-out, box-shadow .2s ease-in-out;
 
         &.multi-checkbox-checked {
-            border-color: #2d8cf0;
-            background-color: #2d8cf0;
+            border-color: $color-primary;
+            background-color: $color-primary;
 
             &:after {
                 width: 4px;
@@ -93,8 +93,8 @@
         }
 
         &.multi-checkbox-indeterminate {
-            border-color: #2d8cf0;
-            background-color: #2d8cf0;
+            border-color: $color-primary;
+            background-color: $color-primary;
 
             &:after {
                 width: 10px;

@@ -1,23 +1,19 @@
-$notice-border-color: #cee0f0 !default;
 $notice-count-bg-color: #D92B2F !default;
-$notice-count-text-color: $white !default;
-$notice-active-color: #0394F9 !default;
-$notice-active-bg-color: #B1DAF8 !default;
-$notice-bg-color: #F0F5FB !default;
+$notice-border-color: $border-color-base !default;
+$notice-active-color:  $color-primary !default;
+$notice-active-bg-color: $color-primary-lighter !default;
+$notice-bg-color: $background-color-base !default;
 
-$notice-list-color: #333 !default;
-$notice-tip-color: #999 !default;
-$notice-footer-color: #666 !default;
-
-
-
+$notice-list-color: $color-text-primary !default;
+$notice-tip-color: $color-text-secondary !default;
+$notice-footer-color: $color-text-regular !default;
 
 @mixin notice-count-style($top, $right, $height) {
     position: absolute;
     display: block;
     font-weight: 400;
     background: $notice-count-bg-color;
-    color: $notice-count-text-color;
+    color: #fff;
     padding: 1px 2px;
     font-size: 12px;
     top: $top;
@@ -151,7 +147,7 @@ $notice-footer-color: #666 !default;
                             line-height: 15px;
                             width: 30px;
                             text-align: center;
-                            color: $notice-count-text-color;
+                            color: #fff;
                             background: $notice-active-color;
                             font-style: normal;
                         }
@@ -162,7 +158,7 @@ $notice-footer-color: #666 !default;
                     display: flex;
                     flex-direction: column;
                     text-align: left;
-                    border-bottom: 1px #ddd dashed;
+                    border-bottom: 1px $border-color-base dashed;
                     max-width: 350px;
                     padding: 0 5px;
 

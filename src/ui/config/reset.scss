@@ -4,14 +4,14 @@
 }
 
 body {
-    color: $body-color;
+    color: $color-text-primary;
     text-align: $body-text-align;
-    background-color: $body-bg;
+    background-color: #fff;
     @include font-size($font-size-base);
     font-weight: $font-weight-base;
     line-height: $line-height-base;
     -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: rgba($black, 0);
+    -webkit-tap-highlight-color: rgba(0,0,0, 0);
 }
 
 // Future-proof rule: in browsers that support :focus-visible, suppress the focus outline
@@ -37,7 +37,7 @@ body {
 hr {
     margin: $hr-margin-y 0;
     color: $hr-color; // 1
-    background-color: $gray-600;
+    background-color: $color-text-regular;
     border: 0;
     opacity: $hr-opacity;
 }
@@ -216,30 +216,30 @@ pre {
     }
 }
 
-code {
-    @include font-size($code-font-size);
-    color: $code-color;
-    word-wrap: break-word;
+// code {
+//     @include font-size($code-font-size);
+//     color: $code-color;
+//     word-wrap: break-word;
 
-    // Streamline the style when inside anchors to avoid broken underline and more
-    a>& {
-        color: inherit;
-    }
-}
+//     // Streamline the style when inside anchors to avoid broken underline and more
+//     a>& {
+//         color: inherit;
+//     }
+// }
 
-kbd {
-    padding: $kbd-padding-y $kbd-padding-x;
-    @include font-size($kbd-font-size);
-    color: $kbd-color;
-    background-color: $kbd-bg;
-    @include border-radius($border-radius-sm);
+// kbd {
+//     padding: $kbd-padding-y $kbd-padding-x;
+//     @include font-size($kbd-font-size);
+//     color: $kbd-color;
+//     background-color: $kbd-bg;
+//     @include border-radius($border-radius-sm);
 
-    kbd {
-        padding: 0;
-        @include font-size(1em);
-        font-weight: $nested-kbd-font-weight;
-    }
-}
+//     kbd {
+//         padding: 0;
+//         @include font-size(1em);
+//         font-weight: $nested-kbd-font-weight;
+//     }
+// }
 
 
 
@@ -264,6 +264,7 @@ svg {
 
 table {
     border-collapse: collapse;
+    border-spacing: 0;
 }
 
 // Matches default `<td>` alignment by inheriting from the `<body>`, or the
@@ -514,9 +515,4 @@ ul {
     list-style-image: none;
     list-style-position: outside;
     list-style-type: none;
-}
-
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
 }

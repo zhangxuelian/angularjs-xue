@@ -9,8 +9,8 @@ angular.module("xue/template/cascader/cascader.html", []).run(["$templateCache",
     "                ng-style=\"cascaderConfig.css.inputStyle\" \n" +
     "                ng-class=\"cascaderConfig.css.inputClassName\"\n" +
     "                placeholder=\"请选择\" title=\"{{ ngVal }}\" readonly>\n" +
-    "            <i class=\"cascader-icon fa fa-close\" ng-if=\"cascaderCtrl.showDelete && !!ngVal\" title=\"清空\" ng-click=\"cascaderCtrl.clear($event)\"></i>\n" +
-    "            <i class=\"cascader-icon fa fa-caret-down\" ng-if=\"!(cascaderCtrl.showDelete && !!ngVal)\" ng-class=\"{'expanded': cascaderCtrl.showSelect}\"></i>\n" +
+    "            <i class=\"cascader-icon xui-icon xui-icon-ios-close-circle-outline\" ng-if=\"cascaderCtrl.showDelete && !!ngVal\" title=\"清空\" ng-click=\"cascaderCtrl.clear($event)\"></i>\n" +
+    "            <!-- <i class=\"cascader-icon xui-icon xui-icon-md-arrow-dropdown\" ng-if=\"!(cascaderCtrl.showDelete && !!ngVal)\" ng-class=\"{'expanded': cascaderCtrl.showSelect}\"></i> -->\n" +
     "    </div>\n" +
     "    <div class=\"cascader-select-wrapper\" \n" +
     "        ng-show=\"cascaderCtrl.showSelect\"\n" +
@@ -24,7 +24,7 @@ angular.module("xue/template/cascader/cascader.html", []).run(["$templateCache",
     "                        ng-class=\"{'active': item[cascaderConfig.valueField] == cascaderCtrl.selectValue[item.depth]}\"\n" +
     "                        ng-repeat=\"item in list\" ng-click=\"cascaderCtrl.clickItem(item)\">\n" +
     "                            {{ item[cascaderConfig.textField] }}\n" +
-    "                            <i class=\"cascader-icon fa fa-angle-right\" ng-if=\"!item.isLeaf\"></i>\n" +
+    "                            <i class=\"cascader-icon xui-icon xui-icon-md-arrow-dropright\" ng-if=\"!item.isLeaf\"></i>\n" +
     "                    </li>\n" +
     "            </ul>\n" +
     "    </div>\n" +

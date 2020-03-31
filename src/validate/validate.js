@@ -3,7 +3,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
         return {
             restrict: "A",
             scope: {
-                validateConfig: "="
+                xueValidate: "="
             },
             link: function (scope, ele, attrs) {
                 var xueValidateCtrl = scope.xueValidateCtrl = {
@@ -196,11 +196,11 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                         nextNode.classList.add("hide");
                         ele[0].classList.remove('gx-error-tip');
                         if (isAddSuccess && scope.ValidateConfig.errorTipPos != "bottom") {
-                            nextNodeI.classList.remove('xui-icon-ios-close-circle');
+                            nextNodeI.classList.remove('xui-icon-md-alert');
                             nextNodeI.classList.add("xui-icon-ios-checkmark-circle");
                             return;
                         }
-                        nextNodeI.classList.remove('xui-icon-ios-close-circle');
+                        nextNodeI.classList.remove('xui-icon-md-alert');
                     },
                     /**
                      * 校验失败时的页面样式处理
@@ -221,7 +221,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                         nextNodeLabel.title = tip;
                         ele[0].classList.add('gx-error-tip');
                         nextNodeI.classList.remove("xui-icon-ios-checkmark-circle");
-                        nextNodeI.classList.add('xui-icon-ios-close-circle');
+                        nextNodeI.classList.add('xui-icon-md-alert');
                     },
                     /**
                      * 元素触发blur事件
@@ -491,7 +491,7 @@ angular.module('xue.validate', ['xue.util.lang', 'xue.util.methods'])
                      */
                     init: function () {
                         var self = this;
-                        scope.ValidateConfig = angular.extend(self.defaultConfig, scope.ValidateConfig);
+                        scope.ValidateConfig = angular.extend(self.defaultConfig, scope.xueValidate);
                         self.addDivMsg();
                         ele.bind('blur', self.triggerBlur);
                         self.destroy();

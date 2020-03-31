@@ -13,18 +13,28 @@
             padding: 3px 30px 3px 7px;
             padding-right: 30px;
             font-size: 14px;
-            border: 1px solid #cee0f0;
+            border: 1px solid $border-color-base;
             border-radius: 4px;
-            color: #555;
+            color: $color-text-regular;
             background-color: #fff;
             cursor: pointer;
             transition: border .2s ease-in-out;
-        }
-        &:hover {
-            .close-icon {
-                display: block;
+            outline: none;
+            box-sizing: border-box;
+            &:focus{
+                border-color: $color-primary;
+                outline: none;
+            }
+            &:active{
+                border-color: $color-primary;
+            }
+            &:hover {
+                .close-icon {
+                    display: block;
+                }
             }
         }
+       
         .close-icon {
             display: none;
         }
@@ -46,14 +56,14 @@
             margin: 0;
             padding: 5px 0;
             vertical-align: top;
-            border: 1px solid #e3e8ee;
+            border-right:1px solid $border-color-light;
             overflow: auto;
             .select-item {
                 position: relative;
                 margin: 0;
                 padding: 7px 20px 7px 10px;
                 line-height: 1.5;
-                color: #657180;
+                color:  $color-text-regular;;
                 font-size: 12px;
                 white-space: nowrap;
                 overflow: hidden;
@@ -61,11 +71,11 @@
                 cursor: pointer;
                 transition: all .2s ease-in-out;
                 &:hover {
-                    background: #f3f3f3;
+                    background: $background-color-base;
                 }
                 &.active {
-                    background-color: #f3f3f3;
-                    color: #39f;
+                    background-color:  $background-color-base;
+                    color: $color-primary;
                 }
             }
         }
@@ -77,7 +87,7 @@
         line-height: 1;
         margin-top: -7px;
         font-size: 14px;
-        color: #9ea7b4;
+        color: $color-text-regular;
         -webkit-transition: all .2s ease-in-out;
         transition: all .2s ease-in-out;
         &.expanded {

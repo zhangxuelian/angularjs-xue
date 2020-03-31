@@ -20,16 +20,18 @@
             width: 100%;
             border-radius: 15px;
             margin: 5px 0;
-            color: #515a6e;
+            color: $color-text-regular;
             background-image: url(../images/menu_search.png);
             background-repeat: no-repeat;
             background-position-x: 5px;
             background-position-y: 7px;
             padding-left: 25px;
             border: 1px solid $border-color-base;
+            outline: none;
             &:focus {
-                border-color: #66afe9;
-                box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+                outline: none;
+                border-color: $color-primary;
+                box-shadow: 0 0 0 2px rgba(64,158,255,0.1);
             }
         }
         .search-list{
@@ -38,7 +40,7 @@
             width: 90%;
             left: 5%;
             z-index: 9999;
-            background: #ddd;
+            background: $background-color-base;
             border-radius: 5px;
             li{
                 height: 28px;
@@ -46,9 +48,9 @@
                 text-align: left;
                 cursor: pointer;
                 padding: 0 10px;
-                color: #515a6e;
+                color: $color-text-regular;
                 &:hover{
-                    color: #0394F9;
+                    color: $color-primary;
                 }
             }
         }
@@ -101,16 +103,16 @@
                     padding: 0 4px;
                     line-height: 24px;
                     cursor: pointer;
-                    color: #515a6e;
+                    color: $color-text-regular;
                     transition: all .2s ease-in-out;
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
                     &:hover {
-                        background: #eaf4fe;
+                        background: $color-primary-lighter;
                     }
                     &.active {
-                        background: #d5e8fc;
+                        background: $color-primary-light;
                     }
                 }
                 .loading-icon {
@@ -142,7 +144,7 @@
                     height: 100%;
                     top: 0;
                     left: 25px;
-                    border-left: 1px dashed #ccc;
+                    border-left: 1px dashed $border-color-base;
                 }
                 &:last-child {
                     &::after {
@@ -157,7 +159,7 @@
                         height: 0;
                         top: 50%;
                         left: 26px;
-                        border-top: 1px dashed #ccc;
+                        border-top: 1px dashed $border-color-base;
                     }
                     &:last-child {
                         &::after {

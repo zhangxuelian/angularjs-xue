@@ -1,9 +1,9 @@
-$autoselect-content-bg-color: #f8f8f8 !default;
-$autoselect-content-border-color: #cee0f0 !default;
-$autoselect-text-color: #2b3646 !default;
-$autoselect-active-color: #0394f9 !default;
-$autoselect-active-text-color: $white !default;
-$autoselect-empty-text-color: $gray-600 !default;
+$autoselect-content-bg-color: $background-color-base !default;
+$autoselect-content-border-color:  $border-color-base !default;
+$autoselect-text-color: $color-text-primary !default;
+$autoselect-active-color: $color-primary !default;
+$autoselect-active-text-color: #fff !default;
+$autoselect-empty-text-color: $color-text-placeholder !default;
 
 .xui-autoselect-wrap {
     position: relative;
@@ -42,7 +42,7 @@ $autoselect-empty-text-color: $gray-600 !default;
         overflow: auto !important;
         height: 100% !important;
         // IE8滚动条箭头颜色，重设原来的浅色调避免弹框太小时完全无滚动条
-        scrollbar-arrow-color: $black;
+        scrollbar-arrow-color: $color-black;
 
         li {
             width: 100% !important;

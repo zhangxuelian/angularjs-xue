@@ -1,3 +1,6 @@
+$vaildate-warn-color: $color-danger !default; //d45252 /fe3232
+$vaildate-warn-input-bg-color: #ffffe9 !default;
+
 .xui-validate-container {
 
     input {
@@ -19,7 +22,7 @@
         line-height: 18px;
         border-radius: 3px;
         font-size: 12px;
-        color: #fe3232;
+        color: $vaildate-warn-color;
         font-family: 'MicrosoftYaHei';
         vertical-align: middle;
         margin-left: 2px;
@@ -32,24 +35,24 @@
 
     .gx-error:after {
         border-color: rgba(136, 183, 213, 0);
-        border-right-color: #d45252;
+        border-right-color: $vaildate-warn-color;
         border-width: 6px;
         margin-top: -6px;
     }
 
     input,textarea {
         &.gx-error-tip {
-            border: 1px solid #d45252 !important;
+            border: 1px solid $vaildate-warn-color !important;
             background-color: #ffffe9 !important;
         }
     
         &.gx-error-tip:hover {
-            border: 1px solid #d45252;
+            border: 1px solid $vaildate-warn-color;
         }
     
         /**验证错误后，边框变红**/
         &.gx-error-tip:focus {
-            border: 1px solid #d45252 !important;
+            border: 1px solid $vaildate-warn-color !important;
             -moz-box-shadow: 0 0 2px rgba(212, 82, 82, 0.8) !important;
             -ms-box-shadow: 0 0 2px rgba(212, 82, 82, 0.8) !important;
             -webkit-box-shadow: 0 0 2px rgba(212, 82, 82, 0.8) !important;
@@ -70,7 +73,7 @@
         display: inline-block;
         text-align: center;
         vertical-align: middle;
-        color: #f60505;
+        color: $vaildate-warn-color;
     }
 
     /*错误提示信息位置*/
@@ -98,6 +101,9 @@
 
     .gx-msg {
         line-height: 1;
+        .xui-icon-md-alert{
+            color: $color-danger;
+        }
     }
 
     .form-item {
@@ -172,8 +178,8 @@
     .common-select-container {
         .select-show {
             &.directive-error {
-                border: 1px solid #d45252;
-                background-color: #ffffe9;
+                border: 1px solid $vaildate-warn-color;
+                background-color: $vaildate-warn-input-bg-color;
             }
         }
     } 
@@ -181,11 +187,11 @@
     .xl-datepicker-container {
         .input-wrap {
             &.directive-error {
-                border: 1px solid #d45252;
-                background-color: #ffffe9;
+                border: 1px solid $vaildate-warn-color;
+                background-color: $vaildate-warn-input-bg-color;
 
                 .type-ipt{
-                    background-color: #ffffe9;
+                    background-color: $vaildate-warn-input-bg-color;
                 }
             }
         }

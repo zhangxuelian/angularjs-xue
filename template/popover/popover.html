@@ -1,6 +1,8 @@
-<div class="xui-popover-container" id="{{popoverId}}" ng-class="className">
-    <div ng-if="header" class="popover-title">{{header}}</div>
-    <div ng-if="content" class="popover-content">{{content}}</div>
-    <div class="triangle" ng-if="!notriangle"></div>
-    <div ng-transclude class="popover-content"></div>
+<div class="xui-popover-container" id="{{popoverId}}">
+    <div class="xui-popover-box"  ng-class="className">
+        <div ng-if="header" class="popover-title">{{header}}</div>
+        <div ng-if="content" class="popover-content">{{content}}</div>
+        <div class="triangle" ng-if="!notriangle"></div>
+        <div ng-transclude class="popover-content"></div>
+    </div>
 </div>
