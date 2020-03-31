@@ -1,33 +1,34 @@
 <style>
     .demo-badge>span {
-        position: relative;
         display: inline-block;
-        margin: 0 5px;
     }
-    .demo-badge>div{
-        margin:10px 0;
+
+    .demo-badge>div {
+        margin: 10px 0;
     }
 </style>
 <div ng-controller="xueBadgeDemoCtrl" class="demo-badge">
     <div>基本使用</div>
     <span>
-        <button class="xui-btn">消息1</button>
-        <xue-badge badge-config="vm.config"> </xue-badge>
+        <xue-badge badge-config="vm.config">
+            <button class="xui-btn">消息1</button> </xue-badge>
     </span>
     <div>自定义背景颜色</div>
     <span>
-        <button class="xui-btn xui-btn-primary">消息2</button>
-        <xue-badge badge-config="vm.config2"> </xue-badge>
+        <xue-badge badge-config="vm.config2">
+            <button class="xui-btn xui-btn-primary">消息2</button>
+        </xue-badge>
     </span>
     <div>超出max展示max+</div>
     <span>
-        <button class="xui-btn">消息3</button>
-        <xue-badge badge-config="vm.config3"> </xue-badge>
+        <xue-badge badge-config="vm.config3">
+            <button class="xui-btn">消息3</button> </xue-badge>
     </span>
     <div>展示小圆点</div>
     <span>
-        <button class="xui-btn">消息</button>
-        <xue-badge badge-config="vm.dotConfig"> </xue-badge>
+        <xue-badge badge-config="vm.dotConfig">
+            <button class="xui-btn">消息</button>
+        </xue-badge>
     </span>
     <div>单独使用：</div>
     <span>

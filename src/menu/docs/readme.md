@@ -14,7 +14,7 @@
 | ---------------- | :------------------- | :--------------: | :----: | :---------: |
 | data             | 可选项数据源               |      Array       |   —    |      —      |
 | search           | 是否支持搜索         |     Boolean      |   —    |    false    |
-| autoShrink       | 是否自动搜索         |     Boolean      |   —    |    true     |
+| autoShrink       | 是否自动收缩         |     Boolean      |   —    |    true     |
 | setFirst         | 是否默认选中第一项   |     Boolean      |   —    |    true     |
 | showOneDimenIcon | 是否展示一级菜单图标 |     Boolean      |   —    |    true     |
 | oneDimenName     | 一级菜单标题字段名   |      String      |   —    |      —      |

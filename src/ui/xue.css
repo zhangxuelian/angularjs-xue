@@ -4737,8 +4737,8 @@ ul {
   position: relative;
   width: 100%;
   height: 100%;
-  background: #05172f;
-  color: #FFFFFF; }
+  background: #17395c;
+  color: #fff; }
   .xui-menu-wrap.support-search {
     padding-top: 34px; }
   .xui-menu-wrap .menu-search {
@@ -4746,23 +4746,23 @@ ul {
     width: 100%;
     position: absolute;
     top: 0;
-    border-bottom: 1px solid #2c4465; }
+    border-bottom: 1px solid #2c6bad; }
     .xui-menu-wrap .menu-search .menu-search-icon {
       position: absolute;
       font-size: 22px;
       top: 12px;
       left: 5%;
       padding-left: 5px;
-      color: #9bc6e8; }
+      color: #d9ecff; }
     .xui-menu-wrap .menu-search .menu-ipt {
       height: 30px;
       width: 90%;
       border-radius: 15px;
       margin-top: 7px;
       margin-left: 5%;
-      background-color: #1e4673;
-      border-color: #1e4673;
-      color: #9bc6e8;
+      background-color: #215285;
+      border: 1px solid #215285;
+      color: #d9ecff;
       padding-left: 30px;
       box-sizing: border-box;
       outline: 0; }
@@ -4772,8 +4772,8 @@ ul {
       width: 90%;
       left: 5%;
       z-index: 9999;
-      background: #336dae;
-      color: #FFFFFF;
+      background: #2c6bad;
+      color: #fff;
       border-radius: 5px; }
       .xui-menu-wrap .menu-search .menu-list ul {
         list-style: none; }
@@ -4783,9 +4783,9 @@ ul {
           text-align: left;
           cursor: pointer;
           padding: 0 10px;
-          color: #a4cded; }
+          color: #d9ecff; }
           .xui-menu-wrap .menu-search .menu-list ul li:hover {
-            color: #FFFFFF; }
+            color: #fff; }
   .xui-menu-wrap .menu-item-wrap {
     width: 100%;
     height: 100%;
@@ -4801,17 +4801,17 @@ ul {
         padding-right: 40px;
         position: relative;
         box-sizing: border-box;
-        border-left: solid 5px #05172f;
-        background: #05172f;
+        border-left: solid 5px #17395c;
+        background: #17395c;
         transition: 0.3s ease-out;
-        color: #ddd; }
+        color: #fff; }
         .xui-menu-wrap .menu-item-wrap .menu-item .item-title:hover {
-          background: #1e4673;
-          border-left: solid 5px #1e4673; }
+          background: #215285;
+          border-left: solid 5px #215285; }
         .xui-menu-wrap .menu-item-wrap .menu-item .item-title.active {
-          background: #1e4673;
-          border-left: solid 5px #177fd1;
-          color: #a4cded; }
+          background: #215285;
+          border-left: solid 5px #409EFF;
+          color: #d9ecff; }
         .xui-menu-wrap .menu-item-wrap .menu-item .item-title .title-icon {
           width: 35px;
           position: absolute;
@@ -4823,8 +4823,8 @@ ul {
             height: 16px; }
         .xui-menu-wrap .menu-item-wrap .menu-item .item-title .title-content {
           text-overflow: ellipsis;
-          overflow: hidden;
           white-space: nowrap;
+          overflow: hidden;
           width: 100%;
           height: 100%;
           font-size: 16px;
@@ -4852,22 +4852,22 @@ ul {
             font-size: 15px;
             padding-left: 39px;
             text-overflow: ellipsis;
-            overflow: hidden;
             white-space: nowrap;
+            overflow: hidden;
             cursor: pointer;
-            border-left: solid 5px #05172f;
-            color: #ddd;
+            border-left: solid 5px #17395c;
+            color: #fff;
             transition: 0.3s ease-out; }
             .xui-menu-wrap .menu-item-wrap .menu-item .item-content ul li.active {
-              background: #1e4673;
-              border-left: solid 5px #0394F9;
-              color: #FFFFFF; }
+              background: #215285;
+              border-left: solid 5px #409EFF;
+              color: #d9ecff; }
               .xui-menu-wrap .menu-item-wrap .menu-item .item-content ul li.active:hover {
-                border-left: solid 5px #0394F9; }
+                border-left: solid 5px #409EFF; }
             .xui-menu-wrap .menu-item-wrap .menu-item .item-content ul li:hover {
-              background: #1e4673;
-              border-left: solid 5px #1e4673;
-              color: #FFFFFF; }
+              background: #215285;
+              border-left: solid 5px #215285;
+              color: #fff; }
             .xui-menu-wrap .menu-item-wrap .menu-item .item-content ul li img {
               width: 14px;
               height: 14px;
@@ -4881,7 +4881,7 @@ ul {
                 content: "";
                 width: 5px;
                 height: 5px;
-                background: #ddd;
+                background: #fff;
                 border-radius: 3px;
                 margin-left: -8px;
                 margin-right: 10px;
@@ -4892,8 +4892,8 @@ ul {
   margin: 0;
   width: 100%;
   height: 100%;
-  background: #05172f;
-  color: #FFFFFF; }
+  background: #17395c;
+  color: #fff; }
   .xui-menu-wrap2.support-search {
     padding-top: 40px; }
   .xui-menu-wrap2 .menu-search {
@@ -4907,16 +4907,16 @@ ul {
       top: 12px;
       left: 5%;
       padding-left: 5px;
-      color: #9bc6e8; }
+      color: #d9ecff; }
     .xui-menu-wrap2 .menu-search .menu-ipt {
       height: 30px;
       width: 90%;
       border-radius: 15px;
       margin-top: 7px;
       margin-left: 5%;
-      background-color: #1e4673;
-      border-color: #1e4673;
-      color: #9bc6e8;
+      border: 1px solid #215285;
+      background-color: #215285;
+      color: #d9ecff;
       padding-left: 30px;
       box-sizing: border-box;
       outline: 0; }
@@ -4926,8 +4926,8 @@ ul {
       width: 90%;
       left: 5%;
       z-index: 9999;
-      background: #336dae;
-      color: #FFFFFF;
+      background: #2c6bad;
+      color: #fff;
       border-radius: 5px; }
       .xui-menu-wrap2 .menu-search .menu-list ul {
         list-style: none; }
@@ -4937,9 +4937,9 @@ ul {
           text-align: left;
           cursor: pointer;
           padding: 0 10px;
-          color: #a4cded; }
+          color: #d9ecff; }
           .xui-menu-wrap2 .menu-search .menu-list ul li:hover {
-            color: #FFFFFF; }
+            color: #fff; }
   .xui-menu-wrap2 .menu-item-wrap {
     list-style-type: none; }
     .xui-menu-wrap2 .menu-item-wrap .menu-item {
@@ -4953,19 +4953,23 @@ ul {
         padding-right: 40px;
         position: relative;
         box-sizing: border-box;
-        border-left: solid 5px #05172f;
-        background: #05172f; }
+        border-left: solid 5px #17395c;
+        background: #17395c;
+        color: #fff;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden; }
         .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-title:hover {
-          background: #1e4673;
-          border-left: solid 5px #1e4673; }
+          background: #215285;
+          border-left: solid 5px #215285; }
           .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-title:hover .icon-dot {
-            background-color: #ddd; }
+            background-color: #fff; }
         .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-title.active {
-          color: #a4cded;
-          background: #1e4673;
-          border-left: solid 5px #177fd1; }
+          color: #d9ecff;
+          background: #215285;
+          border-left: solid 5px #409EFF; }
           .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-title.active .icon-dot {
-            background-color: #a4cded; }
+            background-color: #d9ecff; }
         .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-title .title-arrow-right {
           width: 40px;
           position: absolute;
@@ -4975,6 +4979,14 @@ ul {
           text-align: center; }
           .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-title .title-arrow-right i {
             font-size: 24px; }
+        .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-title .title-icon {
+          width: 35px;
+          position: absolute;
+          left: 0;
+          height: 100%;
+          text-align: center; }
+          .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-title .title-icon .xui-icon {
+            font-size: 20px; }
       .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-sub-item {
         transition: 0.4s ease-out; }
         .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-sub-item.ng-hide-add.ng-hide-add-active, .xui-menu-wrap2 .menu-item-wrap .menu-item .menu-sub-item.ng-hide-remove {
@@ -4995,32 +5007,25 @@ ul {
           display: inline-block;
           width: 5px;
           height: 5px;
-          background-color: #FFFFFF;
+          background-color: #fff;
           border-radius: 50%;
           vertical-align: middle; }
   .xui-menu-wrap2.xui-menu-horizontal {
-    border-right: none;
-    background-color: #FFFFFF; }
+    border-right: none; }
     .xui-menu-wrap2.xui-menu-horizontal .menu-item {
       float: left;
       margin: 0;
-      background: #FFFFFF;
-      color: #303133;
       cursor: pointer;
       position: relative; }
       .xui-menu-wrap2.xui-menu-horizontal .menu-item .menu-title {
         border: none;
         cursor: pointer;
-        background: #FFFFFF;
-        color: #303133;
         padding: 0 20px; }
         .xui-menu-wrap2.xui-menu-horizontal .menu-item .menu-title:hover {
-          border: none;
-          background: #e8f3ff; }
+          border: none; }
         .xui-menu-wrap2.xui-menu-horizontal .menu-item .menu-title.active {
-          color: #409EFF;
-          background: #FFFFFF;
           border: none;
+          background-color: #17395c;
           border-bottom: 2px solid #409EFF; }
         .xui-menu-wrap2.xui-menu-horizontal .menu-item .menu-title.horizontal-active {
           border: none;
@@ -5037,10 +5042,11 @@ ul {
       position: absolute;
       z-index: 999; }
       .xui-menu-wrap2.xui-menu-horizontal .xui-menu-popup .menu-popup-ul {
-        border-radius: 4px;
+        border-radius: 3px;
         margin-top: 5px;
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-        min-width: 150px; }
+        min-width: 150px;
+        border: 1px solid #17395c; }
       .xui-menu-wrap2.xui-menu-horizontal .xui-menu-popup.ng-hide-add.ng-hide-add-active, .xui-menu-wrap2.xui-menu-horizontal .xui-menu-popup.ng-hide-remove {
         opacity: 0; }
         .xui-menu-wrap2.xui-menu-horizontal .xui-menu-popup.ng-hide-add.ng-hide-add-active li, .xui-menu-wrap2.xui-menu-horizontal .xui-menu-popup.ng-hide-remove li {
@@ -5080,6 +5086,22 @@ ul {
             text-align: center; }
             .xui-menu-wrap2.xui-menu-horizontal .xui-menu-popup .menu-item .menu-title .title-arrow-right i {
               font-size: 24px; }
+  .xui-menu-wrap2.xui-menu-horizontal.white {
+    background-color: #FFFFFF; }
+    .xui-menu-wrap2.xui-menu-horizontal.white .menu-title {
+      background: #FFFFFF;
+      color: #303133; }
+      .xui-menu-wrap2.xui-menu-horizontal.white .menu-title:hover {
+        background: #e8f3ff; }
+      .xui-menu-wrap2.xui-menu-horizontal.white .menu-title.active {
+        color: #409EFF;
+        background: #FFFFFF;
+        border-bottom: 2px solid #409EFF; }
+      .xui-menu-wrap2.xui-menu-horizontal.white .menu-title.horizontal-active {
+        color: #409EFF;
+        border-bottom: 2px solid #409EFF; }
+    .xui-menu-wrap2.xui-menu-horizontal.white .xui-menu-popup .menu-popup-ul {
+      border: 1px solid #fff; }
 
 .xui-datepicker-wrap {
   position: relative;
@@ -6690,36 +6712,38 @@ ul {
       float: right;
       margin-right: 10px; }
 
-.xui-badge-wrap {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #FFFFFF;
-  background: #F56C6C;
-  padding: 0 5px;
-  height: 20px;
-  line-height: 18px;
-  border-radius: 10px;
-  text-align: center;
-  box-sizing: border-box;
-  transform: translateY(-50%) translateX(50%);
-  font-size: 12px;
-  vertical-align: middle;
-  min-width: 18px;
-  display: inline-block; }
-  .xui-badge-wrap.dot {
-    height: 8px;
-    width: 8px;
-    border-radius: 50%;
-    padding: 0;
-    min-width: 8px; }
-  .xui-badge-wrap.alone {
-    position: static;
-    transform: inherit; }
-  .xui-badge-wrap > span {
-    display: inline-block;
-    height: 100%;
-    line-height: 100%; }
+.xue-badge-wrap {
+  position: relative; }
+  .xue-badge-wrap .xui-badge-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #FFFFFF;
+    background: #F56C6C;
+    padding: 0 5px;
+    height: 20px;
+    line-height: 18px;
+    border-radius: 10px;
+    text-align: center;
+    box-sizing: border-box;
+    transform: translateY(-50%) translateX(50%);
+    font-size: 12px;
+    vertical-align: middle;
+    min-width: 18px;
+    display: inline-block; }
+    .xue-badge-wrap .xui-badge-container.dot {
+      height: 8px;
+      width: 8px;
+      border-radius: 50%;
+      padding: 0;
+      min-width: 8px; }
+    .xue-badge-wrap .xui-badge-container.alone {
+      position: static;
+      transform: inherit; }
+    .xue-badge-wrap .xui-badge-container > span {
+      display: inline-block;
+      height: 100%;
+      line-height: 100%; }
 
 .xui-popover-wrap {
   display: inline-block; }

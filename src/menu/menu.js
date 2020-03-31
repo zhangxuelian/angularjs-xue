@@ -159,7 +159,8 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
                     mode: 'vertical', // 菜单模式 vertical/horizontal
                     data: [{
                         id: '1',
-                        menuName: '菜单1'
+                        menuName: '菜单1',
+                        iconName: ''
                     }], // 菜单数组
                     uniqueOpened: true, // 是否只打开一个子菜单
                     setFirst: true, //是否选中第一个
@@ -167,7 +168,7 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
                     menuId: 'id', //导航菜单唯一标识字段名称
                     childrenName: 'subMenus', // 子菜单名称
                     menuName: 'menuName', // 菜单字段名
-                    clickMenu: function () {}
+                    clickRouter: function () {}
                 }
                 scope.menuConfig = angular.extend(defaultConfig, scope.menuConfig || {});
                 //支持搜索菜单
@@ -179,7 +180,7 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
                         onSearchListDiv: false,
                         select: function (item) {
                             this.searchValue = '';
-                            scope.clickMenu(item);
+                            scope.clickRouter(item);
                         },
                         formatData: function (data) {
                             for (var i = 0; i < data.length; i++) {
@@ -201,11 +202,11 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
                         }
                     };
                 }
-                scope.clickMenu = function (item) {
+                scope.clickRouter = function (item) {
                     if (!item.subMenus) {
                         scope.menuConfig.selectId = item[scope.menuConfig.menuId];
-                        if (xueUtilLang.isFunction(scope.menuConfig.clickMenu)) {
-                            scope.menuConfig.clickMenu(item);
+                        if (xueUtilLang.isFunction(scope.menuConfig.clickRouter)) {
+                            scope.menuConfig.clickRouter(item);
                         }
                         if (scope.menuConfig.mode == 'horizontal') {
                             angular.forEach(scope.menuConfig.data, function (obj) {
@@ -237,13 +238,16 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
                 //设置数据
                 var dataWatch = scope.$watch("menuConfig.data", function (newVal, oldVal) {
                     if (newVal) {
-                        if (scope.menuConfig.setFirst && scope.menuConfig.data.length && scope.menuConfig.mode == 'vertical') {
+                        if (scope.menuConfig.setFirst && scope.menuConfig.data.length) {
                             var item = scope.menuConfig.data[0];
-                            scope.clickMenu(item);
+                            scope.clickRouter(item);
                             if (item[scope.menuConfig.childrenName] && item[scope.menuConfig.childrenName].length) {
                                 scope.menuConfig.clickRouter(item[scope.menuConfig.childrenName][0]);
-                                scope.menuConfig.selectId = item[scope.menuConfig.childrenName][0][scope.menuConfig.routerId];
+                                scope.menuConfig.selectId = item[scope.menuConfig.childrenName][0][scope.menuConfig.menuId];
                                 item.open = true;
+                                if (scope.menuConfig.mode == 'horizontal') {
+                                    item.open = false;
+                                }
                             }
                         }
                         if (scope.menuConfig.search) {

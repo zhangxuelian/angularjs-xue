@@ -139,12 +139,16 @@ angular.module('xue.badge', [])
         return {
             restrict: "E",
             replace: true,
+            transclude: true,
             scope: {
                 badgeConfig: '='
             },
-            template: "<div ng-show=\"badgeConfig.count\" class=\"xui-badge-wrap\" ng-class=\"{'dot':badgeConfig.isDot,'alone':badgeConfig.isAlone}\" ng-style=\"{'background-color':badgeConfig.bgColor}\">\n" +
-                "   <span>{{badgeConfig.isDot?'':(badgeConfig.count>badgeConfig.max?badgeConfig.max+'+':badgeConfig.count)}}</span>\n" +
-                "</div>",
+            template: "<div class='xue-badge-wrap'>" +
+                "<div ng-transclude></div>" +
+                "<div ng-show=\"badgeConfig.count\" class=\"xui-badge-container\" ng-class=\"{'dot':badgeConfig.isDot,'alone':badgeConfig.isAlone}\" ng-style=\"{'background-color':badgeConfig.bgColor}\">\n" +
+                "<span>{{badgeConfig.isDot?'':(badgeConfig.count>badgeConfig.max?badgeConfig.max+'+':badgeConfig.count)}}</span>\n" +
+                "</div>" +
+                '</div>',
             link: function (scope, ele, attrs) {
                 var defaultConfig = {
                     bgColor: '', // 背景颜色，默认辅助色红色
@@ -1885,7 +1889,8 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
                     mode: 'vertical', // 菜单模式 vertical/horizontal
                     data: [{
                         id: '1',
-                        menuName: '菜单1'
+                        menuName: '菜单1',
+                        iconName: ''
                     }], // 菜单数组
                     uniqueOpened: true, // 是否只打开一个子菜单
                     setFirst: true, //是否选中第一个
@@ -1893,7 +1898,7 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
                     menuId: 'id', //导航菜单唯一标识字段名称
                     childrenName: 'subMenus', // 子菜单名称
                     menuName: 'menuName', // 菜单字段名
-                    clickMenu: function () {}
+                    clickRouter: function () {}
                 }
                 scope.menuConfig = angular.extend(defaultConfig, scope.menuConfig || {});
                 //支持搜索菜单
@@ -1905,7 +1910,7 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
                         onSearchListDiv: false,
                         select: function (item) {
                             this.searchValue = '';
-                            scope.clickMenu(item);
+                            scope.clickRouter(item);
                         },
                         formatData: function (data) {
                             for (var i = 0; i < data.length; i++) {
@@ -1927,11 +1932,11 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
                         }
                     };
                 }
-                scope.clickMenu = function (item) {
+                scope.clickRouter = function (item) {
                     if (!item.subMenus) {
                         scope.menuConfig.selectId = item[scope.menuConfig.menuId];
-                        if (xueUtilLang.isFunction(scope.menuConfig.clickMenu)) {
-                            scope.menuConfig.clickMenu(item);
+                        if (xueUtilLang.isFunction(scope.menuConfig.clickRouter)) {
+                            scope.menuConfig.clickRouter(item);
                         }
                         if (scope.menuConfig.mode == 'horizontal') {
                             angular.forEach(scope.menuConfig.data, function (obj) {
@@ -1963,13 +1968,16 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
                 //设置数据
                 var dataWatch = scope.$watch("menuConfig.data", function (newVal, oldVal) {
                     if (newVal) {
-                        if (scope.menuConfig.setFirst && scope.menuConfig.data.length && scope.menuConfig.mode == 'vertical') {
+                        if (scope.menuConfig.setFirst && scope.menuConfig.data.length) {
                             var item = scope.menuConfig.data[0];
-                            scope.clickMenu(item);
+                            scope.clickRouter(item);
                             if (item[scope.menuConfig.childrenName] && item[scope.menuConfig.childrenName].length) {
                                 scope.menuConfig.clickRouter(item[scope.menuConfig.childrenName][0]);
-                                scope.menuConfig.selectId = item[scope.menuConfig.childrenName][0][scope.menuConfig.routerId];
+                                scope.menuConfig.selectId = item[scope.menuConfig.childrenName][0][scope.menuConfig.menuId];
                                 item.open = true;
+                                if (scope.menuConfig.mode == 'horizontal') {
+                                    item.open = false;
+                                }
                             }
                         }
                         if (scope.menuConfig.search) {
@@ -7767,34 +7775,31 @@ angular.module("xue/template/menu/menu.html", []).run(["$templateCache", functio
 angular.module("xue/template/menu/menu2.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/menu/menu2.html",
     "<div class=\"xui-menu-wrap2\"\n" +
-    " ng-class=\"{'support-search':menuConfig.search,'xui-menu-horizontal':menuConfig.mode=='horizontal'}\"\n" +
-    " >\n" +
-    "    <div class=\"menu-search\" ng-if=\"menuConfig.search && menuConfig.mode=='vertical'\">\n" +
-    "        <i class=\"menu-search-icon xui-icon xui-icon-md-search\"></i>\n" +
-    "        <input type=\"text\" class=\"menu-ipt\" ng-model=\"vm.searchValue\" ng-blur=\"vm.hideSearchBox()\">\n" +
-    "        <div class=\"menu-list\" ng-show=\"!!vm.searchValue\"\n" +
-    "            ng-mouseover=\"vm.onSearchListDiv = true\"\n" +
-    "            ng-mouseleave=\"vm.onSearchListDiv = false\">\n" +
-    "            <ul>\n" +
-    "                <li ng-click=\"vm.select(item)\" ng-repeat=\"item in vm.menuList | filter : {menuName:vm.searchValue}\">{{item[menuConfig.menuName]}}</li>\n" +
-    "            </ul>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "     <ul class=\"menu-item-wrap clearfix\" >\n" +
-    "         <li class=\"menu-item\" ng-repeat=\"item in menuConfig.data\"  ng-if=\"menuConfig.mode=='vertical'\"\n" +
-    "         ng-include=\"'menuTempVertical'\">\n" +
+    "     ng-class=\"{'support-search':menuConfig.search,'xui-menu-horizontal':menuConfig.mode=='horizontal'}\">\n" +
+    "     <div class=\"menu-search\" ng-if=\"menuConfig.search && menuConfig.mode=='vertical'\">\n" +
+    "         <i class=\"menu-search-icon xui-icon xui-icon-md-search\"></i>\n" +
+    "         <input type=\"text\" class=\"menu-ipt\" ng-model=\"vm.searchValue\" ng-blur=\"vm.hideSearchBox()\">\n" +
+    "         <div class=\"menu-list\" ng-show=\"!!vm.searchValue\" ng-mouseover=\"vm.onSearchListDiv = true\"\n" +
+    "             ng-mouseleave=\"vm.onSearchListDiv = false\">\n" +
+    "             <ul>\n" +
+    "                 <li ng-click=\"vm.select(item)\" ng-repeat=\"item in vm.menuList | filter : {menuName:vm.searchValue}\">\n" +
+    "                     {{item[menuConfig.menuName]}}</li>\n" +
+    "             </ul>\n" +
+    "         </div>\n" +
+    "     </div>\n" +
+    "     <ul class=\"menu-item-wrap clearfix\">\n" +
+    "         <li class=\"menu-item\" ng-repeat=\"item in menuConfig.data\" ng-if=\"menuConfig.mode=='vertical'\"\n" +
+    "             ng-include=\"'menuTempVertical'\">\n" +
     "         </li>\n" +
-    "         <li class=\"menu-item\" ng-repeat=\"item in menuConfig.data\"  ng-if=\"menuConfig.mode=='horizontal'\"\n" +
-    "         ng-mouseenter=\"mouseEvt(item,true)\"\n" +
-    "         ng-mouseleave=\"mouseEvt(item,false)\"\n" +
-    "         ng-include=\"'menuTempVertical'\">\n" +
+    "         <li class=\"menu-item\" ng-repeat=\"item in menuConfig.data\" ng-if=\"menuConfig.mode=='horizontal'\"\n" +
+    "             ng-mouseenter=\"mouseEvt(item,true)\" ng-mouseleave=\"mouseEvt(item,false)\" ng-include=\"'menuTempVertical'\">\n" +
     "         </li>\n" +
     "     </ul>\n" +
     "     <script id=\"menuTempVertical\" type=\"text/ng-template\">\n" +
-    "         <div  class=\"menu-title\" ng-click=\"clickMenu(item)\" \n" +
+    "         <div  class=\"menu-title\" ng-click=\"clickRouter(item)\" \n" +
     "        ng-class=\"{'active':item[menuConfig.menuId] == menuConfig.selectId,'horizontal-active':item.active}\">\n" +
     "            <div class=\"title-icon\" ng-if=\"item.iconName\">\n" +
-    "                <i class=\"xui-icon xui-icon-ios-arrow-forward\"></i>\n" +
+    "                <i class=\"xui-icon {{item.iconName}}\"></i>\n" +
     "            </div>\n" +
     "            <i class=\"icon-dot\" ng-if=\"!item.subMenus && menuConfig.mode=='vertical'\"></i>\n" +
     "             <span>{{item[menuConfig.menuName]}}</span>  \n" +

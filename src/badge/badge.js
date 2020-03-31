@@ -3,12 +3,16 @@ angular.module('xue.badge', [])
         return {
             restrict: "E",
             replace: true,
+            transclude: true,
             scope: {
                 badgeConfig: '='
             },
-            template: "<div ng-show=\"badgeConfig.count\" class=\"xui-badge-wrap\" ng-class=\"{'dot':badgeConfig.isDot,'alone':badgeConfig.isAlone}\" ng-style=\"{'background-color':badgeConfig.bgColor}\">\n" +
-                "   <span>{{badgeConfig.isDot?'':(badgeConfig.count>badgeConfig.max?badgeConfig.max+'+':badgeConfig.count)}}</span>\n" +
-                "</div>",
+            template: "<div class='xue-badge-wrap'>" +
+                "<div ng-transclude></div>" +
+                "<div ng-show=\"badgeConfig.count\" class=\"xui-badge-container\" ng-class=\"{'dot':badgeConfig.isDot,'alone':badgeConfig.isAlone}\" ng-style=\"{'background-color':badgeConfig.bgColor}\">\n" +
+                "<span>{{badgeConfig.isDot?'':(badgeConfig.count>badgeConfig.max?badgeConfig.max+'+':badgeConfig.count)}}</span>\n" +
+                "</div>" +
+                '</div>',
             link: function (scope, ele, attrs) {
                 var defaultConfig = {
                     bgColor: '', // 背景颜色，默认辅助色红色

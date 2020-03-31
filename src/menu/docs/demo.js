@@ -43,10 +43,10 @@ angular.module('ui.xue.demo').controller('xueMenuDemoCtrl', ['$scope', function 
     }
     $scope.menuConfig1 = {
         search: true,
-        selectId: '41', // 当前选中导航菜单ID
         data: [{
             id: '1',
-            menuName: '菜单1'
+            menuName: '菜单1',
+            iconName:'xui-icon-ios-refresh'
         }, {
             id: '2',
             menuName: '菜单2',
@@ -75,7 +75,7 @@ angular.module('ui.xue.demo').controller('xueMenuDemoCtrl', ['$scope', function 
                 menuName: '菜单项4-2'
             }]
         }],
-        clickMenu: function (item) { //导航菜单点击回调
+        clickRouter: function (item) { //导航菜单点击回调
             console.log(item);
         }
     }
@@ -122,7 +122,7 @@ angular.module('ui.xue.demo').controller('xueMenuDemoCtrl', ['$scope', function 
             id: '3',
             menuName: '菜单3'
         }],
-        clickMenu: function (item) { //导航菜单点击回调
+        clickRouter: function (item) { //导航菜单点击回调
             console.log(item);
         }
     }

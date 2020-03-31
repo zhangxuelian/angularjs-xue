@@ -1,14 +1,14 @@
-$menu-bg: #05172f !default;
-$menu-color: $color-white !default;
-$menu-hover-bg: #1e4673 !default;
-$menu-active-color: #a4cded !default;
-$menu-active-border-color: #177fd1 !default;
-$menu-item-color: #ddd !default;
-$menu-item-active-color: #0394F9 !default;
+$menu-primary: $color-primary;
+$menu-bg:shade-color($menu-primary, 8); //#05172f !default;
+$menu-color: #fff !default;
+$menu-hover-bg: shade-color($menu-primary, 6); //#1e4673 !default;
+$menu-active-color: tint-color($menu-primary, 10); //#a4cded !default;
+$menu-active-border-color: $menu-primary; //#177fd1 !default;
+$menu-item-active-color: $menu-primary; //#0394F9 !default;
 
-$menu-search-color: #9bc6e8 !default;
-$menu-search-border-color: #2c4465 !default;
-$menu-search-list-bg: #336dae !default;
+$menu-search-color: tint-color($menu-primary, 10); //#9bc6e8 !default;
+$menu-search-list-bg: shade-color($menu-primary, 4); //#336dae !default;
+// $menu-search-border-color: shade-color($menu-primary, 4); //#2c4465 !default;
 
 .xui-menu-wrap {
     position: relative;
@@ -26,7 +26,7 @@ $menu-search-list-bg: #336dae !default;
         width: 100%;
         position: absolute;
         top: 0;
-        border-bottom: 1px solid $menu-search-border-color;
+        border-bottom: 1px solid $menu-search-list-bg;
 
         .menu-search-icon {
             position: absolute;
@@ -44,7 +44,7 @@ $menu-search-list-bg: #336dae !default;
             margin-top: 7px;
             margin-left: 5%;
             background-color: $menu-hover-bg;
-            border-color: $menu-hover-bg;
+            border: 1px solid $menu-hover-bg;
             color: $menu-search-color;
             padding-left: 30px;
             box-sizing: border-box;
@@ -100,7 +100,7 @@ $menu-search-list-bg: #336dae !default;
                 border-left: solid 5px $menu-bg;
                 background: $menu-bg;
                 transition: 0.3s ease-out;
-                color: #ddd;
+                color: $menu-color;
 
                 &:hover {
                     background: $menu-hover-bg;
@@ -127,9 +127,7 @@ $menu-search-list-bg: #336dae !default;
                 }
 
                 .title-content {
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    white-space: nowrap;
+                    @include text-overflow-ellipsis;
                     width: 100%;
                     height: 100%;
                     font-size: 16px;
@@ -169,18 +167,16 @@ $menu-search-list-bg: #336dae !default;
                         line-height: 40px;
                         font-size: 15px;
                         padding-left: 39px;
-                        text-overflow: ellipsis;
-                        overflow: hidden;
-                        white-space: nowrap;
+                        @include text-overflow-ellipsis;
                         cursor: pointer;
                         border-left: solid 5px $menu-bg;
-                        color: $menu-item-color;
+                        color: $menu-color;
                         transition: 0.3s ease-out;
 
                         &.active {
                             background: $menu-hover-bg;
                             border-left: solid 5px $menu-item-active-color;
-                            color: $menu-color;
+                            color: $menu-active-color;
 
                             &:hover {
                                 border-left: solid 5px $menu-item-active-color;
@@ -209,7 +205,7 @@ $menu-search-list-bg: #336dae !default;
                                 content: "";
                                 width: 5px;
                                 height: 5px;
-                                background: $menu-item-color;
+                                background: $menu-color;
                                 border-radius: 3px;
                                 margin-left: -8px;
                                 margin-right: 10px;
@@ -240,7 +236,7 @@ $menu-search-list-bg: #336dae !default;
         width: 100%;
         position: absolute;
         top: 0;
-        // border-bottom: 1px solid $menu-search-border-color;
+        // border-bottom: 1px solid $menu-search-list-bg;
 
         .menu-search-icon {
             position: absolute;
@@ -257,8 +253,8 @@ $menu-search-list-bg: #336dae !default;
             border-radius: 15px;
             margin-top: 7px;
             margin-left: 5%;
+            border: 1px solid $menu-hover-bg;
             background-color: $menu-hover-bg;
-            border-color: $menu-hover-bg;
             color: $menu-search-color;
             padding-left: 30px;
             box-sizing: border-box;
@@ -311,13 +307,15 @@ $menu-search-list-bg: #336dae !default;
                 box-sizing: border-box;
                 border-left: solid 5px $menu-bg;
                 background: $menu-bg;
+                color: $menu-color;
+                @include text-overflow-ellipsis;
 
                 &:hover {
                     background: $menu-hover-bg;
                     border-left: solid 5px $menu-hover-bg;
 
                     .icon-dot {
-                        background-color: #ddd;
+                        background-color: $menu-color;
                     }
                 }
 
@@ -341,6 +339,18 @@ $menu-search-list-bg: #336dae !default;
 
                     i {
                         font-size: 24px;
+                    }
+                }
+
+                .title-icon {
+                    width: 35px;
+                    position: absolute;
+                    left: 0;
+                    height: 100%;
+                    text-align: center;
+
+                    .xui-icon {
+                        font-size: 20px;
                     }
                 }
             }
@@ -387,40 +397,33 @@ $menu-search-list-bg: #336dae !default;
 
     &.xui-menu-horizontal {
         border-right: none;
-        background-color: $color-white;
+        // background-color: $color-white;
 
         .menu-item {
             float: left;
             margin: 0;
-            background: $color-white;
-            color: $color-text-primary;
-            // padding: 5px 0;
             cursor: pointer;
             position: relative;
 
             .menu-title {
                 border: none;
                 cursor: pointer;
-                background: $color-white;
-                color: $color-text-primary;
                 padding: 0 20px;
 
                 &:hover {
                     border: none;
-                    background: $color-primary-lighter;
                 }
 
                 &.active {
-                    color: $color-primary;
-                    background: $color-white;
                     border: none;
-                    border-bottom: 2px solid $color-primary;
+                    background-color: $menu-bg;
+                    border-bottom: 2px solid $menu-primary;
                 }
 
                 &.horizontal-active {
                     border: none;
-                    color: $color-primary;
-                    border-bottom: 2px solid $color-primary;
+                    color: $menu-item-active-color;
+                    border-bottom: 2px solid $menu-primary;
                 }
 
                 .title-arrow-right {
@@ -438,14 +441,14 @@ $menu-search-list-bg: #336dae !default;
 
         .xui-menu-popup {
             position: absolute;
-            // padding: 5px 0;
             z-index: 999;
 
             .menu-popup-ul {
-                border-radius: 4px;
+                border-radius: 3px;
                 margin-top: 5px;
                 box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
                 min-width: 150px;
+                border: 1px solid $menu-bg;
             }
 
             &.ng-hide-add.ng-hide-add-active,
@@ -489,14 +492,15 @@ $menu-search-list-bg: #336dae !default;
                     line-height: 40px;
 
                     &.active {
-                        color: $color-primary;
+                        color: $menu-item-active-color;
                         border: none;
                     }
 
                     &.horizontal-active {
-                        color: $color-primary;
+                        color: $menu-item-active-color;
                         border: none;
                     }
+
                     .title-arrow-right {
                         width: 40px;
                         position: absolute;
@@ -504,7 +508,7 @@ $menu-search-list-bg: #336dae !default;
                         height: 100%;
                         top: 0;
                         text-align: center;
-    
+
                         i {
                             font-size: 24px;
                         }
@@ -513,5 +517,33 @@ $menu-search-list-bg: #336dae !default;
             }
         }
 
+    }
+
+    &.xui-menu-horizontal.white {
+        background-color: $color-white;
+
+        .menu-title {
+            background: $color-white;
+            color: $color-text-primary;
+            &:hover {
+                background:  tint-color($menu-primary, 11);
+            }
+
+            &.active {
+                color: $menu-item-active-color;
+                background: $color-white;
+                border-bottom: 2px solid $menu-item-active-color;
+            }
+
+            &.horizontal-active {
+                color: $menu-item-active-color;
+                border-bottom: 2px solid $menu-item-active-color;
+            }
+        }
+        .xui-menu-popup {
+            .menu-popup-ul {
+                border: 1px solid #fff;
+            }
+        }
     }
 }

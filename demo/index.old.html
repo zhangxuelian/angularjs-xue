@@ -272,34 +272,35 @@ $ npm run demo or npm run test-demo</code></pre>
                         <div class="content-html">
                             <style>
     .demo-badge>span {
-        position: relative;
         display: inline-block;
-        margin: 0 5px;
     }
-    .demo-badge>div{
-        margin:10px 0;
+
+    .demo-badge>div {
+        margin: 10px 0;
     }
 </style>
 <div ng-controller="xueBadgeDemoCtrl" class="demo-badge">
     <div>基本使用</div>
     <span>
-        <button class="xui-btn">消息1</button>
-        <xue-badge badge-config="vm.config"> </xue-badge>
+        <xue-badge badge-config="vm.config">
+            <button class="xui-btn">消息1</button> </xue-badge>
     </span>
     <div>自定义背景颜色</div>
     <span>
-        <button class="xui-btn xui-btn-primary">消息2</button>
-        <xue-badge badge-config="vm.config2"> </xue-badge>
+        <xue-badge badge-config="vm.config2">
+            <button class="xui-btn xui-btn-primary">消息2</button>
+        </xue-badge>
     </span>
     <div>超出max展示max+</div>
     <span>
-        <button class="xui-btn">消息3</button>
-        <xue-badge badge-config="vm.config3"> </xue-badge>
+        <xue-badge badge-config="vm.config3">
+            <button class="xui-btn">消息3</button> </xue-badge>
     </span>
     <div>展示小圆点</div>
     <span>
-        <button class="xui-btn">消息</button>
-        <xue-badge badge-config="vm.dotConfig"> </xue-badge>
+        <xue-badge badge-config="vm.dotConfig">
+            <button class="xui-btn">消息</button>
+        </xue-badge>
     </span>
     <div>单独使用：</div>
     <span>
@@ -389,34 +390,35 @@ $ npm run demo or npm run test-demo</code></pre>
                                         <pre
                                             ng-non-bindable><code data-language="html">&lt;style&gt;
     .demo-badge&gt;span {
-        position: relative;
         display: inline-block;
-        margin: 0 5px;
     }
-    .demo-badge&gt;div{
-        margin:10px 0;
+
+    .demo-badge&gt;div {
+        margin: 10px 0;
     }
 &lt;/style&gt;
 &lt;div ng-controller=&quot;xueBadgeDemoCtrl&quot; class=&quot;demo-badge&quot;&gt;
     &lt;div&gt;基本使用&lt;/div&gt;
     &lt;span&gt;
-        &lt;button class=&quot;xui-btn&quot;&gt;消息1&lt;/button&gt;
-        &lt;xue-badge badge-config=&quot;vm.config&quot;&gt; &lt;/xue-badge&gt;
+        &lt;xue-badge badge-config=&quot;vm.config&quot;&gt;
+            &lt;button class=&quot;xui-btn&quot;&gt;消息1&lt;/button&gt; &lt;/xue-badge&gt;
     &lt;/span&gt;
     &lt;div&gt;自定义背景颜色&lt;/div&gt;
     &lt;span&gt;
-        &lt;button class=&quot;xui-btn xui-btn-primary&quot;&gt;消息2&lt;/button&gt;
-        &lt;xue-badge badge-config=&quot;vm.config2&quot;&gt; &lt;/xue-badge&gt;
+        &lt;xue-badge badge-config=&quot;vm.config2&quot;&gt;
+            &lt;button class=&quot;xui-btn xui-btn-primary&quot;&gt;消息2&lt;/button&gt;
+        &lt;/xue-badge&gt;
     &lt;/span&gt;
     &lt;div&gt;超出max展示max+&lt;/div&gt;
     &lt;span&gt;
-        &lt;button class=&quot;xui-btn&quot;&gt;消息3&lt;/button&gt;
-        &lt;xue-badge badge-config=&quot;vm.config3&quot;&gt; &lt;/xue-badge&gt;
+        &lt;xue-badge badge-config=&quot;vm.config3&quot;&gt;
+            &lt;button class=&quot;xui-btn&quot;&gt;消息3&lt;/button&gt; &lt;/xue-badge&gt;
     &lt;/span&gt;
     &lt;div&gt;展示小圆点&lt;/div&gt;
     &lt;span&gt;
-        &lt;button class=&quot;xui-btn&quot;&gt;消息&lt;/button&gt;
-        &lt;xue-badge badge-config=&quot;vm.dotConfig&quot;&gt; &lt;/xue-badge&gt;
+        &lt;xue-badge badge-config=&quot;vm.dotConfig&quot;&gt;
+            &lt;button class=&quot;xui-btn&quot;&gt;消息&lt;/button&gt;
+        &lt;/xue-badge&gt;
     &lt;/span&gt;
     &lt;div&gt;单独使用：&lt;/div&gt;
     &lt;span&gt;
@@ -1833,8 +1835,9 @@ $ npm run demo or npm run test-demo</code></pre>
                     <div class="page-content">
                         <div class="content-html">
                             <div ng-controller="xueMenuDemoCtrl">
-    <xue-menu menu-config="menuConfig"></xue-menu>
+    <xue-menu2 menu-config="menuConfig"></xue-menu2>
     <xue-menu2 menu-config="menuConfig1"></xue-menu2>
+    <br/></br>
     <xue-menu2 menu-config="menuConfig2"></xue-menu2>
 </div>
                         </div>
@@ -1883,7 +1886,7 @@ $ npm run demo or npm run test-demo</code></pre>
 </tr>
 <tr>
 <td>autoShrink</td>
-<td align="left">是否自动搜索</td>
+<td align="left">是否自动收缩</td>
 <td align="center">Boolean</td>
 <td align="center">—</td>
 <td align="center">true</td>
@@ -1989,8 +1992,9 @@ $ npm run demo or npm run test-demo</code></pre>
                                     <div plunker-content="markup">
                                         <pre
                                             ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueMenuDemoCtrl&quot;&gt;
-    &lt;xue-menu menu-config=&quot;menuConfig&quot;&gt;&lt;/xue-menu&gt;
+    &lt;xue-menu2 menu-config=&quot;menuConfig&quot;&gt;&lt;/xue-menu2&gt;
     &lt;xue-menu2 menu-config=&quot;menuConfig1&quot;&gt;&lt;/xue-menu2&gt;
+    &lt;br/&gt;&lt;/br&gt;
     &lt;xue-menu2 menu-config=&quot;menuConfig2&quot;&gt;&lt;/xue-menu2&gt;
 &lt;/div&gt;</code></pre>
                                     </div>
@@ -2043,10 +2047,10 @@ $ npm run demo or npm run test-demo</code></pre>
     }
     $scope.menuConfig1 = {
         search: true,
-        selectId: &#39;41&#39;, // 当前选中导航菜单ID
         data: [{
             id: &#39;1&#39;,
-            menuName: &#39;菜单1&#39;
+            menuName: &#39;菜单1&#39;,
+            iconName:&#39;xui-icon-ios-refresh&#39;
         }, {
             id: &#39;2&#39;,
             menuName: &#39;菜单2&#39;,
@@ -2075,7 +2079,7 @@ $ npm run demo or npm run test-demo</code></pre>
                 menuName: &#39;菜单项4-2&#39;
             }]
         }],
-        clickMenu: function (item) { //导航菜单点击回调
+        clickRouter: function (item) { //导航菜单点击回调
             console.log(item);
         }
     }
@@ -2122,7 +2126,7 @@ $ npm run demo or npm run test-demo</code></pre>
             id: &#39;3&#39;,
             menuName: &#39;菜单3&#39;
         }],
-        clickMenu: function (item) { //导航菜单点击回调
+        clickRouter: function (item) { //导航菜单点击回调
             console.log(item);
         }
     }
@@ -2178,10 +2182,10 @@ $ npm run demo or npm run test-demo</code></pre>
     }
     $scope.menuConfig1 = {
         search: true,
-        selectId: '41', // 当前选中导航菜单ID
         data: [{
             id: '1',
-            menuName: '菜单1'
+            menuName: '菜单1',
+            iconName:'xui-icon-ios-refresh'
         }, {
             id: '2',
             menuName: '菜单2',
@@ -2210,7 +2214,7 @@ $ npm run demo or npm run test-demo</code></pre>
                 menuName: '菜单项4-2'
             }]
         }],
-        clickMenu: function (item) { //导航菜单点击回调
+        clickRouter: function (item) { //导航菜单点击回调
             console.log(item);
         }
     }
@@ -2257,7 +2261,7 @@ $ npm run demo or npm run test-demo</code></pre>
             id: '3',
             menuName: '菜单3'
         }],
-        clickMenu: function (item) { //导航菜单点击回调
+        clickRouter: function (item) { //导航菜单点击回调
             console.log(item);
         }
     }
