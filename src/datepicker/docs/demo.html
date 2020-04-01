@@ -1,6 +1,55 @@
-<div ng-controller="xueDatepickerdemoCtrl">
-    <xue-datepicker date-config="test.config" min-date="test.minDate" max-date="test.maxDate" ng-val="test.value"></xue-datepicker>
-    </br>
-    </br>
-    <xue-datepicker date-config="test1.config" ng-val="test1.value"></xue-datepicker>
+<style>
+    .demo-datepicker .datepicker-content {
+        margin-bottom: 15px;
+    }
+    .datepicker-content > p  {
+        margin-bottom: 5px;
+    }
+    .demo-datepicker .datepicker {
+        display: inline-block;
+        margin-right: 15px;
+    }
+</style>
+<div ng-controller="xueDatepickerdemoCtrl" class="demo-datepicker">
+    <div class="datepicker-content">
+        <p>日期时间选择器：</p>
+        <div class="datepicker">
+            <span>默认：</span>
+            <xue-datepicker date-config="test.config" ng-val="test.value"></xue-datepicker>
+        </div>
+        <div class="datepicker">
+            <span>设置时间范围：</span>
+            <xue-datepicker date-config="test.config1" min-date="test.minDate" max-date="test.maxDate" ng-val="test.value1"></xue-datepicker>
+        </div>
+        <div class="datepicker">
+            <span>禁用：</span>
+            <xue-datepicker ng-disabled="true" date-config="test.1" ng-val="test.value2"></xue-datepicker>
+        </div>
+    </div>
+    <div class="datepicker-content">
+        <p>日期选择器：</p>
+        <div class="datepicker">
+            <span>默认：</span>
+            <xue-datepicker date-config="test1.config" ng-val="test1.value"></xue-datepicker>
+        </div>
+        <div class="datepicker">
+            <span>设置时间范围：</span>
+            <xue-datepicker date-config="test1.config1" min-date="test1.minDate" max-date="test1.maxDate" ng-val="test1.value1"></xue-datepicker>
+        </div>
+        <div class="datepicker">
+            <span>禁用：</span>
+            <xue-datepicker ng-disabled="true" date-config="test1.config2" ng-val="test1.value2"></xue-datepicker>
+        </div>
+    </div>
+    <div class="datepicker-content">
+        <p>时间选择器：</p>
+        <div class="datepicker">
+            <span>默认：</span>
+            <xue-datepicker date-config="test2.config" ng-val="test2.value"></xue-datepicker>
+        </div>
+        <div class="datepicker">
+            <span>禁用：</span>
+            <xue-datepicker ng-disabled="true" date-config="test2.config1" ng-val="test2.value1"></xue-datepicker>
+        </div>
+    </div>
 </div>

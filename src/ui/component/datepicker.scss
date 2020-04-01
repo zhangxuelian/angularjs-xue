@@ -3,7 +3,9 @@ $datepicker-theme-color: $color-primary !default;
 .xui-datepicker-wrap {
     position: relative;
     display: inline-block;
-
+    &[disabled] {
+        cursor: not-allowed;
+    }
     .input-wrap {
         display: inline-block;
         width: 180px;
@@ -49,6 +51,9 @@ $datepicker-theme-color: $color-primary !default;
             border: none;
             padding: 3px;
             left: 18px;
+            &[disabled] {
+                cursor: not-allowed;
+            }
         }
 
         .prefix-input {
