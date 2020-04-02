@@ -1,6 +1,6 @@
 angular.module("xue/template/select/select.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("xue/template/select/select.html",
-    "<div class=\"xui-select-warp\">\n" +
+    "<div class=\"xui-select-wrap\">\n" +
     "    <!-- 单选可过滤不分离 -->\n" +
     "    <div ng-if=\"!selectConfig.checkbox && selectConfig.filter && !selectConfig.separate\">\n" +
     "        <input ng-focus=\"focus()\" type=\"text\" class=\"xui-input select-show\" title=\"{{selectConfig.inputLabel}}\"\n" +
@@ -96,7 +96,7 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "        <input ng-click=\"focus()\" type=\"button\" class=\"xui-input select-show\" ng-disabled=\"selectConfig.disabled\" title=\"{{selectConfig.inputLabel}}\"\n" +
     "            ng-class=\"selectClass\" ng-style=\"showStyle\" />\n" +
     "        <i class=\"select-arrow\"></i>\n" +
-    "        <div class=\"select-content  select-separate\" ng-style=\"contentStyle\">\n" +
+    "        <div class=\"select-content\" ng-style=\"contentStyle\">\n" +
     "            <ul ng-style=\"showContent\" class=\"select-list\">\n" +
     "                <li ng-click=\"selectLi(item,$event)\"\n" +
     "                    ng-class=\"{true:'active'}[!!selectConfig.checkRowsMap[item[selectConfig.valueField]]]\"\n" +

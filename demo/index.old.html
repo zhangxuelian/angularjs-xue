@@ -3560,21 +3560,54 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
                     <div class="page-content">
                         <div class="content-html">
                             <div ng-controller="xueSelectdemoCtrl">
-    <div style="margin-bottom:5px;">单选可过滤不分离：
+    <!-- <div style="margin-bottom:5px;">单选可过滤不分离：
         <xue-select select-config="mv.flterNoSeparateConfig"></xue-select>
     </div>
     <div style="margin-bottom:5px;">单选可过滤且分离：
         <xue-select select-config="mv.testConfig"></xue-select>
-    </div>
-    <div style="margin-bottom:5px;">单选不可过滤且分离：
+    </div> -->
+    <!-- <div style="margin-bottom:5px;">单选不可过滤且分离：
         <xue-select select-config="mv.noFilterConfig"></xue-select>
-    </div>
-    <div style="margin-bottom:5px;">多选可过滤：
+    </div> -->
+    <!-- <div style="margin-bottom:5px;">多选可过滤：
         <xue-select select-config="mv.multConfig"></xue-select>
-    </div>
-    <div>多选不可过滤：
+    </div> -->
+    <!-- <div>多选不可过滤：
         <xue-select select-config="mv.multFilterConfig"></xue-select>
+    </div> -->
+    <div style="margin-bottom:5px;">单选可过滤不分离：
+        <xue-select2 select-config="mv.config1"></xue-select2>
     </div>
+    <div style="margin-bottom:5px;">单选不可过滤不分离：
+        <xue-select2 select-config="mv.config2"></xue-select2>
+    </div>
+    <!-- <div style="margin-bottom:5px;">单选不可过滤分离：
+        <xue-select2 select-config="mv.config3"></xue-select2>
+    </div> -->
+    <div style="margin-bottom:5px;">单选可过滤分离：
+        <xue-select2 select-config="mv.config4"></xue-select2>
+    </div>
+    <div style="margin-bottom:5px;">多选可过滤分离：
+        <xue-select2 select-config="mv.config6"></xue-select2>
+    </div>
+    <div style="margin-bottom:5px;">多选不可过滤不分离：
+        <xue-select2 select-config="mv.config5"></xue-select2>
+    </div>
+    <div>禁用:
+        <xue-select2 select-config="mv.testConfig" ng-disabled="true"></xue-select2>
+    </div>
+    <!-- <div style="margin-bottom:5px;">多选可过滤不分离：
+        <xue-select2 select-config="mv.config7"></xue-select2>
+    </div>
+    <div style="margin-bottom:5px;">多选不可过滤分离：
+        <xue-select2 select-config="mv.config8"></xue-select2>
+    </div> -->
+    <!-- <div  style="margin-bottom:5px;">
+        <xue-select2 select-config="mv.noFilterConfig"></xue-select2>
+    </div>
+    <div>
+        <xue-select2 select-config="mv.multConfig"></xue-select2>
+    </div> -->
 
 </div>
                         </div>
@@ -3840,21 +3873,54 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
                                     <div plunker-content="markup">
                                         <pre
                                             ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueSelectdemoCtrl&quot;&gt;
-    &lt;div style=&quot;margin-bottom:5px;&quot;&gt;单选可过滤不分离：
+    &lt;!-- &lt;div style=&quot;margin-bottom:5px;&quot;&gt;单选可过滤不分离：
         &lt;xue-select select-config=&quot;mv.flterNoSeparateConfig&quot;&gt;&lt;/xue-select&gt;
     &lt;/div&gt;
     &lt;div style=&quot;margin-bottom:5px;&quot;&gt;单选可过滤且分离：
         &lt;xue-select select-config=&quot;mv.testConfig&quot;&gt;&lt;/xue-select&gt;
-    &lt;/div&gt;
-    &lt;div style=&quot;margin-bottom:5px;&quot;&gt;单选不可过滤且分离：
+    &lt;/div&gt; --&gt;
+    &lt;!-- &lt;div style=&quot;margin-bottom:5px;&quot;&gt;单选不可过滤且分离：
         &lt;xue-select select-config=&quot;mv.noFilterConfig&quot;&gt;&lt;/xue-select&gt;
-    &lt;/div&gt;
-    &lt;div style=&quot;margin-bottom:5px;&quot;&gt;多选可过滤：
+    &lt;/div&gt; --&gt;
+    &lt;!-- &lt;div style=&quot;margin-bottom:5px;&quot;&gt;多选可过滤：
         &lt;xue-select select-config=&quot;mv.multConfig&quot;&gt;&lt;/xue-select&gt;
-    &lt;/div&gt;
-    &lt;div&gt;多选不可过滤：
+    &lt;/div&gt; --&gt;
+    &lt;!-- &lt;div&gt;多选不可过滤：
         &lt;xue-select select-config=&quot;mv.multFilterConfig&quot;&gt;&lt;/xue-select&gt;
+    &lt;/div&gt; --&gt;
+    &lt;div style=&quot;margin-bottom:5px;&quot;&gt;单选可过滤不分离：
+        &lt;xue-select2 select-config=&quot;mv.config1&quot;&gt;&lt;/xue-select2&gt;
     &lt;/div&gt;
+    &lt;div style=&quot;margin-bottom:5px;&quot;&gt;单选不可过滤不分离：
+        &lt;xue-select2 select-config=&quot;mv.config2&quot;&gt;&lt;/xue-select2&gt;
+    &lt;/div&gt;
+    &lt;!-- &lt;div style=&quot;margin-bottom:5px;&quot;&gt;单选不可过滤分离：
+        &lt;xue-select2 select-config=&quot;mv.config3&quot;&gt;&lt;/xue-select2&gt;
+    &lt;/div&gt; --&gt;
+    &lt;div style=&quot;margin-bottom:5px;&quot;&gt;单选可过滤分离：
+        &lt;xue-select2 select-config=&quot;mv.config4&quot;&gt;&lt;/xue-select2&gt;
+    &lt;/div&gt;
+    &lt;div style=&quot;margin-bottom:5px;&quot;&gt;多选可过滤分离：
+        &lt;xue-select2 select-config=&quot;mv.config6&quot;&gt;&lt;/xue-select2&gt;
+    &lt;/div&gt;
+    &lt;div style=&quot;margin-bottom:5px;&quot;&gt;多选不可过滤不分离：
+        &lt;xue-select2 select-config=&quot;mv.config5&quot;&gt;&lt;/xue-select2&gt;
+    &lt;/div&gt;
+    &lt;div&gt;禁用:
+        &lt;xue-select2 select-config=&quot;mv.testConfig&quot; ng-disabled=&quot;true&quot;&gt;&lt;/xue-select2&gt;
+    &lt;/div&gt;
+    &lt;!-- &lt;div style=&quot;margin-bottom:5px;&quot;&gt;多选可过滤不分离：
+        &lt;xue-select2 select-config=&quot;mv.config7&quot;&gt;&lt;/xue-select2&gt;
+    &lt;/div&gt;
+    &lt;div style=&quot;margin-bottom:5px;&quot;&gt;多选不可过滤分离：
+        &lt;xue-select2 select-config=&quot;mv.config8&quot;&gt;&lt;/xue-select2&gt;
+    &lt;/div&gt; --&gt;
+    &lt;!-- &lt;div  style=&quot;margin-bottom:5px;&quot;&gt;
+        &lt;xue-select2 select-config=&quot;mv.noFilterConfig&quot;&gt;&lt;/xue-select2&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;xue-select2 select-config=&quot;mv.multConfig&quot;&gt;&lt;/xue-select2&gt;
+    &lt;/div&gt; --&gt;
 
 &lt;/div&gt;</code></pre>
                                     </div>
@@ -3890,7 +3956,8 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
         },
         noFilterConfig: {
             data: $scope.data,
-            filter: false
+            filter: false,
+            separate: true
         },
         flterNoSeparateConfig: {
             data: $scope.data,
@@ -3899,7 +3966,69 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
                 console.log(item);
             }
         },
+        // 单选可过滤不分离
+        config1: {
+            data: $scope.data,
+            filter: true,
+            separate: false
+        },
+        // 单选不可过滤不分离
+        config2: {
+            data: $scope.data,
+            filter: false,
+            separate: false
+        },
+        // 单选不可过滤分离
+        config3: {
+            data: $scope.data,
+            filter: false,
+            separate: true
+        },
+        // 单选可过滤分离
+        config4: {
+            data: $scope.data,
+            filter: true,
+            separate: true,
+            setValue:&#39;2&#39;,
+            onSelect: function (item) {
+                console.log(item);
+            },
+            clearAll: function () {
+                console.log(&#39;清除select&#39;);
+            }
+        },
+        // 多选不可过滤不分离
+        config5: {
+            data: $scope.data,
+            filter: false,
+            separate: false,
+            checkbox:true
+
+        },
+        // 多选过滤分离
+        config6: {
+            data: $scope.data,
+            filter: true,
+            separate: true,
+            checkbox:true
+        },
+        // 多选可过滤不分离：
+        config7: {
+            data: $scope.data,
+            filter: true,
+            separate: false,
+            checkbox:true
+        },
+        // 多选不可过滤分离：
+        config8: {
+            data: $scope.data,
+            filter: false,
+            separate: true,
+            checkbox:true
+        },
         multConfig: {
+            filter: true,
+            enableEmpty: true,
             data: [{
                 name: &quot;全部&quot;,
                 value: &quot;1&quot;
@@ -3921,6 +4050,12 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
             textField: &#39;name&#39;,
             panelHeight: &#39;150px&#39;,
             panelWidth: &#39;180px&#39;,
+            checkLimit: 2,
+            onBeforeSelect: function (item) {
+                if (item.value == 5) {
+                    return false;
+                }
+            },
             onSelect: function (item) {
                 console.log($scope.mv.multConfig.checkRows);
             }
@@ -3966,7 +4101,8 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
         },
         noFilterConfig: {
             data: $scope.data,
-            filter: false
+            filter: false,
+            separate: true
         },
         flterNoSeparateConfig: {
             data: $scope.data,
@@ -3975,7 +4111,69 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
                 console.log(item);
             }
         },
+        // 单选可过滤不分离
+        config1: {
+            data: $scope.data,
+            filter: true,
+            separate: false
+        },
+        // 单选不可过滤不分离
+        config2: {
+            data: $scope.data,
+            filter: false,
+            separate: false
+        },
+        // 单选不可过滤分离
+        config3: {
+            data: $scope.data,
+            filter: false,
+            separate: true
+        },
+        // 单选可过滤分离
+        config4: {
+            data: $scope.data,
+            filter: true,
+            separate: true,
+            setValue:'2',
+            onSelect: function (item) {
+                console.log(item);
+            },
+            clearAll: function () {
+                console.log('清除select');
+            }
+        },
+        // 多选不可过滤不分离
+        config5: {
+            data: $scope.data,
+            filter: false,
+            separate: false,
+            checkbox:true
+
+        },
+        // 多选过滤分离
+        config6: {
+            data: $scope.data,
+            filter: true,
+            separate: true,
+            checkbox:true
+        },
+        // 多选可过滤不分离：
+        config7: {
+            data: $scope.data,
+            filter: true,
+            separate: false,
+            checkbox:true
+        },
+        // 多选不可过滤分离：
+        config8: {
+            data: $scope.data,
+            filter: false,
+            separate: true,
+            checkbox:true
+        },
         multConfig: {
+            filter: true,
+            enableEmpty: true,
             data: [{
                 name: "全部",
                 value: "1"
@@ -3997,6 +4195,12 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
             textField: 'name',
             panelHeight: '150px',
             panelWidth: '180px',
+            checkLimit: 2,
+            onBeforeSelect: function (item) {
+                if (item.value == 5) {
+                    return false;
+                }
+            },
             onSelect: function (item) {
                 console.log($scope.mv.multConfig.checkRows);
             }

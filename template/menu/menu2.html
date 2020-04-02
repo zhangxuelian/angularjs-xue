@@ -26,7 +26,7 @@
                 <i class="xui-icon {{item.iconName}}"></i>
             </div>
             <i class="icon-dot" ng-if="!item.subMenus && menuConfig.mode=='vertical'"></i>
-             <span>{{item[menuConfig.menuName]}}</span>  
+             <span title="{{item[menuConfig.menuName]}}">{{item[menuConfig.menuName]}}</span>  
              <div class="title-arrow-right" ng-if="!!item.subMenus">
                 <i ng-show="!item.open" class="xui-icon xui-icon-ios-arrow-forward"></i>
                 <i ng-show="!!item.open" class="xui-icon xui-icon-ios-arrow-down"></i>

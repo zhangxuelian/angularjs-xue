@@ -28,7 +28,7 @@ angular.module("xue/template/menu/menu2.html", []).run(["$templateCache", functi
     "                <i class=\"xui-icon {{item.iconName}}\"></i>\n" +
     "            </div>\n" +
     "            <i class=\"icon-dot\" ng-if=\"!item.subMenus && menuConfig.mode=='vertical'\"></i>\n" +
-    "             <span>{{item[menuConfig.menuName]}}</span>  \n" +
+    "             <span title=\"{{item[menuConfig.menuName]}}\">{{item[menuConfig.menuName]}}</span>  \n" +
     "             <div class=\"title-arrow-right\" ng-if=\"!!item.subMenus\">\n" +
     "                <i ng-show=\"!item.open\" class=\"xui-icon xui-icon-ios-arrow-forward\"></i>\n" +
     "                <i ng-show=\"!!item.open\" class=\"xui-icon xui-icon-ios-arrow-down\"></i>\n" +

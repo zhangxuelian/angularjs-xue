@@ -1,5 +1,3 @@
-
-
 $select-height: 28px !default;
 $select-content-border-color: $border-color-base !default;
 $select-content-bg-color: $background-color-base !default;
@@ -7,7 +5,7 @@ $select-active-color: $color-primary !default;
 $select-text-color: $color-text-primary !default;
 $select-empty-text-color: $color-text-placeholder !default;
 
-.xui-select-warp {
+.xui-select-wrap {
     position: relative;
     display: inline-block;
     vertical-align: middle;
@@ -174,6 +172,172 @@ $select-empty-text-color: $color-text-placeholder !default;
             .active {
                 color: $select-active-color;
             }
+        }
+    }
+}
+
+.xui-select-wrap2 {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    height: $select-height;
+    line-height: $select-height;
+
+    .select-show {
+        position: relative;
+        text-align: left;
+        width: 180px;
+        padding: 0 5px;
+        padding-right: 18px !important;
+        color: $select-text-color;
+        @include text-overflow-ellipsis();
+    }
+    .dropdown-icon{
+        position: absolute;
+        color: $select-text-color;
+        right:5px;
+        top:7px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .select-arrow {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: 4px solid transparent;
+        border-top-color: $select-text-color;
+        border-top-width: 6px;
+        right: 5px;
+        top: 14px;
+    }
+
+
+}
+
+.select-content {
+    position: absolute;
+    display: none;
+    top: 29px;
+    width: 180px;
+    height: 250px;
+    z-index: 1024;
+    background: $select-content-bg-color;
+    overflow: auto;
+    border: $border-width solid $select-content-border-color;
+    box-shadow: 0px 3px 7px 0px rgba(85, 176, 255, 0.3);
+    box-sizing: border-box;
+
+    &.select-separate {
+        padding-top: 38px;
+        .separate-wrap {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            padding-right: 20px;
+            box-sizing: border-box;
+            height: 38px;
+
+            &.hidden-filter {
+                padding-right: 0px;
+            }
+
+            .select-filter-wrap {
+                padding: 5px;
+                box-sizing: border-box;
+
+                .select-filter {
+                    width: 100% !important;
+                    margin: 0;
+                    position: relative;
+                }
+            }
+
+            i {
+                position: absolute;
+                top: 12px;
+                right: 5px;
+                cursor: pointer;
+                color: $color-text-regular;
+                line-height: 18px;
+                font-size: 18px;
+            }
+        }
+    }
+
+    .select-filter {
+        // @include select-input;
+        padding: 6px 12px;
+        position: absolute;
+        width: 96% !important;
+        margin: 5px 2%;
+        height: $select-height;
+        top: 0;
+    }
+
+    .select-list {
+        width: 100% !important;
+        overflow: auto !important;
+        height: 100% !important;
+        // IE8滚动条箭头颜色，重设原来的浅色调避免弹框太小时完全无滚动条
+        scrollbar-arrow-color: $color-black;
+
+        li {
+            width: 100% !important;
+            min-height: $select-height !important;
+            line-height: $select-height !important;
+            border-bottom: $border-width solid $select-content-border-color;
+            color: $select-text-color;
+            cursor: pointer;
+            text-align: left !important;
+            display: table;
+            padding-left: 3px;
+            margin: 0 !important;
+            border-collapse: initial;
+            box-sizing: border-box;
+
+            &:hover {
+                background: $select-active-color;
+                color: #fff;
+            }
+
+            input[type='checkbox'] {
+                vertical-align: middle;
+                margin-top: -2px;
+                width: 15px;
+                display: table-cell;
+            }
+
+            span {
+                display: table-cell;
+                width: 100%;
+                padding: 0 5px;
+                word-break: break-all;
+            }
+
+            &.empty-data {
+                color: $select-empty-text-color;
+                padding: 0 !important;
+
+                span {
+                    text-align: center;
+                    padding: 0;
+                    @include font-size(12px);
+                }
+
+                &:hover {
+                    background: $select-content-bg-color;
+                    color: $select-empty-text-color;
+                }
+            }
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        .active {
+            color: $select-active-color;
         }
     }
 }

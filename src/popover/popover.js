@@ -60,6 +60,7 @@ angular.module('xue.popover', [])
                         },
                         click: function (e) {
                             var popEle = $('#' + scope.popoverId);
+                            $(".xui-popover-container").hide();
                             if (popEle.is(':hidden')) {
                                 popoverCtrl.show(e);
                             } else {

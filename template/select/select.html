@@ -1,4 +1,4 @@
-<div class="xui-select-warp">
+<div class="xui-select-wrap">
     <!-- 单选可过滤不分离 -->
     <div ng-if="!selectConfig.checkbox && selectConfig.filter && !selectConfig.separate">
         <input ng-focus="focus()" type="text" class="xui-input select-show" title="{{selectConfig.inputLabel}}"
@@ -94,7 +94,7 @@
         <input ng-click="focus()" type="button" class="xui-input select-show" ng-disabled="selectConfig.disabled" title="{{selectConfig.inputLabel}}"
             ng-class="selectClass" ng-style="showStyle" />
         <i class="select-arrow"></i>
-        <div class="select-content  select-separate" ng-style="contentStyle">
+        <div class="select-content" ng-style="contentStyle">
             <ul ng-style="showContent" class="select-list">
                 <li ng-click="selectLi(item,$event)"
                     ng-class="{true:'active'}[!!selectConfig.checkRowsMap[item[selectConfig.valueField]]]"
