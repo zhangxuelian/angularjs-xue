@@ -406,11 +406,26 @@
             <xue-tab label="'示例'" value="1">
                 <div class="page-content">
                     <div class="content-html">
-                        <div ng-controller="xueCascaderDemoCtrl">
-    <xue-cascader cascader-config="testConfig" ng-val="testValue"></xue-cascader>
-    </br>
-    </br>
-    <xue-cascader cascader-config="areaConfig" ng-val="areaValue"></xue-cascader>
+                        <style>
+    .demo-cascader>span {
+        position: relative;
+        display: inline-block;
+        margin: 0 5px;
+    }
+    .demo-cascader>div{
+        margin:10px 0;
+    }
+</style>
+
+<div ng-controller="xueCascaderDemoCtrl" class="demo-cascader">
+    <div>自定义数据</div>
+    <span>
+        <xue-cascader cascader-config="testConfig" ng-val="testValue"></xue-cascader>
+    </span>
+    <div>通过url请求数据</div>
+    <span>
+        <xue-cascader cascader-config="areaConfig" ng-val="areaValue"></xue-cascader>
+    </span>
 </div>
                     </div>
                 </div>
@@ -421,11 +436,26 @@
                         <xue-tabs-wrap type="border-card">
                             <xue-tab label="'html'" value="1">
                                 <div class="code-wrap">
-                                    <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueCascaderDemoCtrl&quot;&gt;
-    &lt;xue-cascader cascader-config=&quot;testConfig&quot; ng-val=&quot;testValue&quot;&gt;&lt;/xue-cascader&gt;
-    &lt;/br&gt;
-    &lt;/br&gt;
-    &lt;xue-cascader cascader-config=&quot;areaConfig&quot; ng-val=&quot;areaValue&quot;&gt;&lt;/xue-cascader&gt;
+                                    <pre ng-non-bindable><code data-language="html">&lt;style&gt;
+    .demo-cascader&gt;span {
+        position: relative;
+        display: inline-block;
+        margin: 0 5px;
+    }
+    .demo-cascader&gt;div{
+        margin:10px 0;
+    }
+&lt;/style&gt;
+
+&lt;div ng-controller=&quot;xueCascaderDemoCtrl&quot; class=&quot;demo-cascader&quot;&gt;
+    &lt;div&gt;自定义数据&lt;/div&gt;
+    &lt;span&gt;
+        &lt;xue-cascader cascader-config=&quot;testConfig&quot; ng-val=&quot;testValue&quot;&gt;&lt;/xue-cascader&gt;
+    &lt;/span&gt;
+    &lt;div&gt;通过url请求数据&lt;/div&gt;
+    &lt;span&gt;
+        &lt;xue-cascader cascader-config=&quot;areaConfig&quot; ng-val=&quot;areaValue&quot;&gt;&lt;/xue-cascader&gt;
+    &lt;/span&gt;
 &lt;/div&gt;</code></pre>
                                 </div>
                             </xue-tab>
@@ -893,11 +923,60 @@
             <xue-tab label="'示例'" value="1">
                 <div class="page-content">
                     <div class="content-html">
-                        <div ng-controller="xueDatepickerdemoCtrl">
-    <xue-datepicker date-config="test.config" min-date="test.minDate" max-date="test.maxDate" ng-val="test.value"></xue-datepicker>
-    </br>
-    </br>
-    <xue-datepicker date-config="test1.config" ng-val="test1.value"></xue-datepicker>
+                        <style>
+    .demo-datepicker .datepicker-content {
+        margin-bottom: 15px;
+    }
+    .datepicker-content > p  {
+        margin-bottom: 5px;
+    }
+    .demo-datepicker .datepicker {
+        display: inline-block;
+        margin-right: 15px;
+    }
+</style>
+<div ng-controller="xueDatepickerdemoCtrl" class="demo-datepicker">
+    <div class="datepicker-content">
+        <p>日期时间选择器：</p>
+        <div class="datepicker">
+            <span>默认：</span>
+            <xue-datepicker date-config="test.config" ng-val="test.value"></xue-datepicker>
+        </div>
+        <div class="datepicker">
+            <span>设置时间范围：</span>
+            <xue-datepicker date-config="test.config1" min-date="test.minDate" max-date="test.maxDate" ng-val="test.value1"></xue-datepicker>
+        </div>
+        <div class="datepicker">
+            <span>禁用：</span>
+            <xue-datepicker ng-disabled="true" date-config="test.1" ng-val="test.value2"></xue-datepicker>
+        </div>
+    </div>
+    <div class="datepicker-content">
+        <p>日期选择器：</p>
+        <div class="datepicker">
+            <span>默认：</span>
+            <xue-datepicker date-config="test1.config" ng-val="test1.value"></xue-datepicker>
+        </div>
+        <div class="datepicker">
+            <span>设置时间范围：</span>
+            <xue-datepicker date-config="test1.config1" min-date="test1.minDate" max-date="test1.maxDate" ng-val="test1.value1"></xue-datepicker>
+        </div>
+        <div class="datepicker">
+            <span>禁用：</span>
+            <xue-datepicker ng-disabled="true" date-config="test1.config2" ng-val="test1.value2"></xue-datepicker>
+        </div>
+    </div>
+    <div class="datepicker-content">
+        <p>时间选择器：</p>
+        <div class="datepicker">
+            <span>默认：</span>
+            <xue-datepicker date-config="test2.config" ng-val="test2.value"></xue-datepicker>
+        </div>
+        <div class="datepicker">
+            <span>禁用：</span>
+            <xue-datepicker ng-disabled="true" date-config="test2.config1" ng-val="test2.value1"></xue-datepicker>
+        </div>
+    </div>
 </div>
 
                     </div>
@@ -909,11 +988,60 @@
                         <xue-tabs-wrap type="border-card">
                             <xue-tab label="'html'" value="1">
                                 <div class="code-wrap">
-                                    <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueDatepickerdemoCtrl&quot;&gt;
-    &lt;xue-datepicker date-config=&quot;test.config&quot; min-date=&quot;test.minDate&quot; max-date=&quot;test.maxDate&quot; ng-val=&quot;test.value&quot;&gt;&lt;/xue-datepicker&gt;
-    &lt;/br&gt;
-    &lt;/br&gt;
-    &lt;xue-datepicker date-config=&quot;test1.config&quot; ng-val=&quot;test1.value&quot;&gt;&lt;/xue-datepicker&gt;
+                                    <pre ng-non-bindable><code data-language="html">&lt;style&gt;
+    .demo-datepicker .datepicker-content {
+        margin-bottom: 15px;
+    }
+    .datepicker-content &gt; p  {
+        margin-bottom: 5px;
+    }
+    .demo-datepicker .datepicker {
+        display: inline-block;
+        margin-right: 15px;
+    }
+&lt;/style&gt;
+&lt;div ng-controller=&quot;xueDatepickerdemoCtrl&quot; class=&quot;demo-datepicker&quot;&gt;
+    &lt;div class=&quot;datepicker-content&quot;&gt;
+        &lt;p&gt;日期时间选择器：&lt;/p&gt;
+        &lt;div class=&quot;datepicker&quot;&gt;
+            &lt;span&gt;默认：&lt;/span&gt;
+            &lt;xue-datepicker date-config=&quot;test.config&quot; ng-val=&quot;test.value&quot;&gt;&lt;/xue-datepicker&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;datepicker&quot;&gt;
+            &lt;span&gt;设置时间范围：&lt;/span&gt;
+            &lt;xue-datepicker date-config=&quot;test.config1&quot; min-date=&quot;test.minDate&quot; max-date=&quot;test.maxDate&quot; ng-val=&quot;test.value1&quot;&gt;&lt;/xue-datepicker&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;datepicker&quot;&gt;
+            &lt;span&gt;禁用：&lt;/span&gt;
+            &lt;xue-datepicker ng-disabled=&quot;true&quot; date-config=&quot;test.1&quot; ng-val=&quot;test.value2&quot;&gt;&lt;/xue-datepicker&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;datepicker-content&quot;&gt;
+        &lt;p&gt;日期选择器：&lt;/p&gt;
+        &lt;div class=&quot;datepicker&quot;&gt;
+            &lt;span&gt;默认：&lt;/span&gt;
+            &lt;xue-datepicker date-config=&quot;test1.config&quot; ng-val=&quot;test1.value&quot;&gt;&lt;/xue-datepicker&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;datepicker&quot;&gt;
+            &lt;span&gt;设置时间范围：&lt;/span&gt;
+            &lt;xue-datepicker date-config=&quot;test1.config1&quot; min-date=&quot;test1.minDate&quot; max-date=&quot;test1.maxDate&quot; ng-val=&quot;test1.value1&quot;&gt;&lt;/xue-datepicker&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;datepicker&quot;&gt;
+            &lt;span&gt;禁用：&lt;/span&gt;
+            &lt;xue-datepicker ng-disabled=&quot;true&quot; date-config=&quot;test1.config2&quot; ng-val=&quot;test1.value2&quot;&gt;&lt;/xue-datepicker&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;datepicker-content&quot;&gt;
+        &lt;p&gt;时间选择器：&lt;/p&gt;
+        &lt;div class=&quot;datepicker&quot;&gt;
+            &lt;span&gt;默认：&lt;/span&gt;
+            &lt;xue-datepicker date-config=&quot;test2.config&quot; ng-val=&quot;test2.value&quot;&gt;&lt;/xue-datepicker&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;datepicker&quot;&gt;
+            &lt;span&gt;禁用：&lt;/span&gt;
+            &lt;xue-datepicker ng-disabled=&quot;true&quot; date-config=&quot;test2.config1&quot; ng-val=&quot;test2.value1&quot;&gt;&lt;/xue-datepicker&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
                                 </div>
@@ -924,15 +1052,50 @@
                                         ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueDatepickerdemoCtrl&#39;,[&#39;$scope&#39;,function($scope){
     $scope.test = {
         value: &quot;2020-02-25 14:00:00&quot;,
+        config: {
+            format: &quot;YYYY-MM-DD hh:mm:ss&quot;
+        },
+
+        value1: &quot;2020-02-25 14:00:00&quot;,
+        config1: {
+            format: &quot;YYYY-MM-DD hh:mm:ss&quot;
+        },
         minDate: &quot;2020-02-24 14:00:00&quot;,
         maxDate: &quot;2020-02-28 14:00:00&quot;,
-        config: {
+
+        value2: &quot;2020-02-25 14:00:00&quot;,
+        config2: {
             format: &quot;YYYY-MM-DD hh:mm:ss&quot;
         }
     }
+    
     $scope.test1 = {
+        value: &quot;2020-02-25&quot;,
+        config: {
+            format: &quot;YYYY-MM-DD&quot;
+        },
+
+        value1: &quot;2020-02-25&quot;,
+        config1: {
+            format: &quot;YYYY-MM-DD&quot;
+        },
+        minDate: &quot;2020-02-24&quot;,
+        maxDate: &quot;2020-02-28&quot;,
+
+        value2: &quot;2020-02-25&quot;,
+        config2: {
+            format: &quot;YYYY-MM-DD&quot;
+        }
+    }
+
+    $scope.test2 = {
         value: &quot;14:00:00&quot;,
         config: {
+            format: &quot;hh:mm:ss&quot;
+        },
+
+        value1: &quot;14:00:00&quot;,
+        config1: {
             format: &quot;hh:mm:ss&quot;
         }
     }

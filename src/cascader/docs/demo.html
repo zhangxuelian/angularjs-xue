@@ -1,6 +1,21 @@
-<div ng-controller="xueCascaderDemoCtrl">
-    <xue-cascader cascader-config="testConfig" ng-val="testValue"></xue-cascader>
-    </br>
-    </br>
-    <xue-cascader cascader-config="areaConfig" ng-val="areaValue"></xue-cascader>
+<style>
+    .demo-cascader>span {
+        position: relative;
+        display: inline-block;
+        margin: 0 5px;
+    }
+    .demo-cascader>div{
+        margin:10px 0;
+    }
+</style>
+
+<div ng-controller="xueCascaderDemoCtrl" class="demo-cascader">
+    <div>自定义数据</div>
+    <span>
+        <xue-cascader cascader-config="testConfig" ng-val="testValue"></xue-cascader>
+    </span>
+    <div>通过url请求数据</div>
+    <span>
+        <xue-cascader cascader-config="areaConfig" ng-val="areaValue"></xue-cascader>
+    </span>
 </div>
