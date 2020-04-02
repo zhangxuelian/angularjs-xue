@@ -3873,6 +3873,131 @@ ul {
   padding: 7px 15px;
   font-size: 12px; }
 
+.xui-select-wrap1 {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  height: 28px;
+  line-height: 28px; }
+  .xui-select-wrap1 .select-show {
+    position: relative;
+    text-align: left;
+    width: 180px;
+    padding: 0 5px;
+    padding-right: 18px !important;
+    color: #303133;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; }
+  .xui-select-wrap1 .select-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 4px solid transparent;
+    border-top-color: #303133;
+    border-top-width: 6px;
+    right: 5px;
+    top: 14px; }
+  .xui-select-wrap1 .select-content {
+    position: absolute;
+    display: none;
+    top: 29px;
+    width: 180px;
+    height: 250px;
+    z-index: 1024;
+    background: #F5F7FA;
+    overflow: auto;
+    border: 1px solid #DCDFE6;
+    box-shadow: 0px 3px 7px 0px rgba(85, 176, 255, 0.3);
+    box-sizing: border-box; }
+    .xui-select-wrap1 .select-content iframe {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      border: 0; }
+    .xui-select-wrap1 .select-content.select-content-checkbox {
+      padding-top: 38px; }
+    .xui-select-wrap1 .select-content.select-separate .separate-wrap {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      padding-right: 20px;
+      box-sizing: border-box;
+      height: 38px; }
+      .xui-select-wrap1 .select-content.select-separate .separate-wrap.hidden-filter {
+        padding-right: 0px; }
+      .xui-select-wrap1 .select-content.select-separate .separate-wrap .select-filter-wrap {
+        padding: 5px;
+        box-sizing: border-box; }
+        .xui-select-wrap1 .select-content.select-separate .separate-wrap .select-filter-wrap .select-filter {
+          width: 100% !important;
+          margin: 0;
+          position: relative; }
+      .xui-select-wrap1 .select-content.select-separate .separate-wrap i {
+        position: absolute;
+        top: 12px;
+        right: 5px;
+        cursor: pointer;
+        color: #606266;
+        line-height: 18px;
+        font-size: 18px; }
+    .xui-select-wrap1 .select-content .select-filter {
+      padding: 6px 12px;
+      position: absolute;
+      width: 96% !important;
+      margin: 5px 2%;
+      height: 28px;
+      top: 0; }
+    .xui-select-wrap1 .select-content .select-list {
+      width: 100% !important;
+      overflow: auto !important;
+      height: 100% !important;
+      scrollbar-arrow-color: #000000; }
+      .xui-select-wrap1 .select-content .select-list li {
+        width: 100% !important;
+        min-height: 28px !important;
+        line-height: 28px !important;
+        border-bottom: 1px solid #DCDFE6;
+        color: #303133;
+        cursor: pointer;
+        text-align: left !important;
+        display: table;
+        padding-left: 3px;
+        margin: 0 !important;
+        border-collapse: initial;
+        box-sizing: border-box; }
+        .xui-select-wrap1 .select-content .select-list li:hover {
+          background: #409EFF;
+          color: #fff; }
+        .xui-select-wrap1 .select-content .select-list li input[type='checkbox'] {
+          vertical-align: middle;
+          margin-top: -2px;
+          width: 15px;
+          display: table-cell; }
+        .xui-select-wrap1 .select-content .select-list li span {
+          display: table-cell;
+          width: 100%;
+          padding: 0 5px;
+          word-break: break-all; }
+        .xui-select-wrap1 .select-content .select-list li.empty-data {
+          color: #909399;
+          padding: 0 !important; }
+          .xui-select-wrap1 .select-content .select-list li.empty-data span {
+            text-align: center;
+            padding: 0;
+            font-size: 0.75rem; }
+          .xui-select-wrap1 .select-content .select-list li.empty-data:hover {
+            background: #F5F7FA;
+            color: #909399; }
+      .xui-select-wrap1 .select-content .select-list li:last-child {
+        border-bottom: none; }
+      .xui-select-wrap1 .select-content .select-list .active {
+        color: #409EFF; }
+
 .xui-select-wrap {
   position: relative;
   display: inline-block;
@@ -3886,150 +4011,23 @@ ul {
     padding: 0 5px;
     padding-right: 18px !important;
     color: #303133;
+    cursor: pointer;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden; }
-  .xui-select-wrap .select-arrow {
-    position: absolute;
-    width: 0;
-    height: 0;
-    border: 4px solid transparent;
-    border-top-color: #303133;
-    border-top-width: 6px;
-    right: 5px;
-    top: 14px; }
-  .xui-select-wrap .select-content {
-    position: absolute;
-    display: none;
-    top: 29px;
-    width: 180px;
-    height: 250px;
-    z-index: 1024;
-    background: #F5F7FA;
-    overflow: auto;
-    border: 1px solid #DCDFE6;
-    box-shadow: 0px 3px 7px 0px rgba(85, 176, 255, 0.3);
-    box-sizing: border-box; }
-    .xui-select-wrap .select-content iframe {
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      border: 0; }
-    .xui-select-wrap .select-content.select-content-checkbox {
-      padding-top: 38px; }
-    .xui-select-wrap .select-content.select-separate .separate-wrap {
-      width: 100%;
-      position: absolute;
-      top: 0;
-      padding-right: 20px;
-      box-sizing: border-box;
-      height: 38px; }
-      .xui-select-wrap .select-content.select-separate .separate-wrap.hidden-filter {
-        padding-right: 0px; }
-      .xui-select-wrap .select-content.select-separate .separate-wrap .select-filter-wrap {
-        padding: 5px;
-        box-sizing: border-box; }
-        .xui-select-wrap .select-content.select-separate .separate-wrap .select-filter-wrap .select-filter {
-          width: 100% !important;
-          margin: 0;
-          position: relative; }
-      .xui-select-wrap .select-content.select-separate .separate-wrap i {
-        position: absolute;
-        top: 12px;
-        right: 5px;
-        cursor: pointer;
-        color: #606266;
-        line-height: 18px;
-        font-size: 18px; }
-    .xui-select-wrap .select-content .select-filter {
-      padding: 6px 12px;
-      position: absolute;
-      width: 96% !important;
-      margin: 5px 2%;
-      height: 28px;
-      top: 0; }
-    .xui-select-wrap .select-content .select-list {
-      width: 100% !important;
-      overflow: auto !important;
-      height: 100% !important;
-      scrollbar-arrow-color: #000000; }
-      .xui-select-wrap .select-content .select-list li {
-        width: 100% !important;
-        min-height: 28px !important;
-        line-height: 28px !important;
-        border-bottom: 1px solid #DCDFE6;
-        color: #303133;
-        cursor: pointer;
-        text-align: left !important;
-        display: table;
-        padding-left: 3px;
-        margin: 0 !important;
-        border-collapse: initial;
-        box-sizing: border-box; }
-        .xui-select-wrap .select-content .select-list li:hover {
-          background: #409EFF;
-          color: #fff; }
-        .xui-select-wrap .select-content .select-list li input[type='checkbox'] {
-          vertical-align: middle;
-          margin-top: -2px;
-          width: 15px;
-          display: table-cell; }
-        .xui-select-wrap .select-content .select-list li span {
-          display: table-cell;
-          width: 100%;
-          padding: 0 5px;
-          word-break: break-all; }
-        .xui-select-wrap .select-content .select-list li.empty-data {
-          color: #C0C4CC;
-          padding: 0 !important; }
-          .xui-select-wrap .select-content .select-list li.empty-data span {
-            text-align: center;
-            padding: 0;
-            font-size: 0.75rem; }
-          .xui-select-wrap .select-content .select-list li.empty-data:hover {
-            background: #F5F7FA;
-            color: #C0C4CC; }
-      .xui-select-wrap .select-content .select-list li:last-child {
-        border-bottom: none; }
-      .xui-select-wrap .select-content .select-list .active {
-        color: #409EFF; }
-
-.xui-select-wrap2 {
-  position: relative;
-  display: inline-block;
-  vertical-align: middle;
-  height: 28px;
-  line-height: 28px; }
-  .xui-select-wrap2 .select-show {
-    position: relative;
-    text-align: left;
-    width: 180px;
-    padding: 0 5px;
-    padding-right: 18px !important;
-    color: #303133;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden; }
-  .xui-select-wrap2 .dropdown-icon {
+    .xui-select-wrap .select-show[disabled] {
+      cursor: not-allowed; }
+  .xui-select-wrap .dropdown-icon {
     position: absolute;
     color: #303133;
     right: 5px;
     top: 7px;
     display: inline-block;
-    cursor: pointer; }
-  .xui-select-wrap2 .select-arrow {
-    position: absolute;
-    width: 0;
-    height: 0;
-    border: 4px solid transparent;
-    border-top-color: #303133;
-    border-top-width: 6px;
-    right: 5px;
-    top: 14px; }
+    cursor: pointer;
+    pointer-events: none;
+    transition: all 0.3s ease-out; }
+    .xui-select-wrap .dropdown-icon.is-reverse {
+      transform: rotate(180deg); }
 
 .select-content {
   position: absolute;
@@ -4042,7 +4040,8 @@ ul {
   overflow: auto;
   border: 1px solid #DCDFE6;
   box-shadow: 0px 3px 7px 0px rgba(85, 176, 255, 0.3);
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  font-size: 14px; }
   .select-content.select-separate {
     padding-top: 38px; }
     .select-content.select-separate .separate-wrap {
@@ -4108,7 +4107,7 @@ ul {
         padding: 0 5px;
         word-break: break-all; }
       .select-content .select-list li.empty-data {
-        color: #C0C4CC;
+        color: #909399;
         padding: 0 !important; }
         .select-content .select-list li.empty-data span {
           text-align: center;
@@ -4116,7 +4115,7 @@ ul {
           font-size: 0.75rem; }
         .select-content .select-list li.empty-data:hover {
           background: #F5F7FA;
-          color: #C0C4CC; }
+          color: #909399; }
     .select-content .select-list li:last-child {
       border-bottom: none; }
     .select-content .select-list .active {

@@ -12,35 +12,13 @@ angular.module('ui.xue.demo').controller('xueSelectdemoCtrl', ['$scope', functio
         label: "驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证",
         value: "4"
     }]
-    $scope.mv = {
-        testConfig: {
-            data: $scope.data,
-            panelHeight: 'auto',
-            panelWidth: '180px',
-            onSelect: function (item) {
-                console.log(item);
-            },
-            clearAll: function () {
-                console.log('清除select');
-            }
-        },
-        noFilterConfig: {
-            data: $scope.data,
-            filter: false,
-            separate: true
-        },
-        flterNoSeparateConfig: {
-            data: $scope.data,
-            separate: false,
-            onSelect: function (item) {
-                console.log(item);
-            }
-        },
+    $scope.vm = {
         // 单选可过滤不分离
         config1: {
             data: $scope.data,
             filter: true,
             separate: false
+          
         },
         // 单选不可过滤不分离
         config2: {
@@ -48,23 +26,21 @@ angular.module('ui.xue.demo').controller('xueSelectdemoCtrl', ['$scope', functio
             filter: false,
             separate: false
         },
-        // 单选不可过滤分离
-        config3: {
-            data: $scope.data,
-            filter: false,
-            separate: true
-        },
         // 单选可过滤分离
         config4: {
             data: $scope.data,
             filter: true,
             separate: true,
-            setValue:'2',
+            // setValue:'2',
             onSelect: function (item) {
                 console.log(item);
+                // $scope.vm.config10.setValue = item.value;
             },
             clearAll: function () {
                 console.log('清除select');
+            },
+            assign: function (item) {
+                // console.log(item);
             }
         },
         // 多选不可过滤不分离
@@ -72,7 +48,7 @@ angular.module('ui.xue.demo').controller('xueSelectdemoCtrl', ['$scope', functio
             data: $scope.data,
             filter: false,
             separate: false,
-            checkbox:true
+            checkbox: true
 
         },
         // 多选过滤分离
@@ -80,25 +56,27 @@ angular.module('ui.xue.demo').controller('xueSelectdemoCtrl', ['$scope', functio
             data: $scope.data,
             filter: true,
             separate: true,
-            checkbox:true
+            checkbox: true
         },
         // 多选可过滤不分离：
         config7: {
             data: $scope.data,
-            filter: true,
-            separate: false,
-            checkbox:true
+            filter: false,
+            checkbox: true
         },
-        // 多选不可过滤分离：
+        config9: {
+            data: []
+        },
         config8: {
             data: $scope.data,
-            filter: false,
-            separate: true,
-            checkbox:true
+            textField: 'name1',
+            textFieldFormat:function(item){
+                return item.label + '( '+ item.value+')';
+            }
         },
-        multConfig: {
-            filter: true,
-            enableEmpty: true,
+        config10: {
+            enableEmpty: false,
+            filter:false,
             data: [{
                 name: "全部",
                 value: "1"
@@ -115,25 +93,23 @@ angular.module('ui.xue.demo').controller('xueSelectdemoCtrl', ['$scope', functio
                 name: "老人",
                 value: "5"
             }],
-            checkbox: true,
+            checkRows:[],
             valueField: 'value',
-            textField: 'name',
+            textField: 'name1',
             panelHeight: '150px',
             panelWidth: '180px',
-            checkLimit: 2,
+            textFieldFormat:function(item){
+                return item.name + '(自定义)'+ item.value;
+            },
             onBeforeSelect: function (item) {
                 if (item.value == 5) {
                     return false;
                 }
             },
             onSelect: function (item) {
-                console.log($scope.mv.multConfig.checkRows);
+                console.log(item)
+                // console.log($scope.vm.config10.checkRows);
             }
-        },
-        multFilterConfig: {
-            data: $scope.data,
-            checkbox: true,
-            filter: false
         }
     };
 }]);

@@ -3,9 +3,9 @@ $select-content-border-color: $border-color-base !default;
 $select-content-bg-color: $background-color-base !default;
 $select-active-color: $color-primary !default;
 $select-text-color: $color-text-primary !default;
-$select-empty-text-color: $color-text-placeholder !default;
+$select-empty-text-color: $color-text-secondary !default;
 
-.xui-select-wrap {
+.xui-select-wrap1 {
     position: relative;
     display: inline-block;
     vertical-align: middle;
@@ -43,7 +43,7 @@ $select-empty-text-color: $color-text-placeholder !default;
         z-index: 1024;
         background: $select-content-bg-color;
         overflow: auto;
-        border: $border-width solid $select-content-border-color;
+        border: 1px solid $select-content-border-color;
         box-shadow: 0px 3px 7px 0px rgba(85, 176, 255, 0.3);
         box-sizing: border-box;
 
@@ -119,7 +119,7 @@ $select-empty-text-color: $color-text-placeholder !default;
                 width: 100% !important;
                 min-height: $select-height !important;
                 line-height: $select-height !important;
-                border-bottom: $border-width solid $select-content-border-color;
+                border-bottom: 1px solid $select-content-border-color;
                 color: $select-text-color;
                 cursor: pointer;
                 text-align: left !important;
@@ -176,7 +176,7 @@ $select-empty-text-color: $color-text-placeholder !default;
     }
 }
 
-.xui-select-wrap2 {
+.xui-select-wrap {
     position: relative;
     display: inline-block;
     vertical-align: middle;
@@ -190,29 +190,26 @@ $select-empty-text-color: $color-text-placeholder !default;
         padding: 0 5px;
         padding-right: 18px !important;
         color: $select-text-color;
+        cursor: pointer;
         @include text-overflow-ellipsis();
+        &[disabled]{
+            cursor: not-allowed;
+        }
     }
-    .dropdown-icon{
+
+    .dropdown-icon {
         position: absolute;
         color: $select-text-color;
-        right:5px;
-        top:7px;
+        right: 5px;
+        top: 7px;
         display: inline-block;
         cursor: pointer;
+        pointer-events: none;
+        transition: all 0.3s ease-out;
+        &.is-reverse{
+            transform: rotate(180deg);
+        }
     }
-
-    .select-arrow {
-        position: absolute;
-        width: 0;
-        height: 0;
-        border: 4px solid transparent;
-        border-top-color: $select-text-color;
-        border-top-width: 6px;
-        right: 5px;
-        top: 14px;
-    }
-
-
 }
 
 .select-content {
@@ -224,12 +221,14 @@ $select-empty-text-color: $color-text-placeholder !default;
     z-index: 1024;
     background: $select-content-bg-color;
     overflow: auto;
-    border: $border-width solid $select-content-border-color;
+    border: 1px solid $select-content-border-color;
     box-shadow: 0px 3px 7px 0px rgba(85, 176, 255, 0.3);
     box-sizing: border-box;
+    font-size: 14px;
 
     &.select-separate {
         padding-top: 38px;
+
         .separate-wrap {
             width: 100%;
             position: absolute;
@@ -266,7 +265,6 @@ $select-empty-text-color: $color-text-placeholder !default;
     }
 
     .select-filter {
-        // @include select-input;
         padding: 6px 12px;
         position: absolute;
         width: 96% !important;
@@ -286,7 +284,7 @@ $select-empty-text-color: $color-text-placeholder !default;
             width: 100% !important;
             min-height: $select-height !important;
             line-height: $select-height !important;
-            border-bottom: $border-width solid $select-content-border-color;
+            border-bottom: 1px solid $select-content-border-color;
             color: $select-text-color;
             cursor: pointer;
             text-align: left !important;

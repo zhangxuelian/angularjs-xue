@@ -1,51 +1,32 @@
 <div ng-controller="xueSelectdemoCtrl">
-    <!-- <div style="margin-bottom:5px;">单选可过滤不分离：
-        <xue-select select-config="mv.flterNoSeparateConfig"></xue-select>
-    </div>
-    <div style="margin-bottom:5px;">单选可过滤且分离：
-        <xue-select select-config="mv.testConfig"></xue-select>
-    </div> -->
-    <!-- <div style="margin-bottom:5px;">单选不可过滤且分离：
-        <xue-select select-config="mv.noFilterConfig"></xue-select>
-    </div> -->
-    <!-- <div style="margin-bottom:5px;">多选可过滤：
-        <xue-select select-config="mv.multConfig"></xue-select>
-    </div> -->
-    <!-- <div>多选不可过滤：
-        <xue-select select-config="mv.multFilterConfig"></xue-select>
-    </div> -->
     <div style="margin-bottom:5px;">单选可过滤不分离：
-        <xue-select2 select-config="mv.config1"></xue-select2>
     </div>
-    <div style="margin-bottom:5px;">单选不可过滤不分离：
-        <xue-select2 select-config="mv.config2"></xue-select2>
+    <xue-select select-config="vm.config1"></xue-select>
+    <div style="margin-bottom:5px;">单选不可过滤：
     </div>
-    <!-- <div style="margin-bottom:5px;">单选不可过滤分离：
-        <xue-select2 select-config="mv.config3"></xue-select2>
-    </div> -->
+    <xue-select select-config="vm.config2" set-val="'4'"></xue-select>
     <div style="margin-bottom:5px;">单选可过滤分离：
-        <xue-select2 select-config="mv.config4"></xue-select2>
     </div>
+    <xue-select select-config="vm.config4" set-val="'2'" select-class="demo-select"></xue-select>
     <div style="margin-bottom:5px;">多选可过滤分离：
-        <xue-select2 select-config="mv.config6"></xue-select2>
     </div>
-    <div style="margin-bottom:5px;">多选不可过滤不分离：
-        <xue-select2 select-config="mv.config5"></xue-select2>
+    <xue-select select-config="vm.config6"></xue-select>
+    <div style="margin-bottom:5px;">多选不可过滤：
     </div>
-    <div>禁用:
-        <xue-select2 select-config="mv.testConfig" ng-disabled="true"></xue-select2>
+    <xue-select select-config="vm.config5"></xue-select>
+    <div style="margin-bottom:5px;">禁用:
     </div>
+    <xue-select select-config="vm.testConfig" ng-disabled="true"></xue-select>
+    <div style="margin-bottom:5px;">暂无数据:
+    </div>
+    <xue-select select-config="vm.config9"></xue-select>
+    <div style="margin-bottom:5px;"> 自定义显示选项:
+    </div>
+    <xue-select select-config="vm.config8"></xue-select>
+    <!-- <div style="margin-bottom:5px;"> 测试:
+        <xue-select1 select-config="vm.config10"></xue-select1>
+    </div> -->
     <!-- <div style="margin-bottom:5px;">多选可过滤不分离：
-        <xue-select2 select-config="mv.config7"></xue-select2>
-    </div>
-    <div style="margin-bottom:5px;">多选不可过滤分离：
-        <xue-select2 select-config="mv.config8"></xue-select2>
+        <xue-select select-config="vm.config7"></xue-select>
     </div> -->
-    <!-- <div  style="margin-bottom:5px;">
-        <xue-select2 select-config="mv.noFilterConfig"></xue-select2>
-    </div>
-    <div>
-        <xue-select2 select-config="mv.multConfig"></xue-select2>
-    </div> -->
-
 </div>

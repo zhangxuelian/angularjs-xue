@@ -7,7 +7,7 @@
  * License: ISC
  */
 angular.module("ui.xue", ["ui.xue.tpls", "xue.util.lang","xue.autoselect","xue.badge","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.loading","xue.util.object","xue.menu","xue.modal","xue.notice","xue.pagination","xue.popover","xue.scroller","xue.select","xue.steps","xue.switch","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.properties","xue.util.seq","xue.util.function","xue.util","xue.validate"]);
-angular.module("ui.xue.tpls", ["xue/template/autoselect/autoselect.html","xue/template/cascader/cascader.html","xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/menu/menu2.html","xue/template/modal/dialog.html","xue/template/modal/modal.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/popover/popover.html","xue/template/scroller/scroller.html","xue/template/select/select.html","xue/template/select/select2.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
+angular.module("ui.xue.tpls", ["xue/template/autoselect/autoselect.html","xue/template/cascader/cascader.html","xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/menu/menu2.html","xue/template/modal/dialog.html","xue/template/modal/modal.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/popover/popover.html","xue/template/scroller/scroller.html","xue/template/select/select_back.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
 /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
 //@ sourceMappingURL=jquery-1.10.2.min.map
 */
@@ -3615,7 +3615,7 @@ angular.module('xue.scroller', ['xue.util.lang', 'xue.util.array'])
     }])
 angular.module('xue.select', ['xue.util.array', 'xue.util.lang'])
 
-    .directive('xueSelect', ['xueUtilArray', 'xueUtilLang', function (xueUtilArray, xueUtilLang) {
+    .directive('xueSelect1', ['xueUtilArray', 'xueUtilLang', function (xueUtilArray, xueUtilLang) {
         return {
             restrict: "E",
             replace: true,
@@ -3627,7 +3627,7 @@ angular.module('xue.select', ['xue.util.array', 'xue.util.lang'])
                 ngItem: '='
             },
             templateUrl: function (element, attrs) {
-                return attrs.templateUrl || "xue/template/select/select.html";
+                return attrs.templateUrl || "xue/template/select/select_back.html";
             },
             link: function (scope, ele, attrs) {
                 var assistVar = {
@@ -3806,7 +3806,7 @@ angular.module('xue.select', ['xue.util.array', 'xue.util.lang'])
                 $(document).on("click", function (e) {
                     if ((typeof e.target.className) == 'string' && e.target.className.indexOf("select-content") == -1 &&
                         e.target.className.indexOf("select-show") == -1 &&
-                        $(e.target).parents(".xui-select-wrap").length == 0
+                        $(e.target).parents(".xui-select-wrap1").length == 0
                     ) {
                         $(".select-content").hide();
                     }
@@ -3906,7 +3906,7 @@ angular.module('xue.select', ['xue.util.array', 'xue.util.lang'])
             }
         }
     }])
-    .directive('xueSelect2', ['xueUtilArray', 'xueUtilLang', function (xueUtilArray, xueUtilLang) {
+    .directive('xueSelect', ['xueUtilArray', 'xueUtilLang', function (xueUtilArray, xueUtilLang) {
         return {
             restrict: "E",
             replace: true,
@@ -3918,7 +3918,7 @@ angular.module('xue.select', ['xue.util.array', 'xue.util.lang'])
                 getVal: '='
             },
             templateUrl: function (element, attrs) {
-                return attrs.templateUrl || "xue/template/select/select2.html";
+                return attrs.templateUrl || "xue/template/select/select.html";
             },
             link: function (scope, ele, attrs) {
                 var selectCtrl = scope.selectCtrl = {
@@ -3932,7 +3932,7 @@ angular.module('xue.select', ['xue.util.array', 'xue.util.lang'])
                         showLimit: 50, //匹配前n条记录
                         data: [], //select数据源（数组）
                         filter: true, //过滤器开关 为false时与select标签功能一致
-                        separate: true, //输入与过滤分离 为false时输入与过滤合并为一体
+                        separate: true, //输入与过滤分离 为false时输入与过滤合并为一体 filter为false时，该设置不生效
                         checkbox: false, //多选开关
                         enableEmpty: true, //是否可以置空
                         valueField: 'value', //对应选项value值
@@ -3942,13 +3942,15 @@ angular.module('xue.select', ['xue.util.array', 'xue.util.lang'])
                         myLabel: "", // 过滤框双向绑定值
                         setValue: '', //设置值
                         checkRows: [], //选中数组Row
-                        checkLimit: null, //最多选n条记录
+                        checkLimit: null, //多选 最多选n条记录
                         checkRowsMap: {}, //选中记录map
                         onBeforeSelect: function () {}, // 选择前回调
                         onSelect: function () {}, //选择回调
                         assign: function () {}, //赋值回调
                         clearAll: function () {}, //清空回调
-                        disabled: false //disabled开关
+                        reset: function(){
+                            selectCtrl.ev.clear();
+                        }
                     },
                     init: function () {
                         var self = this;
@@ -3963,8 +3965,8 @@ angular.module('xue.select', ['xue.util.array', 'xue.util.lang'])
                             width: scope.selectConfig.panelWidth,
                             height: scope.selectConfig.height
                         }
-                        if (scope.ngDisabled) {
-                            scope.selectConfig.disabled = true;
+                        if (scope.setVal) {
+                            scope.selectConfig.setValue = scope.setVal;
                         }
                         self.watch.init();
                     },
@@ -4062,16 +4064,18 @@ angular.module('xue.select', ['xue.util.array', 'xue.util.lang'])
                         }
                     },
                     watch: {
-                        valueWatcher: null,
+                        inpuLabelWatcher: null,
+                        setValueWatcher: null,
                         init: function () {
                             var self = this;
                             $("body")[0].addEventListener("click", self.clickOtherArea);
-                            self.watchValue();
+                            self.watchInputValue();
                             self.watchSetValue();
                         },
-                        watchValue: function () {
+                        // 设置值监听
+                        watchSetValue: function () {
                             var self = this;
-                            self.valueWatcher = scope.$watch("selectConfig.data + selectConfig.setValue", function (newVal) {
+                            self.setValueWatcher = scope.$watch("selectConfig.data + selectConfig.setValue", function (newVal) {
                                 if (scope.selectConfig && typeof (scope.selectConfig.setValue) != 'undefined') {
                                     if (scope.selectConfig.checkbox) { //多选
                                         var valueArr = scope.selectConfig.setValue.split(",");
@@ -4089,16 +4093,17 @@ angular.module('xue.select', ['xue.util.array', 'xue.util.lang'])
                                 }
                             })
                         },
-                        watchSetValue: function () {
+                        // 双向数据绑定值变化
+                        watchInputValue: function () {
                             var self = this;
-                            self.setValueWatcher = scope.$watch('setVal', function (newValue) {
-                                if (typeof (newValue) != 'undefined') {
-                                    scope.selectConfig.setValue = newValue;
+                            self.inpuLabelWatcher = scope.$watch('selectConfig.inputLabel', function (newValue) {
+                                if (scope.selectConfig && xueUtilLang.isFunction(scope.selectConfig.assign) && scope.selectConfig.checkRows.length) {
+                                    scope.selectConfig.assign(scope.selectConfig.checkRows);
                                 }
                             })
                         },
                         clickOtherArea: function (e) {
-                            if ($(e.target).attr("class") != "xui-select-wrap2" && $(e.target).parents(".xui-select-wrap2").length == 0 &&
+                            if ($(e.target).attr("class") != "xui-select-wrap" && $(e.target).parents(".xui-select-wrap").length == 0 &&
                                 $(e.target).attr("id") != scope.selectConfig.id && $(e.target).parents("#" + scope.selectConfig.id).length == 0) {
                                 selectCtrl.hidePanel();
                             }
@@ -4106,12 +4111,13 @@ angular.module('xue.select', ['xue.util.array', 'xue.util.lang'])
                         destroy: function () {
                             var self = this;
                             $("body")[0].removeEventListener("click", self.clickOtherArea);
-                            self.watchValue();
+                            self.watchInputValue();
                             self.watchSetValue();
                         }
                     },
                     openPanel: function (e) {
                         var self = this;
+                        $('.xui-icon-md-arrow-dropdown').removeClass('is-reverse');
                         $(".select-content").hide();
                         self.showPanel(e);
                     },
@@ -4121,7 +4127,7 @@ angular.module('xue.select', ['xue.util.array', 'xue.util.lang'])
                         var top = $(e.target).offset().top,
                             left = $(e.target).offset().left,
                             height = $(e.target).height();
-                        var eleHeight = panelEle.height(),
+                        var eleHeight = panelEle.outerHeight(),
                             screenHeight = $('body').height();
                         var offsetTop = top + height + 2;
                         if ((screenHeight - offsetTop) < eleHeight && offsetTop > eleHeight) {
@@ -4136,13 +4142,15 @@ angular.module('xue.select', ['xue.util.array', 'xue.util.lang'])
                             });
                         }
                         panelEle.show();
+                        $(ele).find('.xui-icon-md-arrow-dropdown').addClass('is-reverse');
                     },
                     hidePanel: function () {
+                        $(ele).find('.xui-icon-md-arrow-dropdown').removeClass('is-reverse');
                         var panelEle = $('#' + scope.selectConfig.id);
                         if (panelEle.is(":hidden")) {
                             return;
                         }
-                        panelEle.hide();
+                        panelEle.fadeOut(300);
                     }
                 }
                 selectCtrl.init();
@@ -8222,9 +8230,9 @@ angular.module("xue/template/scroller/scroller.html", []).run(["$templateCache",
     "</div>");
 }]);
 
-angular.module("xue/template/select/select.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("xue/template/select/select.html",
-    "<div class=\"xui-select-wrap\">\n" +
+angular.module("xue/template/select/select_back.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("xue/template/select/select_back.html",
+    "<div class=\"xui-select-wrap1\">\n" +
     "    <!-- 单选可过滤不分离 -->\n" +
     "    <div ng-if=\"!selectConfig.checkbox && selectConfig.filter && !selectConfig.separate\">\n" +
     "        <input ng-focus=\"focus()\" type=\"text\" class=\"xui-input select-show\" title=\"{{selectConfig.inputLabel}}\"\n" +
@@ -8338,19 +8346,18 @@ angular.module("xue/template/select/select.html", []).run(["$templateCache", fun
     "</div>");
 }]);
 
-angular.module("xue/template/select/select2.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("xue/template/select/select2.html",
-    "<div class=\"xui-select-wrap2\">\n" +
-    "    <div >\n" +
+angular.module("xue/template/select/select.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("xue/template/select/select.html",
+    "<div class=\"xui-select-wrap\">\n" +
+    "    <div>\n" +
     "        <input ng-click=\"selectCtrl.openPanel($event)\" ng-readonly=\"!selectConfig.filter || selectConfig.separate\" type=\"text\" class=\"xui-input select-show\" title=\"{{selectConfig.inputLabel}}\"\n" +
-    "            ng-model=\"selectConfig.inputLabel\" ng-class=\"selectClass\" ng-style=\"selectCtrl.iptStyle\"\n" +
+    "            ng-model=\"selectConfig.inputLabel\" ng-class=\"selectCtrl.selectClass\" ng-style=\"selectCtrl.iptStyle\"\n" +
     "            ng-change=\"selectCtrl.ev.changeIpt()\" ng-disabled=\"ngDisabled\" />\n" +
     "        <i class=\"dropdown-icon xui-icon xui-icon-md-arrow-dropdown\"></i>\n" +
-    "        <!-- <i class=\"dropdown-icon xui-icon xui-icon-md-arrow-dropup\"></i> -->\n" +
     "    </div>\n" +
     "    <div class=\"select-content\" id=\"{{selectConfig.id}}\" ng-style=\"selectCtrl.contentStyle\"\n" +
-    "        ng-class=\"{'select-separate':selectConfig.separate}\">\n" +
-    "        <div class=\"separate-wrap\" ng-if=\"selectConfig.separate\" ng-class=\"{'hidden-filter':!selectConfig.enableEmpty}\">\n" +
+    "        ng-class=\"{'select-separate':selectConfig.separate && selectConfig.filter}\">\n" +
+    "        <div class=\"separate-wrap\" ng-if=\"selectConfig.separate && selectConfig.filter\" ng-class=\"{'hidden-filter':!selectConfig.enableEmpty}\">\n" +
     "            <div class=\"select-filter-wrap\">\n" +
     "                <input type=\"text\" ng-model=\"selectConfig.myLabel\" class=\"xui-input select-filter\" />\n" +
     "            </div>\n" +
@@ -8364,7 +8371,7 @@ angular.module("xue/template/select/select2.html", []).run(["$templateCache", fu
     "                ng-class=\"{true:'active'}[!!selectConfig.checkRowsMap[item[selectConfig.valueField]]]\"\n" +
     "                ng-repeat=\"item in selectConfig.data | filter:selectConfig.separate ? selectConfig.myLabel:selectConfig.inputLabel | limitTo:selectConfig.showLimit\">\n" +
     "                <xue-checkbox ng-if=\"selectConfig.checkbox\" ng-checked=\"selectConfig.checkRowsMap[item[selectConfig.valueField]]\"></xue-checkbox>\n" +
-    "                <span ng-bind=\"item[selectConfig.textField] || textFieldFormat(item)\"></span>\n" +
+    "                <span ng-bind=\"item[selectConfig.textField] || selectCtrl.ev.textFieldFormat(item)\"></span>\n" +
     "            </li>\n" +
     "            <!-- 不可过滤 -->\n" +
     "            <li ng-if=\"!selectConfig.filter\"\n" +
@@ -8372,7 +8379,7 @@ angular.module("xue/template/select/select2.html", []).run(["$templateCache", fu
     "                ng-class=\"{true:'active'}[!!selectConfig.checkRowsMap[item[selectConfig.valueField]]]\"\n" +
     "                ng-repeat=\"item in selectConfig.data | limitTo:selectConfig.showLimit\">\n" +
     "                <xue-checkbox  ng-if=\"selectConfig.checkbox\" ng-checked=\"selectConfig.checkRowsMap[item[selectConfig.valueField]]\"></xue-checkbox>\n" +
-    "                <span ng-bind=\"item[selectConfig.textField] || textFieldFormat(item)\"></span>\n" +
+    "                <span ng-bind=\"item[selectConfig.textField] || selectCtrl.ev.textFieldFormat(item)\"></span>\n" +
     "            </li>\n" +
     "            <li ng-if=\"!!!selectConfig.data || !selectConfig.data.length\" class=\"empty-data\">\n" +
     "                <span>暂无数据</span>\n" +
