@@ -43,14 +43,14 @@ angular.module("xue/template/table/table.html", []).run(["$templateCache", funct
     "        <table class=\"xui-table\" ng-class=\"{'xui-table-hover':tableConfig.tableHover}\">\n" +
     "            <tr>\n" +
     "                <th ng-if=\"tableConfig.checkbox\" class=\"table-checkbox\">\n" +
-    "                    <xue-checkbox ng-checked=\"tableConfig.selectAll\" ng-click=\"selectAll()\"></xue-checkbox>\n" +
+    "                    <xue-checkbox ng-checked=\"tableConfig.selectAll\" ng-click=\"tableCtrl.ev.selectAll()\"></xue-checkbox>\n" +
     "                </th>\n" +
     "                <th ng-if=\"!tableConfig.checkbox && tableConfig.radio\" class=\"table-checkbox\">\n" +
-    "\n" +
     "                </th>\n" +
     "                <th ng-if=\"tableConfig.showIndex\" style=\"min-width:30px\">{{tableConfig.indexTitle}}</th>\n" +
     "                <th ng-repeat=\"item in tableConfig.colunms\" ng-style=\"item.style\" ng-if=\"item.show\"\n" +
-    "                    data-ng-bind-html=\"item.label | trusthtml:tableConfig.defaultNull\" ng-click=\"order(item)\"\n" +
+    "                    data-ng-bind-html=\"item.label | trusthtml:tableConfig.defaultNull\"\n" +
+    "                    ng-click=\"tableCtrl.ev.order(item)\"\n" +
     "                    ng-class=\"{isActive : item.name == tableConfig.orderColumn, down : tableConfig.desc}\">\n" +
     "                </th>\n" +
     "                <th ng-repeat=\"optConfig in tableConfig.optConfig\" ng-style=\"optConfig.optStyle\">{{optConfig.optName}}\n" +
@@ -59,8 +59,8 @@ angular.module("xue/template/table/table.html", []).run(["$templateCache", funct
     "                    {{optConfig.optName}}</th>\n" +
     "            </tr>\n" +
     "            <tr ng-repeat=\"row in tableConfig.rows | orderBy:tableConfig.orderColumn:tableConfig.desc track by $index\"\n" +
-    "                ng-class-even=\"'even'\" ng-class-odd=\"'odd'\" ng-click=\"rowClick(row,$event)\"\n" +
-    "                ng-dblclick=\"rowDbclick(row,$event)\" ng-class=\"{true:'selected'}[!!row.$checked]\">\n" +
+    "                ng-class-even=\"'even'\" ng-class-odd=\"'odd'\" ng-click=\"tableCtrl.ev.rowClick(row,$event)\"\n" +
+    "                ng-dblclick=\"tableCtrl.ev.rowDbclick(row,$event)\" ng-class=\"{true:'selected'}[!!row.$checked]\">\n" +
     "                <td ng-if=\"tableConfig.checkbox\" class=\"table-checkbox\">\n" +
     "                    <xue-checkbox ng-checked=\"row.$checked\"></xue-checkbox>\n" +
     "                </td>\n" +
@@ -70,7 +70,7 @@ angular.module("xue/template/table/table.html", []).run(["$templateCache", funct
     "                <td ng-if=\"tableConfig.showIndex\">{{(tableConfig.page-1)*tableConfig.size+$index+1}}</td>\n" +
     "                <td ng-repeat=\"colunm in tableConfig.colunms\" ng-if=\"colunm.show\"\n" +
     "                    data-ng-bind-html=\"row[colunm.name] | trusthtml:tableConfig.defaultNull\"\n" +
-    "                    ng-click=\"colClick(row,$event,colunm.click)\" title=\"{{row[colunm.name]}}\">\n" +
+    "                    ng-click=\"tableCtrl.ev.colClick(row,$event,colunm.click)\" title=\"{{row[colunm.name]}}\">\n" +
     "                </td>\n" +
     "                <td ng-repeat=\"optConfig in tableConfig.optConfig\" class=\"table-checkbox\" data-event=\"notChecked\">\n" +
     "                    <a has-permission=\"item.permissionCode\" ng-repeat=\"item in optConfig.optContent\"\n" +
@@ -82,13 +82,13 @@ angular.module("xue/template/table/table.html", []).run(["$templateCache", funct
     "                </td>\n" +
     "                <td ng-repeat=\"optConfig in tableConfig.optConfigExt\" class=\"table-checkbox\" data-event=\"notChecked\">\n" +
     "                    <a ng-class=\"{false:'ope-hidden'}[!!row[item.id]]\" ng-repeat=\"item in optConfig.optContent\"\n" +
-    "                        ng-click=\"!!row[item.id] ? item.callback(row):noPermission()\"\n" +
+    "                        ng-click=\"!!row[item.id] ? item.callback(row):tableCtrl.ev.noPermission()\"\n" +
     "                        class=\"{{item.className ? item.className : row[item.id]}}\" title=\"{{item.name}}\"><span\n" +
     "                            ng-if=\"item.showText\">{{item.name}}</span></a>\n" +
     "                </td>\n" +
     "            </tr>\n" +
     "            <tr ng-if=\"!tableConfig.rows || tableConfig.rows.length == 0\">\n" +
-    "                <td colspan=\"{{tableConfig.nodataColspan\n" +
+    "                <td colspan=\"{{tableCtrl.nodataColspan\n" +
     "                    + (tableConfig.optConfig.length || 0) \n" +
     "                    + (tableConfig.checkbox ? 1 : 0) \n" +
     "                    + (tableConfig.radio ? 1 : 0) \n" +
@@ -102,12 +102,12 @@ angular.module("xue/template/table/table.html", []).run(["$templateCache", funct
     "        <div class=\"total-size\" ng-if=\"tableConfig.pagesize\">\n" +
     "            <div class=\"total\">总共<span>{{tableConfig.total}}</span>条记录</div>\n" +
     "            <div class=\"size\">每页显示\n" +
-    "                <select ng-model=\"tableConfig.size\"\n" +
-    "                    ng-options=\"pageSize for pageSize in tableConfig.pageList\"></select>条\n" +
+    "                <select ng-model=\"tableConfig.size\" ng-options=\"pageSize for pageSize in tableConfig.pageList\"></select>\n" +
+    "                条\n" +
     "            </div>\n" +
     "        </div>\n" +
-    "        <xue-pagination class=\"xui-pagination-sm\" total-items=\"tableConfig.total\" max-size=\"mv.maxSize\" ng-model=\"tableConfig.page\"\n" +
-    "            items-per-page=\"tableConfig.size\" boundary-links=\"true\">\n" +
+    "        <xue-pagination class=\"xui-pagination-mini\" total-items=\"tableConfig.total\" max-size=\"mv.maxSize\"\n" +
+    "            ng-model=\"tableConfig.page\" items-per-page=\"tableConfig.size\" boundary-links=\"true\">\n" +
     "        </xue-pagination>\n" +
     "    </div>\n" +
     "</div>");

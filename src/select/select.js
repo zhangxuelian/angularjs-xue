@@ -476,7 +476,7 @@ angular.module('xue.select', ['xue.util.array', 'xue.util.lang'])
                                         }
                                     }
                                 }
-                            })
+                            },true)
                         },
                         // 双向数据绑定值变化
                         watchInputValue: function () {

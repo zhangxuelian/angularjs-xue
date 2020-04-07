@@ -41,14 +41,14 @@
         <table class="xui-table" ng-class="{'xui-table-hover':tableConfig.tableHover}">
             <tr>
                 <th ng-if="tableConfig.checkbox" class="table-checkbox">
-                    <xue-checkbox ng-checked="tableConfig.selectAll" ng-click="selectAll()"></xue-checkbox>
+                    <xue-checkbox ng-checked="tableConfig.selectAll" ng-click="tableCtrl.ev.selectAll()"></xue-checkbox>
                 </th>
                 <th ng-if="!tableConfig.checkbox && tableConfig.radio" class="table-checkbox">
-
                 </th>
                 <th ng-if="tableConfig.showIndex" style="min-width:30px">{{tableConfig.indexTitle}}</th>
                 <th ng-repeat="item in tableConfig.colunms" ng-style="item.style" ng-if="item.show"
-                    data-ng-bind-html="item.label | trusthtml:tableConfig.defaultNull" ng-click="order(item)"
+                    data-ng-bind-html="item.label | trusthtml:tableConfig.defaultNull"
+                    ng-click="tableCtrl.ev.order(item)"
                     ng-class="{isActive : item.name == tableConfig.orderColumn, down : tableConfig.desc}">
                 </th>
                 <th ng-repeat="optConfig in tableConfig.optConfig" ng-style="optConfig.optStyle">{{optConfig.optName}}
@@ -57,8 +57,8 @@
                     {{optConfig.optName}}</th>
             </tr>
             <tr ng-repeat="row in tableConfig.rows | orderBy:tableConfig.orderColumn:tableConfig.desc track by $index"
-                ng-class-even="'even'" ng-class-odd="'odd'" ng-click="rowClick(row,$event)"
-                ng-dblclick="rowDbclick(row,$event)" ng-class="{true:'selected'}[!!row.$checked]">
+                ng-class-even="'even'" ng-class-odd="'odd'" ng-click="tableCtrl.ev.rowClick(row,$event)"
+                ng-dblclick="tableCtrl.ev.rowDbclick(row,$event)" ng-class="{true:'selected'}[!!row.$checked]">
                 <td ng-if="tableConfig.checkbox" class="table-checkbox">
                     <xue-checkbox ng-checked="row.$checked"></xue-checkbox>
                 </td>
@@ -68,7 +68,7 @@
                 <td ng-if="tableConfig.showIndex">{{(tableConfig.page-1)*tableConfig.size+$index+1}}</td>
                 <td ng-repeat="colunm in tableConfig.colunms" ng-if="colunm.show"
                     data-ng-bind-html="row[colunm.name] | trusthtml:tableConfig.defaultNull"
-                    ng-click="colClick(row,$event,colunm.click)" title="{{row[colunm.name]}}">
+                    ng-click="tableCtrl.ev.colClick(row,$event,colunm.click)" title="{{row[colunm.name]}}">
                 </td>
                 <td ng-repeat="optConfig in tableConfig.optConfig" class="table-checkbox" data-event="notChecked">
                     <a has-permission="item.permissionCode" ng-repeat="item in optConfig.optContent"
@@ -80,13 +80,13 @@
                 </td>
                 <td ng-repeat="optConfig in tableConfig.optConfigExt" class="table-checkbox" data-event="notChecked">
                     <a ng-class="{false:'ope-hidden'}[!!row[item.id]]" ng-repeat="item in optConfig.optContent"
-                        ng-click="!!row[item.id] ? item.callback(row):noPermission()"
+                        ng-click="!!row[item.id] ? item.callback(row):tableCtrl.ev.noPermission()"
                         class="{{item.className ? item.className : row[item.id]}}" title="{{item.name}}"><span
                             ng-if="item.showText">{{item.name}}</span></a>
                 </td>
             </tr>
             <tr ng-if="!tableConfig.rows || tableConfig.rows.length == 0">
-                <td colspan="{{tableConfig.nodataColspan
+                <td colspan="{{tableCtrl.nodataColspan
                     + (tableConfig.optConfig.length || 0) 
                     + (tableConfig.checkbox ? 1 : 0) 
                     + (tableConfig.radio ? 1 : 0) 
@@ -100,12 +100,12 @@
         <div class="total-size" ng-if="tableConfig.pagesize">
             <div class="total">总共<span>{{tableConfig.total}}</span>条记录</div>
             <div class="size">每页显示
-                <select ng-model="tableConfig.size"
-                    ng-options="pageSize for pageSize in tableConfig.pageList"></select>条
+                <select ng-model="tableConfig.size" ng-options="pageSize for pageSize in tableConfig.pageList"></select>
+                条
             </div>
         </div>
-        <xue-pagination class="xui-pagination-sm" total-items="tableConfig.total" max-size="mv.maxSize" ng-model="tableConfig.page"
-            items-per-page="tableConfig.size" boundary-links="true">
+        <xue-pagination class="xui-pagination-mini" total-items="tableConfig.total" max-size="mv.maxSize"
+            ng-model="tableConfig.page" items-per-page="tableConfig.size" boundary-links="true">
         </xue-pagination>
     </div>
 </div>

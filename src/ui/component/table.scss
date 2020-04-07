@@ -1,14 +1,15 @@
-$table-border-color: #cee0f0 !default;
+$table-border-color: $border-color-base !default;
 $table-odd-color: #fff !default;
-$table-even-color: #F7faff !default;
-$table-selected-color: #e9f3ff !default;
-$table-header-bg-color: #eff6ff !default;
+$table-even-color: tint-color($color-primary, 12) !default;
+$table-selected-color: $color-primary-light !default;
+$table-header-bg-color: $color-primary-lighter !default;
 
 .xui-table-wrap {
     position: relative;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
+    font-size: 14px;
 
     &.show-pagination {
         padding-bottom: 40px;
@@ -55,13 +56,14 @@ $table-header-bg-color: #eff6ff !default;
             }
 
             button {
-                //@include xui-btn($btn-border-radius, $btn-padding-y, $btn-padding-x, $btn-font-size);
                 height: 30px;
                 line-height: 20px;
                 padding: 5px 10px;
                 border: 1px solid $table-border-color;
                 background-color: #fff;
                 transition: 0.3s ease-in-out;
+                outline: none;
+                border-radius: 4px;
 
                 &:hover {
                     background-color: #eff6ff !important;
@@ -74,12 +76,13 @@ $table-header-bg-color: #eff6ff !default;
                 }
 
                 &:focus {
+                    outline: none;
                     background-color: #eff6ff !important;
                 }
 
                 i {
                     margin-right: 3px;
-                    color: #0394f9;
+                    color: $color-primary;
                 }
             }
         }
@@ -109,7 +112,7 @@ $table-header-bg-color: #eff6ff !default;
         &.th-border {
             table {
                 th {
-                    border-left: dashed 1px #e0e0e0;
+                    border-left: dashed 1px $table-border-color;
 
                     &:first-child {
                         border-left: none;
@@ -123,14 +126,15 @@ $table-header-bg-color: #eff6ff !default;
 
             &.xui-table-hover {
                 tr:hover {
-                    background: #ddedff;
+                    // background: #ddedff;
+                    background: $table-selected-color;
                 }
             }
 
             width:100%;
             border-collapse:separate !important;
             border:solid 1px $table-border-color;
-            color:#2b3646;
+            color: $color-text-primary;
 
             input {
                 cursor: pointer;
@@ -160,7 +164,8 @@ $table-header-bg-color: #eff6ff !default;
                     height: 35px;
                     line-height: 35px;
                     background: $table-header-bg-color;
-                    color: #2b3646;
+                    // color: #2b3646;
+                    color: $color-text-primary;
                     border-bottom: 1px solid $table-border-color;
                     @include text-overflow-ellipsis();
                     word-break: keep-all;
@@ -192,7 +197,8 @@ $table-header-bg-color: #eff6ff !default;
                     @include text-overflow-ellipsis();
                     word-break: keep-all;
                     padding: 0 5px;
-                    color: #666;
+                    color: $color-text-regular;
+                    // color: #666;
 
                     &.table-checkbox {
                         text-overflow: initial;
@@ -213,7 +219,7 @@ $table-header-bg-color: #eff6ff !default;
                         transition: 0.3s ease-in-out;
 
                         &:hover {
-                            background-color: #4498F6;
+                            background-color: $color-primary;
                             background-position: center center !important;
                         }
 
@@ -231,7 +237,8 @@ $table-header-bg-color: #eff6ff !default;
 
                     a.xui-icon {
                         font-size: 22px;
-                        color: #8D9FB9;
+                        // color: #8D9FB9;
+                        color: $color-text-regular;
                         line-height: 24px;
 
                         &:hover {
@@ -252,7 +259,7 @@ $table-header-bg-color: #eff6ff !default;
             display: inline-block;
             height: 40px;
             padding-top: 12px;
-            color: #666;
+            color: $color-text-regular;
 
             .total {
                 display: inline-block;
@@ -269,6 +276,14 @@ $table-header-bg-color: #eff6ff !default;
 
                 select {
                     margin: 0 5px;
+                    border-radius: 4px;
+                    outline: none;
+                    border-color: $table-border-color;
+                    padding: 2px 5px;
+
+                    &:hover {
+                        border-color: $color-primary;
+                    }
                 }
             }
         }
@@ -282,7 +297,7 @@ $table-header-bg-color: #eff6ff !default;
     .option-dialog {
         display: none;
         width: 300px;
-        color: #666;
+        color: $color-text-regular;
         background: #fff;
         border: solid 1px $table-border-color;
         position: absolute;
@@ -314,7 +329,7 @@ $table-header-bg-color: #eff6ff !default;
 
                     label {
                         font-weight: 400;
-                        color: #666;
+                        color: $color-text-regular;
                         cursor: pointer;
                     }
                 }
@@ -349,7 +364,7 @@ $table-header-bg-color: #eff6ff !default;
         }
 
         .arrow {
-            @include triangle(7px,$table-border-color,$margin-left:95%);
+            @include triangle(7px, $table-border-color, $margin-left:95%);
         }
     }
 }

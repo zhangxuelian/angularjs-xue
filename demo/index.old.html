@@ -5210,10 +5210,11 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
                                 <xue-tab label="'javascript'" value="2">
                                     <div plunker-content="javascript">
                                         <pre
-                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueTableDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+                                            ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueTableDemoCtrl&#39;, [&#39;$scope&#39;,function ($scope) {
     $scope.vm = {
         tableConfig: {
             showTableCol: true,
+            showIndex: true, //显示序号
             checkbox: true, //单选
             toolbar: {
                 show: true,
@@ -5256,7 +5257,11 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
                 name: &#39;name3&#39;
             }, {
                 label: &#39;标题栏4&#39;,
-                name: &#39;name4&#39;
+                name: &#39;name4&#39;,
+                formatter:function(row){
+                    return row.name4+&#39;测试&#39;;
+
+                }
 
             }, {
                 label: &#39;标题栏5&#39;,
@@ -5303,10 +5308,11 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
                         </div>
                     </div>
                 </section>
-                <script>angular.module('ui.xue.demo').controller('xueTableDemoCtrl', ['$scope', function ($scope) {
+                <script>angular.module('ui.xue.demo').controller('xueTableDemoCtrl', ['$scope',function ($scope) {
     $scope.vm = {
         tableConfig: {
             showTableCol: true,
+            showIndex: true, //显示序号
             checkbox: true, //单选
             toolbar: {
                 show: true,
@@ -5349,7 +5355,11 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
                 name: 'name3'
             }, {
                 label: '标题栏4',
-                name: 'name4'
+                name: 'name4',
+                formatter:function(row){
+                    return row.name4+'测试';
+
+                }
 
             }, {
                 label: '标题栏5',

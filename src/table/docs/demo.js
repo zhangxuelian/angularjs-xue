@@ -1,7 +1,8 @@
-angular.module('ui.xue.demo').controller('xueTableDemoCtrl', ['$scope', function ($scope) {
+angular.module('ui.xue.demo').controller('xueTableDemoCtrl', ['$scope',function ($scope) {
     $scope.vm = {
         tableConfig: {
             showTableCol: true,
+            showIndex: true, //显示序号
             checkbox: true, //单选
             toolbar: {
                 show: true,
@@ -44,7 +45,11 @@ angular.module('ui.xue.demo').controller('xueTableDemoCtrl', ['$scope', function
                 name: 'name3'
             }, {
                 label: '标题栏4',
-                name: 'name4'
+                name: 'name4',
+                formatter:function(row){
+                    return row.name4+'测试';
+
+                }
 
             }, {
                 label: '标题栏5',
