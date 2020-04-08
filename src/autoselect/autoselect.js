@@ -9,7 +9,9 @@ angular.module('xue.autoselect', ['xue.util.lang'])
             scope: {
                 selectConfig: '=',
                 ngDisabled: '=',
-                ngVal: '='
+                ngVal: '=',
+                ngBlur: '=',
+                ngItem: '='
             },
             templateUrl: function (element, attrs) {
                 return attrs.templateUrl || "xue/template/autoselect/autoselect.html";
@@ -89,6 +91,11 @@ angular.module('xue.autoselect', ['xue.util.lang'])
                             return;
                         }
                         panelEle.hide();
+                    },
+                    blur: function(){
+                        if(xueUtilLang.isFunction(scope.ngBlur)){
+                            scope.ngBlur(scope.ngItem || null);
+                        }
                     },
                     init: function () {
                         var self = this;

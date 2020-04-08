@@ -10,6 +10,9 @@
 | select-config | 下拉属性对象       | Object  |
 | ng-val        | 输入框双向绑定值 | String  |
 | ng-disabled   | 是否禁用         | Boolean |
+| ng-blur | 失去焦点事件 | Function |
+| ng-item | 选项参数 | Object |
+| select-class | 自定义样式名 | String |
 
 #### select-config Attributes
 

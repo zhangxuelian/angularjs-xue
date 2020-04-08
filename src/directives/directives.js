@@ -116,28 +116,7 @@ angular.module('xue.directives', ['xue.util.lang'])
             }
         }
     })
-    // radio base on angularjs
-    .directive('xueRadio', function () {
-        return {
-            restrict: "E",
-            replace: true,
-            scope: {
-                ngChecked: "="
-            },
-            template: '<div class="xui-radio-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"></div>'
-        }
-    })
-    // checkbox base on angularjs
-    .directive('xueCheckbox', function () {
-        return {
-            restrict: "E",
-            replace: true,
-            scope: {
-                ngChecked: "="
-            },
-            template: '<div class="xui-checkbox-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"><i class="xui-icon xui-icon-md-checkmark"></i></div>'
-        }
-    })
+ 
     // multi-checkbox base on angularjs
     .directive('xueMultiCheckbox', function () {
         return {
@@ -152,37 +131,6 @@ angular.module('xue.directives', ['xue.util.lang'])
                 '<input type="checkbox" class="multi-checkbox-input" ng-disabled="ngDisabled"></label>'
         }
     })
-
-    // 单选指令组
-    .directive('xueRadioGroup', ['xueUtilLang', function (xueUtilLang) {
-        return {
-            restrict: "E",
-            replace: true,
-            scope: {
-                value: '=', // Radio 的 value
-                ngModel: '=',
-                ngDisabled: '=',
-                radioClick: "&", // 绑定父元素事件
-                name: '=' // 选项值
-            },
-            template: '<div class="xui-radio-group-wrap" ng-click="onChecked(value)">' +
-                '<label ng-class="{\'active\':value==ngModel,\'disabled\':ngDisabled}" class="radio-item">' +
-                '<input  class="checkbox-input" type="radio"  ng-disabled="ngDisabled"  value="{{value}}" ng-model="ngModel"/>' +
-                '</label>' +
-                '<span class="radio-name" ng-class={\'disabled\':ngDisabled}>{{name}}</span>' +
-                '</div>',
-            link: function (scope, elem, attr) {
-                scope.onChecked = function (value) {
-                    if (scope.ngModel != value && !scope.ngDisabled) {
-                        scope.ngModel = value;
-                    }
-                    if (xueUtilLang.isFunction(scope.radioClick)) {
-                        scope.radioClick();
-                    }
-                }
-            }
-        }
-    }])
     /**
      * 无权限页面显示
      */

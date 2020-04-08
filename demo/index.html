@@ -164,6 +164,18 @@
     }
 }]);</script>
         
+        <script>angular.module('ui.xue.demo').controller('xueCheckboxDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        checkboxCheck: false,
+        checkList: ["橙子"],
+        checkArray: ["橙子", "樱桃"],
+        checkStatus: false,
+        change:function(checkArray){
+            console.log(checkArray);
+        }
+    }
+}])</script>
+        
         <script>angular.module('ui.xue.demo').controller('xueCounterDemoCtrl', ['$scope', function ($scope) {
     var vm = $scope.vm = {
         counterConfig: {
@@ -273,15 +285,9 @@
         
         <script>angular.module('ui.xue.demo').controller('xueDirectivesDemoCtrl', ['$scope', function ($scope) {
     $scope.vm = {
-        radioCheck: true,
         checkboxCheck: false,
-        checkboxCheck2: false,
-        checkboxCheck3: false,
-        fruit: '香蕉',
-        inputValue: '',
-        click: function (value) {
-            console.log(value);
-        }
+        fruit: ['香蕉'],
+        inputValue: ''
     }
 }])</script>
         
@@ -679,6 +685,17 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
     }
 }])</script>
         
+        <script>angular.module('ui.xue.demo').controller('xueRadioDemoCtrl', ['$scope', function ($scope) {
+    $scope.vm = {
+        radioCheck: true,
+        fruit: '香蕉',
+        disCheck:'选中且禁用',
+        click: function (value) {
+            console.log(value);
+        }
+    }
+}])</script>
+        
         <script>angular.module('ui.xue.demo').controller('xueScrollerDemoCtrl',['$scope',function($scope){
     $scope.scrollConfig = {
         dataType: 3,
@@ -1042,7 +1059,8 @@ angular.module('ui.xue.demo').controller('modalTestCtrl', ['$scope', '$modalInst
                     }
                 }]
             }]
-        }
+        },
+        isShow:true
     }
 }]);</script>
         

@@ -416,4 +416,4 @@ angular.module('xue.table', ['xue.util.lang', 'xue.pagination', 'xue.util.array'
                 }
             }
         }
-    }]);
+    }])

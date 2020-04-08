@@ -2,11 +2,11 @@
  * angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-04-07
+ * Version: 1.0.0 - 2020-04-08
  * Require angularjs version: 1.2.32
  * License: ISC
  */
-angular.module("ui.xue", ["ui.xue.tpls", "xue.util.lang","xue.autoselect","xue.badge","xue.util.array","xue.cascader","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.loading","xue.util.object","xue.menu","xue.modal","xue.notice","xue.pagination","xue.popover","xue.scroller","xue.select","xue.steps","xue.switch","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.properties","xue.util.seq","xue.util.function","xue.util","xue.validate"]);
+angular.module("ui.xue", ["ui.xue.tpls", "xue.util.lang","xue.autoselect","xue.badge","xue.util.array","xue.cascader","xue.checkbox","xue.counter","xue.util.string","xue.util.date","xue.datepicker","xue.directives","xue.loading","xue.util.object","xue.menu","xue.modal","xue.notice","xue.pagination","xue.popover","xue.radio","xue.scroller","xue.select","xue.steps","xue.switch","xue.table","xue.tabs","xue.tree","xue.util.collection","xue.util.math","xue.util.methods","xue.util.number","xue.util.properties","xue.util.seq","xue.util.function","xue.util","xue.validate"]);
 angular.module("ui.xue.tpls", ["xue/template/autoselect/autoselect.html","xue/template/cascader/cascader.html","xue/template/counter/counter.html","xue/template/datepicker/datepicker.html","xue/template/menu/menu.html","xue/template/menu/menu2.html","xue/template/modal/dialog.html","xue/template/modal/modal.html","xue/template/notice/notice.html","xue/template/pagination/pager.html","xue/template/pagination/pagination.html","xue/template/popover/popover.html","xue/template/scroller/scroller.html","xue/template/select/select_back.html","xue/template/select/select.html","xue/template/steps/steps.html","xue/template/table/table.html","xue/template/tabs/tab.html","xue/template/tabs/tabs_wrap.html","xue/template/tree/tree.html"]);
 /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
 //@ sourceMappingURL=jquery-1.10.2.min.map
@@ -26,7 +26,9 @@ angular.module('xue.autoselect', ['xue.util.lang'])
             scope: {
                 selectConfig: '=',
                 ngDisabled: '=',
-                ngVal: '='
+                ngVal: '=',
+                ngBlur: '=',
+                ngItem: '='
             },
             templateUrl: function (element, attrs) {
                 return attrs.templateUrl || "xue/template/autoselect/autoselect.html";
@@ -106,6 +108,11 @@ angular.module('xue.autoselect', ['xue.util.lang'])
                             return;
                         }
                         panelEle.hide();
+                    },
+                    blur: function(){
+                        if(xueUtilLang.isFunction(scope.ngBlur)){
+                            scope.ngBlur(scope.ngItem || null);
+                        }
                     },
                     init: function () {
                         var self = this;
@@ -353,6 +360,92 @@ angular.module('xue.cascader', ['xue.util.lang', 'xue.util.array'])
                 })
             }
         }
+    }])
+angular.module('xue.checkbox', ['xue.util.lang', 'xue.util.array'])
+    // checkbox base on angularjs
+    .directive('xueCheckbox', function () {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                ngChecked: "="
+            },
+            template: '<div class="xui-checkbox-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"><i class="xui-icon xui-icon-md-checkmark"></i></div>'
+        }
+    })
+    .directive('xueCheckboxGroup', [function () {
+        return {
+            restrict: "E",
+            replace: true,
+            transclude: true,
+            controller: 'xueCheckboxGroupCtrl',
+            scope: {
+                ngModel: '=',
+                ngChange: '&'
+            },
+            template: '<div ng-transclude class="xui-checkbox-group"></div>'
+        }
+    }])
+    .controller('xueCheckboxGroupCtrl', ['$scope', 'xueUtilLang',function ($scope,xueUtilLang) {
+        var ctrl = this;
+        ctrl.checkList = $scope.ngModel;
+        ctrl.change = function(checkList){
+            if (xueUtilLang.isFunction($scope.ngChange)) {
+                $scope.ngChange({ngModel:checkList});
+            }
+        }
+    }])
+    .directive('checkboxItem', ['xueUtilLang', 'xueUtilArray', function (xueUtilLang, xueUtilArray) {
+        return {
+            restrict: "E",
+            replace: true,
+            require: '^?xueCheckboxGroup',
+            scope: {
+                value: '=', // checkbox 的 value 复选组时必填
+                ngDisabled: '=',
+                checkboxClick: "&", // 绑定父元素事件
+                label: '=', // 选项文本
+                ngChecked: '=' // 选中状态
+            },
+            template: '<label class="xui-checkbox-item-wrap">' +
+                '<span ng-class="{\'disabled\':ngDisabled,\'active\':checked}" class="checkbox-item">' +
+                '<i class="xui-icon xui-icon-md-checkmark"></i>' +
+                '<input  name="xueCheckbox" class="checkbox-input"  ng-model="checked" ng-disabled="ngDisabled" value="{{value}}" type="checkbox" ng-click="change($event,value)"/>' +
+                '</span>' +
+                '<span class="checkbox-name" ng-class={\'disabled\':ngDisabled} ng-if="label">{{label}}</span>' +
+                '</label>',
+            link: function (scope, ele, attrs, ctrl) {
+                scope.checked = scope.ngChecked || false;
+                scope.checkList = ctrl && ctrl.checkList;
+                if (scope.checkList) {
+                    var index = xueUtilArray.findStrIndex(scope.checkList, scope.value);
+                    if (index > -1) {
+                        scope.checked = true;
+                    }
+                }
+                scope.change = function (e, value) {
+                    scope.checked = e.target.checked;
+                    if (typeof (scope.ngChecked) != 'undefined') {
+                        scope.ngChecked = e.target.checked;
+                    }
+                    if (typeof (scope.checkList) != 'undefined') {
+                        var index = xueUtilArray.findStrIndex(scope.checkList, value);
+                        if (index > -1) {
+                            scope.checkList.splice(index, 1);
+                        } else {
+                            scope.checkList.push(value);
+                        }
+                        ctrl.change(scope.checkList);
+                    }
+                    if (xueUtilLang.isFunction(scope.checkboxClick)) {
+                        scope.checkboxClick({
+                            checked: e.target.checked
+                        });
+                    }
+                }
+            }
+        }
+
     }])
 angular.module('xue.counter', ['xue.util.lang'])
     .directive('xueCounter', ['xueUtilLang', function (xueUtilLang) {
@@ -1384,28 +1477,7 @@ angular.module('xue.directives', ['xue.util.lang'])
             }
         }
     })
-    // radio base on angularjs
-    .directive('xueRadio', function () {
-        return {
-            restrict: "E",
-            replace: true,
-            scope: {
-                ngChecked: "="
-            },
-            template: '<div class="xui-radio-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"></div>'
-        }
-    })
-    // checkbox base on angularjs
-    .directive('xueCheckbox', function () {
-        return {
-            restrict: "E",
-            replace: true,
-            scope: {
-                ngChecked: "="
-            },
-            template: '<div class="xui-checkbox-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"><i class="xui-icon xui-icon-md-checkmark"></i></div>'
-        }
-    })
+ 
     // multi-checkbox base on angularjs
     .directive('xueMultiCheckbox', function () {
         return {
@@ -1420,37 +1492,6 @@ angular.module('xue.directives', ['xue.util.lang'])
                 '<input type="checkbox" class="multi-checkbox-input" ng-disabled="ngDisabled"></label>'
         }
     })
-
-    // 单选指令组
-    .directive('xueRadioGroup', ['xueUtilLang', function (xueUtilLang) {
-        return {
-            restrict: "E",
-            replace: true,
-            scope: {
-                value: '=', // Radio 的 value
-                ngModel: '=',
-                ngDisabled: '=',
-                radioClick: "&", // 绑定父元素事件
-                name: '=' // 选项值
-            },
-            template: '<div class="xui-radio-group-wrap" ng-click="onChecked(value)">' +
-                '<label ng-class="{\'active\':value==ngModel,\'disabled\':ngDisabled}" class="radio-item">' +
-                '<input  class="checkbox-input" type="radio"  ng-disabled="ngDisabled"  value="{{value}}" ng-model="ngModel"/>' +
-                '</label>' +
-                '<span class="radio-name" ng-class={\'disabled\':ngDisabled}>{{name}}</span>' +
-                '</div>',
-            link: function (scope, elem, attr) {
-                scope.onChecked = function (value) {
-                    if (scope.ngModel != value && !scope.ngDisabled) {
-                        scope.ngModel = value;
-                    }
-                    if (xueUtilLang.isFunction(scope.radioClick)) {
-                        scope.radioClick();
-                    }
-                }
-            }
-        }
-    }])
     /**
      * 无权限页面显示
      */
@@ -3522,6 +3563,48 @@ angular.module('xue.popover', [])
             }
         }
     }])
+angular.module('xue.radio', ['xue.util.lang'])
+    // radio base on angularjs
+    .directive('xueRadio', function () {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                ngChecked: "="
+            },
+            template: '<div class="xui-radio-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"></div>'
+        }
+    })
+    // 单选指令组
+    .directive('xueRadioGroup', ['xueUtilLang', function (xueUtilLang) {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                value: '=', // Radio 的 value
+                ngModel: '=',
+                ngDisabled: '=',
+                radioClick: "&", // 绑定父元素事件
+                label: '=' // 选项值
+            },
+            template: '<label class="xui-radio-group-wrap">' +
+                '<span ng-class="{\'active\':value==ngModel,\'disabled\':ngDisabled}" class="radio-item">' +
+                '<input  class="checkbox-input" type="radio"  ng-disabled="ngDisabled"  ng-click="onChecked(value)" value="{{value}}" ng-model="ngModel"/>' +
+                '</span>' +
+                '<span class="radio-name" ng-class={\'disabled\':ngDisabled}>{{label}}</span>' +
+                '</label>',
+            link: function (scope, elem, attr) {
+                scope.onChecked = function (value) {
+                    if (scope.ngModel != value && !scope.ngDisabled) {
+                        scope.ngModel = value;
+                    }
+                    if (xueUtilLang.isFunction(scope.radioClick)) {
+                        scope.radioClick({ngModel:value});
+                    }
+                }
+            }
+        }
+    }])
 angular.module('xue.scroller', ['xue.util.lang', 'xue.util.array'])
     .directive("xueScroller", ['xueUtilLang', '$interval', function(xueUtilLang, $interval) {
         return {
@@ -4719,7 +4802,7 @@ angular.module('xue.table', ['xue.util.lang', 'xue.pagination', 'xue.util.array'
                 }
             }
         }
-    }]);
+    }])
 angular.module('xue.tabs', ['xue.util.array'])
     .directive('xueTabsWrap', [function () {
         return {
@@ -7770,7 +7853,7 @@ angular.module("xue/template/autoselect/autoselect.html", []).run(["$templateCac
   $templateCache.put("xue/template/autoselect/autoselect.html",
     "<div class=\"xui-autoselect-wrap\">\n" +
     "    <input ng-focus=\"selectCtrl.watch.focus($event)\" type=\"text\" class=\"xui-input select-show\" ng-model=\"ngVal\"\n" +
-    "        title=\"{{ngVal}}\" ng-class=\"selectCtrl.selectClass\" ng-style=\"selectCtrl.iptStyle\"\n" +
+    "        title=\"{{ngVal}}\" ng-class=\"selectCtrl.selectClass\" ng-style=\"selectCtrl.iptStyle\" ng-blur=\"selectCtrl.blur()\"\n" +
     "        ng-disabled=\"ngDisabled\" />\n" +
     "    <div class=\"auto-select-content\" ng-style=\"selectCtrl.contentStyle\" id=\"{{selectConfig.id}}\">\n" +
     "        <ul>\n" +

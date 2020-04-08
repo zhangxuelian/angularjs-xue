@@ -87,6 +87,7 @@ angular.module('ui.xue.demo').controller('xueTableDemoCtrl', ['$scope',function 
                     }
                 }]
             }]
-        }
+        },
+        isShow:true
     }
 }]);

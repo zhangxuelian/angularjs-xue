@@ -1,0 +1,20 @@
+<div ng-controller="xueRadioDemoCtrl">
+    <p class="heading">单选:</p>
+    <xue-radio ng-checked="vm.radioCheck" ng-click="vm.radioCheck=!vm.radioCheck"></xue-radio>
+    <xue-radio ng-checked="!vm.radioCheck" ng-click="vm.radioCheck=!vm.radioCheck"></xue-radio>
+
+    <p class="heading">单选组</p>
+    <xue-radio-group label="'香蕉'" ng-model="vm.fruit" value="'香蕉'" ng-disabled="true">
+    </xue-radio-group>
+    <xue-radio-group label="'橘子'" ng-model="vm.fruit" value="'橘子'">
+    </xue-radio-group>
+    <xue-radio-group label="'橙子'" ng-model="vm.fruit" value="'橙子'">
+    </xue-radio-group>
+    <xue-radio-group label="'哈密瓜'" ng-model="vm.fruit" value="'哈密瓜'" radio-click="vm.click('哈密瓜')">
+    </xue-radio-group>
+    <div>选中了：{{vm.fruit}}</div>
+
+    <p class="heading">禁用</p>
+    <xue-radio-group label="'选项一'" ng-model="vm.disCheck" value="'禁用'" ng-disabled="true"></xue-radio-group>
+    <xue-radio-group label="'选项二'" ng-model="vm.disCheck" value="'选中且禁用'" ng-disabled="true"></xue-radio-group>
+</div>

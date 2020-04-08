@@ -1,6 +1,9 @@
 $badge-height:20px;
-.xue-badge-wrap{
+
+.xue-badge-wrap {
     position: relative;
+    display: inline-block;
+
     .xui-badge-container {
         position: absolute;
         top: 0;
@@ -17,8 +20,8 @@ $badge-height:20px;
         font-size: 12px;
         vertical-align: middle;
         min-width: 18px;
-        display:inline-block;
-    
+        display: inline-block;
+
         &.dot {
             height: 8px;
             width: 8px;
@@ -26,11 +29,12 @@ $badge-height:20px;
             padding: 0;
             min-width: 8px;
         }
-        &.alone{
-            position:static;
+
+        &.alone {
+            position: static;
             transform: inherit;
         }
-    
+
         &>span {
             display: inline-block;
             height: 100%;
@@ -38,4 +42,3 @@ $badge-height:20px;
         }
     }
 }
-

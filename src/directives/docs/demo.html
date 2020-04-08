@@ -1,33 +1,11 @@
 <div ng-controller="xueDirectivesDemoCtrl">
-    <div>单选</div>
-    <xue-radio ng-checked="vm.radioCheck" ng-click="vm.radioCheck=!vm.radioCheck"></xue-radio>
-    <xue-radio ng-checked="!vm.radioCheck" ng-click="vm.radioCheck=!vm.radioCheck"></xue-radio>
-    <div>单选组</div>
-    <xue-radio-group name="'香蕉'" ng-model="vm.fruit" value="'香蕉'" ng-disabled="true">
-    </xue-radio-group>
-    <xue-radio-group name="'橘子'" ng-model="vm.fruit" value="'橘子'">
-    </xue-radio-group>
-    <xue-radio-group name="'橙子'" ng-model="vm.fruit" value="'橙子'">
-    </xue-radio-group>
-    <xue-radio-group name="'哈密瓜'" ng-model="vm.fruit" value="'哈密瓜'" radio-click="vm.click('哈密瓜')">
-    </xue-radio-group>
-    <div>选中了：{{vm.fruit}}</div>
-    <br>
-    <div>复选</div>
     <div>
-        <xue-checkbox ng-checked="vm.checkboxCheck" ng-click="vm.checkboxCheck=!vm.checkboxCheck"></xue-checkbox>复选框1
-        <xue-checkbox ng-checked="vm.checkboxCheck2" ng-click="vm.checkboxCheck2=!vm.checkboxCheck2"></xue-checkbox>复选框2
-        <xue-checkbox ng-checked="vm.checkboxCheck3" ng-click="vm.checkboxCheck3=!vm.checkboxCheck3"></xue-checkbox>复选框3
-    </div>
-
-    <br>
-    <br>
-    <div>
+        <p class="heading">输入校验</p>
         <input class="xui-input" type="text" placeholder="校验输入数字" filter-number="vm.inputValue"
             ng-model="vm.inputValue">
     </div>
     <br>
-    <div>无权限页面</div>
+    <p class="heading">无权限页面</p>
     <no-permission-page text="'您暂未开通权限！'" style="height:100px;"></no-permission-page>
     <span title="title测试">title测试</span>
 </div>

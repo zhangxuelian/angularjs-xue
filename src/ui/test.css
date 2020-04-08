@@ -4689,51 +4689,6 @@ ul {
     .auto-select-content ul .active {
       color: #409EFF; }
 
-.xui-radio-wrap {
-  display: inline-block;
-  vertical-align: middle;
-  width: 20px;
-  height: 20px;
-  border: 1px solid #DCDFE6;
-  border-radius: 10px;
-  cursor: pointer;
-  background: #fff;
-  box-sizing: border-box; }
-  .xui-radio-wrap.gx-checked {
-    background: #409EFF;
-    border: 5px solid #e8f3ff;
-    box-shadow: 0 0 0px 1px #7dbdff; }
-
-/** xue-checkbox **/
-.xui-checkbox-wrap {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  border-radius: 0.25rem;
-  box-sizing: border-box;
-  background: #fff;
-  border: 1px solid #DCDFE6;
-  cursor: pointer;
-  margin: 0;
-  padding: 0;
-  vertical-align: middle;
-  text-align: center; }
-  .xui-checkbox-wrap:hover {
-    border: 1px solid #409EFF; }
-  .xui-checkbox-wrap.gx-checked {
-    background: #e8f3ff;
-    border: 1px solid #409EFF; }
-    .xui-checkbox-wrap.gx-checked i {
-      color: #409EFF; }
-  .xui-checkbox-wrap i {
-    width: 18px;
-    height: 18px;
-    line-height: 18px;
-    text-align: center;
-    color: #fff;
-    vertical-align: baseline; }
-
 /** gx-multi-checkbox **/
 .xui-multi-checkbox-wrap {
   position: relative;
@@ -4805,53 +4760,6 @@ ul {
     .no-perssion-wrap > span > .xui-icon {
       font-size: 60px;
       display: block; }
-
-.xui-radio-group-wrap {
-  display: inline-block;
-  height: 20px;
-  line-height: 20px;
-  vertical-align: middle;
-  position: relative;
-  cursor: pointer;
-  margin-right: 10px; }
-  .xui-radio-group-wrap input.checkbox-input {
-    opacity: 0;
-    outline: none;
-    position: absolute;
-    margin: 0;
-    width: 0;
-    height: 0;
-    z-index: -1; }
-  .xui-radio-group-wrap .radio-item {
-    display: inline-block;
-    vertical-align: middle;
-    width: 20px;
-    height: 20px;
-    border: 1px solid #DCDFE6;
-    border-radius: 10px;
-    cursor: pointer;
-    background: #fff;
-    margin-bottom: 0;
-    margin-right: 0 !important;
-    box-sizing: border-box; }
-    .xui-radio-group-wrap .radio-item.active {
-      width: 20px;
-      height: 20px;
-      background: #409EFF;
-      border: 5px solid #e8f3ff;
-      border-radius: 10px;
-      box-shadow: 0 0 0 1px #7dbdff; }
-    .xui-radio-group-wrap .radio-item.disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
-      filter: alpha(opacity=50); }
-  .xui-radio-group-wrap .radio-name {
-    cursor: pointer;
-    padding-left: 5px;
-    vertical-align: middle; }
-    .xui-radio-group-wrap .radio-name.disabled {
-      color: #909399;
-      cursor: not-allowed; }
 
 .common-title-tip {
   position: absolute;
@@ -6850,7 +6758,8 @@ ul {
       margin-right: 10px; }
 
 .xue-badge-wrap {
-  position: relative; }
+  position: relative;
+  display: inline-block; }
   .xue-badge-wrap .xui-badge-container {
     position: absolute;
     top: 0;
@@ -6924,6 +6833,163 @@ ul {
       position: absolute;
       left: -8px;
       top: -7px; }
+
+.xui-radio-group-wrap {
+  display: inline-block;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+  position: relative;
+  cursor: pointer;
+  margin-right: 10px; }
+  .xui-radio-group-wrap input.checkbox-input {
+    opacity: 0;
+    outline: none;
+    position: absolute;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    left: 0; }
+  .xui-radio-group-wrap .radio-item {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #DCDFE6;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #fff;
+    margin-bottom: 0;
+    margin-right: 0 !important;
+    box-sizing: border-box;
+    position: relative; }
+    .xui-radio-group-wrap .radio-item.active {
+      width: 20px;
+      height: 20px;
+      background: #409EFF;
+      border: 5px solid #e8f3ff;
+      border-radius: 10px;
+      box-shadow: 0 0 0 1px #7dbdff; }
+    .xui-radio-group-wrap .radio-item.disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+      filter: alpha(opacity=60); }
+  .xui-radio-group-wrap .radio-name {
+    cursor: pointer;
+    padding-left: 5px;
+    vertical-align: middle; }
+    .xui-radio-group-wrap .radio-name.disabled {
+      color: #909399;
+      cursor: not-allowed; }
+
+.xui-radio-wrap {
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #DCDFE6;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #fff;
+  box-sizing: border-box; }
+  .xui-radio-wrap.gx-checked {
+    background: #409EFF;
+    border: 5px solid #e8f3ff;
+    box-shadow: 0 0 0px 1px #7dbdff; }
+
+.xui-checkbox-group {
+  display: inline-block; }
+  .xui-checkbox-group .xui-checkbox-item-wrap {
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    margin-right: 10px; }
+    .xui-checkbox-group .xui-checkbox-item-wrap input.checkbox-input {
+      opacity: 0;
+      outline: 0;
+      position: absolute;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      cursor: pointer; }
+    .xui-checkbox-group .xui-checkbox-item-wrap .checkbox-item {
+      display: inline-block;
+      vertical-align: middle;
+      width: 20px;
+      height: 20px;
+      border: 1px solid #DCDFE6;
+      border-radius: 4px;
+      cursor: pointer;
+      background: #fff;
+      box-sizing: border-box;
+      position: relative; }
+      .xui-checkbox-group .xui-checkbox-item-wrap .checkbox-item:hover {
+        border: 1px solid #409EFF; }
+      .xui-checkbox-group .xui-checkbox-item-wrap .checkbox-item.active {
+        background: #e8f3ff;
+        border: 1px solid #409EFF; }
+        .xui-checkbox-group .xui-checkbox-item-wrap .checkbox-item.active i {
+          color: #409EFF; }
+        .xui-checkbox-group .xui-checkbox-item-wrap .checkbox-item.active.disabled i {
+          color: #DCDFE6; }
+      .xui-checkbox-group .xui-checkbox-item-wrap .checkbox-item.disabled {
+        color: #C0C4CC;
+        cursor: not-allowed;
+        background: #F5F7FA;
+        border-color: #DCDFE6; }
+        .xui-checkbox-group .xui-checkbox-item-wrap .checkbox-item.disabled i {
+          color: #F5F7FA; }
+      .xui-checkbox-group .xui-checkbox-item-wrap .checkbox-item i {
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+        text-align: center;
+        color: #fff;
+        vertical-align: baseline; }
+    .xui-checkbox-group .xui-checkbox-item-wrap .checkbox-name {
+      cursor: pointer;
+      padding-left: 5px;
+      vertical-align: middle; }
+      .xui-checkbox-group .xui-checkbox-item-wrap .checkbox-name.disabled {
+        color: #C0C4CC;
+        cursor: not-allowed; }
+
+/** xue-checkbox **/
+.xui-checkbox-wrap {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  background: #fff;
+  border: 1px solid #DCDFE6;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  text-align: center; }
+  .xui-checkbox-wrap:hover {
+    border: 1px solid #409EFF; }
+  .xui-checkbox-wrap.gx-checked {
+    background: #e8f3ff;
+    border: 1px solid #409EFF; }
+    .xui-checkbox-wrap.gx-checked i {
+      color: #409EFF; }
+  .xui-checkbox-wrap i {
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    color: #fff;
+    vertical-align: baseline; }
 
 .test .test-primary-100 {
   color: #badcff; }

@@ -2,7 +2,7 @@ angular.module("xue/template/autoselect/autoselect.html", []).run(["$templateCac
   $templateCache.put("xue/template/autoselect/autoselect.html",
     "<div class=\"xui-autoselect-wrap\">\n" +
     "    <input ng-focus=\"selectCtrl.watch.focus($event)\" type=\"text\" class=\"xui-input select-show\" ng-model=\"ngVal\"\n" +
-    "        title=\"{{ngVal}}\" ng-class=\"selectCtrl.selectClass\" ng-style=\"selectCtrl.iptStyle\"\n" +
+    "        title=\"{{ngVal}}\" ng-class=\"selectCtrl.selectClass\" ng-style=\"selectCtrl.iptStyle\" ng-blur=\"selectCtrl.blur()\"\n" +
     "        ng-disabled=\"ngDisabled\" />\n" +
     "    <div class=\"auto-select-content\" ng-style=\"selectCtrl.contentStyle\" id=\"{{selectConfig.id}}\">\n" +
     "        <ul>\n" +
