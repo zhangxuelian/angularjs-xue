@@ -1,87 +1,87 @@
 .xui-checkbox-group {
     display: inline-block;
+    line-height: 1;
+}
+.xui-checkbox-item-wrap {
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    margin-right: 10px;
 
-    .xui-checkbox-item-wrap {
-        display: inline-block;
-        height: 20px;
-        line-height: 20px;
-        box-sizing: border-box;
-        vertical-align: middle;
-        text-align: center;
-        position: relative;
+    input.checkbox-input {
+        opacity: 0;
+        outline: 0;
+        position: absolute;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        left: 0;
         cursor: pointer;
-        margin-right: 10px;
+    }
 
-        input.checkbox-input {
-            opacity: 0;
-            outline: 0;
-            position: absolute;
-            margin: 0;
-            width: 100%;
-            height: 100%;
-            left: 0;
-            cursor: pointer;
+    .checkbox-item {
+        display: inline-block;
+        vertical-align: middle;
+        width: 20px;
+        height: 20px;
+        border: 1px solid $border-color-base;
+        border-radius: 4px;
+        cursor: pointer;
+        background: #fff;
+        box-sizing: border-box;
+        position: relative;
+
+        &:hover {
+            border: $border-width solid $color-primary;
         }
 
-        .checkbox-item {
-            display: inline-block;
-            vertical-align: middle;
-            width: 20px;
-            height: 20px;
-            border: 1px solid $border-color-base;
-            border-radius: 4px;
-            cursor: pointer;
-            background: #fff;
-            box-sizing: border-box;
-            position: relative;
-
-            &:hover {
-                border: $border-width solid $color-primary;
-            }
-
-            &.active {
-                background: tint-color($color-primary, 11);
-                border: $border-width solid $color-primary;
-
-                i {
-                    color: $color-primary;
-                }
-
-                &.disabled i {
-                    color: $border-color-base;
-                }
-            }
-
-            &.disabled {
-                color: $color-text-placeholder;
-                cursor: not-allowed;
-                background: $background-color-base;
-                border-color: $border-color-base;
-
-                i {
-                    color: $background-color-base;
-                }
-            }
+        &.active {
+            background: tint-color($color-primary, 11);
+            border: $border-width solid $color-primary;
 
             i {
-                width: 18px;
-                height: 18px;
-                line-height: 18px;
-                text-align: center;
-                color: #fff;
-                vertical-align: baseline;
+                color: $color-primary;
+            }
+
+            &.disabled i {
+                color: $border-color-base;
             }
         }
 
-        .checkbox-name {
-            cursor: pointer;
-            padding-left: 5px;
-            vertical-align: middle;
+        &.disabled {
+            color: $color-text-placeholder;
+            cursor: not-allowed;
+            background: $background-color-base;
+            border-color: $border-color-base;
 
-            &.disabled {
-                color: $color-text-placeholder;
-                cursor: not-allowed;
+            i {
+                color: $background-color-base;
             }
+        }
+
+        i {
+            width: 18px;
+            height: 18px;
+            line-height: 18px;
+            text-align: center;
+            color: #fff;
+            vertical-align: baseline;
+        }
+    }
+
+    .checkbox-name {
+        cursor: pointer;
+        padding-left: 5px;
+        vertical-align: middle;
+
+        &.disabled {
+            color: $color-text-placeholder;
+            cursor: not-allowed;
         }
     }
 }
