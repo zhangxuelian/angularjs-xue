@@ -10,6 +10,20 @@ angular.module('xue.checkbox', ['xue.util.lang', 'xue.util.array'])
             template: '<div class="xui-checkbox-wrap" ng-class="{true:\'gx-checked\'}[!!ngChecked]"><i class="xui-icon xui-icon-md-checkmark"></i></div>'
         }
     })
+    // multi-checkbox base on angularjs
+    .directive('xueMultiCheckbox', function () {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                multiType: "=",
+                ngDisabled: "="
+            },
+            template: '<label class="xui-multi-checkbox-wrap">' +
+                '<span class="multi-checkbox" ng-class="{1:\'multi-checkbox-checked\',2:\'multi-checkbox-indeterminate\'}[multiType]"></span>' +
+                '<input type="checkbox" class="multi-checkbox-input" ng-disabled="ngDisabled"></label>'
+        }
+    })
     .directive('xueCheckboxGroup', [function () {
         return {
             restrict: "E",
@@ -23,16 +37,18 @@ angular.module('xue.checkbox', ['xue.util.lang', 'xue.util.array'])
             template: '<div ng-transclude class="xui-checkbox-group"></div>'
         }
     }])
-    .controller('xueCheckboxGroupCtrl', ['$scope', 'xueUtilLang',function ($scope,xueUtilLang) {
+    .controller('xueCheckboxGroupCtrl', ['$scope', 'xueUtilLang', function ($scope, xueUtilLang) {
         var ctrl = this;
         ctrl.checkList = $scope.ngModel;
-        ctrl.change = function(checkList){
+        ctrl.change = function (checkList) {
             if (xueUtilLang.isFunction($scope.ngChange)) {
-                $scope.ngChange({ngModel:checkList});
+                $scope.ngChange({
+                    ngModel: checkList
+                });
             }
         }
     }])
-    .directive('checkboxItem', ['xueUtilLang', 'xueUtilArray', function (xueUtilLang, xueUtilArray) {
+    .directive('xueCheckboxItem', ['xueUtilLang', 'xueUtilArray', function (xueUtilLang, xueUtilArray) {
         return {
             restrict: "E",
             replace: true,

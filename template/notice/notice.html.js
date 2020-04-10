@@ -2,20 +2,25 @@ angular.module("xue/template/notice/notice.html", []).run(["$templateCache", fun
   $templateCache.put("xue/template/notice/notice.html",
     "<div class=\"xui-notice-container\" ng-mouseenter=\"gxNoticeCtrl.mouseenter()\" ng-mouseleave=\"gxNoticeCtrl.mouseleave()\"> \n" +
     "    <div class=\"xui-notice-icon\" title=\"{{noticeConfig.title || '消息提醒'}}\">\n" +
-    "        <!-- <i class=\"xui-icon xui-icon-md-notifications-outline notice-icon\"></i> -->\n" +
-    "        <i class=\"xui-icon notice-icon\" ng-class=\"noticeConfig.iconClassName\"></i>\n" +
-    "        <span class=\"notice-count\" title=\"{{noticeConfig.count}}\" ng-show=\"noticeConfig.count>0\">{{noticeConfig.count>99?'99+':noticeConfig.count}}</span>\n" +
+    "        <!-- <i class=\"xui-icon notice-icon\" ng-class=\"noticeConfig.iconClassName\"></i> -->\n" +
+    "        <!-- <span class=\"notice-count\" title=\"{{noticeConfig.count}}\" ng-show=\"noticeConfig.count>0\">{{noticeConfig.count>99?'99+':noticeConfig.count}}</span> -->\n" +
+    "        <xue-badge count=\"noticeConfig.count\" max=\"99\"> \n" +
+    "            <i class=\"xui-icon notice-icon\" ng-class=\"noticeConfig.iconClassName\"></i>\n" +
+    "        </xue-badge>\n" +
     "    </div>\n" +
     "    <div class=\"xui-notice-content-wrap\" id=\"{{noticeConfig.modalId}}\" ng-mouseenter=\"gxNoticeCtrl.mouseenter()\" ng-mouseleave=\"gxNoticeCtrl.mouseleave()\">\n" +
     "        <div class=\"xui-notice-content\" >\n" +
     "            <div class=\"notice-tab\">\n" +
     "                <div class=\"tab-item\" ng-repeat=\"item in noticeConfig.tabItem\" ng-class=\"{true:'active'}[noticeConfig.selectTabId == item.id]\" \n" +
     "                ng-click=\"gxNoticeCtrl.tabItemClick(item)\">\n" +
-    "                    <span class=\"item-name\">{{item.name}}\n" +
+    "                <xue-badge count=\"item.count\" max=\"99\" is-dot=\"noticeConfig.tabMark == 'circle'\"> \n" +
+    "                    <span class=\"item-name\">{{item.name}}</span>\n" +
+    "                </xue-badge>\n" +
+    "                    <!-- <span class=\"item-name\">{{item.name}}\n" +
     "                        <span class=\"item-count\" ng-class=\"{'circle':'circle','number':''}[noticeConfig.tabMark]\" ng-show=\"item.count>0\" title=\"{{item.count}}\">\n" +
     "                            {{noticeConfig.tabMark == 'number' ? (item.count>99?'99+':item.count) : ''}}\n" +
     "                        </span>\n" +
-    "                    </span>\n" +
+    "                    </span> -->\n" +
     "                </div>\n" +
     "            </div>\n" +
     "            <div class=\"notice-content\" scroll-bottom=\"noticeConfig.loadNextPage()\">\n" +
@@ -35,9 +40,10 @@ angular.module("xue/template/notice/notice.html", []).run(["$templateCache", fun
     "                            <!-- <b ng-if=\"noticeConfig.formatField.contentTitle\">【{{item[noticeConfig.formatField.contentTitle] || item.formatField.contentTitle}}】</b> -->\n" +
     "                            {{item[noticeConfig.formatField.contentType] || item.contentType}}\n" +
     "                        </span>\n" +
-    "                        <span class=\"count\">\n" +
+    "                        <!-- <span class=\"count\">\n" +
     "                            <i>{{(item[noticeConfig.formatField.count] || item.count)>99?'99+':(item[noticeConfig.formatField.count] || item.count)}}</i>\n" +
-    "                        </span>\n" +
+    "                        </span> -->\n" +
+    "                        <xue-badge count=\"item[noticeConfig.formatField.count] || item.count\" is-alone=\"true\" bg-color=\"#409eff\"> </xue-badge>\n" +
     "                    </li>\n" +
     "                    <li ng-if=\"!noticeConfig.noticeList.length && !noticeConfig.noticeTypeList.length\" class=\"no-data-tip\">\n" +
     "                        {{noticeConfig.emptyNoticeTip}}\n" +

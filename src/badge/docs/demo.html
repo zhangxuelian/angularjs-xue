@@ -1,28 +1,28 @@
 <div ng-controller="xueBadgeDemoCtrl" class="demo-badge">
     <p class="heading">基本使用</p>
     <span>
-        <xue-badge badge-config="vm.config">
+        <xue-badge count="12">
             <button class="xui-btn">消息1</button> </xue-badge>
     </span>
     <p class="heading">自定义背景颜色</p>
     <span>
-        <xue-badge badge-config="vm.config2">
+        <xue-badge count="8" bg-color="#0394F9">
             <button class="xui-btn xui-btn-primary">消息2</button>
         </xue-badge>
     </span>
     <p class="heading">超出max展示max+</p>
     <span>
-        <xue-badge badge-config="vm.config3">
+        <xue-badge count="12" max="10">
             <button class="xui-btn">消息3</button> </xue-badge>
     </span>
     <p class="heading">展示小圆点</p>
     <span>
-        <xue-badge badge-config="vm.dotConfig">
+        <xue-badge count="4" is-dot="true">
             <button class="xui-btn">消息</button>
         </xue-badge>
     </span>
     <p class="heading">单独使用：</p>
     <span>
-        <xue-badge badge-config="vm.config4"> </xue-badge>
+        <xue-badge is-alone="true" count="vm.config4.count"> </xue-badge>
     </span>
 </div>

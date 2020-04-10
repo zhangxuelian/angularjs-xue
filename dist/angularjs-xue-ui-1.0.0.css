@@ -3504,6 +3504,7 @@ ul {
       z-index: 3;
       background-color: #409EFF;
       border-color: #409EFF;
+      border-right-color: #DCDFE6;
       color: #FFFFFF; }
     .xui-pagination-wrap .page-item.disabled .page-link {
       cursor: not-allowed;
@@ -4434,27 +4435,6 @@ ul {
     cursor: pointer; }
     .xui-notice-container .xui-notice-icon .notice-icon {
       font-size: 20px; }
-    .xui-notice-container .xui-notice-icon .notice-count {
-      position: absolute;
-      display: block;
-      font-weight: 400;
-      background: #D92B2F;
-      color: #fff;
-      padding: 1px 2px;
-      font-size: 12px;
-      top: -10px;
-      right: -10px;
-      height: 18px;
-      line-height: 18px;
-      min-width: 18px;
-      border-radius: 9px; }
-      .xui-notice-container .xui-notice-icon .notice-count.circle {
-        width: 8px;
-        height: 8px;
-        padding: 0;
-        min-width: 8px;
-        right: -5px;
-        top: -5px; }
 
 .xui-notice-content-wrap {
   display: none;
@@ -4482,31 +4462,12 @@ ul {
         padding: 5px 30px 0 30px;
         color: #303133;
         font-size: 15px; }
+        .xui-notice-content-wrap .xui-notice-content .notice-tab .tab-item .xui-badge-container {
+          top: 10px; }
         .xui-notice-content-wrap .xui-notice-content .notice-tab .tab-item .item-name {
           line-height: 40px;
           text-align: center;
           position: relative; }
-          .xui-notice-content-wrap .xui-notice-content .notice-tab .tab-item .item-name .item-count {
-            position: absolute;
-            display: block;
-            font-weight: 400;
-            background: #D92B2F;
-            color: #fff;
-            padding: 1px 2px;
-            font-size: 12px;
-            top: -5px;
-            right: -15px;
-            height: 16px;
-            line-height: 16px;
-            min-width: 16px;
-            border-radius: 8px; }
-            .xui-notice-content-wrap .xui-notice-content .notice-tab .tab-item .item-name .item-count.circle {
-              width: 8px;
-              height: 8px;
-              padding: 0;
-              min-width: 8px;
-              right: -5px;
-              top: -5px; }
         .xui-notice-content-wrap .xui-notice-content .notice-tab .tab-item.active {
           border-bottom: solid 2px #409EFF;
           color: #409EFF; }
@@ -4688,59 +4649,6 @@ ul {
       border-bottom: none; }
     .auto-select-content ul .active {
       color: #409EFF; }
-
-/** gx-multi-checkbox **/
-.xui-multi-checkbox-wrap {
-  position: relative;
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0;
-  cursor: pointer; }
-  .xui-multi-checkbox-wrap .multi-checkbox {
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;
-    width: 16px;
-    height: 16px;
-    border: 1px solid #DCDFE6;
-    border-radius: 2px;
-    background-color: #fff;
-    transition: border-color .2s ease-in-out, background-color .2s ease-in-out, box-shadow .2s ease-in-out; }
-    .xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-checked {
-      border-color: #409EFF;
-      background-color: #409EFF; }
-      .xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-checked:after {
-        width: 4px;
-        height: 8px;
-        top: 2px;
-        left: 5px;
-        border: 2px solid #fff;
-        border-top: 0;
-        border-left: 0;
-        transform: rotate(45deg) scale(1); }
-    .xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-indeterminate {
-      border-color: #409EFF;
-      background-color: #409EFF; }
-      .xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-indeterminate:after {
-        width: 10px;
-        height: 1px;
-        left: 2px;
-        top: 6px;
-        border: 1px solid #fff; }
-    .xui-multi-checkbox-wrap .multi-checkbox:after {
-      content: "";
-      position: absolute; }
-  .xui-multi-checkbox-wrap .multi-checkbox-input {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    opacity: 0;
-    cursor: pointer; }
 
 .no-perssion-wrap {
   width: 100%;
@@ -6776,7 +6684,8 @@ ul {
     font-size: 12px;
     vertical-align: middle;
     min-width: 18px;
-    display: inline-block; }
+    display: inline-block;
+    font-weight: 400; }
     .xue-badge-wrap .xui-badge-container.dot {
       height: 8px;
       width: 8px;
@@ -6992,3 +6901,56 @@ ul {
     text-align: center;
     color: #fff;
     vertical-align: baseline; }
+
+/** gx-multi-checkbox **/
+.xui-multi-checkbox-wrap {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  cursor: pointer; }
+  .xui-multi-checkbox-wrap .multi-checkbox {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #DCDFE6;
+    border-radius: 2px;
+    background-color: #fff;
+    transition: border-color .2s ease-in-out, background-color .2s ease-in-out, box-shadow .2s ease-in-out; }
+    .xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-checked {
+      border-color: #409EFF;
+      background-color: #409EFF; }
+      .xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-checked:after {
+        width: 4px;
+        height: 8px;
+        top: 2px;
+        left: 5px;
+        border: 2px solid #fff;
+        border-top: 0;
+        border-left: 0;
+        transform: rotate(45deg) scale(1); }
+    .xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-indeterminate {
+      border-color: #409EFF;
+      background-color: #409EFF; }
+      .xui-multi-checkbox-wrap .multi-checkbox.multi-checkbox-indeterminate:after {
+        width: 10px;
+        height: 1px;
+        left: 2px;
+        top: 6px;
+        border: 1px solid #fff; }
+    .xui-multi-checkbox-wrap .multi-checkbox:after {
+      content: "";
+      position: absolute; }
+  .xui-multi-checkbox-wrap .multi-checkbox-input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    opacity: 0;
+    cursor: pointer; }

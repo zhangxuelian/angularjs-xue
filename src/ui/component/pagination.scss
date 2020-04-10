@@ -67,6 +67,7 @@ $pagination-size:((lg, 12, 20, 14, 4),
             z-index: 3;
             background-color: $color-primary;
             border-color: $color-primary;
+            border-right-color: $border-color-base;
             color: $color-white;
         }
 
@@ -76,7 +77,6 @@ $pagination-size:((lg, 12, 20, 14, 4),
             border-color: tint-color($border-color-base, 2);
             background-color: $color-white;
         }
-
         @include pagination-border-radius(4px);
     }
 }

@@ -117,20 +117,7 @@ angular.module('xue.directives', ['xue.util.lang'])
         }
     })
  
-    // multi-checkbox base on angularjs
-    .directive('xueMultiCheckbox', function () {
-        return {
-            restrict: "E",
-            replace: true,
-            scope: {
-                multiType: "=",
-                ngDisabled: "="
-            },
-            template: '<label class="xui-multi-checkbox-wrap">' +
-                '<span class="multi-checkbox" ng-class="{1:\'multi-checkbox-checked\',2:\'multi-checkbox-indeterminate\'}[multiType]"></span>' +
-                '<input type="checkbox" class="multi-checkbox-input" ng-disabled="ngDisabled"></label>'
-        }
-    })
+  
     /**
      * 无权限页面显示
      */

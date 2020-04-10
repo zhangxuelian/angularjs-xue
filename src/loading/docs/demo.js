@@ -40,13 +40,13 @@ angular.module('ui.xue.demo').controller('xueLoadingDemoCtrl', ['$scope', functi
             msg: "拼命加载中..."
         },
         stop: function () {
-            vm.loadingConfig.isShowLoading = false;
-            vm.loadingConfig2.isShowLoading = false;
-            vm.loadingConfig3.isShowLoading = false;
-            vm.loadingConfig4.isShowLoading = false;
-            vm.loadingConfig5.isShowLoading = false;
-            vm.loadingConfig6.isShowLoading = false;
-            vm.loadingConfig7.isShowLoading = false;
+            vm.loadingConfig.isShowLoading = !vm.loadingConfig.isShowLoading;
+            vm.loadingConfig2.isShowLoading = !vm.loadingConfig2.isShowLoading;
+            vm.loadingConfig3.isShowLoading = !vm.loadingConfig3.isShowLoading;
+            vm.loadingConfig4.isShowLoading = !vm.loadingConfig4.isShowLoading;
+            vm.loadingConfig5.isShowLoading = !vm.loadingConfig5.isShowLoading;
+            vm.loadingConfig6.isShowLoading = !vm.loadingConfig6.isShowLoading;
+            vm.loadingConfig7.isShowLoading = !vm.loadingConfig7.isShowLoading;
         }
     }
 }])

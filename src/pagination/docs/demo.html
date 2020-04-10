@@ -1,4 +1,10 @@
 <div ng-controller="xuePaginationDemoCtrl" style="overflow: auto;">
+    <p class="heading">基本使用</p>
+    <xue-pagination total-items="mv.total" max-size="mv.maxSize" ng-model="mv.page" items-per-page="mv.size"
+        boundary-links="true">
+    </xue-pagination>
+    <p class="heading">尺寸大小</p>
+    <p class="subheading">默认中等大小，其他尺寸样式加上xui-pagination-mini/xui-pagination-sm/xui-pagination-lg</p>
     <xue-pagination class="xui-pagination-mini" total-items="mv.total" max-size="mv.maxSize" ng-model="mv.page"
         items-per-page="mv.size" boundary-links="true">
     </xue-pagination>
@@ -11,10 +17,10 @@
         boundary-links="true">
     </xue-pagination>
     <br /><br />
-    <xue-pagination class="xui-pagination-lg" total-items="mv.total" max-size="mv.maxSize" ng-model="mv.page" items-per-page="mv.size"
-        boundary-links="true">
+    <xue-pagination class="xui-pagination-lg" total-items="mv.total" max-size="mv.maxSize" ng-model="mv.page"
+        items-per-page="mv.size" boundary-links="true">
     </xue-pagination>
-    <br /><br />
+    <p class="heading">自定义文案</p>
     <xue-pagination first-text="<<" previous-text="<" next-text=">" last-text=">>" total-items="mv.total"
         max-size="mv.maxSize" ng-model="mv.page" items-per-page="mv.size" boundary-links="true">
     </xue-pagination>

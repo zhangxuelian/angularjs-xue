@@ -1,20 +1,22 @@
 <div ng-controller="xueCheckboxDemoCtrl">
-    <!-- <p class="heading">复选</p>
-    <xue-checkbox ng-checked="vm.checkboxCheck" ng-click="vm.checkboxCheck=!vm.checkboxCheck"></xue-checkbox>复选框1
-    -->
+    <p class="heading">复选（table/select组件用）</p>
+    <xue-checkbox ng-checked="vm.checkboxCheck" ng-click="vm.checkboxCheck=!vm.checkboxCheck"></xue-checkbox>
+    <p class="heading">树组件用</p>
+    <xue-multi-checkbox multi-type="1"></xue-multi-checkbox>
+    <xue-multi-checkbox multi-type="2"></xue-multi-checkbox>
     <p class="heading">单独使用</p>
-    <checkbox-item ng-checked ="vm.checkStatus" label="'香蕉'"></checkbox-item>
+    <xue-checkbox-item ng-checked ="vm.checkStatus" label="'香蕉'"></xue-checkbox-item>
     <div>选中状态：{{vm.checkStatus}}</div>
     <p class="heading">复选组</p>
    <xue-checkbox-group ng-model="vm.checkArray" ng-change="vm.change(ngModel)">
-       <checkbox-item label="'香蕉'" value="'香蕉'"></checkbox-item>
-       <checkbox-item label="'橙子'" value="'橙子'"></checkbox-item>
-       <checkbox-item label="'橘子'" value="'橘子'" ng-disabled="true"></checkbox-item>
-       <checkbox-item label="'樱桃'" value="'樱桃'"></checkbox-item>
+       <xue-checkbox-item label="'香蕉'" value="'香蕉'"></xue-checkbox-item>
+       <xue-checkbox-item label="'橙子'" value="'橙子'"></xue-checkbox-item>
+       <xue-checkbox-item label="'橘子'" value="'橘子'" ng-disabled="true"></xue-checkbox-item>
+       <xue-checkbox-item label="'樱桃'" value="'樱桃'"></xue-checkbox-item>
    </xue-checkbox-group>
    <div>选中了：{{vm.checkArray}}</div>
 
    <p class="heading">禁用</p>
-   <checkbox-item ng-checked ="false" label="'禁用'" ng-disabled="true"></checkbox-item>
-   <checkbox-item ng-checked ="true" label="'选中禁用'" ng-disabled="true"></checkbox-item>
+   <xue-checkbox-item ng-checked ="false" label="'禁用'" ng-disabled="true"></xue-checkbox-item>
+   <xue-checkbox-item ng-checked ="true" label="'选中禁用'" ng-disabled="true"></xue-checkbox-item>
 </div>

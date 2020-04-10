@@ -1,19 +1,24 @@
 <div class="xui-notice-container" ng-mouseenter="gxNoticeCtrl.mouseenter()" ng-mouseleave="gxNoticeCtrl.mouseleave()"> 
     <div class="xui-notice-icon" title="{{noticeConfig.title || '消息提醒'}}">
-        <!-- <i class="xui-icon xui-icon-md-notifications-outline notice-icon"></i> -->
-        <i class="xui-icon notice-icon" ng-class="noticeConfig.iconClassName"></i>
-        <span class="notice-count" title="{{noticeConfig.count}}" ng-show="noticeConfig.count>0">{{noticeConfig.count>99?'99+':noticeConfig.count}}</span>
+        <!-- <i class="xui-icon notice-icon" ng-class="noticeConfig.iconClassName"></i> -->
+        <!-- <span class="notice-count" title="{{noticeConfig.count}}" ng-show="noticeConfig.count>0">{{noticeConfig.count>99?'99+':noticeConfig.count}}</span> -->
+        <xue-badge count="noticeConfig.count" max="99"> 
+            <i class="xui-icon notice-icon" ng-class="noticeConfig.iconClassName"></i>
+        </xue-badge>
     </div>
     <div class="xui-notice-content-wrap" id="{{noticeConfig.modalId}}" ng-mouseenter="gxNoticeCtrl.mouseenter()" ng-mouseleave="gxNoticeCtrl.mouseleave()">
         <div class="xui-notice-content" >
             <div class="notice-tab">
                 <div class="tab-item" ng-repeat="item in noticeConfig.tabItem" ng-class="{true:'active'}[noticeConfig.selectTabId == item.id]" 
                 ng-click="gxNoticeCtrl.tabItemClick(item)">
-                    <span class="item-name">{{item.name}}
+                <xue-badge count="item.count" max="99" is-dot="noticeConfig.tabMark == 'circle'"> 
+                    <span class="item-name">{{item.name}}</span>
+                </xue-badge>
+                    <!-- <span class="item-name">{{item.name}}
                         <span class="item-count" ng-class="{'circle':'circle','number':''}[noticeConfig.tabMark]" ng-show="item.count>0" title="{{item.count}}">
                             {{noticeConfig.tabMark == 'number' ? (item.count>99?'99+':item.count) : ''}}
                         </span>
-                    </span>
+                    </span> -->
                 </div>
             </div>
             <div class="notice-content" scroll-bottom="noticeConfig.loadNextPage()">
@@ -33,9 +38,10 @@
                             <!-- <b ng-if="noticeConfig.formatField.contentTitle">【{{item[noticeConfig.formatField.contentTitle] || item.formatField.contentTitle}}】</b> -->
                             {{item[noticeConfig.formatField.contentType] || item.contentType}}
                         </span>
-                        <span class="count">
+                        <!-- <span class="count">
                             <i>{{(item[noticeConfig.formatField.count] || item.count)>99?'99+':(item[noticeConfig.formatField.count] || item.count)}}</i>
-                        </span>
+                        </span> -->
+                        <xue-badge count="item[noticeConfig.formatField.count] || item.count" is-alone="true" bg-color="#409eff"> </xue-badge>
                     </li>
                     <li ng-if="!noticeConfig.noticeList.length && !noticeConfig.noticeTypeList.length" class="no-data-tip">
                         {{noticeConfig.emptyNoticeTip}}

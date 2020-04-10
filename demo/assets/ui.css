@@ -1,9 +1,10 @@
 .heading {
-  font-size: 16px;
-  line-height: 40px; }
+  font-size: 20px;
+  line-height: 40px;
+  margin: 5px 0; }
 
 .subheading {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 35px; }
 
 .ui-demo-color .primary-wrap {
