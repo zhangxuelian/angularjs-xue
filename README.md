@@ -14,7 +14,7 @@ angular.module('myModule', ['ui.xue']);
 ### Webpack / JSPM
 #### Install with NPM
 ```
-$ npm install angularjs-xue --save-dev
+$ npm install @xeui/angularjs-xue --save-dev
 ```
 #### Usage
 To use this project with webpack, follow the NPM instructions. Now, if you want to use pagination and table, you can do:
