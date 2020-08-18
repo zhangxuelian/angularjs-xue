@@ -175,7 +175,7 @@ $vaildate-warn-input-bg-color: #ffffe9 !default;
         }
     }
 
-    .common-select-container {
+    .xui-select-wrap {
         .select-show {
             &.directive-error {
                 border: 1px solid $vaildate-warn-color;
@@ -184,7 +184,7 @@ $vaildate-warn-input-bg-color: #ffffe9 !default;
         }
     } 
 
-    .xl-datepicker-container {
+    .xui-datepicker-wrap {
         .input-wrap {
             &.directive-error {
                 border: 1px solid $vaildate-warn-color;

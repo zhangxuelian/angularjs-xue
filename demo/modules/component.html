@@ -5142,10 +5142,44 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;, [&#39;
             <xue-tab label="'示例'" value="1">
                 <div class="page-content">
                     <div class="content-html">
-                        <div ng-controller="xueValidateDemoCtrl">
-    <div class="xui-validate-container">
-        <input type="text" class="xui-input" ng-model="pcIp" xue-validate="xueValidConfig.pcIp">
+                        <div ng-controller="xueValidateDemoCtrl" class="xui-validate-container">
+    <div style="height: 60px;">
+        <div style="margin-bottom:5px;">1. 校验输入框</div>
+        <span>IP地址：</span>
+        <input type="text" class="xui-input" ng-model="vm.params.pcIp" xue-validate="vm.xueValidConfig.pcIp">
     </div>
+    <br>
+    <div style="height: 60px;">
+        <div style="margin-bottom:5px;">2. 校验输入框（右边消息提示）</div>
+        <span>端口：</span>
+        <input type="text" class="xui-input" ng-model="vm.params.port" xue-validate="vm.xueValidConfig.port">
+    </div>
+    <br>
+    <div style="height: 60px;">
+        <div style="margin-bottom:5px;">3. 校验下拉组件（单选可过滤分离）</div>
+        <span>证件类型：</span>
+        <xue-select select-config="vm.selectConfig" get-val="vm.params.idCard"></xue-select>
+        <span xue-validate="vm.xueValidConfig.idCard"></span>
+    </div>
+    <br>
+    <div style="height: 60px;">
+        <div style="margin-bottom:5px;">4. 校验日历组件</div>
+        <div class="datepicker">
+            <span>开始时间：</span>
+            <xue-datepicker date-config="vm.datepickerConfig" ng-val="vm.params.dateValue"></xue-datepicker>
+            <span xue-validate="vm.xueValidConfig.dateValue"></span>
+        </div>
+    </div>
+    <br>
+    <div style="height: 60px;">
+        <div style="margin-bottom:5px;">5. 校验单选组件</div>
+        <span>是否通过：</span>
+        <xue-radio-group label="'是'" ng-model="vm.params.isApproval" value="'Y'"></xue-radio-group>
+        <xue-radio-group label="'否'" ng-model="vm.params.isApproval" value="'N'"></xue-radio-group>
+        <span xue-validate="vm.xueValidConfig.isApproval"></span>
+    </div>
+    <br>
+    <button class="xui-btn xui-btn-primary" ng-click="ev.submit()">提交</button>
 </div>
                     </div>
                 </div>
@@ -5156,25 +5190,131 @@ angular.module(&#39;ui.xue.demo&#39;).controller(&#39;modalTestCtrl&#39;, [&#39;
                         <xue-tabs-wrap type="border-card">
                             <xue-tab label="'html'" value="1">
                                 <div class="code-wrap">
-                                    <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueValidateDemoCtrl&quot;&gt;
-    &lt;div class=&quot;xui-validate-container&quot;&gt;
-        &lt;input type=&quot;text&quot; class=&quot;xui-input&quot; ng-model=&quot;pcIp&quot; xue-validate=&quot;xueValidConfig.pcIp&quot;&gt;
+                                    <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;xueValidateDemoCtrl&quot; class=&quot;xui-validate-container&quot;&gt;
+    &lt;div style=&quot;height: 60px;&quot;&gt;
+        &lt;div style=&quot;margin-bottom:5px;&quot;&gt;1. 校验输入框&lt;/div&gt;
+        &lt;span&gt;IP地址：&lt;/span&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input&quot; ng-model=&quot;vm.params.pcIp&quot; xue-validate=&quot;vm.xueValidConfig.pcIp&quot;&gt;
     &lt;/div&gt;
+    &lt;br&gt;
+    &lt;div style=&quot;height: 60px;&quot;&gt;
+        &lt;div style=&quot;margin-bottom:5px;&quot;&gt;2. 校验输入框（右边消息提示）&lt;/div&gt;
+        &lt;span&gt;端口：&lt;/span&gt;
+        &lt;input type=&quot;text&quot; class=&quot;xui-input&quot; ng-model=&quot;vm.params.port&quot; xue-validate=&quot;vm.xueValidConfig.port&quot;&gt;
+    &lt;/div&gt;
+    &lt;br&gt;
+    &lt;div style=&quot;height: 60px;&quot;&gt;
+        &lt;div style=&quot;margin-bottom:5px;&quot;&gt;3. 校验下拉组件（单选可过滤分离）&lt;/div&gt;
+        &lt;span&gt;证件类型：&lt;/span&gt;
+        &lt;xue-select select-config=&quot;vm.selectConfig&quot; get-val=&quot;vm.params.idCard&quot;&gt;&lt;/xue-select&gt;
+        &lt;span xue-validate=&quot;vm.xueValidConfig.idCard&quot;&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;br&gt;
+    &lt;div style=&quot;height: 60px;&quot;&gt;
+        &lt;div style=&quot;margin-bottom:5px;&quot;&gt;4. 校验日历组件&lt;/div&gt;
+        &lt;div class=&quot;datepicker&quot;&gt;
+            &lt;span&gt;开始时间：&lt;/span&gt;
+            &lt;xue-datepicker date-config=&quot;vm.datepickerConfig&quot; ng-val=&quot;vm.params.dateValue&quot;&gt;&lt;/xue-datepicker&gt;
+            &lt;span xue-validate=&quot;vm.xueValidConfig.dateValue&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br&gt;
+    &lt;div style=&quot;height: 60px;&quot;&gt;
+        &lt;div style=&quot;margin-bottom:5px;&quot;&gt;5. 校验单选组件&lt;/div&gt;
+        &lt;span&gt;是否通过：&lt;/span&gt;
+        &lt;xue-radio-group label=&quot;&#39;是&#39;&quot; ng-model=&quot;vm.params.isApproval&quot; value=&quot;&#39;Y&#39;&quot;&gt;&lt;/xue-radio-group&gt;
+        &lt;xue-radio-group label=&quot;&#39;否&#39;&quot; ng-model=&quot;vm.params.isApproval&quot; value=&quot;&#39;N&#39;&quot;&gt;&lt;/xue-radio-group&gt;
+        &lt;span xue-validate=&quot;vm.xueValidConfig.isApproval&quot;&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;br&gt;
+    &lt;button class=&quot;xui-btn xui-btn-primary&quot; ng-click=&quot;ev.submit()&quot;&gt;提交&lt;/button&gt;
 &lt;/div&gt;</code></pre>
                                 </div>
                             </xue-tab>
                             <xue-tab label="'javascript'" value="2">
                                 <div class="code-wrap">
                                     <pre
-                                        ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueValidateDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
-    $scope.pcIp = &#39;&#39;;
-    $scope.xueValidConfig = {
-        pcIp: {
-            requiredTip: &quot;IP地址不能为空&quot;,
-            regex: &quot;ip&quot;,
-            errorTip: &quot;请填写正确的IP格式！&quot;
+                                        ng-non-bindable><code data-language="javascript">angular.module(&#39;ui.xue.demo&#39;).controller(&#39;xueValidateDemoCtrl&#39;, [&#39;$scope&#39;, &#39;xueUtilMethods&#39;,  function ($scope, xueUtilMethods) {
+    var data = $scope.data = [{
+        label: &quot;身份证&quot;,
+        value: &quot;1&quot;
+    }, {
+        label: &quot;护照&quot;,
+        value: &quot;2&quot;
+    }, {
+        label: &quot;居住证&quot;,
+        value: &quot;3&quot;
+    }, {
+        label: &quot;驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证驾驶证&quot;,
+        value: &quot;4&quot;
+    }]
+    /**
+     * 数据模型
+     */
+    var vm = $scope.vm = {
+        params: {
+            pcIp: &#39;&#39;,
+            port: &#39;&#39;,
+            idCard: &#39;&#39;,
+            dateValue: &#39;&#39;, // 2020-02-25 14:00:00
+            isApproval: &#39;&#39;
+        },
+        xueValidConfig: {
+            pcIp: {
+                requiredTip: &quot;IP地址不能为空&quot;,
+                regex: &quot;ip&quot;,
+                errorTip: &quot;请填写正确的IP格式！&quot;,
+                msgStyle: {
+                    &quot;margin-left&quot;: &quot;66px&quot;
+                }
+            },
+            port: {
+                requiredTip: &quot;端口不能为空&quot;,
+                regex: &quot;port&quot;,
+                errorTip: &quot;端口不合法！&quot;,
+                errorTipPos: &#39;right&#39;
+            },
+            idCard: {
+                requiredTip: &quot;证件类型不能为空&quot;,
+                validType: &quot;select&quot;,
+                msgStyle: {
+                    &quot;margin-left&quot;: &quot;84px&quot;
+                }
+            },
+            dateValue: {
+                requiredTip: &quot;开始时间不能为空&quot;,
+                validType: &quot;datepicker&quot;,
+                errorTipPos: &#39;right&#39;
+            },
+            isApproval: {
+                requiredTip: &quot;请先选择是否通过！&quot;,
+                errorTipPos: &quot;right&quot;,
+                validType: &quot;radio&quot;
+            }
+        },
+        // 单选可过滤分离
+        selectConfig: {
+            data: data,
+            filter: true,
+            separate: true,
+            onSelect: function (item) {
+            }
+        },
+        datepickerConfig: {
+            format: &quot;YYYY-MM-DD hh:mm:ss&quot;
         }
-    };
+    }
+    /**
+     * 事件
+     */
+    var ev = $scope.ev = {
+        submit: function () {
+            if (!xueUtilMethods.xueValidate(vm.params, vm.xueValidConfig)) {
+                return;
+            }
+            alert(&#39;校验成功&#39;);
+        }
+    }
 }]);
 </code></pre>
                                 </div>

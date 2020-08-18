@@ -1,5 +1,39 @@
-<div ng-controller="xueValidateDemoCtrl">
-    <div class="xui-validate-container">
-        <input type="text" class="xui-input" ng-model="pcIp" xue-validate="xueValidConfig.pcIp">
+<div ng-controller="xueValidateDemoCtrl" class="xui-validate-container">
+    <div style="height: 60px;">
+        <div style="margin-bottom:5px;">1. 校验输入框</div>
+        <span>IP地址：</span>
+        <input type="text" class="xui-input" ng-model="vm.params.pcIp" xue-validate="vm.xueValidConfig.pcIp">
     </div>
+    <br>
+    <div style="height: 60px;">
+        <div style="margin-bottom:5px;">2. 校验输入框（右边消息提示）</div>
+        <span>端口：</span>
+        <input type="text" class="xui-input" ng-model="vm.params.port" xue-validate="vm.xueValidConfig.port">
+    </div>
+    <br>
+    <div style="height: 60px;">
+        <div style="margin-bottom:5px;">3. 校验下拉组件（单选可过滤分离）</div>
+        <span>证件类型：</span>
+        <xue-select select-config="vm.selectConfig" get-val="vm.params.idCard"></xue-select>
+        <span xue-validate="vm.xueValidConfig.idCard"></span>
+    </div>
+    <br>
+    <div style="height: 60px;">
+        <div style="margin-bottom:5px;">4. 校验日历组件</div>
+        <div class="datepicker">
+            <span>开始时间：</span>
+            <xue-datepicker date-config="vm.datepickerConfig" ng-val="vm.params.dateValue"></xue-datepicker>
+            <span xue-validate="vm.xueValidConfig.dateValue"></span>
+        </div>
+    </div>
+    <br>
+    <div style="height: 60px;">
+        <div style="margin-bottom:5px;">5. 校验单选组件</div>
+        <span>是否通过：</span>
+        <xue-radio-group label="'是'" ng-model="vm.params.isApproval" value="'Y'"></xue-radio-group>
+        <xue-radio-group label="'否'" ng-model="vm.params.isApproval" value="'N'"></xue-radio-group>
+        <span xue-validate="vm.xueValidConfig.isApproval"></span>
+    </div>
+    <br>
+    <button class="xui-btn xui-btn-primary" ng-click="ev.submit()">提交</button>
 </div>

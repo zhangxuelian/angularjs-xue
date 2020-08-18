@@ -3,7 +3,7 @@
         <span class="prefix-input xui-icon" ng-class="{true: 'xui-icon-md-time', false: 'xui-icon-md-calendar'}[xlDatepickerCtrl.type == 2 || xlDatepickerCtrl.type == 3]"></span>
         <input class="type-ipt" ng-click="xlDatepickerCtrl.optPanel($event)" ng-model="$parent.ngVal" ng-disabled="$parent.ngDisabled"
         ng-if="dateConfig.element.type == 'input' && !dateConfig.fixed" type="text" ng-blur="xlDatepickerCtrl.ngValBlur()">
-        <span class="sufix-input xui-icon xui-icon-ios-close-circle-outline" ng-if="!!ngVal && !ngDisabled" title="清空" ng-click="xlDatepickerCtrl.clear()"></span>
+        <span class="sufix-input xui-icon xui-icon-ios-close-circle-outline" ng-show="!!ngVal && !ngDisabled" title="清空" ng-click="xlDatepickerCtrl.clear()"></span>
     </div>
     
     <img class="type-img" ng-click="xlDatepickerCtrl.optPanel($event)" 

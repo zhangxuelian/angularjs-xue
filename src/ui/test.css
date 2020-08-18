@@ -6497,13 +6497,13 @@ ul {
       vertical-align: top; }
       .xui-validate-container .gx-row li .gx-title {
         vertical-align: top; }
-  .xui-validate-container .common-select-container .select-show.directive-error {
+  .xui-validate-container .xui-select-wrap .select-show.directive-error {
     border: 1px solid #F56C6C;
     background-color: #ffffe9; }
-  .xui-validate-container .xl-datepicker-container .input-wrap.directive-error {
+  .xui-validate-container .xui-datepicker-wrap .input-wrap.directive-error {
     border: 1px solid #F56C6C;
     background-color: #ffffe9; }
-    .xui-validate-container .xl-datepicker-container .input-wrap.directive-error .type-ipt {
+    .xui-validate-container .xui-datepicker-wrap .input-wrap.directive-error .type-ipt {
       background-color: #ffffe9; }
   .xui-validate-container .update-content .col-md-12 {
     height: 45px; }

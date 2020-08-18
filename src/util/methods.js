@@ -97,4 +97,59 @@ angular.module('xue.util.methods', [])
         this.S4 = function () {
             return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
         }
+        /**
+         * 提交时检测，所需要验证的控件是否合法，不合法就不能通过，且支持使用弹窗的形式进行消息的提示
+         * 
+         * @param data         数据
+         * @param validConfig  校验配置
+         * @returns callback : bool（是否通过校验） 
+         */
+        this.xueValidate = function (data, validConfig) {
+            var flag = true,  
+                firstErrorItem = null,
+                isFirstModal = true; // 弹窗只弹一次就可以了
+            //将数据融入到校验配置中去
+            angular.forEach(data, function (value, key) {
+                if (validConfig[key]) {
+                    validConfig[key].value = value;
+                }
+            });
+            //循环遍历执行校验
+            for (var key in validConfig) {
+                var item = validConfig[key],
+                    newVal = $.trim(item.value);//转成字符串，防止出现数字0，这种误判的情况
+                if (item.hasOwnProperty("execBlur")) {
+                    if (!item.execBlur(newVal)) {
+                        if (!firstErrorItem) {
+                            firstErrorItem = item;
+                        }
+                        flag = false;
+                    }
+                } else {// 对于非输入框类型的必填校验
+                    // 默认必填
+                    if (!item.hasOwnProperty("required")) {
+                        item.required = true;
+                    }
+                    //校验必填
+                    if (item.required) { 
+                        if (!newVal) {
+                            isFirstModal && item.hasModalTip && modalExt.modalTip({
+                                content: item.requiredTip,
+                                type: 'error'
+                            });
+                            flag = false;
+                            isFirstModal = false;
+                        }
+                    }
+                }
+            }
+            //让第一个错误的元素触发事件
+            if (firstErrorItem) {
+                if (firstErrorItem.validType == "select" || firstErrorItem.validType == "datepicker") {
+                    firstErrorItem.execShowPanel();
+                }
+                firstErrorItem.validType == "input" && firstErrorItem.execFocus();
+            }
+            return flag;
+        };
     }]);

@@ -5,7 +5,7 @@ angular.module("xue/template/datepicker/datepicker.html", []).run(["$templateCac
     "        <span class=\"prefix-input xui-icon\" ng-class=\"{true: 'xui-icon-md-time', false: 'xui-icon-md-calendar'}[xlDatepickerCtrl.type == 2 || xlDatepickerCtrl.type == 3]\"></span>\n" +
     "        <input class=\"type-ipt\" ng-click=\"xlDatepickerCtrl.optPanel($event)\" ng-model=\"$parent.ngVal\" ng-disabled=\"$parent.ngDisabled\"\n" +
     "        ng-if=\"dateConfig.element.type == 'input' && !dateConfig.fixed\" type=\"text\" ng-blur=\"xlDatepickerCtrl.ngValBlur()\">\n" +
-    "        <span class=\"sufix-input xui-icon xui-icon-ios-close-circle-outline\" ng-if=\"!!ngVal && !ngDisabled\" title=\"清空\" ng-click=\"xlDatepickerCtrl.clear()\"></span>\n" +
+    "        <span class=\"sufix-input xui-icon xui-icon-ios-close-circle-outline\" ng-show=\"!!ngVal && !ngDisabled\" title=\"清空\" ng-click=\"xlDatepickerCtrl.clear()\"></span>\n" +
     "    </div>\n" +
     "    \n" +
     "    <img class=\"type-img\" ng-click=\"xlDatepickerCtrl.optPanel($event)\" \n" +
