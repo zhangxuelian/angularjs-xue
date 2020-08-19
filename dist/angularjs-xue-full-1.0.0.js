@@ -2,7 +2,7 @@
  * @xeui/angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-08-18
+ * Version: 1.0.0 - 2020-08-19
  * Require angularjs version: 1.2.32
  * License: ISC
  */
@@ -585,8 +585,8 @@ angular.module('xue.counter', ['xue.util.lang'])
                 //监听外部传入的值
                 scope.ngNumberWatcher = scope.$watch("ngNumber", function (newVal) {
                     if (typeof (newVal) != 'undefined') {
-                        gxCounterCtrl.number = newVal.toFixed(scope.counterConfig.precision);
-                        gxCounterCtrl.lastNumber = newVal.toFixed(scope.counterConfig.precision);
+                        gxCounterCtrl.number = Number(newVal).toFixed(scope.counterConfig.precision);
+                        gxCounterCtrl.lastNumber = Number(newVal).toFixed(scope.counterConfig.precision);
                     }
                 });
                 scope.$on('$destroy', function () {
@@ -7916,7 +7916,8 @@ angular.module("xue/template/autoselect/autoselect.html", []).run(["$templateCac
     "                ng-click=\"selectCtrl.selectItem(item)\">\n" +
     "                <span>{{item}}</span>\n" +
     "            </li>\n" +
-    "            <li ng-if=\"!!!selectConfig.data || !selectConfig.data.length\" class=\"empty-data\">\n" +
+    "            <!-- <li ng-if=\"!!!selectConfig.data || !selectConfig.data.length\" class=\"empty-data\"> -->\n" +
+    "            <li ng-if=\"selectConfig.data && selectConfig.data.length == 0\" class=\"empty-data\">\n" +
     "                <span>暂无数据</span>\n" +
     "            </li>\n" +
     "        </ul>\n" +

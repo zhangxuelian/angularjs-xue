@@ -10,7 +10,8 @@ angular.module("xue/template/autoselect/autoselect.html", []).run(["$templateCac
     "                ng-click=\"selectCtrl.selectItem(item)\">\n" +
     "                <span>{{item}}</span>\n" +
     "            </li>\n" +
-    "            <li ng-if=\"!!!selectConfig.data || !selectConfig.data.length\" class=\"empty-data\">\n" +
+    "            <!-- <li ng-if=\"!!!selectConfig.data || !selectConfig.data.length\" class=\"empty-data\"> -->\n" +
+    "            <li ng-if=\"selectConfig.data && selectConfig.data.length == 0\" class=\"empty-data\">\n" +
     "                <span>暂无数据</span>\n" +
     "            </li>\n" +
     "        </ul>\n" +

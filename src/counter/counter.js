@@ -121,8 +121,8 @@ angular.module('xue.counter', ['xue.util.lang'])
                 //监听外部传入的值
                 scope.ngNumberWatcher = scope.$watch("ngNumber", function (newVal) {
                     if (typeof (newVal) != 'undefined') {
-                        gxCounterCtrl.number = newVal.toFixed(scope.counterConfig.precision);
-                        gxCounterCtrl.lastNumber = newVal.toFixed(scope.counterConfig.precision);
+                        gxCounterCtrl.number = Number(newVal).toFixed(scope.counterConfig.precision);
+                        gxCounterCtrl.lastNumber = Number(newVal).toFixed(scope.counterConfig.precision);
                     }
                 });
                 scope.$on('$destroy', function () {
