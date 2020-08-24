@@ -8,7 +8,8 @@ angular.module("xue/template/menu/menu.html", []).run(["$templateCache", functio
     "            ng-mouseover=\"vm.onSearchListDiv = true\"\n" +
     "            ng-mouseleave=\"vm.onSearchListDiv = false\">\n" +
     "            <ul>\n" +
-    "                <li ng-click=\"vm.select(item)\" ng-repeat=\"item in vm.menuList | filter : {menuName:vm.searchValue}\">{{item[menuConfig.oneDimenName]}}</li>\n" +
+    "                <!-- <li ng-click=\"vm.select(item)\" ng-repeat=\"item in vm.menuList | filter : {menuName:vm.searchValue}\">{{item[menuConfig.oneDimenName]}}</li> -->\n" +
+    "                <li ng-click=\"vm.select(item)\" ng-repeat=\"item in vm.menuList | filterList : menuConfig.searchProp : vm.searchValue\">{{item[menuConfig.oneDimenName]}}</li>\n" +
     "            </ul>\n" +
     "        </div>\n" +
     "    </div>\n" +

@@ -23,6 +23,8 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
                     childrenName: '', //二维数组对象名
                     twoDimenName: '', //二级菜单标题字段名
                     twoDimenIcon: '', //二级菜单图标字段名
+                    
+                    searchProp: 'menuName', //模糊搜索指定的字段名称（默认为menuName）
 
                     clickRouter: function () {}, //导航菜单点击回调
                     routerId: 'id', //导航菜单ID字段名
@@ -299,3 +301,15 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
         }
 
     }])
+    // 支持传入动态对象属性keyName，进行模糊匹配，返回筛选后的列表数据
+    .filter('filterList',function(){         
+        return function(collection, keyName, value){
+            var output = [];
+            angular.forEach(collection, function (item) {
+                if(item[keyName] && item[keyName].indexOf(value) != -1){
+                    output.push(item);
+                }
+            })
+            return output;
+        };
+    })

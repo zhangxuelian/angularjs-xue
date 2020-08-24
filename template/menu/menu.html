@@ -6,7 +6,8 @@
             ng-mouseover="vm.onSearchListDiv = true"
             ng-mouseleave="vm.onSearchListDiv = false">
             <ul>
-                <li ng-click="vm.select(item)" ng-repeat="item in vm.menuList | filter : {menuName:vm.searchValue}">{{item[menuConfig.oneDimenName]}}</li>
+                <!-- <li ng-click="vm.select(item)" ng-repeat="item in vm.menuList | filter : {menuName:vm.searchValue}">{{item[menuConfig.oneDimenName]}}</li> -->
+                <li ng-click="vm.select(item)" ng-repeat="item in vm.menuList | filterList : menuConfig.searchProp : vm.searchValue">{{item[menuConfig.oneDimenName]}}</li>
             </ul>
         </div>
     </div>

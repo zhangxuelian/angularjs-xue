@@ -2,7 +2,7 @@
  * @xeui/angularjs-xue
  * Homepage: https://github.com/zhangxuelian/angularjs-xue
  * 
- * Version: 1.0.0 - 2020-08-19
+ * Version: 1.0.0 - 2020-08-24
  * Require angularjs version: 1.2.32
  * License: ISC
  */
@@ -1796,6 +1796,8 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
                     childrenName: '', //二维数组对象名
                     twoDimenName: '', //二级菜单标题字段名
                     twoDimenIcon: '', //二级菜单图标字段名
+                    
+                    searchProp: 'menuName', //模糊搜索指定的字段名称（默认为menuName）
 
                     clickRouter: function () {}, //导航菜单点击回调
                     routerId: 'id', //导航菜单ID字段名
@@ -2072,6 +2074,18 @@ angular.module('xue.menu', ['xue.util.lang', 'xue.util.object'])
         }
 
     }])
+    // 支持传入动态对象属性keyName，进行模糊匹配，返回筛选后的列表数据
+    .filter('filterList',function(){         
+        return function(collection, keyName, value){
+            var output = [];
+            angular.forEach(collection, function (item) {
+                if(item[keyName] && item[keyName].indexOf(value) != -1){
+                    output.push(item);
+                }
+            })
+            return output;
+        };
+    })
 angular.module('xue.modal', ['xue.util.lang'])
     .factory('$$multiMap', function () {
         return {
@@ -5352,7 +5366,7 @@ angular.module('xue.tree', ['xue.util.lang', 'xue.util.array'])
                 scope.$on("$destroy", function() {
                     unbindWatch();
                     unbindWatch1();
-                    $templateCache.remove('xue/template/tree/tree.html');
+                    // $templateCache.remove('xue/template/tree/tree.html');
                 })
             }
         }
@@ -8099,7 +8113,8 @@ angular.module("xue/template/menu/menu.html", []).run(["$templateCache", functio
     "            ng-mouseover=\"vm.onSearchListDiv = true\"\n" +
     "            ng-mouseleave=\"vm.onSearchListDiv = false\">\n" +
     "            <ul>\n" +
-    "                <li ng-click=\"vm.select(item)\" ng-repeat=\"item in vm.menuList | filter : {menuName:vm.searchValue}\">{{item[menuConfig.oneDimenName]}}</li>\n" +
+    "                <!-- <li ng-click=\"vm.select(item)\" ng-repeat=\"item in vm.menuList | filter : {menuName:vm.searchValue}\">{{item[menuConfig.oneDimenName]}}</li> -->\n" +
+    "                <li ng-click=\"vm.select(item)\" ng-repeat=\"item in vm.menuList | filterList : menuConfig.searchProp : vm.searchValue\">{{item[menuConfig.oneDimenName]}}</li>\n" +
     "            </ul>\n" +
     "        </div>\n" +
     "    </div>\n" +

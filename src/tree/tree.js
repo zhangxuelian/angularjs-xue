@@ -392,7 +392,7 @@ angular.module('xue.tree', ['xue.util.lang', 'xue.util.array'])
                 scope.$on("$destroy", function() {
                     unbindWatch();
                     unbindWatch1();
-                    $templateCache.remove('xue/template/tree/tree.html');
+                    // $templateCache.remove('xue/template/tree/tree.html');
                 })
             }
         }
