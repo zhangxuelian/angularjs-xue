@@ -1,5 +1,5 @@
 # angularjs-xue
-Components for angularjs by Gosuncn FE team,support IE8+.
+Components for angularjs by FE team,support IE8+.
 ## For user
 ### Requirements
 angularjs 1.2.32 
